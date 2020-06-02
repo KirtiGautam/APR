@@ -1,7 +1,7 @@
 * {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 .second-side {
   border-left: 3px solid #f5f8fa !important;
@@ -113,8 +113,8 @@
   }
 }
 
-@media screen and (max-width: 775px) {
-    .second-side{
-      display: none;
-    }
+@media screen and (max-width: 800px) {
+  .second-side {
+    display: none;
   }
+}
