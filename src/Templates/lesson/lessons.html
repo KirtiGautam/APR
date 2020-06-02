@@ -1,0 +1,17 @@
+{% regroup pdfs by lesson as lesson_list %}
+<ul>
+    {% for lesson in lesson_list %}
+    <li>{{lesson.grouper.Name}}
+        <ul>
+            {% for pdf in lesson.list %}
+            <li>{{pdf.Name}}</li>
+            {% endfor %}
+            {% for video in videos %}
+            {% if video.lesson.id == lesson.grouper.id %}
+            <li>{{video.Name}}</li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>

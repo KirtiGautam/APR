@@ -14,7 +14,7 @@
         <div id="content">
             <h1>
                 <strong>
-                    Hi
+                    Hi, {{request.user.get_full_name}}
                 </strong>
             </h1>
             <a href="{% url 'accounts:logout' %}">
