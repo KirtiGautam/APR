@@ -7,37 +7,50 @@
 </head>
 
 <div class="header">
-    <div class="row">
-        <span class="iclass col-1 col-sm-1 col-md-1 col-lg-1 text-center">
-            iClass
+    <div class="d-flex justify-content-around">
+        <span class="iclass text-center">
+            <label>iClass</label>
         </span>
-        <span class="col-1 col-sm-1 col-md-1 col-lg-1 text-center">
+        <span class="header-navigation-icon text-center" id="sidebarCollapse">
+            <img src="{% static 'Images/header/navbar.jpeg' %}" class="header-icons" />
+            <br>
+        </span>
+        <span class="text-center">
             <img src="{% static 'Images/header/home.png' %}" class="header-icons" />
             <br />
             <label class="header-icons-label">Home</label>
         </span>
-        <span class="col-1 col-sm-1 col-md-1 col-lg-1 text-center">
+        <span class="text-center">
             <img src="{% static 'Images/header/calender.png' %}" class="header-icons" />
             <br />
             <label class="header-icons-label">Calender</label>
         </span>
-        <span class="col-6 col-sm-6 col-md-6 col-lg-6 text-center header-search">
+        <span class="col-1 col-sm-1 col-md-6 col-lg-6 text-center header-search" id="nav-search">
             <input type="search" placeholder="Search iClass" class="form-control search-iclass" />
         </span>
-        <span class="col-1 col-sm-1 col-md-1 col-lg-1 text-center">
+        <span class="header-navigation-icon text-center">
+            <img src="{% static 'Images/header/search.png' %}" class="header-icons" />
+            <br />
+            <label class="header-icons-label">Search</label>
+        </span>
+        <span class="text-center">
             <img src="{% static 'Images/header/messages.png' %}" class="header-icons" />
             <br />
             <label class="header-icons-label">Messages</label>
         </span>
-        <span class="col-1 col-sm-1 col-md-1 col-lg-1 text-center">
+        <span class="text-center">
             <img src="{% static 'Images/header/notification.svg' %}" class="header-icons" />
             <br />
             <label class="header-icons-label">Notifications</label>
         </span>
-        <span class="col-1 col-sm-1 col-md-1 col-lg-1 text-center">
+        <span class="text-center">
             <img src="{% static 'Images/header/setting.png' %}" class="header-icons" />
             <br />
             <label class="header-icons-label">Settings</label>
+        </span>
+        <span class="header-navigation-icon text-center" id="right-nav">
+            <img src="{% static 'Images/header/navbar.jpeg' %}" class="header-icons" />
+            <br>
         </span>
     </div>
 </div>
