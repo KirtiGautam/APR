@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<head>
+  <link rel="stylesheet" href="{% static 'css/leftside.css' %}">
+</head>
+
+<body>
+
+  <div className="side">
+    <div className="text-center">
+      <img src="{% static 'Images/leftnav/avatar.png' %}" className="avatar col-12" />
+      <label className="name col-12">Name</label>
+      <button className="btn view-profile col-9">View Profile</button>
+      <div className="row">
+        <div className="col-1"></div>
+        <div className="col-10 line"></div>
+      </div>
+    </div>
+
+    <div className="leftside-menu">
+      <span className="leftside-menu-content">
+        <img src="{% static 'Images/leftnav/lessons.png' %}" className="leftside-menu-icon" />
+        <label className="leftside-menu-text">Lessons</label>
+      </span>
+      <span className="leftside-menu-content">
+        <img src="{% static 'Images/leftnav/livestream.png' %}" className="leftside-menu-icon" />
+        <label className="leftside-menu-text">Live sessions</label>
+      </span>
+      <span className="leftside-menu-content">
+        <img src="{% static 'Images/leftnav/scheduled-exam.png' %}" className="leftside-menu-icon" />
+        <label className="leftside-menu-text">Scheduled Exams</label>
+      </span>
+      <span className="leftside-menu-content">
+        <img src="{% static 'Images/leftnav/assignments.png' %}" className="leftside-menu-icon" />
+        <label className="leftside-menu-text">Assignments</label>
+      </span>
+      <span className="leftside-menu-content">
+        <img src="{% static 'Images/leftnav/homework.png' %}" className="leftside-menu-icon" />
+        <label className="leftside-menu-text">Homeworks</label>
+      </span>
+      <span className="leftside-menu-content">
+        <img src="{% static 'Images/leftnav/analysis.png' %}" className="leftside-menu-icon" />
+        <label className="leftside-menu-text">Analysis</label>
+      </span>
+      <span className="leftside-menu-content">
+        <img src="{% static 'Images/leftnav/all-profiles.png' %}" className="leftside-menu-icon" />
+        <label className="leftside-menu-text">All Profiles</label>
+      </span>
+      <span className="leftside-menu-content">
+        <img src="{% static 'Images/leftnav/courses.png' %}" className="leftside-menu-icon" />
+        <label className="leftside-menu-text">Courses | Talent Tests</label>
+      </span>
+    </div>
+  </div>
+
+</body>

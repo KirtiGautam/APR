@@ -1,0 +1,120 @@
+* {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+.second-side {
+  border-left: 3px solid #f5f8fa !important;
+  padding-top: calc(1vmin + 1vmax) !important;
+}
+
+.assign {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  min-height: 200px;
+  max-height: 400px;
+  margin-bottom: calc(1vmin + 2vmax) !important;
+  margin-left: 25px !important;
+}
+
+.assignments {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: calc(10px + 1vmin);
+  color: #626262;
+  border-bottom: 2px solid #bec1c3;
+}
+
+.assignments-data {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(10px + 1vmin);
+  color: #626262;
+}
+
+.resume {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  min-height: 200px;
+  max-height: 400px;
+  margin-bottom: calc(1vmin + 2vmax) !important;
+  margin-left: 25px !important;
+}
+
+.resume-where-left {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: calc(10px + 1vmin);
+  color: #626262;
+  border-bottom: 2px solid #bec1c3;
+}
+
+.resume-where-left-data {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(10px + 1vmin);
+  color: #626262;
+}
+
+.upcoming {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  min-height: 200px;
+  max-height: 400px;
+  margin-bottom: calc(1vmin + 2vmax) !important;
+  margin-left: 25px !important;
+}
+
+.upcoming-activities {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: calc(10px + 1vmin);
+  color: #626262;
+  border-bottom: 2px solid #bec1c3;
+}
+
+.upcoming-activities-data {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(10px + 1vmin);
+  color: #626262;
+}
+
+@media screen and (max-width: 1000px) {
+  .assignments {
+    font-size: 13px;
+  }
+
+  .assignments-data {
+    font-size: 13px;
+  }
+  .resume-where-left {
+    font-size: 13px;
+  }
+
+  .resume-where-left-data {
+    font-size: 13px;
+  }
+  .upcoming-activities {
+    font-size: 13px;
+  }
+
+  .upcoming-activities-data {
+    font-size: 13px;
+  }
+
+  .assign {
+    margin-left: 15px !important;
+  }
+
+  .resume {
+    margin-left: 15px !important;
+  }
+
+  .upcoming {
+    margin-left: 15px !important;
+  }
+}
+
+@media screen and (max-width: 775px) {
+    .second-side{
+      display: none;
+    }
+  }
