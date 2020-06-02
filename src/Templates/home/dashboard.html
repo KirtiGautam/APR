@@ -3,25 +3,26 @@
 {% load static %}
 {% block content %}
 
+
 <body>
     {% include "common/header.html" %}
-    <div className="row">
-        <div className="col-0 col-sm-0 col-md-3 col-lg-3 pt-5">
+    <div class="row">
+        <div class="col-0 col-sm-0 col-md-3 col-lg-3 pt-5">
             {% include "home/leftside.html" %}
         </div>
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 pt-5">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 pt-5">
             <h1>
                 <strong>
                     Hi
                 </strong>
             </h1>
             <a href="{% url 'accounts:logout' %}">
-                <button className="text-light btn btn-sm btn-primary">
+                <button class="text-light btn btn-sm btn-primary">
                     Log out bruh!
                 </button>
             </a>
         </div>
-        <div className="col-0 col-sm-0 col-md-3 col-lg-3 pt-5">
+        <div class="col-0 col-sm-0 col-md-3 col-lg-3 pt-5">
             {% include "home/rightside.html" %}
         </div>
 </body>
