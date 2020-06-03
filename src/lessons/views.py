@@ -78,11 +78,11 @@ def uploPage(request):
             vid.file = file_name
             vid.save()
         else:
-            pdf = pdf.objects.create(
+            pd = pdf.objects.create(
                 Name=File, lesson=Lesson.objects.get(id=request.POST['lesson']))
-            file_name = default_storage.save('pdfs/'+str(vid.id)+'.pdf', file)
-            pdf.file = file_name
-            pdf.save()
+            file_name = default_storage.save('pdfs/'+str(pd.id)+'.pdf', file)
+            pd.file = file_name
+            pd.save()
         print([file, File])
         # file_name = default_storage.save(file.name, file)
         data = {
