@@ -13,3 +13,9 @@
     $("#sidebar").toggleClass("active");
   });
 })(jQuery);
+
+$(document).ready(function () {
+  $("#right-nav").click(function () {
+    $(".second-side").toggle();
+  });
+});

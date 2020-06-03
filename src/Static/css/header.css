@@ -31,6 +31,10 @@
   cursor: pointer;
 }
 
+.header-navigation-icon {
+  display: none;
+}
+
 .header-icons-label {
   font-family: Arial, Helvetica, sans-serif;
   font-size: calc(10px);
@@ -70,8 +74,7 @@
   .header-search {
     display: none;
   }
-
-  .header-navigation-icon {
+  .header-navigation-icon{
     display: block;
   }
 }

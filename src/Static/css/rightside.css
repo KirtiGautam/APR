@@ -5,7 +5,12 @@
 
 .second-side {
   border-left: 3px solid #f5f8fa !important;
-  padding-top: calc(1vmin + 1vmax) !important;
+  padding-top: calc(3vmin + 3vmax) !important;
+  min-width: 270px;
+  max-width: 270px;
+  position: fixed;
+  right: 0;
+  background-color: #fff;
 }
 
 .assign {
@@ -116,5 +121,11 @@
 @media screen and (max-width: 800px) {
   .second-side {
     display: none;
+  }
+  .second-side{
+    min-width: 150px !important;
+    max-width: 150px !important;
+    margin-right: 1% !important;
+    margin-left: 1% !important;
   }
 }

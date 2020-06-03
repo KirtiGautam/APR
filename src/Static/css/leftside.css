@@ -1,3 +1,8 @@
+*{
+  margin: 0 !important;
+  padding: 0% !important;
+}
+
 #sidebar {
   min-width: 270px;
   max-width: 270px;
@@ -8,6 +13,7 @@
   border-right: 3px solid #f5f8fa !important;
   padding-top: 60px !important;
 }
+
 #sidebar.active {
   min-width: 100px;
   max-width: 100px;
@@ -27,6 +33,10 @@
   transition: 0.3s;
 }
 
+#sidebar.active .name {
+  font-size: calc(5px + 1vmin) !important;
+}
+
 li {
   margin-top: 20px !important;
   margin-left: 20px !important;
@@ -44,21 +54,6 @@ li {
   margin-left: 20px !important;
 }
 
-@media (max-width: 991.98px) {
-  #sidebar ul li a span {
-    display: block;
-  }
-}
-
-#sidebar ul li {
-  font-size: 16px;
-}
-#sidebar ul li > ul {
-  margin-left: 10px;
-}
-#sidebar ul li > ul li {
-  font-size: 14px;
-}
 #sidebar ul li a {
   font-family: Arial, Helvetica, sans-serif;
   color: #15202b;
@@ -69,48 +64,20 @@ li {
 #sidebar ul li a span {
   margin-right: 15px;
 }
-@media (max-width: 991.98px) {
-  #sidebar ul li a span {
-    display: block;
-  }
 
-  #sidebar.active li {
-    font-size: 13px !important;
-  }
-}
 #sidebar ul li a:hover {
   color: #626d7b;
   text-decoration: none;
 }
+
 #sidebar ul li.active > a {
   background: transparent;
   color: #95a1af;
 }
-@media (max-width: 991.98px) {
-  #sidebar {
-    min-width: 100px;
-    max-width: 100px;
-    text-align: center;
-    margin-left: -120px !important;
-    padding-top: 25px !important;
-  }
-  #sidebar.active {
-    margin-left: 0px !important;
-  }
-}
-
-#content {
-  width: 100%;
-  padding: 0;
-  min-height: 100vh;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
-}
 
 .name {
   font-weight: bold;
-  font-size: calc(10px + 1vmax) !important;
+  font-size: calc(7px + 1vmax) !important;
   font-family: Arial, Helvetica, sans-serif;
   color: #15202b;
 }
@@ -133,10 +100,35 @@ li {
 .leftside-menu-icon {
   height: calc(15px + 1vmin) !important;
   width: calc(15px + 1vmin) !important;
-  cursor: pointer;
 }
+
 .line {
   border-bottom: 3px solid #f5f8fa !important;
   margin-top: 20px !important;
   margin-bottom: 20px !important;
+}
+
+@media (max-width: 991.98px) {
+  #sidebar {
+    min-width: 100px;
+    max-width: 100px;
+    text-align: center;
+    margin-left: -120px !important;
+  }
+
+  #sidebar.active {
+    margin-left: 0px !important;
+  }
+
+  #sidebar.active .name {
+    font-size: calc(7px + 1vmin) !important;
+  }
+
+  #sidebar ul li a span {
+    display: block;
+  }
+
+  #sidebar.active li {
+    font-size: 13px !important;
+  }
 }
