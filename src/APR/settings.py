@@ -28,7 +28,7 @@ SECRET_KEY = '7*_ui$pbr!8^*(+g*h)v#tnuv&9k)2o5+hr@@5+fz^lz=(o-03'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['code.gdy.club', '127.0.0.1', 'localhost']
 
 
 # Application definition

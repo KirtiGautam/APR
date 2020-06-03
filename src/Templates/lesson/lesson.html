@@ -12,12 +12,8 @@
         {% include "common/header.html" %}
     </div>
     <div class="row mt-5 pt-5 mb-5">
-        <!-- <div class="col-0 col-sm-0 col-md-3 col-lg-3 pt-5"> -->
-        <!-- {% include "home/leftside.html" %} -->
-        <!-- </div> -->
-        <!-- <div class="pt-5 mt-5"> -->
         <div class="col-6 col-sm-6 col-md-2 col-lg-2 text-center">
-            <span class="select-subject">Select Subject</span>
+            <span class="select-subject">Select </span>
         </div>
         <div class="col-6 col-sm-6 col-md-2 col-lg-2 text-center">
             <span class="">
@@ -30,9 +26,7 @@
             </span>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-            <div class="flexing">
-                <span class="subject active col-1 p-2 m-1">Telugu</span>
-                <span class="subject col-1 p-2 m-1">Hindi</span>
+            <div class="flexing" id="SB">
             </div>
         </div>
         <div class="col-12 back row">
@@ -48,67 +42,7 @@
             </span>
 
         </div>
-        <div class="col-12 mt-3 ml-4">
-            <span class="chapter">Name of the chapter</span>
-            <button class="btn plus p-1 mr-5" data-toggle="modal" id="plus" data-target="#add">+</button>
-        </div>
-        <div class="row mt-3">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <span class="card p-2 ml-3 mr-3">
-                    <span class="card-header">
-                        <span class="text-left">VIDEO</span>
-                        <span class="checkbox round">
-                            <input type="checkbox" name="" id="">
-                        </span>
-                    </span>
-                    <span class="card-body text-center">
-                        <span class="">
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-10">
-                        </span>
-                    </span>
-                    <span class="card-footer">
-                        <span>Name of the sub topic will be shown here along with time</span>
-                        <span class="time">2 min</span>
-                    </span>
-                </span>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <span class="card p-2 ml-3 mr-3">
-                    <span class="card-header">
-                        <span class="text-left">PDF</span>
-                        <span class="checkbox round">
-                            <input type="checkbox" name="" id="">
-                        </span>
-                    </span>
-                    <span class="card-body text-center">
-                        <span class="">
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-10">
-                        </span>
-                    </span>
-                    <span class="card-footer">
-                        <span>Name of the sub topic will be shown here along with time</span>
-                        <span class="time">2 min</span>
-                    </span>
-                </span>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <span class="card test p-2 ml-3 mr-3">
-                    <span class="card-header">
-                        <span class="text-left">4 Tests | 120 Questions</span>
-                        <span class="checkbox round">
-                            <input type="checkbox" name="" id="">
-                        </span>
-                    </span>
-                    <span class="card-body text-center">
-                        <span class="">
-                            <img src="/static/Images/lesson/test.png" alt="" class="col-10">
-                        </span>
-                    </span>
-                    <span class="card-footer text-right">
-                        <span>Practice Test</span>
-                    </span>
-                </span>
-            </div>
+        <div id="body">
         </div>
     </div>
     <div class="modal" role="dialog" id="add">
@@ -118,12 +52,13 @@
                     <div class="modal-title row">
                         <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
                             <label for="" class="selection">Select Database</label>
-                            <select name="" id="" class="drop">
-                                <option value="class_one">Class 1</option>
-                                <option value="class_two">Class 2</option>
+                            <select name="" id="dataType" class="drop">
+                                <option value="" disabled selected>File Type</option>
+                                <option value="pdf">PDF</option>
+                                <option value="video">Video</option>
                             </select>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
+                        <!-- <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
                             <label for="" class="selection">Select Syllabus</label>
                             <select name="" id="" class="drop">
                                 <option value="class_one">Class 1</option>
@@ -146,14 +81,47 @@
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
                             <button class="btn import p-2">Import</button>
-                        </div>
+                        </div> -->
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body mb-5">
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <div class="mb-3 mt-3">
+                        Name:
+                        <input type="text" id="FName">
+                        <input type="hidden" id="ChapName">
+                        <div class="form-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="file_input" id="file_input"
+                                    oninput="input_filename();">
+                                <label id="file_input_label" class="custom-file-label" for="image">Select file</label>
+                            </div>
+                        </div>
+
+                        <button onclick="upload('{% url 'lessons:upload'  %}');" id="upload_btn"
+                            class="btn btn-primary">Upload</button>
+
+                        <button class="btn btn-primary d-none" id="loading_btn" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Uploading...
+                        </button>
+
+                        <button type="button" id="cancel_btn" class="btn btn-secondary d-none">Cancel upload</button>
+
+                    </div>
+
+                    <div id="progress_wrapper" class="d-none">
+                        <label id="progress_status"></label>
+                        <div class="progress mb-3">
+                            <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+
+                    <div id="alert_wrapper"></div>
+                    <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                         <span class="card p-2 ml-3 mr-3">
                             <span class="card-header">
                                 <span class="text-left">VIDEO</span>
@@ -171,28 +139,16 @@
                                 <span class="time">2 min</span>
                             </span>
                         </span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 pt-5">
-        <span>Select Class: </span>
-        <select id="class">
-            <option value="" disabled selected>Select Class</option>
-            {% for key in classes %}
-            <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
-            {% endfor %}
-        </select>
-        <span id="SB"></span>
-        <div id="body"></div>
-    </div>
-    </div> -->
 </body>
-<!-- {% if request.user.admin %}-->
+{% if request.user.admin %}
 <script src="{% static 'js/lessons/admin.js' %}"></script>
-<!-- <script src="{% static 'js/navbar.js' %}"></script> -->
-<!-- {% endif %} -->
+<script src="{% static 'js/upload.js' %}"></script>
+{% endif %}
 
 {% endblock %}

@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.video{
+    height: 40vh;
+    border-radius: 5px;
+}
+
+.sub-topic{
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0px;
+    color: #112234;
+}
+
+
+.video-titl{
+    color: #C0C0C0;
+    font-size: 60%;
+}
+
+.test-titl{
+    color: #FFFFFF;
+    font-size: 60%;
+}
+
+.test-cards{
+    background: transparent linear-gradient(56deg, #F792AB 0%, #FCE584 100%) 0% 0% no-repeat padding-box;    
+}
+
+.card-text{
+    font-size: 75%;
+}
+
+.card{
+    box-shadow: 0px 3px 6px #0000003B;
+}
+
+.next-button{
+    height: 30vh;
+}
+
+.next-butto{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}

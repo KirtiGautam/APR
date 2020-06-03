@@ -14,13 +14,17 @@ function getlessons(id = '') {
             let html = '';
             let subjects = data.subjects;
             for (let i = 0; i < subjects.length; i++) {
-                html += "<button onclick='getlessons(" + subjects[i].id + ")' ";
-                html += (id == subjects[i].id || (id == '' && i == 0)) ? 'style="background-color: #F05E23; color:#FFFFFF;">' : '>'
-                html += subjects[i].Name + "</button>  ";
+                html += "<span onclick='getlessons(" + subjects[i].id + ")' class='subject col-1 p-2 m-1";
+                html += (id == subjects[i].id || (id == '' && i == 0)) ? " active'>" : "'>";
+                html += subjects[i].Name + "</span>  ";
             }
             $('#SB').html(html);
         }
     });
+}
+
+function setChapName(id) {
+    $('#ChapName').val(id);
 }
 
 $(document).ready(function () {
@@ -28,8 +32,4 @@ $(document).ready(function () {
     $('#class').change(function () {
         getlessons();
     });
-});
-
-$('#plus').click(function () {
-    $('#add').show();
 });
