@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+
+.first {
+  background: transparent
+    linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
+    no-repeat padding-box;
+}
+
+.card{
+    margin: 2% !important;
+}
+
+.first-text {
+  font-size: calc(10px + 3vmin);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0px;
+  color: #fd7f2c;
+}
+
+.first-dropdown {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: calc(10px + 1vmin);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.first-plus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  font-weight: 100;
+  color: #bec1c3;
+  font-size: 25px;
+  border-radius: 50%;
+}
+
+.first-plus:hover {
+  color: #8a8d8f;
+  background: #effbff;
+}
+
+.first-plus:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  font-weight: 100;
+  color: #bec1c3;
+  font-size: 25px;
+  border-radius: 50%;
+  outline: none;
+}
+
+.deadline {
+  background: transparent linear-gradient(132deg, #cb2d3e 0%, #ef473a 100%) 0%
+    0% no-repeat padding-box;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.prime {
+  background: transparent linear-gradient(132deg, #2375d3 0%, #3ba9fe 100%) 0%
+    0% no-repeat padding-box;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.complete {
+  background: transparent linear-gradient(132deg, #1d976c 0%, #9dd138 100%) 0%
+    0% no-repeat padding-box;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.title {
+  text-align: left;
+  font-size: calc(15px + 1vmin);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.summary {
+  text-align: left;
+  font-size: calc(8px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+}
+
+.deadline .progress {
+  background: #f84f4c 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+}
+
+.prime .progress {
+  background: #56a2f9 0% 0% no-repeat padding-box;
+}
+
+.complete .progress {
+  background: #ffffff 0% 0% no-repeat padding-box;
+}
+
+.moti {
+  text-align: left;
+  font-size: calc(7px + 1vmin);
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+
+.time-left-value {
+  text-align: left;
+  font-size: calc(12px + 1vmin);
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+}
+
+.time-left-unit {
+  text-align: left;
+  font-size: calc(4px + 1vmin);
+  color: #ffffff;
+}
+
+.note {
+  text-align: left;
+  font-size: calc(9px + 1vmin);
+  font-weight: 100;
+  color: #ffffff;
+}
+
+.complete .time-left-unit {
+  text-align: left;
+  font-size: calc(1px + 1vmin);
+  color: #ffffff;
+}
+
+.progress-text {
+  text-align: left;
+  font-size: calc(9px + 1vmin);
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.first-class-plus {
+  margin-top: 3%;
+}
+
+.past {
+  text-align: left;
+  font-size: calc(15px + 1vmin);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.click-link {
+  font-size: calc(13px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.click-link:hover{
+    color: #7F7F7F;
+}
+
+.click-link:active{
+    color: #9E9E9E;
+}
+
+@media screen and (max-width: 600px) {
+  .first .image {
+    display: none;
+  }
+  .first-class-plus {
+    margin-bottom: 3%;
+  }
+}
