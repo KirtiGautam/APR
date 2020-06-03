@@ -29,3 +29,7 @@ $(document).ready(function () {
         getlessons();
     });
 });
+
+$('#plus').click(function () {
+    $('#add').show();
+});

@@ -3,27 +3,196 @@
 {% load static %}
 {% block content %}
 
+<head>
+    <link rel="stylesheet" href="{% static 'css/lesson.css' %}">
+</head>
+
 <body>
-    {% include "common/header.html" %}
-    <div class="row">
-        <div class="col-0 col-sm-0 col-md-3 col-lg-3 pt-5">
-            {% include "home/leftside.html" %}
+    <div>
+        {% include "common/header.html" %}
+    </div>
+    <div class="row mt-5 pt-5 mb-5">
+        <!-- <div class="col-0 col-sm-0 col-md-3 col-lg-3 pt-5"> -->
+        <!-- {% include "home/leftside.html" %} -->
+        <!-- </div> -->
+        <!-- <div class="pt-5 mt-5"> -->
+        <div class="col-6 col-sm-6 col-md-2 col-lg-2 text-center">
+            <span class="select-subject">Select Subject</span>
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 pt-5">
-            <span>Select Class: </span>
-            <select id="class">
-                <option value="" disabled selected>Select Class</option>
-                {% for key in classes %}
-                <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
-                {% endfor %}
-            </select>
-            <span id="SB"></span>
-            <div id="body"></div>
+        <div class="col-6 col-sm-6 col-md-2 col-lg-2 text-center">
+            <span class="">
+                <select id="class" class="form-control select-class mb-3">
+                    <option value="" disabled selected>Class</option>
+                    {% for key in classes %}
+                    <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
+                    {% endfor %}
+                </select>
+            </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="flexing">
+                <span class="subject active col-1 p-2 m-1">Telugu</span>
+                <span class="subject col-1 p-2 m-1">Hindi</span>
+            </div>
+        </div>
+        <div class="col-12 back row">
+            <span class="col-6">
+                <span class="col-12 back-text">
+                    LESSONS AND
+                    <br>
+                    PRACTICE TEST
+                </span>
+            </span>
+            <span class="col-6 back-photo">
+                <img src="/static/Images/lesson/back.png" alt="" class="rounded float-right col-4">
+            </span>
+
+        </div>
+        <div class="col-12 mt-3 ml-4">
+            <span class="chapter">Name of the chapter</span>
+            <button class="btn plus p-1 mr-5" data-toggle="modal" id="plus" data-target="#add">+</button>
+        </div>
+        <div class="row mt-3">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <span class="card p-2 ml-3 mr-3">
+                    <span class="card-header">
+                        <span class="text-left">VIDEO</span>
+                        <span class="checkbox round">
+                            <input type="checkbox" name="" id="">
+                        </span>
+                    </span>
+                    <span class="card-body text-center">
+                        <span class="">
+                            <img src="/static/Images/lesson/video.png" alt="" class="col-10">
+                        </span>
+                    </span>
+                    <span class="card-footer">
+                        <span>Name of the sub topic will be shown here along with time</span>
+                        <span class="time">2 min</span>
+                    </span>
+                </span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <span class="card p-2 ml-3 mr-3">
+                    <span class="card-header">
+                        <span class="text-left">PDF</span>
+                        <span class="checkbox round">
+                            <input type="checkbox" name="" id="">
+                        </span>
+                    </span>
+                    <span class="card-body text-center">
+                        <span class="">
+                            <img src="/static/Images/lesson/video.png" alt="" class="col-10">
+                        </span>
+                    </span>
+                    <span class="card-footer">
+                        <span>Name of the sub topic will be shown here along with time</span>
+                        <span class="time">2 min</span>
+                    </span>
+                </span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <span class="card test p-2 ml-3 mr-3">
+                    <span class="card-header">
+                        <span class="text-left">4 Tests | 120 Questions</span>
+                        <span class="checkbox round">
+                            <input type="checkbox" name="" id="">
+                        </span>
+                    </span>
+                    <span class="card-body text-center">
+                        <span class="">
+                            <img src="/static/Images/lesson/test.png" alt="" class="col-10">
+                        </span>
+                    </span>
+                    <span class="card-footer text-right">
+                        <span>Practice Test</span>
+                    </span>
+                </span>
+            </div>
         </div>
     </div>
+    <div class="modal" role="dialog" id="add">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content container-fluid">
+                <div class="modal-header">
+                    <div class="modal-title row">
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
+                            <label for="" class="selection">Select Database</label>
+                            <select name="" id="" class="drop">
+                                <option value="class_one">Class 1</option>
+                                <option value="class_two">Class 2</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
+                            <label for="" class="selection">Select Syllabus</label>
+                            <select name="" id="" class="drop">
+                                <option value="class_one">Class 1</option>
+                                <option value="class_two">Class 2</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
+                            <label for="" class="selection">Select Class</label>
+                            <select name="" id="" class="drop">
+                                <option value="class_one">Class 1</option>
+                                <option value="class_two">Class 2</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
+                            <label for="" class="selection">Select Chapter</label>
+                            <select name="" id="" class="drop">
+                                <option value="class_one">Class 1</option>
+                                <option value="class_two">Class 2</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
+                            <button class="btn import p-2">Import</button>
+                        </div>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mb-5">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                        <span class="card p-2 ml-3 mr-3">
+                            <span class="card-header">
+                                <span class="text-left">VIDEO</span>
+                                <span class="checkbox round">
+                                    <input type="checkbox" name="" id="">
+                                </span>
+                            </span>
+                            <span class="card-body text-center">
+                                <span class="">
+                                    <img src="/static/Images/lesson/video.png" alt="" class="col-10">
+                                </span>
+                            </span>
+                            <span class="card-footer">
+                                <span>Name of the sub topic will be shown here along with time</span>
+                                <span class="time">2 min</span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-5 pt-5">
+        <span>Select Class: </span>
+        <select id="class">
+            <option value="" disabled selected>Select Class</option>
+            {% for key in classes %}
+            <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
+            {% endfor %}
+        </select>
+        <span id="SB"></span>
+        <div id="body"></div>
+    </div>
+    </div> -->
 </body>
-{% if request.user.admin %}
+<!-- {% if request.user.admin %}-->
 <script src="{% static 'js/lessons/admin.js' %}"></script>
-{% endif %}
+<!-- <script src="{% static 'js/navbar.js' %}"></script> -->
+<!-- {% endif %} -->
 
 {% endblock %}
