@@ -4,13 +4,64 @@ from django import http
 from django.template.loader import render_to_string
 from django.db.models import Q
 from .models import pdf, video, Subject, Lesson
+from accounts.models import Student
 from django.core.files.storage import default_storage
 from django.conf import settings
+import datetime
 
 
 def assignments(request):
     if request.user.is_authenticated:
-        return render(request, 'assignments/assignment.html')
+        if request.user.admin:
+            classes = Class.objects.all()
+            data = {
+                'classes': classes
+            }
+            return render(request, 'assignments/assignment.html', data)
+        else:
+            return redirect('accounts:dashboard')
+
+    else:
+        return redirect('accounts:login')
+
+
+def getAssignments(request):
+    if request.user.is_authenticated:
+        deads = []
+        for x in Lesson.objects.filter(
+                Subject__Class=request.POST['id'], assignment=True):
+            diff = x.deadline-datetime.datetime.now(datetime.timezone.utc)
+            deads.append({
+                'assi': x,
+                'days': diff.days,
+                'hours': 24-datetime.datetime.now().hour,
+                'minutes': 60-datetime.datetime.now().minute,
+                'pdfs': pdf.objects.filter(lesson__id=x.id).count(),
+                'videos': video.objects.filter(lesson__id=x.id).count(),
+            })
+        data = {
+            'assignments': deads
+        }
+        client = {
+            'body':  render_to_string('assignments/assignments.html', data),
+            'done': True
+        }
+        return http.JsonResponse(client)
+    else:
+        http.HttpResponseForbidden
+
+
+def assignmentDetail(request, id):
+    if request.user.is_authenticated:
+        LESS = Lesson.objects.get(id=id)
+        data = {
+            'pdfs': pdf.objects.filter(lesson=LESS),
+            'videos': video.objects.filter(lesson=LESS),
+            'prefix': settings.MEDIA_URL,
+            'Title': LESS.Name,
+            'Subject': LESS.Subject.Name,
+        }
+        return render(request, 'assignments/assignmentDetailView.html', data)
     else:
         return redirect('accounts:login')
 
@@ -24,33 +75,33 @@ def lessons(request):
             }
             return render(request, 'lesson/lesson.html', data)
         else:
-            return redirect('accounts:dashboard')
+            data = {
+                'class': Student.objects.get(user=request.user).Class.id
+            }
+            return render(request, 'lesson/lesson.html', data)
     else:
         return redirect('accounts:login')
 
 
 def getLessons(request):
     if request.user.is_authenticated:
-        if request.user.admin:
-            if request.POST['subject'] == '':
-                subject = Subject.objects.filter(Class=request.POST['id'])
-            else:
-                subject = Subject.objects.filter(id=request.POST['subject'])
-            if subject:
-                data = {
-                    'pdfs': pdf.objects.filter(lesson__Subject=subject[0]),
-                    'videos': video.objects.filter(lesson__Subject=subject[0]),
-                    'prefix': settings.MEDIA_URL,
-                }
-            else:
-                data = {}
-            client = {
-                'body': render_to_string('lesson/lessons.html', data),
-                'subjects': list(Subject.objects.filter(Class=request.POST['id']).values('id', 'Name'))
-            }
-            return http.JsonResponse(client, safe=False)
+        if request.POST['subject'] == '':
+            subject = Subject.objects.filter(Class=request.POST['id'])
         else:
-            return http.HttpResponseForbidden
+            subject = Subject.objects.filter(id=request.POST['subject'])
+        if subject:
+            data = {
+                'pdfs': pdf.objects.filter(lesson__Subject=subject[0], lesson__assignment=False),
+                'videos': video.objects.filter(lesson__Subject=subject[0], lesson__assignment=False),
+                'prefix': settings.MEDIA_URL,
+            }
+        else:
+            data = {}
+        client = {
+            'body': render_to_string('lesson/lessons.html', data),
+            'subjects': list(Subject.objects.filter(Class=request.POST['id']).values('id', 'Name'))
+        }
+        return http.JsonResponse(client, safe=False)
     else:
         return http.HttpResponseBadRequest
 

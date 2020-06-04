@@ -15,6 +15,7 @@
         <div class="col-6 col-sm-6 col-md-2 col-lg-2 text-center">
             <span class="select-subject">Select </span>
         </div>
+        {% if user.admin %}
         <div class="col-6 col-sm-6 col-md-2 col-lg-2 text-center">
             <span class="">
                 <select id="class" class="form-control select-class mb-3">
@@ -25,6 +26,9 @@
                 </select>
             </span>
         </div>
+        {% else %}
+        <input type="hidden" id="class" value="{{class}}">
+        {% endif %}
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
             <div class="flexing" id="SB">
             </div>
@@ -45,6 +49,7 @@
         <div id="body">
         </div>
     </div>
+    {% if user.admin %}
     <div class="modal" role="dialog" id="add">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content container-fluid">
@@ -144,11 +149,22 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
 </body>
-{% if request.user.admin %}
 <script src="{% static 'js/lessons/admin.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        {% if request.user.admin %}
+        $('#class').val('');
+    });
+</script>
 <script src="{% static 'js/upload.js' %}"></script>
+
+{% else %}
+getlessons();
+});
+</script>
 {% endif %}
 
 {% endblock %}

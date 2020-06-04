@@ -2,8 +2,10 @@
 {% for lesson in lesson_list %}
 <div class="col-12 mt-3 ml-4">
     <span class="chapter">{{lesson.grouper.Name}}</span>
+    {% if user.admin %}
     <button class="btn plus p-1 mr-5" onclick="setChapName({{lesson.grouper.id}});" data-toggle="modal"
         data-target="#add">+</button>
+    {% endif %}
 </div>
 <div class="row mt-3">
     {% for pdf in lesson.list %}

@@ -9,6 +9,8 @@ class Subject(models.Model):
 
 class Lesson(models.Model):
     Name = models.CharField(max_length=255)
+    assignment = models.BooleanField(default=False)
+    deadline = models.DateTimeField(default=None, null=True)
     Subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
 
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid mt-5 pt-3">
+    {% include "common/header.html" %}
+    {{Subject}}
+    <br>
+    {{Title}}
+    <br>
+
+    {% for key in pdfs %}
+    <a href="{{ prefix }}{{key.file}}" target="_blank">{{key.Name}}</a>
+    {% endfor %}
+
+    {% for key in videos %}
+    <a href="{% url 'lessons:video' key.id %}">{{key.Name}}</a>
+    {% endfor %}
+</div>
+
+{% endblock %}
