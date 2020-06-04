@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 {% extends 'common/master.html' %}
 {% load static %}
 {% block content %}
@@ -11,146 +10,155 @@
     <div>
         {% include "common/header.html" %}
     </div>
-    <div class="row mt-5 pt-5 mb-5">
-        <div class="col-6 col-sm-6 col-md-2 col-lg-2 text-center">
-            <span class="select-subject">Select </span>
-        </div>
-        {% if user.admin %}
-        <div class="col-6 col-sm-6 col-md-2 col-lg-2 text-center">
-            <span class="">
-                <select id="class" class="form-control select-class mb-3">
-                    <option value="" disabled selected>Class</option>
-                    {% for key in classes %}
-                    <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
-                    {% endfor %}
-                </select>
-            </span>
-        </div>
-        {% else %}
-        <input type="hidden" id="class" value="{{class}}">
-        {% endif %}
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-            <div class="flexing" id="SB">
+    <div class="container-fluid">
+        <div class="row mt-5 pt-5 mb-5">
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3">
+                <span class="select-subject">Select Subjects</span>
             </div>
-        </div>
-        <div class="col-12 back row">
-            <span class="col-6">
-                <span class="col-12 back-text">
+            {% if user.admin %}
+            <div class="col-6 col-sm-6 col-md-2 col-lg-2 text-center">
+                <span class="">
+                    <select id="class" class="select-class mb-3 p-1">
+                        <option value="" disabled selected>Class</option>
+                        {% for key in classes %}
+                        <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
+                        {% endfor %}
+                    </select>
+                </span>
+            </div>
+            {% else %}
+            <input type="hidden" id="class" value="{{class}}">
+            {% endif %}
+            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 mb-3">
+                <div class="flexing" id="SB">
+                </div>
+            </div>
+            <div class="col-12 back row">
+                <span class="col-6 back-text">
                     LESSONS AND
                     <br>
                     PRACTICE TEST
                 </span>
-            </span>
-            <span class="col-6 back-photo">
-                <img src="/static/Images/lesson/back.png" alt="" class="rounded float-right col-4">
-            </span>
-
+                <span class="col-6 back-photo">
+                    <img src="/static/Images/lesson/back.png" alt="" class="rounded float-right col-5">
+                </span>
+            </div>
+            <div id="body" class="col-12">
+            </div>
         </div>
-        <div id="body">
-        </div>
-    </div>
-    {% if user.admin %}
-    <div class="modal" role="dialog" id="add">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content container-fluid">
-                <div class="modal-header">
-                    <div class="modal-title row">
-                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
-                            <label for="" class="selection">Select Database</label>
-                            <select name="" id="dataType" class="drop">
-                                <option value="" disabled selected>File Type</option>
-                                <option value="pdf">PDF</option>
-                                <option value="video">Video</option>
-                            </select>
-                        </div>
-                        <!-- <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
-                            <label for="" class="selection">Select Syllabus</label>
-                            <select name="" id="" class="drop">
-                                <option value="class_one">Class 1</option>
-                                <option value="class_two">Class 2</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
-                            <label for="" class="selection">Select Class</label>
-                            <select name="" id="" class="drop">
-                                <option value="class_one">Class 1</option>
-                                <option value="class_two">Class 2</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
-                            <label for="" class="selection">Select Chapter</label>
-                            <select name="" id="" class="drop">
-                                <option value="class_one">Class 1</option>
-                                <option value="class_two">Class 2</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
-                            <button class="btn import p-2">Import</button>
-                        </div> -->
+        {% if user.admin %}
+        <div class="modal" role="dialog" id="add">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 float-right"
+                            data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body mb-5">
-                    <div class="mb-3 mt-3">
-                        Name:
-                        <input type="text" id="FName">
-                        <input type="hidden" id="ChapName">
-                        <div class="form-group mb-3">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="file_input" id="file_input"
-                                    oninput="input_filename();">
-                                <label id="file_input_label" class="custom-file-label" for="image">Select file</label>
+                    <div class="modal-body mb-5">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <label for="" class="selection col-5 col-sm-5 col-md-3 col-lg-3 col-xl-3">Select
+                                    Database</label>
+                                <div class="col-1"></div>
+                                <label for="" class="selection col-5 col-sm-5 col-md-3 col-lg-3 col-xl-3">Name</label>
+                            </div>
+                            <div class="row">
+                                <select name="" id="dataType"
+                                    class="drop col-5 col-sm-5 col-md-3 col-lg-3 col-xl-3 p-1">
+                                    <option value="" disabled selected>File Type</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="video">Video</option>
+                                </select>
+                                <div class="col-1"></div>
+                                <input type="text" id="FName"
+                                    class="drop col-5 col-sm-5 col-md-3 col-lg-3 col-xl-3 p-1">
+                                <input type="hidden" id="ChapName">
+                                <div class="col-1"></div>
+                                <button onclick="upload('{% url 'lessons:upload'  %}');" id="upload_btn"
+                                    class="btn import col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3">Upload</button>
+                                <!-- <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
+                                    <label for="" class="selection">Select Syllabus</label>
+                                    <select name="" id="" class="drop">
+                                        <option value="class_one">Class 1</option>
+                                        <option value="class_two">Class 2</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
+                                    <label for="" class="selection">Select Class</label>
+                                    <select name="" id="" class="drop">
+                                        <option value="class_one">Class 1</option>
+                                        <option value="class_two">Class 2</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
+                                    <label for="" class="selection">Select Chapter</label>
+                                    <select name="" id="" class="drop">
+                                        <option value="class_one">Class 1</option>
+                                        <option value="class_two">Class 2</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
+                                    <button class="btn import p-2">Import</button>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <div class="form-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="file_input" id="file_input"
+                                        oninput="input_filename();">
+                                    <label id="file_input_label" class="custom-file-label" for="image">Select
+                                        file</label>
+                                </div>
+                            </div>
+
+
+                            <button class="btn btn-primary d-none" id="loading_btn" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Uploading...
+                            </button>
+
+                            <button type="button" id="cancel_btn" class="btn btn-secondary d-none">Cancel
+                                upload</button>
+
+                        </div>
+
+                        <div id="progress_wrapper" class="d-none">
+                            <label id="progress_status"></label>
+                            <div class="progress mb-3">
+                                <div id="progress" class="progress-bar import" role="progressbar" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
 
-                        <button onclick="upload('{% url 'lessons:upload'  %}');" id="upload_btn"
-                            class="btn btn-primary">Upload</button>
-
-                        <button class="btn btn-primary d-none" id="loading_btn" type="button" disabled>
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Uploading...
-                        </button>
-
-                        <button type="button" id="cancel_btn" class="btn btn-secondary d-none">Cancel upload</button>
-
+                        <div id="alert_wrapper"></div>
+                        <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                    <span class="card p-2 ml-3 mr-3">
+                                        <span class="card-header">
+                                            <span class="text-left">VIDEO</span>
+                                            <span class="checkbox round">
+                                                <input type="checkbox" name="" id="">
+                                            </span>
+                                        </span>
+                                        <span class="card-body text-center">
+                                            <span class="">
+                                                <img src="/static/Images/lesson/video.png" alt="" class="col-10">
+                                            </span>
+                                        </span>
+                                        <span class="card-footer">
+                                            <span>Name of the sub topic will be shown here along with time</span>
+                                            <span class="time">2 min</span>
+                                        </span>
+                                    </span>
+                                </div> -->
                     </div>
-
-                    <div id="progress_wrapper" class="d-none">
-                        <label id="progress_status"></label>
-                        <div class="progress mb-3">
-                            <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="25"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-
-                    <div id="alert_wrapper"></div>
-                    <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                        <span class="card p-2 ml-3 mr-3">
-                            <span class="card-header">
-                                <span class="text-left">VIDEO</span>
-                                <span class="checkbox round">
-                                    <input type="checkbox" name="" id="">
-                                </span>
-                            </span>
-                            <span class="card-body text-center">
-                                <span class="">
-                                    <img src="/static/Images/lesson/video.png" alt="" class="col-10">
-                                </span>
-                            </span>
-                            <span class="card-footer">
-                                <span>Name of the sub topic will be shown here along with time</span>
-                                <span class="time">2 min</span>
-                            </span>
-                        </span>
-                    </div> -->
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
-    {% endif %}
-
 </body>
 <script src="{% static 'js/lessons/admin.js' %}"></script>
 <script>

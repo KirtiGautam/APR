@@ -1,27 +1,29 @@
 {% regroup pdfs by lesson as lesson_list %}
 {% for lesson in lesson_list %}
-<div class="col-12 mt-3 ml-4">
-    <span class="chapter">{{lesson.grouper.Name}}</span>
-    {% if user.admin %}
-    <button class="btn plus p-1 mr-5" onclick="setChapName({{lesson.grouper.id}});" data-toggle="modal"
-        data-target="#add">+</button>
-    {% endif %}
+<div class="row">
+    <div class="col-12 mt-3">
+        <span class="chapter col-8">{{lesson.grouper.Name}}</span>
+        {% if admin %}
+        <button class="btn plus col-4 p-1 float-right" onclick="setChapName({{lesson.grouper.id}});" data-toggle="modal"
+            data-target="#add">+</button>
+        {% endif %}
+    </div>
 </div>
 <div class="row mt-3">
     {% for pdf in lesson.list %}
 
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{{ prefix }}{{pdf.file}}" target="_blank">
-            <span class="card p-2 ml-3 mr-3">
+            <span class="card p-2">
                 <span class="card-header">
                     <span class="text-left">PDF</span>
-                    <span class="checkbox round">
+                    <span class="checkbox">
                         <input type="checkbox" name="" id="">
                     </span>
                 </span>
                 <span class="card-body text-center">
                     <span class="">
-                        <img src="/static/Images/lesson/video.png" alt="" class="col-10">
+                        <img src="/static/Images/lesson/video.png" alt="" class="col-5">
                     </span>
                 </span>
                 <span class="card-footer">
@@ -35,9 +37,9 @@
     {% for video in videos %}
     {% if video.lesson.id == lesson.grouper.id %}
 
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{% url 'lessons:video' video.id %}">
-            <span class="card p-2 ml-3 mr-3">
+            <span class="card p-2">
                 <span class="card-header">
                     <span class="text-left">VIDEO</span>
                     <span class="checkbox round">
@@ -46,7 +48,7 @@
                 </span>
                 <span class="card-body text-center">
                     <span class="">
-                        <img src="/static/Images/lesson/video.png" alt="" class="col-10">
+                        <img src="/static/Images/lesson/video.png" alt="" class="col-5">
                     </span>
                 </span>
                 <span class="card-footer">
@@ -58,8 +60,8 @@
     </div>
     {% endif %}
     {% endfor %}
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-        <span class="card test p-2 ml-3 mr-3">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
+        <span class="card test p-2">
             <span class="card-header">
                 <span class="text-left">4 Tests | 120 Questions</span>
                 <span class="checkbox round">
@@ -68,7 +70,7 @@
             </span>
             <span class="card-body text-center">
                 <span class="">
-                    <img src="/static/Images/lesson/test.png" alt="" class="col-10">
+                    <img src="/static/Images/lesson/test.png" alt="" class="col-5">
                 </span>
             </span>
             <span class="card-footer text-right">
