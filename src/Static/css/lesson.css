@@ -1,19 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+@font-face {
+  src: url("/static/fonts/HelveticaNeue.ttf");
+  font-family: Neue;
+}
+
+@font-face {
+  src: url("/static/fonts/Helvetica-Neu-Bold.ttf");
+  font-family: NeueBold;
+}
+
+@font-face {
+  src: url("/Static/fonts/HelveticaNeue-Medium.ttf");
+  font-family: NeueMedium;
+}
 
 * {
   margin: 0;
   padding: 0;
 }
 
-body {
-  overflow-x: hidden;
-}
-
 .select-subject {
-  font-weight: 700;
-  font-size: calc(10px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(1vmax + 2vmin);
+  font-family: NeueBold;
   color: #626262;
 }
 
@@ -21,8 +28,7 @@ body {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #b3b6b8;
   border-radius: 5px;
-  font-size: calc(8px + 1vmin);
-  font-weight: bold;
+  font-size: calc(1vmax + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
 }
@@ -31,7 +37,7 @@ body {
   background: #f05e23 0% 0% no-repeat padding-box;
   border: 1px solid #e6ecf0;
   border-radius: 10px;
-  font-size: calc(5px + 1vmin);
+  font-size: calc(1vmax + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
   text-align: center;
@@ -45,16 +51,15 @@ body {
   border: 1px solid #e6ecf0;
   border-radius: 10px;
   color: #626262;
-  font-size: calc(5px + 1vmin);
+  font-size: calc(1vmax + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   cursor: pointer;
 }
 
 .chapter {
-  font-size: calc(7px + 1vmin);
-  font-weight: 700;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(1vmax + 2vmin);
+  font-family: NeueMedium;
   color: #5484ed;
 }
 
@@ -70,16 +75,16 @@ body {
 }
 
 .card-header {
-  font-size: calc(5px + 1vmin);
-  font-family: "Roboto", sans-serif;
+  font-size: calc(1vmax + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
   color: #c0c0c0;
   background: transparent;
   border: none;
 }
 
 .card-footer {
-  font-size: calc(5px + 1vmin);
-  font-family: "Roboto", sans-serif;
+  font-size: calc(1vmax + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
   color: #343434;
   background: transparent;
   border: none;
@@ -87,8 +92,8 @@ body {
 
 .time {
   float: right;
-  font-size: calc(3px + 1vmin);
-  font-family: "Roboto", sans-serif;
+  font-size: 1vmax;
+  font-family: Arial, Helvetica, sans-serif;
   color: #aeaeae;
 }
 
@@ -101,14 +106,14 @@ body {
 }
 
 .test .card-header {
-  font-size: calc(5px + 1vmin);
-  font-family: "Roboto", sans-serif;
+  font-size: calc(1vmax + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
 
 .test .card-footer {
-  font-size: calc(6px + 1vmin);
-  font-family: "Roboto", sans-serif;
+  font-size: calc(1vmax + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
   color: #343434;
 }
 
@@ -120,9 +125,11 @@ body {
   background: transparent
     linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
     no-repeat padding-box;
+}
+
+.back-text {
   font-size: calc(2vmax + 1vmin);
-  font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: NeueBold;
   color: #fd7f2c;
 }
 
@@ -133,13 +140,12 @@ body {
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 50%;
   color: #cbcdcf;
-  float: right;
+  width: fit-content;
 }
 
-.select {
-  font-size: calc(10px + 1vmin);
-  font-weight: 500;
-  font-family: Arial, Helvetica, sans-serif;
+.selection {
+  font-size: calc(1vmax + 1vmin);
+  font-family: NeueMedium;
   color: #626262;
 }
 
@@ -159,4 +165,29 @@ body {
   font-family: "Poppins", sans-serif;
   font-size: calc(11px + 1vmin);
   color: #ffffff;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.plus:hover {
+  color: #8a8d8f;
+  background: #effbff;
+}
+
+.first-plus:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  font-weight: 100;
+  color: #bec1c3;
+  font-size: 25px;
+  border-radius: 50%;
+  outline: none;
+}
+
+@media screen and (max-width:600px){
+  .back-photo{
+    display: none;
+  }
 }

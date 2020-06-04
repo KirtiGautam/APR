@@ -94,6 +94,7 @@ def getLessons(request):
                 'pdfs': pdf.objects.filter(lesson__Subject=subject[0], lesson__assignment=False),
                 'videos': video.objects.filter(lesson__Subject=subject[0], lesson__assignment=False),
                 'prefix': settings.MEDIA_URL,
+                'admin': request.user.admin,
             }
         else:
             data = {}
