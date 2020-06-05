@@ -16,10 +16,9 @@
 }
 
 .header-icons {
-  height: 30px !important;
-  width: 30px !important;
-  margin-top: 3% !important;
-  opacity: 1 !important;
+  height: 30px;
+  width: 30px;
+  margin-top: 3%;
 }
 
 .header-icons:hover {

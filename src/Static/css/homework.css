@@ -1,0 +1,128 @@
+@font-face {
+  src: url("/static/fonts/Helvetica-Neu-Bold.ttf");
+  font-family: NeueBold;
+}
+
+.container-fluid {
+  margin-top: 30px;
+}
+
+.first {
+  background: transparent
+    linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
+    no-repeat padding-box;
+  margin-bottom: 5%;
+}
+
+.first-text {
+  font-size: calc(2vmax + 2vmin);
+  font-family: NeueBold;
+  color: #fd7f2c;
+}
+
+.first-dropdown {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: calc(10px + 1vmin);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.first-plus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  font-weight: 100;
+  color: #bec1c3;
+  font-size: 25px;
+  border-radius: 50%;
+}
+
+.first-plus:hover {
+  color: #8a8d8f;
+  background: #effbff;
+}
+
+.first-plus:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  font-weight: 100;
+  color: #bec1c3;
+  font-size: 25px;
+  border-radius: 50%;
+  outline: none;
+}
+
+.first-class-plus {
+  margin-top: 5%;
+}
+
+.date {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 2px solid #e6ecf0;
+  border-radius: 5px;
+  font-size: calc(7px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #b3b6b8;
+}
+
+.title {
+  font-size: calc(13px + 1vmin);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+  text-transform: uppercase;
+}
+
+.cards {
+  background: transparent
+    linear-gradient(124deg, #f5f8fa 0%, #eff3f6 75%, #e6ecf0 100%) 0% 0%
+    no-repeat padding-box;
+  border-radius: 10px;
+}
+
+.summary {
+  font-size: calc(9px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.progress-bar {
+  background: #ffffff 0% 0% no-repeat padding-box;
+}
+
+.progress-text {
+  font-size: calc(9px + 1vmin);
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+  text-transform: uppercase;
+}
+
+.moti {
+  font-size: calc(9px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.first-one {
+  margin-top: 2%;
+  margin-left: 5%;
+}
+
+@media screen and (max-width: 1000px) {
+  .first .image {
+    display: none;
+  }
+
+  .first-one {
+    margin-top: 2%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .container-fluid {
+    margin-top: 70px;
+  }
+}
