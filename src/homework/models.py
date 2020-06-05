@@ -4,6 +4,7 @@ from lessons.models import Subject, Lesson
 class homework(models.Model):
     Name = models.CharField(max_length=255)
     Instructions = models.CharField(max_length=1000, default=None, null=True)
+    date = models.DateField(auto_now_add=True)
     Subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name='homework')
 

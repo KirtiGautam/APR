@@ -31,4 +31,11 @@ $(document).ready(function () {
     $('#class').change(function () {
         getlessons();
     });
+    $('#dataType').change(function () {
+        if ($('#dataType').val() == 'csv'){
+            $('.csv').removeClass('d-none');
+        }else{
+            $('.csv').addClass('d-none');
+        }
+    });
 });

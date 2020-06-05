@@ -24,7 +24,7 @@ def getHomeworks(request):
     if request.user.is_authenticated:
         data = {
             'homeworks': homework.objects.filter(
-                Subject__Class=request.POST['id'])
+                Subject__Class=request.POST['id'], date=request.POST['date'])
         }
         client = {
             'body':  render_to_string('homeworks/homeworks.html', data),
