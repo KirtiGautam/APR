@@ -1,6 +1,6 @@
 {% for key in assignments %}
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
-    <div class="card p-3 deadline">
+    <div class="card p-1 deadline">
         <div class="card-body">
             <a href="{% url 'assignment:assignmentDetails' key.assi.id %}">
                 <div class="title">{{key.assi.Subject.Name}}</div>

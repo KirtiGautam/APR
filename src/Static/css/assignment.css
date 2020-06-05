@@ -14,7 +14,6 @@
   font-size: calc(10px + 3vmin);
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
-  letter-spacing: 0px;
   color: #fd7f2c;
 }
 
@@ -75,7 +74,7 @@
 
 .title {
   text-align: left;
-  font-size: calc(15px + 1vmin);
+  font-size: calc(14px + 1vmin);
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
@@ -91,15 +90,17 @@
 
 .deadline .progress {
   background: #f84f4c 0% 0% no-repeat padding-box;
-  border-radius: 2px;
+  border-radius: 0px;
 }
 
 .prime .progress {
   background: #56a2f9 0% 0% no-repeat padding-box;
+  border-radius: 0px;
 }
 
 .complete .progress {
   background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 0px;
 }
 
 .moti {
@@ -138,7 +139,6 @@
 }
 
 .progress-text {
-  text-align: left;
   font-size: calc(9px + 1vmin);
   font-weight: 700;
   font-family: Arial, Helvetica, sans-serif;
@@ -170,6 +170,10 @@
 
 .click-link:active{
     color: #9E9E9E;
+}
+
+a:hover{
+  text-decoration: none;
 }
 
 @media screen and (max-width: 600px) {
