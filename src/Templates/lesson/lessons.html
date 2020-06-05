@@ -12,66 +12,66 @@
     {% for pdf in lesson.lesson_pdfs.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{{ prefix }}{{pdf.file}}" target="_blank">
-            <span class="card p-2">
-                <span class="card-header">
-                    <span class="text-left">PDF</span>
-                    <span class="checkbox">
+            <div class="cards p-2">
+                <span class="row row-head">
+                    <span class="text-left col-10">PDF</span>
+                    <span class="checkbox col-2">
                         <input type="checkbox" name="" id="">
                     </span>
                 </span>
-                <span class="card-body text-center">
-                    <span class="">
-                        <img src="/static/Images/lesson/video.png" alt="" class="col-5">
-                    </span>
+                <span class="row text-center">
+                    <span class="col-3"></span>
+                        <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+                    
                 </span>
-                <span class="card-footer">
-                    <span>{{pdf.Name}}</span>
-                    <span class="time">2 min</span>
+                <span class="row row-foot">
+                    <span class="col-8">{{pdf.Name}}</span>
+                    <span class="time col-4">2 min</span>
                 </span>
-            </span>
+            </div>
         </a>
     </div>
     {% endfor %}
     {% for video in lesson.lesson_videos.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{% url 'lessons:video' video.id %}">
-            <span class="card p-2">
-                <span class="card-header">
-                    <span class="text-left">VIDEO</span>
-                    <span class="checkbox round">
+            <div class="cards p-2">
+                <span class="row row-head">
+                    <span class="text-left col-10">VIDEO</span>
+                    <span class="checkbox round col-2">
                         <input type="checkbox" name="" id="">
                     </span>
                 </span>
-                <span class="card-body text-center">
-                    <span class="">
-                        <img src="/static/Images/lesson/video.png" alt="" class="col-5">
-                    </span>
+                <span class="row text-center">
+                    <span class="col-3"></span>
+                        <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+                    
                 </span>
-                <span class="card-footer">
-                    <span>{{video.Name}}</span>
-                    <span class="time">2 min</span>
+                <span class="row row-foot">
+                    <span class="col-8">{{video.Name}}</span>
+                    <span class="time col-4">2 min</span>
                 </span>
-            </span>
+            </div>
         </a>
     </div>
     {% endfor %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
-        <span class="card test p-2">
-            <span class="card-header">
-                <span class="text-left">4 Tests | 120 Questions</span>
-                <span class="checkbox round">
+        <div class="cards test p-2">
+            <span class="row row-head">
+                <span class="text-left col-10">4 Tests | 120 Questions</span>
+                <span class="checkbox round col-2">
                     <input type="checkbox" name="" id="">
                 </span>
             </span>
-            <span class="card-body text-center">
-                <span class="">
-                    <img src="/static/Images/lesson/test.png" alt="" class="col-5">
-                </span>
+            <span class="row text-center">
+                <span class="col-3"></span>
+                    <img src="/static/Images/lesson/test.png" alt="" class="col-6">
+                
             </span>
-            <span class="card-footer text-right">
-                <span>Practice Test</span>
+            <span class="row row-foot text-right">
+                <span class="col-12">Practice Test</span>
             </span>
-        </span>
+        </div>
     </div>
 </div>
 {% endfor %}
