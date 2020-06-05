@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+{% include "common/header.html" %}
+<div class="container-fluid mt-5 pt-3">
+    <select id="class" class="col-6 form-control first-dropdown m-2">
+        <option value="" disabled selected>Class</option>
+        {% for key in classes %}
+        <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
+        {% endfor %}
+    </select>
+    <div id="body">
+
+    </div>
+</div>
+<script src="{% static 'js/homeworks/homework.js' %}"></script>
+{% endblock %}

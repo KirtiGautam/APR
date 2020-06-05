@@ -3,7 +3,7 @@ function getAssignments() {
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
-        url: '/get-assignments',
+        url: '/get-homeworks',
         data: {
             'id': $('#class').val(),
         },

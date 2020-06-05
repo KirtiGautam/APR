@@ -1,17 +1,15 @@
-{% regroup pdfs by lesson as lesson_list %}
-{% for lesson in lesson_list %}
+{% for lesson in lessons %}
 <div class="row">
     <div class="col-12 mt-3">
-        <span class="chapter col-8">{{lesson.grouper.Name}}</span>
+        <span class="chapter col-8">{{lesson.Name}}</span>
         {% if admin %}
-        <button class="btn plus col-4 p-1 float-right" onclick="setChapName({{lesson.grouper.id}});" data-toggle="modal"
-            data-target="#add">+</button>
+        <button class="btn plus col-4 p-1 float-right" onclick="setChapName({{lesson.id}});" data-toggle="modal"
+            data-backdrop="static" data-target="#add">+</button>
         {% endif %}
     </div>
 </div>
 <div class="row mt-3">
-    {% for pdf in lesson.list %}
-
+    {% for pdf in lesson.lesson_pdfs.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{{ prefix }}{{pdf.file}}" target="_blank">
             <span class="card p-2">
@@ -34,9 +32,7 @@
         </a>
     </div>
     {% endfor %}
-    {% for video in videos %}
-    {% if video.lesson.id == lesson.grouper.id %}
-
+    {% for video in lesson.lesson_videos.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{% url 'lessons:video' video.id %}">
             <span class="card p-2">
@@ -58,7 +54,6 @@
             </span>
         </a>
     </div>
-    {% endif %}
     {% endfor %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <span class="card test p-2">

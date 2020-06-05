@@ -98,7 +98,7 @@ class Class(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(
-        User, primary_key=True, on_delete=models.CASCADE)
+        User, primary_key=True, on_delete=models.CASCADE, related_name='Student')
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),

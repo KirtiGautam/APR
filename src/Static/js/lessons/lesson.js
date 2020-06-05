@@ -1,5 +1,4 @@
 function getlessons(id = '') {
-    console.log($('#class').val());
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },

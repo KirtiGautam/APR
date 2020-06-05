@@ -148,6 +148,7 @@ function upload(url) {
         if (request.status == 200) {
 
             show_alert(`${request.response.message}`, "success");
+            getlessons();
 
         }
         else {

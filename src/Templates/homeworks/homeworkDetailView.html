@@ -5,19 +5,19 @@
 
 <div class="container-fluid mt-5 pt-3">
     {% include "common/header.html" %}
-    {{assign.Subject.Name}}
+    {{homework.Subject.Name}}
     <br>
-    {{assign.Name}}
+    {{homework.Name}}
     <br>
-    {{assign.Instructions}}
+    {{homework.Instructions}}
     <br>
 
-    {% for key in assign.pdfs.all %}
+    {% for key in homework.pdfs.all %}
     <a href="{{ prefix }}{{key.file}}" target="_blank">{{key.Name}}</a>
     {% endfor %}
 
-    {% for key in assign.videos.all %}
-    <a href="{% url 'assignment:video' key.id %}">{{key.Name}}</a>
+    {% for key in homework.videos.all %}
+    <a href="{% url 'homework:video' key.id %}">{{key.Name}}</a>
     {% endfor %}
 </div>
 

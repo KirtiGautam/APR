@@ -1,82 +1,22 @@
 from django.shortcuts import render, redirect
-from accounts.models import Class
 from django import http
 from django.template.loader import render_to_string
-from django.db.models import Q
-from .models import pdf, video, Subject, Lesson
-from accounts.models import Student
-from django.core.files.storage import default_storage
 from django.conf import settings
-import datetime
-
-
-def assignments(request):
-    if request.user.is_authenticated:
-        if request.user.admin:
-            classes = Class.objects.all()
-            data = {
-                'classes': classes
-            }
-            return render(request, 'assignments/assignment.html', data)
-        else:
-            return redirect('accounts:dashboard')
-
-    else:
-        return redirect('accounts:login')
-
-
-def getAssignments(request):
-    if request.user.is_authenticated:
-        deads = []
-        for x in Lesson.objects.filter(
-                Subject__Class=request.POST['id'], assignment=True):
-            diff = x.deadline-datetime.datetime.now(datetime.timezone.utc)
-            deads.append({
-                'assi': x,
-                'days': diff.days,
-                'hours': 24-datetime.datetime.now().hour,
-                'minutes': 60-datetime.datetime.now().minute,
-                'pdfs': pdf.objects.filter(lesson__id=x.id).count(),
-                'videos': video.objects.filter(lesson__id=x.id).count(),
-            })
-        data = {
-            'assignments': deads
-        }
-        client = {
-            'body':  render_to_string('assignments/assignments.html', data),
-            'done': True
-        }
-        return http.JsonResponse(client)
-    else:
-        http.HttpResponseForbidden
-
-
-def assignmentDetail(request, id):
-    if request.user.is_authenticated:
-        LESS = Lesson.objects.get(id=id)
-        data = {
-            'pdfs': pdf.objects.filter(lesson=LESS),
-            'videos': video.objects.filter(lesson=LESS),
-            'prefix': settings.MEDIA_URL,
-            'Title': LESS.Name,
-            'Subject': LESS.Subject.Name,
-        }
-        return render(request, 'assignments/assignmentDetailView.html', data)
-    else:
-        return redirect('accounts:login')
+from django.core.files.storage import default_storage
+from accounts.models import Class, Student
+from lessons.models import pdf, video, Subject, Lesson
 
 
 def lessons(request):
     if request.user.is_authenticated:
         if request.user.admin:
-            classes = Class.objects.all()
             data = {
-                'classes': classes
+                'classes': Class.objects.all().values('id', 'name', 'section', 'year')
             }
             return render(request, 'lesson/lesson.html', data)
         else:
             data = {
-                'class': Student.objects.get(user=request.user).Class.id
+                'class': request.user.Student.Class.id
             }
             return render(request, 'lesson/lesson.html', data)
     else:
@@ -91,8 +31,7 @@ def getLessons(request):
             subject = Subject.objects.filter(id=request.POST['subject'])
         if subject:
             data = {
-                'pdfs': pdf.objects.filter(lesson__Subject=subject[0], lesson__assignment=False),
-                'videos': video.objects.filter(lesson__Subject=subject[0], lesson__assignment=False),
+                'lessons': subject[0].Lesson.all(),
                 'prefix': settings.MEDIA_URL,
                 'admin': request.user.admin,
             }
@@ -104,7 +43,7 @@ def getLessons(request):
         }
         return http.JsonResponse(client, safe=False)
     else:
-        return http.HttpResponseBadRequest
+        return http.HttpResponseForbidden({'messsage': 'You are not authorized for this request'})
 
 
 def vid(request, id):
@@ -126,17 +65,16 @@ def uploPage(request):
             vid = video.objects.create(
                 Name=File, platform='L', lesson=Lesson.objects.get(id=request.POST['lesson']))
             file_name = default_storage.save(
-                'videos/'+str(vid.id)+'.mp4', file)
+                'lessons/videos/'+str(vid.id)+'.mp4', file)
             vid.file = file_name
             vid.save()
         else:
             pd = pdf.objects.create(
                 Name=File, lesson=Lesson.objects.get(id=request.POST['lesson']))
-            file_name = default_storage.save('pdfs/'+str(pd.id)+'.pdf', file)
+            file_name = default_storage.save(
+                'lessons/pdfs/'+str(pd.id)+'.pdf', file)
             pd.file = file_name
             pd.save()
-        print([file, File])
-        # file_name = default_storage.save(file.name, file)
         data = {
             'message': 'File uploaded!'
         }

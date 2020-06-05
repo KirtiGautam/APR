@@ -1,0 +1,9 @@
+{% for key in homeworks %}
+<a href="{% url 'homework:homeworkDetails' key.id %}">
+    {{key.Subject.Name}} <br>
+    {{key.Name}} <br>
+    {{key.Instructions}} <br>
+    Number of pdfs(reading) {{key.pdfs.all.count}} <br>
+    Number of videos(watch) {{key.videos.all.count}}
+</a>
+{% endfor %}
