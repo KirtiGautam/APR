@@ -1,9 +1,25 @@
 {% for key in homeworks %}
-<a href="{% url 'homework:homeworkDetails' key.id %}">
-    {{key.Subject.Name}} <br>
-    {{key.Name}} <br>
-    {{key.Instructions}} <br>
-    Number of pdfs(reading) {{key.pdfs.all.count}} <br>
-    Number of videos(watch) {{key.videos.all.count}}
-</a>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+    <a href="{% url 'homework:homeworkDetails' key.id %}">
+        <div class="cards p-4">
+            <span class="row row-head">
+                <span class="title col-12">{{key.Subject.Name}}</span>
+                <span class="summary col-12">{{key.videos.all.count}} Videos + {{key.pdfs.all.count}} Reading</span>
+            </span>
+            <span class="perc row pl-3 pt-2">
+                <div class="progress col-9">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                        aria-valuemax="100">
+                    </div>
+                </div>
+                <div class="col-3 progress-text">
+                    30%
+                </div>
+            </span>
+            <span class="row row-foot pl-3 pt-2">
+                <span class="moti">TIME TO WORK!</span>
+            </span>
+        </div>
+    </a>
+</div>
 {% endfor %}

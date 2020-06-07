@@ -8,7 +8,6 @@
 </head>
 
 {% include "common/header.html" %}
-
 <div class="container-fluid mt-5 pt-3">
     <div class="row first mb-5">
         <div class="col-6 col-sm-6 col-md-2 col-lg-1">
@@ -21,7 +20,7 @@
             <a><img src="/static/Images/assignment/edit.svg" alt="" class="img1 mt-2"></a>
         </div>
         <div class="col-8 col-sm-8 col-md-4 col-lg-5 p-2 time-left">
-            3 Days 22 hrs 30 Mins to go
+            {{assign.Deadline|timeuntil}}
         </div>
     </div>
     <div class="row second mb-5">
@@ -41,7 +40,7 @@
         </div>
         <div class="col-5 mb-3">
             <span class="due">Due date: </span>
-            <span class="due-date">DD/MM/YYYY HH/MM</span>
+            <span class="due-date">{{assign.Deadline}}</span>
         </div>
         <div class="col-2 mb-3">
             <button class="btn plus p-1 float-right" onclick="">+</button>
@@ -50,7 +49,7 @@
     <div class="row third mb-5">
         {% for key in assign.pdfs.all %}
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
-            <a href="{{ prefix }}{{key.file}}" target="_blank">
+            <a href="{% get_media_prefix %}{{key.file}}" target="_blank">
                 <div class="cards p-2">
                     <span class="row row-head">
                         <span class="text-left col-10">PDF</span>
@@ -69,7 +68,7 @@
                 </div>
             </a>
             <div class="text-center">
-                <span class="chapter">Name of chapter</span>
+                <span class="chapter">{{key.lesson.Name}}</span>
             </div>
         </div>
         {% endfor %}
@@ -96,7 +95,7 @@
                 </div>
             </a>
             <div class="text-center">
-                <span class="chapter">Name of chapter</span>
+                <span class="chapter">{{key.lesson.Name}}</span>
             </div>
         </div>
         {% endfor %}

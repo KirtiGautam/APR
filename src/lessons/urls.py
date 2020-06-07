@@ -2,8 +2,9 @@ from django.urls import path
 from .views import (
     lessons,
     getLessons,
-    uploPage,
+    upload,
     vid,
+    Test,
 )
 
 app_name = 'lessons'
@@ -11,6 +12,7 @@ app_name = 'lessons'
 urlpatterns = [
     path('lessons', lessons, name='lessons'),
     path('get-lessons', getLessons, name='get_lessons'),
-    path('upload', uploPage, name='upload'),
+    path('upload', upload, name='upload'),
     path('lesson/video/<int:id>', vid, name='video'),
+    path('lesson/test/<int:id>', Test, name='Test')
 ]

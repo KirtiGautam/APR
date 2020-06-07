@@ -4,7 +4,17 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from django.core.files.storage import default_storage
 from accounts.models import Class, Student
-from lessons.models import pdf, video, Subject, Lesson
+from lessons.models import pdf, video, Subject, Lesson, test, question, choice, answer
+
+
+def Test(request, id):
+    if request.user.is_authenticated:
+        data = {
+            'test': test.objects.get(id=id),
+        }
+        return render(request, 'test/test.html', data)
+    else:
+        return redirect('accounts:login')
 
 
 def lessons(request):
@@ -54,21 +64,23 @@ def vid(request, id):
         return redirect('accounts:login')
 
 
-def uploPage(request):
+def upload(request):
     if request.method == 'GET':
         return render(request, 'video.html')
     else:
-        file = request.FILES['file']
         File = request.POST['name']
-        lessson = request.POST['lesson']
         if request.POST['type'] == 'video':
+            file = request.FILES['file']
             vid = video.objects.create(
                 Name=File, platform='L', lesson=Lesson.objects.get(id=request.POST['lesson']))
             file_name = default_storage.save(
                 'lessons/videos/'+str(vid.id)+'.mp4', file)
             vid.file = file_name
             vid.save()
+        elif request.POST['type'] == 'csv':
+            print(request.POST['file'])
         else:
+            file = request.FILES['file']
             pd = pdf.objects.create(
                 Name=File, lesson=Lesson.objects.get(id=request.POST['lesson']))
             file_name = default_storage.save(

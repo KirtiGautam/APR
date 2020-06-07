@@ -21,8 +21,8 @@
                 </span>
                 <span class="row text-center">
                     <span class="col-3"></span>
-                        <img src="/static/Images/lesson/video.png" alt="" class="col-6">
-                    
+                    <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+
                 </span>
                 <span class="row row-foot">
                     <span class="col-8">{{pdf.Name}}</span>
@@ -44,8 +44,8 @@
                 </span>
                 <span class="row text-center">
                     <span class="col-3"></span>
-                        <img src="/static/Images/lesson/video.png" alt="" class="col-6">
-                    
+                    <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+
                 </span>
                 <span class="row row-foot">
                     <span class="col-8">{{video.Name}}</span>
@@ -55,23 +55,27 @@
         </a>
     </div>
     {% endfor %}
+    {% for key in lesson.lesson_Test.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
-        <div class="cards test p-2">
-            <span class="row row-head">
-                <span class="text-left col-10">4 Tests | 120 Questions</span>
-                <span class="checkbox round col-2">
-                    <input type="checkbox" name="" id="">
+        <a href="{% url 'lessons:Test' key.id %}">
+            <div class="cards test p-2">
+                <span class="row row-head">
+                    <span class="text-left col-10">{{key.question.all.count}} Questions</span>
+                    <span class="checkbox round col-2">
+                        <input type="checkbox" name="" id="">
+                    </span>
                 </span>
-            </span>
-            <span class="row text-center">
-                <span class="col-3"></span>
-                    <img src="/static/Images/lesson/test.png" alt="" class="col-6">
-                
-            </span>
-            <span class="row row-foot text-right">
-                <span class="col-12">Practice Test</span>
-            </span>
-        </div>
+                <span class="row text-center">
+                    <span class="col-3"></span>
+                    <img src="/static/Images/lesson/test.png" class="col-6">
+
+                </span>
+                <span class="row row-foot text-right">
+                    <span class="col-12">{% if key.final %}Final Test{% else %}Practice Test{% endif %}</span>
+                </span>
+            </div>
+        </a>
     </div>
+    {% endfor %}
 </div>
 {% endfor %}

@@ -25,13 +25,14 @@ $(document).ready(function () {
 
     $('#class, #date').change(function () {
         getAssignments();
+        $('#hold').val($('#date').val());
     });
 
     $('#date').attr(
         "max",
         today.getFullYear() + '-' + (((today.getMonth() + 1) < 10) ? '0' : '') + (today.getMonth() + 1) + '-' + ((today.getDate() < 10) ? '0' : '') + today.getDate()
     )
-    $('#date').val(
+    $('#date, #hold').val(
         today.getFullYear() + '-' + (((today.getMonth() + 1) < 10) ? '0' : '') + (today.getMonth() + 1) + '-' + ((today.getDate() < 10) ? '0' : '') + today.getDate()
     )
 

@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body{
+    background: #F7F7F7 0% 0% no-repeat padding-box;
+}
+
+.mcq{
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 4px 7px 12px #00000029;
+}
+
+.question-text{
+    color: #C0C0C0;
+}
+
+.mcq-text{
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0px;
+    color: #112234;
+}
+
+.option-no{
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #C0C0C0;
+}
+
+.test-name{
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-position: center;
+    background-size: cover;
+    height: 20vh;
+}
+
+.option:hover{
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.subtn{
+    background: #ED4C2C 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+}

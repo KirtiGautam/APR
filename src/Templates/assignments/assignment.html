@@ -12,6 +12,7 @@
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 first-text m-2">
             ALL <br> ASSIGNMENTS
         </div>
+        {% if request.user.admin %}
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 row first-class-plus d-flex justify-content-around">
             <select id="class" class="col-8 form-control first-dropdown m-2">
                 <option value="" disabled selected>Class</option>
@@ -19,8 +20,12 @@
                 <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
                 {% endfor %}
             </select>
-            <span><button class="btn first-plus">+</button></span>
+            <span><button class="btn first-plus add-assign d-none" data-toggle="modal" data-backdrop="static"
+                    data-target="#add">+</button></span>
         </div>
+        {% else %}
+        <input type="hidden" id="class" value="{{ class }}">
+        {% endif %}
         <div class="col-xs-0 col-sm-0 col-md-3 col-lg-3 image">
             <img src="/static/Images/lesson/back.png" alt="" class="col-7 float-right m-2">
         </div>
@@ -28,6 +33,9 @@
     <div class="row second p-3" id="body">
 
     </div>
+    {% if request.user.admin %}
+    {% include 'assignments/uploadModal.html' %}
+    {% endif %}
     <div class="container-fluid">
         <div class="row third mt-5 p-3">
             <span class="past">Past Assignments - </span>
@@ -36,4 +44,13 @@
     </div>
 </div>
 <script src="{% static 'js/assignments/assignments.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        {% if request.user.admin %}
+        $('#class').val('');
+        {% else %}
+        getAssignments();
+        {% endif %}
+    });
+</script>
 {% endblock %}
