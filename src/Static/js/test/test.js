@@ -36,7 +36,7 @@ function Decrement() {
         //if seconds becomes zero, 
         //then page alert time up 
         if (secs < 0) {
-            alert('Time up');            
+            alert('Time up');
             minutes.innerHTML = 'Time Left: 00:00 Mins';
             $('#myform').submit();
         }
@@ -67,18 +67,10 @@ function SubmitFunction() {
 }
 
 
-function set(QID, option, g) {
-    $('#' + QID + 'A').css('background-color', '#FFFFFF');
-    $('#' + QID + 'B').css('background-color', '#FFFFFF');
-    $('#' + QID + 'C').css('background-color', '#FFFFFF');
-    $('#' + QID + 'D').css('background-color', '#FFFFFF');
-    $('#' + QID + 'A').css('color', '#292b2c');
-    $('#' + QID + 'B').css('color', '#292b2c');
-    $('#' + QID + 'C').css('color', '#292b2c');
-    $('#' + QID + 'D').css('color', '#292b2c');
-    $('#' + g).css('background-color', '#0275d8');
-    $('#' + g).css('color', '#FFFFFF');
-    $('#' + QID).val(option);
+function set(QID, option) {
+    $('.option' + QID).css({ 'background-color': '#FFFFFF', 'color': '#292b2c' });
+    $('#' + option).css({ 'background-color': '#0275d8', 'color': '#FFFFFF' })
+    $('#' + QID).val(option.substring(1));
     console.log($('#' + QID).val());
 }
 
@@ -96,15 +88,3 @@ $(window).bind('beforeunload', function () {
     return 'Your test will be saved';
 
 });
-
-window.onbeforeunload = function (evt) {
-    var message = 'Your test will be saved';
-    if (typeof evt == 'undefined') {
-        evt = window.event;
-    }
-    if (evt) {
-        evt.returnValue = message;
-    }
-
-    return message;
-}

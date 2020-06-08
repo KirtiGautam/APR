@@ -9,12 +9,12 @@
 <body>
     <div class="container-fluid test-name">
         <div class="row">
-            <h6 class="col-lg-12 pl-5 pt-5 text-secondary">{{test.chapter.Name}}</h6>
+            <h6 class="col-lg-12 pl-5 pt-5 text-secondary">{{test.Lesson.Name}}</h6>
             <h3 class="col-lg-10 pl-5 text-secondary">{{test.Name}}
         </div>
     </div>
     <div class="container pb-4">
-        <form action="#" method="post" id="myform">
+        <form action="{% url 'lessons:Test' test.id %}" method="post" id="myform">
             {% csrf_token %}
             <div class="row mb-5">
                 {% for key in test.question.all %}
@@ -27,34 +27,21 @@
                         <h6 class="mcq-text pl-3 pb-4 border-bottom">{{key.Name}}</h6>
                     </div>
                     {% for choice in key.choice.all %}
-                    <div class="col-lg-12 border-bottom mcq-text mb-2 p-2 option" id="{{key.id}}A"
-                        onclick="set({{key.id}}, 'A', this.id);">
+                    <div class="col-lg-12 border-bottom mcq-text mb-2 p-2 option option{{key.id}}" id="C{{choice.id}}"
+                        onclick="set({{key.id}}, this.id);">
                         <span class="col-lg-1 text-center mt-2 ml-2 option-no">A</span>
                         <span class="col-lg-11 mt-2">{{choice.Name}}</span>
                     </div>
                     {% endfor %}
-                    <!-- <div class="col-lg-12 border-bottom mcq-text mb-2 p-2 option" id="{{key.id}}B"
-                        onclick="set({{key.id}}, 'B', this.id);">
-                        <span class="col-lg-1 text-center mt-2 ml-2 option-no">B</span>
-                        <span class="col-lg-11 mt-2">{{key.OB}}</span>
-                    </div>
-                    <div class="col-lg-12 border-bottom mcq-text mb-2 p-2 option" id="{{key.id}}C"
-                        onclick="set({{key.id}}, 'C', this.id);">
-                        <span class="col-lg-1 text-center mt-2 ml-2 option-no">C</span>
-                        <span class="col-lg-11 mt-2">{{key.OC}}</span>
-                    </div>
-                    <div class="col-lg-12 mcq-text mb-2 p-2 option" id="{{key.id}}D"
-                        onclick="set({{key.id}}, 'D', this.id);">
-                        <span class="col-lg-1 text-center mt-2 ml-2 option-no">D</span>
-                        <span class="col-lg-11 mt-2">{{key.OD}}</span>
-                    </div> -->
                 </div>
                 {% endfor %}
+                {% if not request.user.admin %}
                 <div class="col-lg-12 mt-4">
                     <center>
                         <input class="text-center text-light btn btn-lg mb-5 subtn" type="Submit" value="Submit Quiz">
                     </center>
                 </div>
+                {% endif %}
             </div>
         </form>
     </div>

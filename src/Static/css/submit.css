@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+.report {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 4px 7px 12px #00000029;
+}
+
+.bod {
+    width: 100%;
+    background: #EEF3FF 0% 0% no-repeat padding-box;
+    background-position: center;
+    background-size: cover;
+    height: 20vh;
+}
+
+.mcq {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 4px 7px 12px #00000029;
+}
+
+.mcq-text {
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0px;
+    color: #112234;
+}

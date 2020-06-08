@@ -188,7 +188,7 @@ function upload(url) {
                     console.log(json_object);
                     json_data.push(json_object);
                 })
-                data.append("file", JSON.stringify(json_data));
+                data.append("file", json_data);
                 // Open and send the request
                 request.open("post", url);
 
