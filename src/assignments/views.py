@@ -158,7 +158,7 @@ def addresource(request):
             vid = video.objects.create(
                 Name=request.POST['Name'], platform='L', lesson=lesson, assignment=assign)
             file_name = default_storage.save(
-                'assignments/videos/'+str(vid.id)+'.mp4', request.Files['file'])
+                'assignments/videos/'+str(vid.id)+'.mp4', request.FILES['file'])
             vid.file = file_name
             vid.save()
         elif request.POST['type'] == 'pdf':

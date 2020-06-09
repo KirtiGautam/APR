@@ -2,9 +2,92 @@ from django.shortcuts import render, redirect, reverse
 from django import http
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.core.files.storage import default_storage
 from accounts.models import Class
 from homework.models import homework, pdf, video, test, question, choice, answer
-import datetime
+from lessons.models import Lesson, Subject
+import datetime, json
+
+
+def newHomework(request):
+    if request.user.is_authenticated:
+        home = homework.objects.create(
+            Name=request.POST['Name'], Instructions=request.POST['instructions'], Subject=Subject.objects.get(id=request.POST['subject']))
+        File = request.POST['name']
+        if request.POST['type'] == 'video':
+            file = request.FILES['file']
+            vid = video.objects.create(
+                Name=File, platform='L', homework=home, lesson=Lesson.objects.get(id=request.POST['lesson']))
+            file_name = default_storage.save(
+                'assignments/videos/'+str(vid.id)+'.mp4', file)
+            vid.file = file_name
+            vid.save()
+        elif request.POST['type'] == 'csv':
+            Tobj = test.objects.create(
+                Name=File, homework=home, Lesson=Lesson.objects.get(id=request.POST['lesson']))
+            for x in json.loads(request.POST['file']):
+                qn = question.objects.create(Name=x['Question'], test=Tobj)
+                c1 = choice.objects.create(
+                    Name=x['Choice 1'].strip(), question=qn)
+                c2 = choice.objects.create(
+                    Name=x['Choice 2'].strip(), question=qn)
+                c3 = choice.objects.create(
+                    Name=x['Choice 3'].strip(), question=qn)
+                c4 = choice.objects.create(
+                    Name=x['Choice 4'].strip(), question=qn)
+                c = [c1, c2, c3, c4]
+                for i in range(1, 5):
+                    if x['Choice '+str(i)].strip() == x['Correct Answer'].strip():
+                        ans = answer.objects.create(question=qn, choice=c[i-1])
+        else:
+            file = request.FILES['file']
+            pd = pdf.objects.create(
+                Name=File, homework=home, lesson=Lesson.objects.get(id=request.POST['lesson']))
+            file_name = default_storage.save(
+                'assignments/pdfs/'+str(pd.id)+'.pdf', file)
+            pd.file = file_name
+            pd.save()
+        return http.JsonResponse({'message': 'File uploaded'})
+    return http.HttpResponseForbidden({'message': 'Forbidden'})
+
+
+def addresource(request):
+    if request.user.is_authenticated:
+        home = homework.objects.get(id=request.POST['homework'])
+        lesson = Lesson.objects.get(id=request.POST['lesson'])
+        if request.POST['type'] == 'video':
+            vid = video.objects.create(
+                Name=request.POST['Name'], platform='L', lesson=lesson, homework=home)
+            file_name = default_storage.save(
+                'assignments/videos/'+str(vid.id)+'.mp4', request.FILES['file'])
+            vid.file = file_name
+            vid.save()
+        elif request.POST['type'] == 'pdf':
+            pd = pdf.objects.create(
+                Name=request.POST['Name'], homework=home, lesson=Lesson.objects.get(id=request.POST['lesson']))
+            file_name = default_storage.save(
+                'assignments/pdfs/'+str(pd.id)+'.pdf', request.FILES['file'])
+            pd.file = file_name
+            pd.save()
+        else:
+            Tobj = test.objects.create(
+                Name=request.POST['Name'], homework=home, Lesson=lesson)
+            for x in json.loads(request.POST['file']):
+                qn = question.objects.create(Name=x['Question'], test=Tobj)
+                c1 = choice.objects.create(
+                    Name=x['Choice 1'].strip(), question=qn)
+                c2 = choice.objects.create(
+                    Name=x['Choice 2'].strip(), question=qn)
+                c3 = choice.objects.create(
+                    Name=x['Choice 3'].strip(), question=qn)
+                c4 = choice.objects.create(
+                    Name=x['Choice 4'].strip(), question=qn)
+                c = [c1, c2, c3, c4]
+                for i in range(1, 5):
+                    if x['Choice '+str(i)].strip() == x['Correct Answer'].strip():
+                        ans = answer.objects.create(question=qn, choice=c[i-1])
+        return http.JsonResponse({'message': 'File uploaded'})
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})
 
 
 def Test(request, id):
@@ -30,7 +113,6 @@ def Test(request, id):
             }
             return render(request, 'test/result.html', data)
     return http.HttpResponseForbidden({'message': 'You are not authorized'})
-
 
 
 def homeworks(request):

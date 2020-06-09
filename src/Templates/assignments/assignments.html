@@ -5,9 +5,10 @@
             <a href="{% url 'assignment:assignmentDetails' key.assi.id %}">
                 <div class="title">{{key.assi.Subject.Name}}</div>
                 <div class="summary">{{key.assi.videos.all.count}} Videos + {{key.assi.pdfs.all.count}} Reading</div>
+                {% if not user.admin %}
                 <div class="perc row">
                     <div class="progress col-9">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                        <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" style="width: 30%;"
                             aria-valuemax="100">
                         </div>
                     </div>
@@ -15,6 +16,7 @@
                         30%
                     </div>
                 </div>
+                {% endif %}
                 <div class="moti">
                     TIME TO WORK!
                 </div>

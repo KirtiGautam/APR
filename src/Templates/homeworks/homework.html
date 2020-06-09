@@ -21,7 +21,8 @@
                 <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
                 {% endfor %}
             </select>
-            <span><button class="btn first-plus">+</button></span>
+            <span><button class="btn first-plus add-home d-none" data-toggle="modal" data-backdrop="static"
+                data-target="#add">+</button></span>
         </div>
         {% else %}
         <input type="hidden" id="class" value="{{class}}">
@@ -41,6 +42,9 @@
     <div class="row second mt-5" id="body">
 
     </div>
+    {% if user.admin %}
+    {% include 'homeworks/newHomework.html' %}
+    {% endif %}
 </div>
 <script src="{% static 'js/homeworks/homework.js' %}"></script>
 <script>

@@ -10,15 +10,19 @@
 {% include "common/header.html" %}
 <div class="container-fluid mt-5 pt-3">
     <div class="row first mb-5">
+        {% if user.admin %}
         <div class="col-6 col-sm-6 col-md-2 col-lg-1">
             <a><img src="/static/Images/assignment/back.png" alt="" class="img mt-2"></a>
         </div>
+        {% endif %}
         <div class="col-6 col-sm-6 col-md-4 col-lg-5 subject-name">
             {{assign.Subject.Name}}
         </div>
+        {% if user.admin %}
         <div class="col-4 col-sm-4 col-md-2 col-lg-1">
             <a><img src="/static/Images/assignment/edit.svg" alt="" class="img1 mt-2"></a>
         </div>
+        {% endif %}
         <div class="col-8 col-sm-8 col-md-4 col-lg-5 p-2 time-left">
             {{assign.Deadline|timeuntil}} to go
         </div>
@@ -27,9 +31,11 @@
         <div class="col-8 col-sm-8 col-md-8 col-lg-8 assignment-title mb-3">
             {{assign.Name}}
         </div>
+        {% if user.admin %}
         <div class="col-4 col-sm-4 col-md-4 col-lg-4 mb-3">
             <a><img src="/static/Images/assignment/edit.svg" alt="" class="img2 mt-2"></a>
         </div>
+        {% endif %}
         <div class="col-12 mb-3">
             <span class="instruction">Instructions related to assignment: </span>
             <span class="instruct">{{assign.Instructions}}</span>
@@ -42,10 +48,12 @@
             <span class="due">Due date: </span>
             <span class="due-date">{{assign.Deadline}}</span>
         </div>
+        {% if user.admin %}
         <div class="col-2 mb-3">
             <button class="btn plus p-1 float-right" data-toggle="modal" data-backdrop="static"
-            data-target="#add">+</button>
+                data-target="#add">+</button>
         </div>
+        {% endif %}
     </div>
     <div class="row third mb-5">
         {% for key in assign.pdfs.all %}
@@ -127,11 +135,13 @@
         </div>
         {% endfor %}
     </div>
+    {% if user.admin %}
     <div class="row forth">
         <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>
         <button class="btn ass-save col-5 col-sm-5 col-md-3 col-lg-2 p-2">Save</button>
     </div>
     {% include 'assignments/addresource.html' %}
+    {% endif %}
 </div>
 
 <script src="{% static 'js/assignments/detail.js' %}"></script>

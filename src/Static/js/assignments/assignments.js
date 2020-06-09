@@ -4,7 +4,7 @@ function getAssignments() {
         headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
         url: '/get-assignments',
         data: {
-            'id': $('#class').val(),
+            'id': $('#class').val(), 
         },
         dataType: 'json',
         success: function (data) {
