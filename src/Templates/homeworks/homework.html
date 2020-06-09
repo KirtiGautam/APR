@@ -7,14 +7,15 @@
 
 <link rel="stylesheet" href="{% static 'css/homework.css' %}">
 
-<div class="container-fluid">
+<div class="container-fluid one">
     <div class="row first">
         <span class="col-12 col-sm-6 col-md-6 col-lg-4 first-text">
             DAILY<br>HOMEWORKS
             <br>
         </span>
-        {% if request.user.admin %}
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 row first-class-plus d-flex justify-content-around">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+            {% if request.user.admin %}
+        <div class="col-12 row first-class-plus d-flex justify-content-around">
             <select id="class" class="col-8 form-control first-dropdown m-2">
                 <option value="" disabled selected>Class</option>
                 {% for key in classes %}
@@ -27,6 +28,7 @@
         {% else %}
         <input type="hidden" id="class" value="{{class}}">
         {% endif %}
+        </div>
         <div class="col-0 col-md-4 col-lg-4 image">
             <img src="/static/Images/lesson/back.png" alt="" class="col-5 float-right">
         </div>
