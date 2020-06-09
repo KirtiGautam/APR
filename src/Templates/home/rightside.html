@@ -29,5 +29,18 @@
       <div class="upcoming-activities-data"></div>
     </div>
   </div>
+  <script>
+    (function ($) {
+      "use strict";
 
+      var fullHeight = function () {
+        $(".js-fullheight").css("height", $(window).height());
+        $(window).resize(function () {
+          $(".js-fullheight").css("height", $(window).height());
+        });
+      };
+      fullHeight();
+
+    })(jQuery);
+  </script>
 </body>
