@@ -10,7 +10,7 @@
 </div>
 <div class="row mt-3">
     {% for pdf in lesson.lesson_pdfs.all %}
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <a href="{{ prefix }}{{pdf.file}}" target="_blank">
             <div class="cards p-2">
                 <span class="row row-head">
@@ -33,7 +33,7 @@
     </div>
     {% endfor %}
     {% for video in lesson.lesson_videos.all %}
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <a href="{% url 'lessons:video' video.id %}">
             <div class="cards p-2">
                 <span class="row row-head">
@@ -56,7 +56,7 @@
     </div>
     {% endfor %}
     {% for key in lesson.lesson_Test.all %}
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <a href="{% url 'lessons:Test' key.id %}">
             <div class="cards test p-2">
                 <span class="row row-head">

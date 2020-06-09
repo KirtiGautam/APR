@@ -10,45 +10,47 @@
     {% include "home/leftside.html" %}
 </div>
 <div class="content">
-    <div class="row first">
-        <span class="col-12 col-sm-6 col-md-6 col-lg-4 first-text">
-            DAILY<br>HOMEWORKS
-            <br>
-        </span>
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-            {% if request.user.admin %}
-            <div class="col-12 row first-class-plus d-flex justify-content-around">
-                <select id="class" class="col-8 form-control first-dropdown m-2">
-                    <option value="" disabled selected>Class</option>
-                    {% for key in classes %}
-                    <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
-                    {% endfor %}
-                </select>
-                <span><button class="btn first-plus add-home d-none" data-toggle="modal" data-backdrop="static"
-                        data-target="#add">+</button></span>
+    <div class="container-fluid">
+        <div class="row first">
+            <span class="col-12 col-sm-6 col-md-6 col-lg-4 first-text">
+                DAILY<br>HOMEWORKS
+                <br>
+            </span>
+            <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+                {% if request.user.admin %}
+                <div class="col-12 row first-class-plus d-flex justify-content-around">
+                    <select id="class" class="col-8 form-control first-dropdown m-2">
+                        <option value="" disabled selected>Class</option>
+                        {% for key in classes %}
+                        <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
+                        {% endfor %}
+                    </select>
+                    <span><button class="btn first-plus add-home d-none" data-toggle="modal" data-backdrop="static"
+                            data-target="#add">+</button></span>
+                </div>
+                {% else %}
+                <input type="hidden" id="class" value="{{class}}">
+                {% endif %}
             </div>
-            {% else %}
-            <input type="hidden" id="class" value="{{class}}">
-            {% endif %}
-        </div>
-        <div class="col-0 col-md-4 col-lg-4 image">
-            <img src="/static/Images/lesson/back.png" alt="" class="col-5 float-right">
-        </div>
-        <div class="row first-one">
-            <input type="text" id="hold" placeholder="Date"
-                class="form-control col-8 col-sm-6 col-md-6 col-lg-6 date p-1" disabled>
-            <div class="col-4 col-sm-6 col-md-6 col-lg-6">
-                <input type="date" id="date" class="drop ">
-                <!-- <img src="{% static 'Images/header/calender.png' %}" class="col-9 col-sm-5" id="datep" /> -->
+            <div class="col-0 col-md-4 col-lg-4 image">
+                <img src="/static/Images/lesson/back.png" alt="" class="col-5 float-right">
+            </div>
+            <div class="row first-one">
+                <input type="text" id="hold" placeholder="Date"
+                    class="form-control col-8 col-sm-6 col-md-6 col-lg-6 date p-1" disabled>
+                <div class="col-4 col-sm-6 col-md-6 col-lg-6">
+                    <input type="date" id="date" class="drop ">
+                    <!-- <img src="{% static 'Images/header/calender.png' %}" class="col-9 col-sm-5" id="datep" /> -->
+                </div>
             </div>
         </div>
+        <div class="row second mt-5" id="body">
+    
+        </div>
+        {% if user.admin %}
+        {% include 'homeworks/newHomework.html' %}
+        {% endif %}
     </div>
-    <div class="row second mt-5" id="body">
-
-    </div>
-    {% if user.admin %}
-    {% include 'homeworks/newHomework.html' %}
-    {% endif %}
 </div>
 
 <script src="{% static 'js/homeworks/homework.js' %}"></script>
