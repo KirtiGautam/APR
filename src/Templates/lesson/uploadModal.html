@@ -11,29 +11,39 @@
             <div class="modal-body mb-5">
                 <div class="container-fluid">
                     <div class="row">
-                        <label for="" class="selection col-5 col-sm-5 col-md-3 col-lg-3 col-xl-3">Select
-                            Database</label>
-                        <div class="col-1"></div>
-                        <label for="" class="selection col-5 col-sm-5 col-md-3 col-lg-3 col-xl-3">Name</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                            <label for="" class="selection">Select Database</label>
+                            <br>
+                            <select name="" id="dataType" class="drop form-control p-1">
+                                <option value="" disabled selected>File Type</option>
+                                <option value="pdf">PDF</option>
+                                <option value="video">Video</option>
+                                <option value="csv">MCQ</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                            <label for="" class="selection">Name</label>
+                            <br>
+                            <input type="text" id="FName" class="drop p-1 form-control">
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                            <br>
+                            <button onclick="upload('{% url 'lessons:upload'  %}');" id="upload_btn"
+                                class="btn import col-12">Upload</button>
+                        </div>
+
                     </div>
                     <div class="row">
-                        <select name="" id="dataType" class="drop col-5 col-sm-5 col-md-3 col-lg-3 col-xl-3 p-1">
-                            <option value="" disabled selected>File Type</option>
-                            <option value="pdf">PDF</option>
-                            <option value="video">Video</option>
-                            <option value="csv">MCQ</option>
-                        </select>
+
                         <div class="col-1"></div>
-                        <input type="text" id="FName" class="drop col-5 col-sm-5 col-md-3 col-lg-3 col-xl-3 p-1">
+
                         <div class="col-1"></div>
-                        <button onclick="upload('{% url 'lessons:upload'  %}');" id="upload_btn"
-                            class="btn import col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3">Upload</button>
                     </div>
                 </div>
                 <div class="mb-3 mt-3">
                     <div class="form-group mb-3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="file_input" id="file_input"
+                            <input type="file" class="custom-file-input form-control" name="file_input" id="file_input"
                                 oninput="input_filename();">
                             <label id="file_input_label" class="custom-file-label" for="image">Select
                                 file</label>

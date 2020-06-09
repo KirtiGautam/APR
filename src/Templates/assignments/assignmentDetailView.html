@@ -28,12 +28,12 @@
         </div>
     </div>
     <div class="row second mb-5">
-        <div class="col-8 col-sm-8 col-md-8 col-lg-8 assignment-title mb-3">
-            {{assign.Name}}
-        </div>
-        {% if user.admin %}
-        <div class="col-4 col-sm-4 col-md-4 col-lg-4 mb-3">
-            <a><img src="/static/Images/assignment/edit.svg" alt="" class="img2 mt-2"></a>
+        <div class="col-12">
+            <div class="assignment-title mb-3">
+                {{assign.Name}}
+            </div>
+            {% if user.admin %}
+            <a><img src="/static/Images/assignment/edit.svg" alt="" class="img2 m-1"></a>
         </div>
         {% endif %}
         <div class="col-12 mb-3">
@@ -66,13 +66,19 @@
                             <input type="checkbox" name="" id="">
                         </span>
                     </span>
-                    <span class="row text-center">
-                        <span class="col-3"></span>
-                        <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+                    <span class="row">
+                        <span class="text-center">
+                            <span class="col-3"></span>
+                            <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+                        </span>
                     </span>
                     <span class="row row-foot">
-                        <span>{{key.Name}}</span>
-                        <span class="time">2 min</span>
+                        <span class="col-8">{{key.Name}}</span>
+                        <span class="col-4">
+                            <span class="float-right">
+                                <span class="time">2 min</span>
+                            </span>
+                        </span>
                     </span>
                 </div>
             </a>
@@ -84,7 +90,7 @@
         {% for key in assign.videos.all %}
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
             <a href="{% url 'assignment:video' key.id %}">
-                <div class="cards p-3">
+                <div class="cards p-2">
                     <span class="row row-head">
                         <span class="text-left col-10">VIDEO</span>
                         <span class="checkbox round col-2">
@@ -99,7 +105,11 @@
                     </span>
                     <span class="row row-foot">
                         <span class="col-8">{{key.Name}}</span>
-                        <span class="time col-4">2 min</span>
+                        <span class="col-4">
+                            <span class="float-right">
+                                <span class="time">2 min</span>
+                            </span>
+                        </span>
                     </span>
                 </div>
             </a>
@@ -111,7 +121,7 @@
         {% for key in assign.Test.all %}
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
             <a href="{% url 'assignment:Test' key.id %}">
-                <div class="cards test p-3">
+                <div class="cards test p-2">
                     <span class="row row-head">
                         <span class="text-left col-10">{{key.question.all.count}} Questions</span>
                         <span class="checkbox round col-2">
@@ -136,7 +146,7 @@
         {% endfor %}
     </div>
     {% if user.admin %}
-    <div class="row forth">
+    <div class="row forth mb-5">
         <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>
         <button class="btn ass-save col-5 col-sm-5 col-md-3 col-lg-2 p-2">Save</button>
     </div>
