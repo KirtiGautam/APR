@@ -132,6 +132,14 @@ $(document).ready(function () {
         }
     });
 
+    $('#dataType').change(function () {
+        if (this.value == 'csv') {
+            $('.csv').removeClass('d-none');
+        } else {
+            $('.csv').addClass('d-none');
+        }
+    });
+
     $('#subjects').change(function () {
         getLessons();
     });

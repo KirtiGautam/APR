@@ -76,7 +76,7 @@ $(document).ready(function () {
         getlessons();
     });
     $('#dataType').change(function () {
-        if ($('#dataType').val() == 'csv') {
+        if (this.value == 'csv') {
             $('.csv').removeClass('d-none');
         } else {
             $('.csv').addClass('d-none');

@@ -74,4 +74,12 @@ $(document).ready(function () {
     $('#subjects').change(function () {
         getLessons();
     });
+
+    $('#dataType').change(function () {
+        if (this.value == 'csv') {
+            $('.csv').removeClass('d-none');
+        } else {
+            $('.csv').addClass('d-none');
+        }
+    });
 });

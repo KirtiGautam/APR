@@ -122,6 +122,14 @@ function getFormData() {
 
 $(document).ready(function () {
 
+    $('#dataType').change(function () {
+        if (this.value == 'csv') {
+            $('.csv').removeClass('d-none');
+        } else {
+            $('.csv').addClass('d-none');
+        }
+    });
+
     $('#class, #date').change(function () {
         getHomeworks();
         $('#hold').val($('#date').val());

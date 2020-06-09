@@ -10,11 +10,9 @@
 {% include "common/header.html" %}
 <div class="container-fluid mt-5 pt-3">
     <div class="row first mb-5">
-        {% if user.admin %}
         <div class="col-6 col-sm-6 col-md-2 col-lg-1">
-            <a><img src="/static/Images/assignment/back.png" alt="" class="img mt-2"></a>
+            <a href="{% url 'homework:homework' %}" ><img src="/static/Images/assignment/back.png" alt="" class="img mt-2"></a>
         </div>
-        {% endif %}
         <div class="col-6 col-sm-6 col-md-4 col-lg-5 subject-name">
             {{homework.Subject.Name}}
         </div>
@@ -130,10 +128,12 @@
         </div>
         {% endfor %}
     </div>
+    {% if user.admin}
     <div class="row forth mb-3">
         <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>
         <button class="btn home-save col-5 col-sm-5 col-md-3 col-lg-2 p-2">Save</button>
     </div>
+    {% endif %}
     {% include 'homeworks/addresource.html' %}
 </div>
 
