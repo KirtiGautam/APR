@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
   if ($(window).width() <= 800) {
     $(".leftside").addClass("d-none");
     $(".second-side").addClass("d-none");
@@ -8,6 +9,9 @@ $(document).ready(function () {
     $(".leftside").toggleClass("d-none");
     if ($(window).width() <= 800) {
       $(".second-side").addClass("d-none");
+    }
+    if ($(window).width() <= 700) {
+      $('.content').toggleClass('d-none');
     }
   });
 
