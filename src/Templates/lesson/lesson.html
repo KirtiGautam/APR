@@ -3,15 +3,18 @@
 {% block content %}
 
 <head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
     <link rel="stylesheet" href="{% static 'css/lesson.css' %}">
 </head>
 
+{% include "common/header.html" %}
+
 <body>
-    <div>
-        {% include "common/header.html" %}
+    <div class="col-10 col-sm-4 col-md-4 col-lg-3 float-left left">
+        {% include "home/leftside.html" %}
     </div>
-    <div class="container-fluid">
-        <div class="row mt-5 pt-5 mb-5">
+    <div class="col content">
+        <div class="row mb-5">
             <div class="col-6 col-sm-6 col-md-6 col-lg-3">
                 <span class="select-subject">Select Subjects</span>
             </div>
@@ -31,14 +34,14 @@
                 <div class="flexing" id="SB">
                 </div>
             </div>
-            <div class="col-12 back row">
+            <div class="col-12 back">
                 <span class="col-6 back-text">
                     LESSONS AND
                     <br>
                     PRACTICE TEST
                 </span>
                 <span class="col-6 back-photo">
-                    <img src="/static/Images/lesson/back.png" alt="" class="rounded float-right col-5">
+                    <img src="/static/Images/lesson/back.png" alt="" class="rounded float-right col-3">
                 </span>
             </div>
             <div id="body" class="col-12">

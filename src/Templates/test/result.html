@@ -3,39 +3,46 @@
 {% block content %}
 
 <head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
     <link rel="stylesheet" href="{% static 'css/submit.css' %}">
 </head>
 
-<div class="container">
-    <div class="row p-5 m-5">
-        <div class="col-lg-12 report">
-            <div class="row col-lg-12 mt-2">
-                <div class="col-lg-10">
-                    <h4>Test Completed</h4>
-                    <h5>{% if marks > 30 %}Congratulations!{% endif %} You scored {{Percentage}}% in the test</h5>
+<body>
+    {% include "common/header.html" %}
+    <div class="col-10 col-sm-4 col-md-4 col-lg-3 float-left left">
+        {% include "home/leftside.html" %}
+    </div>
+    <div class="col content">
+        <div class="row">
+            <div class="col-lg-12 report">
+                <div class="row col-lg-12 mt-2">
+                    <div class="col-lg-10">
+                        <h4>Test Completed</h4>
+                        <h5>{% if marks > 30 %}Congratulations!{% endif %} You scored {{Percentage}}% in the test</h5>
+                    </div>
+                    <div class="col-lg-2">
+                        <h1 class="text-danger textrmal">{{Percentage}}%</h1>
+                    </div>
                 </div>
-                <div class="col-lg-2">
-                    <h1 class="text-danger textrmal">{{Percentage}}%</h1>
+                <div class="row">
+                    <div class="mt-2 col-lg-12 bod p-5">
+                        <center>
+                            <h6>Total Questions: {{Number}}</h6>
+                            <h6>Correct Answers: {{Correct}}</h6>
+                            <h6>Wrong Answers: {{Wrong}}</h6>
+                        </center>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="mt-2 col-lg-12 bod p-5">
-                    <center>
-                        <h6>Total Questions: {{Number}}</h6>
-                        <h6>Correct Answers: {{Correct}}</h6>
-                        <h6>Wrong Answers: {{Wrong}}</h6>
-                    </center>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 mt-5 mb-5">
-                    <a href="{% url 'accounts:dashboard' %}"><button
-                            class="btn btn-outline-primary ml-3 float-right">Exit</button></a>
-                    <button class="btn btn-primary ml-5 float-right" id="chec">Check Answers</button>
+                <div class="row">
+                    <div class="col-12 mt-5 mb-5">
+                        <a href="{% url 'accounts:dashboard' %}"><button
+                                class="btn btn-outline-primary ml-3 float-right">Exit</button></a>
+                        <button class="btn btn-primary ml-5 float-right" id="chec">Check Answers</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</body>
 
 {% endblock %}
