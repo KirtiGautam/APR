@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 float-right"
+                <button type="button" class="close float-right"
                     data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,39 +12,37 @@
                 <div class="container-fluid">
                     <input type="hidden" id="homeworkid" value="{{homework.id}}">
                     <div class="row">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6 col-lg-6">
-                                <span class="selection">Subjects</span>
-                                <br>
-                                <select id="subjects" class="drop p-1">
-                                    <option value="" selected disabled>Subjects</option>
-                                    {% for key in homework.Subject.Class.Subject.all %}
-                                    <option value="{{key.id}}">{{key.Name}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-6">
-                                <span class="selection">Lessons</span>
-                                <br>
-                                <select id='lessons' class="drop p-1"></select>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                            <label for="" class="selection">Select Database</label>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                            <span class="selection">Subjects</span>
                             <br>
-                            <select id="dataType" class="drop p-1">
+                            <select id="subjects" class="drop p-1 form-control">
+                                <option value="" selected disabled>Subjects</option>
+                                {% for key in homework.Subject.Class.Subject.all %}
+                                <option value="{{key.id}}">{{key.Name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                            <span class="selection">Lessons</span>
+                            <br>
+                            <select id='lessons' class="drop p-1 form-control"></select>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                            <span for="" class="selection">Select Database</span>
+                            <br>
+                            <select id="dataType" class="drop p-1 form-control">
                                 <option value="" disabled selected>File Type</option>
                                 <option value="pdf">PDF</option>
                                 <option value="video">Video</option>
                                 <option value="csv">MCQ</option>
                             </select>
                         </div>
-                        <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                             <label for="" class="selection">Name</label>
                             <br>
                             <input type="text" id="FName" class="drop form-control p-1">
                         </div>
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                             <br>
                             <button onclick="upload('{% url 'homework:addresource'  %}');" id="upload_btn"
                                 class="btn import col-12">Upload</button>

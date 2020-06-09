@@ -3,7 +3,12 @@
   font-family: NeueBold;
 }
 
-.container-fluid {
+@font-face {
+  src: url("/static/fonts/HelveticaNeue-Medium.ttf");
+  font-family: NeueMedium;
+}
+
+.one {
   margin-top: 30px;
 }
 
@@ -88,8 +93,13 @@
   color: #626262;
 }
 
-.progress-bar {
+.progress {
   background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 0%;
+}
+
+.progress-bar {
+  background: #37b970 0% 0% no-repeat padding-box;
 }
 
 .progress-text {
@@ -111,6 +121,12 @@
   margin-left: 5%;
 }
 
+.selection {
+  font-size: calc(1vmax + 1vmin);
+  font-family: NeueMedium;
+  color: #626262;
+}
+
 .drop {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 0.5px solid #b3b6b8;
@@ -118,6 +134,14 @@
   font-size: calc(12px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
+}
+
+.import {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  font-family: "Poppins", sans-serif;
+  font-size: calc(11px + 1vmin);
+  color: #ffffff;
 }
 
 a:hover {
@@ -135,7 +159,7 @@ a:hover {
 }
 
 @media screen and (min-width: 800px) {
-  .container-fluid {
+  .one {
     margin-top: 70px;
   }
 }

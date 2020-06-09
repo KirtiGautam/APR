@@ -3,7 +3,7 @@
   font-family: NeueBold;
 }
 
-@font-face{
+@font-face {
   src: url("/static/fonts/HelveticaNeueMed.ttf");
   font-family: NeueMedium;
 }
@@ -12,10 +12,6 @@
   background: transparent
     linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
     no-repeat padding-box;
-}
-
-.card {
-  margin: 2%;
 }
 
 .first-text {
@@ -62,7 +58,7 @@
   background: transparent linear-gradient(132deg, #cb2d3e 0%, #ef473a 100%) 0%
     0% no-repeat padding-box;
   border-radius: 10px;
-  height: 100%;
+  height: max-content;
 }
 
 .prime {
@@ -100,6 +96,10 @@
   border-radius: 0px;
 }
 
+.deadline .progress-bar {
+  background: #ffffff 0% 0% no-repeat padding-box;
+}
+
 .prime .progress {
   background: #56a2f9 0% 0% no-repeat padding-box;
   border-radius: 0px;
@@ -115,7 +115,6 @@
   font-size: calc(7px + 1vmin);
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
-  letter-spacing: 0px;
   color: #ffffff;
 }
 
