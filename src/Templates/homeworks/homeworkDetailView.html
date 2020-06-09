@@ -19,6 +19,11 @@
     {% for key in homework.videos.all %}
     <a href="{% url 'homework:video' key.id %}">{{key.Name}}</a>
     {% endfor %}
+    
+    {% for key in homework.Test.all %}
+    <a href="{% url 'homework:Test' key.id %}">{{key.Name}}</a>
+    {% endfor %}
+    
 </div>
 
 {% endblock %}

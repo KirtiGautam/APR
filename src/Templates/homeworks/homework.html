@@ -13,6 +13,7 @@
             DAILY<br>HOMEWORKS
             <br>
         </span>
+        {% if request.user.admin %}
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 row first-class-plus d-flex justify-content-around">
             <select id="class" class="col-8 form-control first-dropdown m-2">
                 <option value="" disabled selected>Class</option>
@@ -22,6 +23,9 @@
             </select>
             <span><button class="btn first-plus">+</button></span>
         </div>
+        {% else %}
+        <input type="hidden" id="class" value="{{class}}">
+        {% endif %}
         <div class="col-0 col-md-4 col-lg-4 image">
             <img src="/static/Images/lesson/back.png" alt="" class="col-5 float-right">
         </div>
@@ -35,9 +39,19 @@
         </div>
     </div>
     <div class="row second mt-5" id="body">
-        
+
     </div>
 </div>
-
 <script src="{% static 'js/homeworks/homework.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        {% if request.user.admin %}
+        $('#class').val('');
+        {% else %}
+        getHomeworks();
+        {% endif %}
+    });
+</script>
+
+
 {% endblock %}

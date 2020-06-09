@@ -99,28 +99,32 @@
             </div>
         </div>
         {% endfor %}
+        {% for key in assign.Test.all %}
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
-            <div class="cards test p-3">
-                <span class="row row-head">
-                    <span class="text-left col-10">4 Tests | 120 Questions</span>
-                    <span class="checkbox round col-2">
-                        <input type="checkbox" name="" id="">
+            <a href="{% url 'assignment:Test' key.id %}">
+                <div class="cards test p-3">
+                    <span class="row row-head">
+                        <span class="text-left col-10">{{key.question.all.count}} Questions</span>
+                        <span class="checkbox round col-2">
+                            <input type="checkbox" name="" id="">
+                        </span>
                     </span>
-                </span>
-                <span class="row">
-                    <span class="text-center">
-                        <span class="col-3"></span>
-                        <img src="/static/Images/lesson/test.png" alt="" class="col-6">
+                    <span class="row">
+                        <span class="text-center">
+                            <span class="col-3"></span>
+                            <img src="/static/Images/lesson/test.png" alt="" class="col-6">
+                        </span>
                     </span>
-                </span>
-                <span class="row row-foot">
-                    <span class="col-12">Practice Test</span>
-                </span>
-            </div>
-            <div class="text-center">
-                <span class="chapter">Name of chapter</span>
-            </div>
+                    <span class="row row-foot">
+                        <span class="col-12">Practice Test</span>
+                    </span>
+                </div>
+                <div class="text-center">
+                    <span class="chapter">{{key.Lesson.Name}}</span>
+                </div>
+            </a>
         </div>
+        {% endfor %}
     </div>
     <div class="row forth">
         <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>

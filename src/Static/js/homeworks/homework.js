@@ -1,7 +1,6 @@
 let today = new Date();
 
-function getAssignments() {
-    console.log($('#class').val())
+function getHomeworks() {
     if ($('#class').val() == '' || $('#class').val() == null) {
         alert('Please select Class');
         return;
@@ -24,7 +23,7 @@ function getAssignments() {
 $(document).ready(function () {
 
     $('#class, #date').change(function () {
-        getAssignments();
+        getHomeworks();
         $('#hold').val($('#date').val());
     });
 
@@ -35,6 +34,4 @@ $(document).ready(function () {
     $('#date, #hold').val(
         today.getFullYear() + '-' + (((today.getMonth() + 1) < 10) ? '0' : '') + (today.getMonth() + 1) + '-' + ((today.getDate() < 10) ? '0' : '') + today.getDate()
     )
-
-    $('#class').val('');
 });

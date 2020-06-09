@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django import http
 from django.template.loader import render_to_string
 from django.conf import settings
@@ -13,14 +13,16 @@ def Test(request, id):
         if request.method == 'GET':
             data = {
                 'test': test.objects.get(id=id),
+                'url': reverse('lessons:Test', args=[id]),
             }
             return render(request, 'test/test.html', data)
         else:
             Test = test.objects.get(id=id).question.all()
             correct = 0
             for x in Test:
-                if int(request.POST[str(x.id)]) == x.Answer.choice.id:
-                    correct += 1
+                if request.POST[str(x.id)] != '':
+                    if int(request.POST[str(x.id)]) == x.Answer.choice.id:
+                        correct += 1
             data = {
                 'Number': Test.count(),
                 'Percentage': (correct/Test.count())*100,
@@ -38,12 +40,11 @@ def lessons(request):
             data = {
                 'classes': Class.objects.all().values('id', 'name', 'section', 'year')
             }
-            return render(request, 'lesson/lesson.html', data)
         else:
             data = {
                 'class': request.user.Student.Class.id
             }
-            return render(request, 'lesson/lesson.html', data)
+        return render(request, 'lesson/lesson.html', data)
     else:
         return redirect('accounts:login')
 
@@ -97,10 +98,14 @@ def upload(request):
                 Name=File, Lesson=Lesson.objects.get(id=request.POST['lesson']))
             for x in json.loads(request.POST['file']):
                 qn = question.objects.create(Name=x['Question'], test=Tobj)
-                c1 = choice.objects.create(Name=x['Choice 1'].trim(), question=qn)
-                c2 = choice.objects.create(Name=x['Choice 2'].trim(), question=qn)
-                c3 = choice.objects.create(Name=x['Choice 3'].trim(), question=qn)
-                c4 = choice.objects.create(Name=x['Choice 4'].trim(), question=qn)
+                c1 = choice.objects.create(
+                    Name=x['Choice 1'].trim(), question=qn)
+                c2 = choice.objects.create(
+                    Name=x['Choice 2'].trim(), question=qn)
+                c3 = choice.objects.create(
+                    Name=x['Choice 3'].trim(), question=qn)
+                c4 = choice.objects.create(
+                    Name=x['Choice 4'].trim(), question=qn)
                 c = [c1, c2, c3, c4]
                 for i in range(1, 5):
                     if x['Choice '+str(i)].trim() == x['Correct Answer'].trim():

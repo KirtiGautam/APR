@@ -8,7 +8,11 @@ function getAssignments() {
         },
         dataType: 'json',
         success: function (data) {
-            $('#body').html(data.body);
+            if (data.body == '') {
+                $('#body').html("<h5 class='m-5 text-center'>No assignments</h5>");
+            } else {
+                $('#body').html(data.body);
+            }
             getSubjects();
         }
     });
@@ -93,6 +97,16 @@ function Validate() {
     }
     return true;
 
+}
+
+function resetForm() {
+    $('#lessons').val('');
+    $('#FName').val('');
+    $('#dataType').val('');
+    $('#subjects').val();
+    $('.assignment-name').val('');
+    $('.assignment-instructions').val();
+    $('#deadline').val('');
 }
 
 function getFormData() {

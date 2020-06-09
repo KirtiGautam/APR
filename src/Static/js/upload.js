@@ -261,4 +261,6 @@ function reset() {
     // Reset the input placeholder
     file_input_label.innerText = "Select file";
 
+    resetForm();
+
 }

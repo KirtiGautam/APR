@@ -15,7 +15,7 @@ function getlessons(id = '') {
                 $('#body').html(data.body);
             }
             let html = '';
-            let subjects = data.subjects;   
+            let subjects = data.subjects;
             for (let i = 0; i < subjects.length; i++) {
                 html += "<span onclick='getlessons(" + subjects[i].id + ")' class='subject col-1 p-2 m-1";
                 html += (id == subjects[i].id || (id == '' && i == 0)) ? " active'>" : "'>";
@@ -28,6 +28,11 @@ function getlessons(id = '') {
 
 function setChapName(id) {
     $('#ChapName').val(id);
+}
+
+function resetForm() {
+    $('#FName').val('');
+    $('#dataType').val('')
 }
 
 function Validate() {

@@ -33,3 +33,31 @@ class pdf(models.Model):
         Lesson, on_delete=models.CASCADE, related_name='assignment_pdfs')
     assignment = models.ForeignKey(
         assignment, on_delete=models.CASCADE, related_name='pdfs')
+
+
+class test(models.Model):
+    Name = models.CharField(max_length=50)
+    assignment = models.ForeignKey(
+        assignment, on_delete=models.CASCADE, related_name='Test')
+    Lesson = models.ForeignKey(
+        Lesson, on_delete=models.CASCADE, related_name='assignment_Test')
+    final = models.BooleanField(default=False)
+
+
+class question(models.Model):
+    Name = models.CharField(max_length=500)
+    test = models.ForeignKey(
+        test, on_delete=models.CASCADE, related_name='question')
+
+
+class choice(models.Model):
+    Name = models.CharField(max_length=255)
+    question = models.ForeignKey(
+        question, on_delete=models.CASCADE, related_name='choice')
+
+
+class answer(models.Model):
+    question = models.OneToOneField(
+        question, on_delete=models.CASCADE,  related_name='Answer')
+    choice = models.ForeignKey(
+        choice, on_delete=models.CASCADE, related_name='correct_choice')
