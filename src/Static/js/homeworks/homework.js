@@ -16,7 +16,7 @@ function getHomeworks() {
         dataType: 'json',
         success: function (data) {
             if (data.body == '') {
-                $('#body').html("<h5 class='m-5 text-center'>No assignments</h5>");
+                $('#body').html("<h5 class='m-5 text-center'>No homework</h5>");
             } else {
                 $('#body').html(data.body);
             }

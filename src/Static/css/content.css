@@ -3,12 +3,12 @@
 }
 
 @media screen and (max-width:800px){
-  .left{
+  /* .left{
     display: none;
   }
   .right{
     display: none;
-  }
+  } */
   .content{
     padding-top: 30px !important;
   }

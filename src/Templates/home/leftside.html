@@ -8,7 +8,7 @@
   <div class="row leftside js-fullheight">
     <div class="text-center">
       <img src="{% static 'Images/leftnav/avatar.png' %}" class="col-5" />
-      <div class="name col-12">Name of the Student</div>
+      <div class="name col-12">{{user.get_full_name}}</div>
       <button class="btn view-profile col-9">View Profile</button>
       <div class="row">
         <div class="col-1"></div>
@@ -81,7 +81,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="{% url 'accounts:logout' %}">
               <span>
                 <img src="{% static 'Images/leftnav/logout.png' %}" class="leftside-menu-icon" />
               </span>

@@ -14,15 +14,12 @@
             {% include "home/leftside.html" %}
         </div>
         <div class="col content">
-            <h1 class="">Hi, {{request.user.get_full_name}}</h1>
-            <a href="{% url 'accounts:logout' %}">
-                <button class="text-light btn btn-sm btn-primary">Log out</button>
-            </a>
+            
         </div>
         <div class="col-10 col-sm-4 col-md-4 col-lg-3 float-right right">
             {% include "home/rightside.html" %}
         </div>
     </div>
-    <script src="{% static 'js/navbar.js' %}"></script>
+    <!-- <script src="{% static 'js/navbar.js' %}"></script> -->
 </body>
 {% endblock %}

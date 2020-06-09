@@ -1,12 +1,9 @@
 function Validate() {
     let type = $('#dataType').val();
     let Name = $('#FName').val();
-    let subject = $('#subjects').val();
     let lesson = $('#lessons').val();
     if (type == '' ||
         Name == '' ||
-        subject == null ||
-        subject == '' ||
         lesson == null ||
         lesson == '' ||
         type == null ||
@@ -45,35 +42,10 @@ function getFormData() {
 function resetForm() {
     $('#dataType').val('');
     $('#FName').val('');
-    $('#subjects').val('');
     $('#lessons').val('');
 }
 
-
-function getLessons() {
-    $.ajax({
-        type: "POST",
-        headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
-        url: '/get-lesson',
-        data: {
-            'id': $('#subjects').val(),
-        },
-        dataType: 'json',
-        success: function (data) {
-            html = '<option value="" selected disabled>Lessons</option>';
-            for (x in data.lessons) {
-                html += `<option value="${data.lessons[x].id}" >${data.lessons[x].Name}</option>`
-                $('#lessons').html(html);
-            }
-        }
-    });
-}
-
-
 $(document).ready(function () {
-    $('#subjects').change(function () {
-        getLessons();
-    });
 
     $('#dataType').change(function () {
         if (this.value == 'csv') {

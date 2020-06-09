@@ -12,20 +12,23 @@
                 <div class="container-fluid">
                     <input type="hidden" id="homeworkid" value="{{homework.id}}">
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                        <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-4">
                             <span class="selection">Subjects</span>
                             <br>
                             <select id="subjects" class="drop p-1 form-control">
                                 <option value="" selected disabled>Subjects</option>
+                                
+                            </select>
+                        </div> -->
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                            <span class="selection">Lessons</span>
+                            <br>
+                            <select id='lessons' class="drop p-1 form-control">
+                                <option value="" selected disabled>Lessons</option>
                                 {% for key in homework.Subject.Class.Subject.all %}
                                 <option value="{{key.id}}">{{key.Name}}</option>
                                 {% endfor %}
                             </select>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
-                            <span class="selection">Lessons</span>
-                            <br>
-                            <select id='lessons' class="drop p-1 form-control"></select>
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 col-lg-4">
                             <span for="" class="selection">Select Database</span>

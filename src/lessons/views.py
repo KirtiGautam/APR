@@ -99,16 +99,16 @@ def upload(request):
             for x in json.loads(request.POST['file']):
                 qn = question.objects.create(Name=x['Question'], test=Tobj)
                 c1 = choice.objects.create(
-                    Name=x['Choice 1'].trim(), question=qn)
+                    Name=x['Choice 1'].strip(), question=qn)
                 c2 = choice.objects.create(
-                    Name=x['Choice 2'].trim(), question=qn)
+                    Name=x['Choice 2'].strip(), question=qn)
                 c3 = choice.objects.create(
-                    Name=x['Choice 3'].trim(), question=qn)
+                    Name=x['Choice 3'].strip(), question=qn)
                 c4 = choice.objects.create(
-                    Name=x['Choice 4'].trim(), question=qn)
+                    Name=x['Choice 4'].strip(), question=qn)
                 c = [c1, c2, c3, c4]
                 for i in range(1, 5):
-                    if x['Choice '+str(i)].trim() == x['Correct Answer'].trim():
+                    if x['Choice '+str(i)].strip() == x['Correct Answer'].strip():
                         ans = answer.objects.create(question=qn, choice=c[i-1])
         else:
             file = request.FILES['file']
