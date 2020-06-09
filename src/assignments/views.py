@@ -148,3 +148,42 @@ def newAssignment(request):
             pd.save()
         return http.JsonResponse({'message': True})
     return http.HttpResponseForbidden({'message': 'Forbidden'})
+
+
+def addresource(request):
+    if request.user.is_authenticated:
+        assign = assignment.objects.get(id=request.POST['assignment'])
+        lesson = Lesson.objects.get(id=request.POST['lesson'])
+        if request.POST['type'] == 'video':
+            vid = video.objects.create(
+                Name=request.POST['Name'], platform='L', lesson=lesson, assignment=assign)
+            file_name = default_storage.save(
+                'assignments/videos/'+str(vid.id)+'.mp4', request.Files['file'])
+            vid.file = file_name
+            vid.save()
+        elif request.POST['type'] == 'pdf':
+            pd = pdf.objects.create(
+                Name=request.POST['Name'], assignment=assign, lesson=Lesson.objects.get(id=request.POST['lesson']))
+            file_name = default_storage.save(
+                'assignments/pdfs/'+str(pd.id)+'.pdf', request.FILES['file'])
+            pd.file = file_name
+            pd.save()
+        else:
+            Tobj = test.objects.create(
+                Name=request.POST['Name'], assignment=assign, Lesson=lesson)
+            for x in json.loads(request.POST['file']):
+                qn = question.objects.create(Name=x['Question'], test=Tobj)
+                c1 = choice.objects.create(
+                    Name=x['Choice 1'].strip(), question=qn)
+                c2 = choice.objects.create(
+                    Name=x['Choice 2'].strip(), question=qn)
+                c3 = choice.objects.create(
+                    Name=x['Choice 3'].strip(), question=qn)
+                c4 = choice.objects.create(
+                    Name=x['Choice 4'].strip(), question=qn)
+                c = [c1, c2, c3, c4]
+                for i in range(1, 5):
+                    if x['Choice '+str(i)].strip() == x['Correct Answer'].strip():
+                        ans = answer.objects.create(question=qn, choice=c[i-1])
+        return http.JsonResponse({'message': 'File uploaded'})
+    return http.HttpResponseForbidden({'message': 'Forbidden'})

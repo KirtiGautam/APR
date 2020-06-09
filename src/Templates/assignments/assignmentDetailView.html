@@ -43,7 +43,8 @@
             <span class="due-date">{{assign.Deadline}}</span>
         </div>
         <div class="col-2 mb-3">
-            <button class="btn plus p-1 float-right" onclick="">+</button>
+            <button class="btn plus p-1 float-right" data-toggle="modal" data-backdrop="static"
+            data-target="#add">+</button>
         </div>
     </div>
     <div class="row third mb-5">
@@ -130,7 +131,8 @@
         <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>
         <button class="btn ass-save col-5 col-sm-5 col-md-3 col-lg-2 p-2">Save</button>
     </div>
-
+    {% include 'assignments/addresource.html' %}
 </div>
 
+<script src="{% static 'js/assignments/detail.js' %}"></script>
 {% endblock %}

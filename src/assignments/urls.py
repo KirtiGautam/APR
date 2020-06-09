@@ -8,7 +8,8 @@ from .views import (
     getSubjects,
     newAssignment,
     getLessons,
-    Test
+    Test,
+    addresource
 )
 
 app_name = 'assignment'
@@ -22,4 +23,5 @@ urlpatterns = [
     path('get-subjects', getSubjects, name='get_subjects'),
     path('newAssignment', newAssignment, name='newAssignment'),
     path('assignment/test/<int:id>', Test, name='Test'),
+    path('assignment/addresource>', addresource, name='addresource'),
 ]
