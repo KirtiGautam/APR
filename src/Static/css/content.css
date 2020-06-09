@@ -1,20 +1,15 @@
-#wrapper{
-  max-width: 100% !important;
-}
-
-#content {
-  width: 100%;
-  margin-left: 5% !important;
-  height: max-content !important;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
-  padding-top: 70px !important;
+.content{
+  padding-top: 80px !important;
 }
 
 @media screen and (max-width:800px){
-    #content{
-        margin-left: 7% !important;
-        padding-top: 25px !important;
-    }
+  .left{
+    display: none;
+  }
+  .right{
+    display: none;
+  }
+  .content{
+    padding-top: 30px !important;
+  }
 }

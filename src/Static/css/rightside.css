@@ -5,21 +5,17 @@
 
 .second-side {
   border-left: 3px solid #f5f8fa !important;
-  padding-top: calc(3vmin + 3vmax) !important;
-  min-width: 270px;
-  max-width: 270px;
-  position: fixed;
-  right: 0;
+  padding-top: 70px !important;
   background-color: #fff;
+  text-align: center;
 }
 
 .assign {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   border-radius: 10px;
   min-height: 200px;
-  max-height: 400px;
+  max-height: 200px;
   margin-bottom: calc(1vmin + 2vmax) !important;
-  margin-left: 25px !important;
 }
 
 .assignments {
@@ -40,9 +36,8 @@
   background: #f5f8fa 0% 0% no-repeat padding-box;
   border-radius: 10px;
   min-height: 200px;
-  max-height: 400px;
+  max-height: 200px;
   margin-bottom: calc(1vmin + 2vmax) !important;
-  margin-left: 25px !important;
 }
 
 .resume-where-left {
@@ -63,9 +58,8 @@
   background: #f5f8fa 0% 0% no-repeat padding-box;
   border-radius: 10px;
   min-height: 200px;
-  max-height: 400px;
+  max-height: 200px;
   margin-bottom: calc(1vmin + 2vmax) !important;
-  margin-left: 25px !important;
 }
 
 .upcoming-activities {
@@ -104,28 +98,10 @@
   .upcoming-activities-data {
     font-size: 13px;
   }
-
-  .assign {
-    margin-left: 15px !important;
-  }
-
-  .resume {
-    margin-left: 15px !important;
-  }
-
-  .upcoming {
-    margin-left: 15px !important;
-  }
 }
 
-@media screen and (max-width: 800px) {
-  .second-side {
-    display: none;
-  }
+@media screen and (max-width:800px){
   .second-side{
-    min-width: 150px !important;
-    max-width: 150px !important;
-    margin-right: 1% !important;
-    margin-left: 1% !important;
+    padding-top: 30px !important;
   }
 }

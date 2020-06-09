@@ -4,14 +4,20 @@
 {% block content %}
 
 <head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
     <link rel="stylesheet" href="{% static 'css/homeworkDetailView.css' %}">
 </head>
 
 {% include "common/header.html" %}
-<div class="container-fluid mt-5 pt-3">
+
+<div class="col-10 col-sm-4 col-md-4 col-lg-3 float-left left">
+    {% include "home/leftside.html" %}
+</div>
+<div class="col content">
     <div class="row first mb-5">
         <div class="col-6 col-sm-6 col-md-2 col-lg-1">
-            <a href="{% url 'homework:homework' %}" ><img src="/static/Images/assignment/back.png" alt="" class="img mt-2"></a>
+            <a href="{% url 'homework:homework' %}"><img src="/static/Images/assignment/back.png" alt=""
+                    class="img mt-2"></a>
         </div>
         <div class="col-6 col-sm-6 col-md-4 col-lg-5 subject-name">
             {{homework.Subject.Name}}
@@ -31,7 +37,7 @@
         {% if user.admin %}
         <div class="col-2 mb-3">
             <button class="btn plus p-1 float-right" data-toggle="modal" data-backdrop="static"
-            data-target="#add">+</button>
+                data-target="#add">+</button>
         </div>
         {% endif %}
     </div>
@@ -128,7 +134,7 @@
         </div>
         {% endfor %}
     </div>
-    {% if user.admin}
+    {% if user.admin %}
     <div class="row forth mb-3">
         <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>
         <button class="btn home-save col-5 col-sm-5 col-md-3 col-lg-2 p-2">Save</button>
