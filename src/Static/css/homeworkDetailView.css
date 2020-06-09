@@ -26,19 +26,7 @@ img {
   width: 30px;
 }
 
-.img1 {
-  float: right;
-  height: 20px;
-  width: 20px;
-}
-
-.time-left {
-  font-size: calc(10px + 1vmin);
-  font-family: NeueMedium;
-  color: #626262;
-}
-
-.assignment-title {
+.homework-title {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: calc(12px + 1vmin);
@@ -55,18 +43,14 @@ img {
   width: 20px;
 }
 
-.instruction,
-.posted,
-.due {
+.instruction {
   font-size: calc(10px + 1vmin);
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
 
-.instruct,
-.posted-on,
-.due-date {
+.instruct {
   font-size: calc(10px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
@@ -125,8 +109,7 @@ img {
 }
 
 .time {
-  float: right;
-  font-size: 1vmax;
+  font-size: 3vmin;
   font-family: Arial, Helvetica, sans-serif;
   color: #aeaeae;
 }
@@ -160,7 +143,7 @@ a:hover {
   color: #5484ed;
 }
 
-.ass-save {
+.home-save {
   background: #5890ff 0% 0% no-repeat padding-box;
   text-align: center;
   border-radius: 0px;
