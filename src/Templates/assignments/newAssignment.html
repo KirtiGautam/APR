@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 float-right"
+                <button type="button" class="close float-right"
                     data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,49 +11,49 @@
             <div class="modal-body mb-5">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                             <span class="selection">Subjects</span>
                             <br>
-                            <select id="subjects" class="drop p-1"></select>
+                            <select id="subjects" class="drop p-1 form-control"></select>
                         </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                             <span class="selection">Lessons</span>
                             <br>
-                            <select id='lessons' class="drop p-1"></select>
+                            <select id='lessons' class="drop p-1 form-control"></select>
                         </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            <span class="selection">Name of assignment</span>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                            <span class="selection assignment-name">Name of assignment</span>
                             <br>
-                            <input type="text" class="assignment-name drop p-1">
+                            <input type="text" class="drop p-1 form-control">
                         </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                             <span class="selection">Deadline</span>
                             <br>
-                            <input type="datetime-local" id="deadline" class="drop p-1">
+                            <input type="datetime-local" id="deadline" class="drop p-1 form-control">
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <span class="selection">Instructions</span>
                             <br>
                             <textarea class="assignment-instructions drop p-1 form-control"></textarea>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                             <label for="" class="selection">Select Database</label>
                             <br>
-                            <select id="dataType" class="drop p-1">
+                            <select id="dataType" class="drop p-1 form-control">
                                 <option value="" disabled selected>File Type</option>
                                 <option value="pdf">PDF</option>
                                 <option value="video">Video</option>
                                 <option value="csv">MCQ</option>
                             </select>
                         </div>
-                        <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                             <label for="" class="selection">Name</label>
                             <br>
                             <input type="text" id="FName" class="drop form-control p-1">
                         </div>
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                             <br>
                             <button onclick="upload('{% url 'assignment:newAssignment'  %}');" id="upload_btn"
                                 class="btn import col-12">Upload</button>
@@ -63,7 +63,7 @@
                 <div class="mb-3 mt-3">
                     <div class="form-group mb-3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="file_input" id="file_input"
+                            <input type="file" class="custom-file-input form-control" name="file_input" id="file_input"
                                 oninput="input_filename();">
                             <label id="file_input_label" class="custom-file-label" for="image">Select
                                 file</label>
