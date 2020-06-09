@@ -3,6 +3,11 @@
   font-family: NeueBold;
 }
 
+@font-face{
+  src: url("/static/fonts/HelveticaNeueMed.ttf");
+  font-family: NeueMedium;
+}
+
 .first {
   background: transparent
     linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
@@ -176,6 +181,29 @@
 
 a:hover {
   text-decoration: none;
+}
+
+.selection {
+  font-size: calc(1vmax + 1vmin);
+  font-family: NeueMedium;
+  color: #626262;
+}
+
+.drop {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 0.5px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: calc(12px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.import {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  font-family: "Poppins", sans-serif;
+  font-size: calc(11px + 1vmin);
+  color: #ffffff;
 }
 
 @media screen and (max-width: 800px) {
