@@ -44,7 +44,7 @@
 
     <div class="row mb-5">
         {% for key in homework.pdfs.all %}
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
             <a href="{{ prefix }}{{key.file}}" target="_blank">
                 <div class="cards p-2">
                     <span class="row row-head">
@@ -76,7 +76,7 @@
         {% endfor %}
 
         {% for key in homework.videos.all %}
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
             <a href="{% url 'homework:video' key.id %}">
                 <div class="cards p-2">
                     <span class="row row-head">
@@ -108,7 +108,7 @@
         <!-- <a href="{% url 'homework:video' key.id %}">{{key.Name}}</a> -->
         {% endfor %}
         {% for key in homework.Test.all %}
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
             <a href="{% url 'homework:Test' key.id %}">
                 <div class="cards test p-2">
                     <span class="row row-head">
@@ -118,10 +118,8 @@
                         </span>
                     </span>
                     <span class="row">
-                        <span class="text-center">
-                            <span class="col-3"></span>
-                            <img src="/static/Images/lesson/test.png" alt="" class="col-6">
-                        </span>
+                        <span class="col-3"></span>
+                        <img src="/static/Images/lesson/test.png" alt="" class="col-6">
                     </span>
                     <span class="row row-foot">
                         <span class="col-12">Practice Test</span>

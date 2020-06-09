@@ -92,83 +92,20 @@
       </div>
     </div>
   </div>
-  <!-- <div class="row leftside">
-    <div class="text-center">
-      <img src="{% static 'Images/leftnav/avatar.png' %}" class="col-5" />
-      <label class="name col-12">Name of the student</label>
-      <button class="btn view-profile col-10">View Profile</button>
-      <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10 line"></div>
-      </div>
-    </div>
-    <ul class="list-unstyled components mb-5">
-      <li>
-        <a href="{% url 'lessons:lessons' %}">
-          <span>
-            <img src="{% static 'Images/leftnav/lessons.png' %}" class="leftside-menu-icon" />
-          </span>
-          Lessons
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span>
-            <img src="{% static 'Images/leftnav/livestream.png' %}" class="leftside-menu-icon" />
-          </span>
-          Live sessions
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span>
-            <img src="{% static 'Images/leftnav/scheduled-exam.png' %}" class="leftside-menu-icon" />
-          </span>
-          Scheduled Exams
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'assignment:assignments' %}">
-          <span>
-            <img src="{% static 'Images/leftnav/assignments.png' %}" class="leftside-menu-icon" />
-          </span>
-          Assignments
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'homework:homework' %}">
-          <span>
-            <img src="{% static 'Images/leftnav/homework.png' %}" class="leftside-menu-icon" />
-          </span>
-          Homeworks
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span>
-            <img src="{% static 'Images/leftnav/analysis.png' %}" class="leftside-menu-icon" />
-          </span>
-          Analysis
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span>
-            <img src="{% static 'Images/leftnav/all-profiles.png' %}" class="leftside-menu-icon" />
-          </span>
-          All Profiles
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span>
-            <img src="{% static 'Images/leftnav/courses.png' %}" class="leftside-menu-icon" />
-          </span>
-          Courses | Talent Tests
-        </a>
-      </li>
-    </ul>
-  </div> -->
+  <script>
+    (function ($) {
+      "use strict";
+
+      var fullHeight = function () {
+        $(".js-fullheight").css("height", $(window).height());
+        $(window).resize(function () {
+          $(".js-fullheight").css("height", $(window).height());
+        });
+      };
+      fullHeight();
+
+    })(jQuery);
+  </script>
 </body>
 
 </html>

@@ -16,7 +16,8 @@
     <div class="row first mb-5">
         <div class="col-6 col-sm-6 col-md-2 col-lg-1">
             <div class="col-12">
-                <a href="{% url 'assignment:assignments' %}"><img src="/static/Images/assignment/back.png" alt="" class="img mt-2"></a>
+                <a href="{% url 'assignment:assignments' %}"><img src="/static/Images/assignment/back.png" alt=""
+                        class="img mt-2"></a>
             </div>
         </div>
         <div class="col-6 col-sm-6 col-md-4 col-lg-5 subject-name">
@@ -67,7 +68,7 @@
     </div>
     <div class="row third mb-5">
         {% for key in assign.pdfs.all %}
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
             <a href="{% get_media_prefix %}{{key.file}}" target="_blank">
                 <div class="cards p-2">
                     <span class="row row-head">
@@ -77,10 +78,8 @@
                         </span>
                     </span>
                     <span class="row">
-                        <span class="text-center">
-                            <span class="col-3"></span>
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-6">
-                        </span>
+                        <span class="col-3"></span>
+                        <img src="/static/Images/lesson/video.png" alt="" class="col-6">
                     </span>
                     <span class="row row-foot">
                         <span class="col-8">{{key.Name}}</span>
@@ -98,7 +97,7 @@
         </div>
         {% endfor %}
         {% for key in assign.videos.all %}
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
             <a href="{% url 'assignment:video' key.id %}">
                 <div class="cards p-2">
                     <span class="row row-head">
@@ -108,10 +107,8 @@
                         </span>
                     </span>
                     <span class="row">
-                        <span class="text-center">
-                            <span class="col-3"></span>
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-6">
-                        </span>
+                        <span class="col-3"></span>
+                        <img src="/static/Images/lesson/video.png" alt="" class="col-6">
                     </span>
                     <span class="row row-foot">
                         <span class="col-8">{{key.Name}}</span>
@@ -129,7 +126,7 @@
         </div>
         {% endfor %}
         {% for key in assign.Test.all %}
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
             <a href="{% url 'assignment:Test' key.id %}">
                 <div class="cards test p-2">
                     <span class="row row-head">
@@ -139,10 +136,8 @@
                         </span>
                     </span>
                     <span class="row">
-                        <span class="text-center">
-                            <span class="col-3"></span>
-                            <img src="/static/Images/lesson/test.png" alt="" class="col-6">
-                        </span>
+                        <span class="col-3"></span>
+                        <img src="/static/Images/lesson/test.png" alt="" class="col-6">
                     </span>
                     <span class="row row-foot">
                         <span class="col-12">Practice Test</span>
