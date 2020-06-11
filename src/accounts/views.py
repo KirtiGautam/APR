@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import User
+from accounts.models import User
 
 
 def log(request):
