@@ -46,9 +46,37 @@
             <label class="header-icons-label">Notifications</label>
         </span>
         <span class="text-center">
-            <img src="{% static 'Images/header/setting.png' %}" class="header-icons" />
-            <br />
-            <label class="header-icons-label">Settings</label>
+            <div class="dropdown">
+                <a class="" href="#" role="button" data-toggle="dropdown">
+                    <img src="{% static 'Images/header/setting.png' %}" class="header-icons" />
+                    <br />
+                    <label class="header-icons-label">Settings</label>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-user-cog"></i>
+                        Admin Settings
+                        <br>
+                        <small>Get admin access upon clicking here</small>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'accounts:logout' %}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout of the device
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-users"></i>
+                        Manage all users
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-toolbox"></i>
+                        Change Password
+                        <br>
+                        <small>You can change your password here</small>
+                    </a>
+                </div>
+            </div>
         </span>
         <span class="header-navigation-icon text-center" id="right-nav">
             <img src="{% static 'Images/header/navbar.jpeg' %}" class="header-icons" />

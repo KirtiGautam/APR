@@ -13,70 +13,73 @@
     {% include "home/leftside.html" %}
 </div>
 <div class="content">
-    <div class="row">
-        {% if video.platform == 'Y' %}
-        <iframe class="col-lg-7 col-md-12 col-sm-12 mt-5 pt-3 video" src="https://www.youtube.com/embed/{{video.file}}"
-            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
+    <div class="container-fluid">
+        <div class="row">
+            {% if video.platform == 'Y' %}
+            <iframe class="col-lg-7 col-md-12 col-sm-12 mt-5 pt-3 video"
+                src="https://www.youtube.com/embed/{{video.file}}" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
 
-        {% elif video.platform == 'L' %}
-        <video class="col-lg-7 col-md-12 col-sm-12 mt-5 pt-3 video" controls>
-            <source src="{% get_media_prefix %}{{video.file}}" type="video/mp4">
-            Your browser does not support HTML video.
-        </video>
-        {% endif %}
-        <div class="col-lg-5 col-md-12 col-sm-12 mt-5 pt-3 text-left">
-            <h5 class="text-danger">{{video.lesson.Name}}</h5>
-            <div class="sub-topic font-weight-bold col-lg-5">
-                {{video.Name}}
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 next-button">
-                <button class="col-lg-2 col-md-12 col-sm-12 btn btn-primary float-right align-bottom next-butto">
-                    Next
-                </button>
-            </div>
+            {% elif video.platform == 'L' %}
+            <video class="col-lg-7 col-md-12 col-sm-12 mt-5 pt-3 video" controls>
+                <source src="{% get_media_prefix %}{{video.file}}" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+            {% endif %}
+            <div class="col-lg-5 col-md-12 col-sm-12 mt-5 text-left">
+                <h5 class="text-danger">{{video.lesson.Name}}</h5>
+                <div class="sub-topic font-weight-bold col-lg-5">
+                    {{video.Name}}
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 next-button">
+                    <button class="col-lg-2 col-md-12 col-sm-12 btn btn-primary float-right align-bottom next-butto">
+                        Next
+                    </button>
+                </div>
 
-        </div>
-        {% for vid in vids %}
-        <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
-            <a href="{% url 'video:video' vid.id %}">
-                <div class="shadow-sm p-3 rounded card text-black mb-3">
-                    <h6 class="video-titl">Video</h6>
-                    <div class="card-body row">
-                        <img class="col-lg-12" src="{% static 'Images/video.png' %}">
-                        <p class="card-text text-dark">Name of sub topic</p>
+            </div>
+            {% for vid in vids %}
+            <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
+                <a href="{% url 'video:video' vid.id %}">
+                    <div class="shadow-sm p-3 rounded card text-black mb-3">
+                        <h6 class="video-titl">Video</h6>
+                        <div class="card-body row">
+                            <img class="col-lg-12" src="{% static 'Images/video.png' %}">
+                            <p class="card-text text-dark">Name of sub topic</p>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        {% endfor %}
-        {% for pdf in pdfs %}
-        <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
-            <a href="{% get_media_prefix %}{{ pdf.file }}" target="_blank">
-                <div class="shadow-sm p-3 rounded card text-black mb-3">
-                    <h6 class="video-titl">PDF</h6>
-                    <div class="card-body row">
-                        <img class="col-lg-12" src="{% static 'Images/video.png' %}">
-                        <p class="card-text text-dark">Name of sub topic</p>
+                </a>
+            </div>
+            {% endfor %}
+            {% for pdf in pdfs %}
+            <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
+                <a href="{% get_media_prefix %}{{ pdf.file }}" target="_blank">
+                    <div class="shadow-sm p-3 rounded card text-black mb-3">
+                        <h6 class="video-titl">PDF</h6>
+                        <div class="card-body row">
+                            <img class="col-lg-12" src="{% static 'Images/video.png' %}">
+                            <p class="card-text text-dark">Name of sub topic</p>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        {% endfor %}
-        {% for test in tests %}
-        <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
-            <a href="{% url 'video:test' test.id %}">
-                <div class="shadow-sm p-3 rounded card text-black mb-3 test-cards">
-                    <h6 class="test-titl">{% if test.Type == 'P' %}4 Tests | 120 Questions{% else %}15 Questions | 1
-                        hour{% endif %}</h6>
-                    <div class="card-body row">
-                        <img class="col-lg-12" src="{% static 'Images/test.png' %}">
-                        <p class="card-text text-dark">Name of sub topic</p>
+                </a>
+            </div>
+            {% endfor %}
+            {% for test in tests %}
+            <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
+                <a href="{% url 'video:test' test.id %}">
+                    <div class="shadow-sm p-3 rounded card text-black mb-3 test-cards">
+                        <h6 class="test-titl">{% if test.Type == 'P' %}4 Tests | 120 Questions{% else %}15 Questions | 1
+                            hour{% endif %}</h6>
+                        <div class="card-body row">
+                            <img class="col-lg-12" src="{% static 'Images/test.png' %}">
+                            <p class="card-text text-dark">Name of sub topic</p>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>
 

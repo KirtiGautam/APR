@@ -6,91 +6,92 @@
 
 <body>
   <div class="row leftside js-fullheight">
-    <div class="text-center">
-      <img src="{% static 'Images/leftnav/avatar.png' %}" class="col-5" />
-      <div class="name col-12">{{user.get_full_name}}</div>
-      <button class="btn view-profile col-9">View Profile</button>
-      <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10 line"></div>
-      </div>
-      <div class="row text-left">
-        <ul class="list-unstyled">
-          <li>
-            <a href="{% url 'lessons:lessons' %}">
-              <span>
-                <img src="{% static 'Images/leftnav/lessons.png' %}" class="leftside-menu-icon" />
-              </span>
-              <span class="leftside-menu-text">Lessons</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span>
-                <img src="{% static 'Images/leftnav/livestream.png' %}" class="leftside-menu-icon" />
-              </span>
-              <span class="leftside-menu-text">Live sessions</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span>
-                <img src="{% static 'Images/leftnav/scheduled-exam.png' %}" class="leftside-menu-icon" />
-              </span>
-              <span class="leftside-menu-text">Scheduled Exams</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'assignment:assignments' %}">
-              <span>
-                <img src="{% static 'Images/leftnav/assignments.png' %}" class="leftside-menu-icon" />
-              </span>
-              <span class="leftside-menu-text">Assignments</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'homework:homework' %}">
-              <span>
-                <img src="{% static 'Images/leftnav/homework.png' %}" class="leftside-menu-icon" />
-              </span>
-              <span class="leftside-menu-text">Homeworks</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span>
-                <img src="{% static 'Images/leftnav/analysis.png' %}" class="leftside-menu-icon" />
-              </span>
-              <span class="leftside-menu-text">Analysis</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span>
-                <img src="{% static 'Images/leftnav/all-profiles.png' %}" class="leftside-menu-icon" />
-              </span>
-              <span class="leftside-menu-text">All Profiles</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span>
-                <img src="{% static 'Images/leftnav/courses.png' %}" class="leftside-menu-icon" />
-              </span>
-              <span class="leftside-menu-text">Courses | Talent Tests</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'accounts:logout' %}">
-              <span>
-                <img src="{% static 'Images/leftnav/logout.png' %}" class="leftside-menu-icon" />
-              </span>
-              <span class="leftside-menu-text">Log Out</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <ul class="list-unstyled">
+      <li class="text-center">
+        <img src="{% static 'Images/leftnav/avatar.png' %}" class="col-4" />
+      </li>
+      <li class="text-center">
+        <div class="name col-12">{{user.get_full_name}}</div>
+      </li>
+      <li class="text-center">
+        <button class="btn view-profile col-9">View Profile</button>
+      </li>
+      <li>
+        <div class="dropdown-divider mt-4 mb-4"></div>
+      </li>
+      <li>
+        <a href="{% url 'lessons:lessons' %}">
+          <span>
+            <img src="{% static 'Images/leftnav/lessons.png' %}" class="leftside-menu-icon" />
+          </span>
+          <span class="leftside-menu-text">Lessons</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span>
+            <img src="{% static 'Images/leftnav/livestream.png' %}" class="leftside-menu-icon" />
+          </span>
+          <span class="leftside-menu-text">Live sessions</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span>
+            <img src="{% static 'Images/leftnav/scheduled-exam.png' %}" class="leftside-menu-icon" />
+          </span>
+          <span class="leftside-menu-text">Scheduled Exams</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'assignment:assignments' %}">
+          <span>
+            <img src="{% static 'Images/leftnav/assignments.png' %}" class="leftside-menu-icon" />
+          </span>
+          <span class="leftside-menu-text">Assignments</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'homework:homework' %}">
+          <span>
+            <img src="{% static 'Images/leftnav/homework.png' %}" class="leftside-menu-icon" />
+          </span>
+          <span class="leftside-menu-text">Homeworks</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span>
+            <img src="{% static 'Images/leftnav/analysis.png' %}" class="leftside-menu-icon" />
+          </span>
+          <span class="leftside-menu-text">Analysis</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span>
+            <img src="{% static 'Images/leftnav/all-profiles.png' %}" class="leftside-menu-icon" />
+          </span>
+          <span class="leftside-menu-text">All Profiles</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span>
+            <img src="{% static 'Images/leftnav/courses.png' %}" class="leftside-menu-icon" />
+          </span>
+          <span class="leftside-menu-text">Courses | Talent Tests</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'accounts:logout' %}">
+          <span>
+            <img src="{% static 'Images/leftnav/logout.png' %}" class="leftside-menu-icon" />
+          </span>
+          <span class="leftside-menu-text">Log Out</span>
+        </a>
+      </li>
+    </ul>
   </div>
   <script>
     (function ($) {
