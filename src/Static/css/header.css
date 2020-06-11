@@ -52,6 +52,21 @@
   border-radius: 10px !important;
 }
 
+.dropdown-item:hover {
+  background-color: #dfdfdf;
+}
+
+.dropdown-item:active {
+  background-color: #aeaeae;
+  color: #15202b;
+}
+
+.fas {
+  padding: 5%;
+  border-radius: 50%;
+  background-color: #dfdfdf;
+}
+
 @media screen and (max-width: 800px) {
   .header-icons-label {
     display: none !important;

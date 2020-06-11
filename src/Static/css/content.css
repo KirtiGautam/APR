@@ -1,15 +1,9 @@
-.content{
+.content {
   padding-top: 80px !important;
 }
 
-@media screen and (max-width:800px){
-  /* .left{
-    display: none;
-  }
-  .right{
-    display: none;
-  } */
-  .content{
+@media screen and (max-width: 800px) {
+  .content {
     padding-top: 30px !important;
   }
 }
