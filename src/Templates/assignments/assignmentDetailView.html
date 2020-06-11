@@ -13,150 +13,152 @@
     {% include "home/leftside.html" %}
 </div>
 <div class="content">
-    <div class="row first mb-5">
-        <div class="col-6 col-sm-6 col-md-2 col-lg-1">
-            <div class="col-12">
-                <a href="{% url 'assignment:assignments' %}"><img src="/static/Images/assignment/back.png" alt=""
-                        class="img mt-2"></a>
+    <div class="container-fluid">
+        <div class="row first mb-5">
+            <div class="col-6 col-sm-6 col-md-2 col-lg-1">
+                <div class="col-12">
+                    <a href="{% url 'assignment:assignments' %}"><img src="/static/Images/assignment/back.png" alt=""
+                            class="img mt-2"></a>
+                </div>
             </div>
-        </div>
-        <div class="col-6 col-sm-6 col-md-4 col-lg-5 subject-name">
-            {{assign.Subject.Name}}
-        </div>
-        <div class="col-4 col-sm-4 col-md-2 col-lg-1">
-            {% if user.admin %}
-            <div class="col-12">
-                <a><img src="/static/Images/assignment/edit.svg" alt="" class="img1 mt-2"></a>
+            <div class="col-6 col-sm-6 col-md-4 col-lg-5 subject-name">
+                {{assign.Subject.Name}}
             </div>
-            {% endif %}
-        </div>
-        <div class="col-8 col-sm-8 col-md-4 col-lg-5 p-2 time-left">
-            {{assign.Deadline|timeuntil}} to go
-        </div>
-    </div>
-    <div class="row second mb-5">
-        <div class="col-12 row">
-            <div class="assignment-title mb-3">
-                {{assign.Name}}
-            </div>
-            <div>
+            <div class="col-4 col-sm-4 col-md-2 col-lg-1">
                 {% if user.admin %}
-                <a><img src="/static/Images/assignment/edit.svg" alt="" class="img2 m-1"></a>
+                <div class="col-12">
+                    <a><img src="/static/Images/assignment/edit.svg" alt="" class="img1 mt-2"></a>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-8 col-sm-8 col-md-4 col-lg-5 p-2 time-left">
+                {{assign.Deadline|timeuntil}} to go
+            </div>
+        </div>
+        <div class="row second mb-5">
+            <div class="col-12 row">
+                <div class="assignment-title mb-3">
+                    {{assign.Name}}
+                </div>
+                <div>
+                    {% if user.admin %}
+                    <a><img src="/static/Images/assignment/edit.svg" alt="" class="img2 m-1"></a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-12 mb-3">
+                <span class="instruction">Instructions related to assignment: </span>
+                <span class="instruct">{{assign.Instructions}}</span>
+            </div>
+            <div class="col-5 mb-3">
+                <span class="posted">Posted on: </span>
+                <span class="posted-on">DD/MM/YYYY HH/MM</span>
+            </div>
+            <div class="col-5 mb-3">
+                <span class="due">Due date: </span>
+                <span class="due-date">{{assign.Deadline}}</span>
+            </div>
+            <div class="col-2">
+                {% if user.admin %}
+                <div class="col-12 mb-3">
+                    <button class="btn plus p-1 float-right" data-toggle="modal" data-backdrop="static"
+                        data-target="#add">+</button>
+                </div>
                 {% endif %}
             </div>
         </div>
-        <div class="col-12 mb-3">
-            <span class="instruction">Instructions related to assignment: </span>
-            <span class="instruct">{{assign.Instructions}}</span>
-        </div>
-        <div class="col-5 mb-3">
-            <span class="posted">Posted on: </span>
-            <span class="posted-on">DD/MM/YYYY HH/MM</span>
-        </div>
-        <div class="col-5 mb-3">
-            <span class="due">Due date: </span>
-            <span class="due-date">{{assign.Deadline}}</span>
-        </div>
-        <div class="col-2">
-            {% if user.admin %}
-            <div class="col-12 mb-3">
-                <button class="btn plus p-1 float-right" data-toggle="modal" data-backdrop="static"
-                    data-target="#add">+</button>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-    <div class="row third mb-5">
-        {% for key in assign.pdfs.all %}
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
-            <a href="{% get_media_prefix %}{{key.file}}" target="_blank">
-                <div class="cards p-2">
-                    <span class="row row-head">
-                        <span class="text-left col-10">PDF</span>
-                        <span class="checkbox col-2">
-                            <input type="checkbox" name="" id="">
-                        </span>
-                    </span>
-                    <span class="row">
-                        <span class="col-3"></span>
-                        <img src="/static/Images/lesson/video.png" alt="" class="col-6">
-                    </span>
-                    <span class="row row-foot">
-                        <span class="col-8">{{key.Name}}</span>
-                        <span class="col-4">
-                            <span class="float-right">
-                                <span class="time">2 min</span>
+        <div class="row third mb-5">
+            {% for key in assign.pdfs.all %}
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+                <a href="{% get_media_prefix %}{{key.file}}" target="_blank">
+                    <div class="cards p-2">
+                        <span class="row row-head">
+                            <span class="text-left col-10">PDF</span>
+                            <span class="checkbox col-2">
+                                <input type="checkbox" name="" id="">
                             </span>
                         </span>
-                    </span>
-                </div>
-            </a>
-            <div class="text-center">
-                <span class="chapter">{{key.lesson.Name}}</span>
-            </div>
-        </div>
-        {% endfor %}
-        {% for key in assign.videos.all %}
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
-            <a href="{% url 'assignment:video' key.id %}">
-                <div class="cards p-2">
-                    <span class="row row-head">
-                        <span class="text-left col-10">VIDEO</span>
-                        <span class="checkbox round col-2">
-                            <input type="checkbox" name="" id="">
+                        <span class="row">
+                            <span class="col-3"></span>
+                            <img src="/static/Images/lesson/video.png" alt="" class="col-6">
                         </span>
-                    </span>
-                    <span class="row">
-                        <span class="col-3"></span>
-                        <img src="/static/Images/lesson/video.png" alt="" class="col-6">
-                    </span>
-                    <span class="row row-foot">
-                        <span class="col-8">{{key.Name}}</span>
-                        <span class="col-4">
-                            <span class="float-right">
-                                <span class="time">2 min</span>
+                        <span class="row row-foot">
+                            <span class="col-8">{{key.Name}}</span>
+                            <span class="col-4">
+                                <span class="float-right">
+                                    <span class="time">2 min</span>
+                                </span>
                             </span>
                         </span>
-                    </span>
-                </div>
-            </a>
-            <div class="text-center">
-                <span class="chapter">{{key.lesson.Name}}</span>
-            </div>
-        </div>
-        {% endfor %}
-        {% for key in assign.Test.all %}
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-3">
-            <a href="{% url 'assignment:Test' key.id %}">
-                <div class="cards test p-2">
-                    <span class="row row-head">
-                        <span class="text-left col-10">{{key.question.all.count}} Questions</span>
-                        <span class="checkbox round col-2">
-                            <input type="checkbox" name="" id="">
-                        </span>
-                    </span>
-                    <span class="row">
-                        <span class="col-3"></span>
-                        <img src="/static/Images/lesson/test.png" alt="" class="col-6">
-                    </span>
-                    <span class="row row-foot">
-                        <span class="col-12">Practice Test</span>
-                    </span>
-                </div>
+                    </div>
+                </a>
                 <div class="text-center">
-                    <span class="chapter">{{key.Lesson.Name}}</span>
+                    <span class="chapter">{{key.lesson.Name}}</span>
                 </div>
-            </a>
+            </div>
+            {% endfor %}
+            {% for key in assign.videos.all %}
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+                <a href="{% url 'assignment:video' key.id %}">
+                    <div class="cards p-2">
+                        <span class="row row-head">
+                            <span class="text-left col-10">VIDEO</span>
+                            <span class="checkbox round col-2">
+                                <input type="checkbox" name="" id="">
+                            </span>
+                        </span>
+                        <span class="row">
+                            <span class="col-3"></span>
+                            <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+                        </span>
+                        <span class="row row-foot">
+                            <span class="col-8">{{key.Name}}</span>
+                            <span class="col-4">
+                                <span class="float-right">
+                                    <span class="time">2 min</span>
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                </a>
+                <div class="text-center">
+                    <span class="chapter">{{key.lesson.Name}}</span>
+                </div>
+            </div>
+            {% endfor %}
+            {% for key in assign.Test.all %}
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+                <a href="{% url 'assignment:Test' key.id %}">
+                    <div class="cards test p-2">
+                        <span class="row row-head">
+                            <span class="text-left col-10">{{key.question.all.count}} Questions</span>
+                            <span class="checkbox round col-2">
+                                <input type="checkbox" name="" id="">
+                            </span>
+                        </span>
+                        <span class="row">
+                            <span class="col-3"></span>
+                            <img src="/static/Images/lesson/test.png" alt="" class="col-6">
+                        </span>
+                        <span class="row row-foot">
+                            <span class="col-12">Practice Test</span>
+                        </span>
+                    </div>
+                    <div class="text-center">
+                        <span class="chapter">{{key.Lesson.Name}}</span>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        {% if user.admin %}
+        <div class="row forth mb-5">
+            <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>
+            <button class="btn ass-save col-5 col-sm-5 col-md-3 col-lg-2 p-2">Save</button>
+        </div>
+        {% include 'assignments/addresource.html' %}
+        {% endif %}
     </div>
-    {% if user.admin %}
-    <div class="row forth mb-5">
-        <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>
-        <button class="btn ass-save col-5 col-sm-5 col-md-3 col-lg-2 p-2">Save</button>
-    </div>
-    {% include 'assignments/addresource.html' %}
-    {% endif %}
 </div>
 
 <script src="{% static 'js/assignments/detail.js' %}"></script>
