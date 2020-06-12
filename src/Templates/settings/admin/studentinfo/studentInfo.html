@@ -3,75 +3,83 @@
 {% load static %}
 {% block content %}
 
-<button id="newStudent" class="btn btn-light text-secondary border">Add New</button><br>
-<select id="class">
-    <option value="" selected>ALL</option>
-    {% for key in classes %}
-    <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
-    {% endfor %}
-</select>
-<input type="text" id="search"><br>
-<button id="edit" class="btn btn-light text-secondary border">Edit</button>
-<button id="delete" class="btn btn-danger text-light border">Delete</button>
-<button id="excel" class="btn btn-primary">Export Excel</button>
-<table id='Students'>
-    <thead>
-        <tr>
-            <th colspan="2">S.No.</th>
-            <th>Name.</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th>Gender</th>
-            <th>Date of Birth</th>
-            <th>City</th>
-            <th>State</th>
-            <th>District</th>
-            <th>Pincode</th>
-            <th>Address</th>
-        </tr>
-    </thead>
-    <tbody id="students">
 
-    </tbody>
-</table>
+{% include "common/header.html" %}
+<div class="col-10 col-sm-4 col-md-4 col-lg-2 float-left">
+    {% include "adminSidebar.html" %}
+</div>
 
-<div class="modal" tabindex="-1" role="dialog" id="add">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="UID">
-                First Name:<input type="text" id="first_name"><br>
-                Last Name:<input type="text" id="last_name"><br>
-                Email:<input type="email" id="email"><br>
-                Contact:<input type="number" id="Contact" min="1111111111" max="9999999999"><br>
-                Gender:
-                <select id="gender">
-                    <option value="" selected disabled>Gender</option>
-                    <option value="M">Male</option>
-                    <option value="F">Female</option>
-                </select><br>
-                Address:<input type="text" id="Address"><br>
-                City:<input type="text" id="City"><br>
-                District:<input type="text" id="District"><br>
-                State:<input type="text" id="State"><br>
-                Date of Birth:<input type="date" id="dob"><br>
-                Pincode:<input type="text" id="Pincode"><br>
-                <select class="Class">
-                    <option value="" selected disabled>Class</option>
-                    {% for key in classes %}
-                    <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" id="ANS">Add Student</button>
-                <button class="btn btn-primary" id="US">Update</button>
+<div class="content">
+    <button id="newStudent" class="btn btn-light text-secondary border">Add New</button><br>
+    <select id="class">
+        <option value="" selected>ALL</option>
+        {% for key in classes %}
+        <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
+        {% endfor %}
+    </select>
+    <input type="text" id="search"><br>
+    <button id="edit" class="btn btn-light text-secondary border">Edit</button>
+    <button id="delete" class="btn btn-danger text-light border">Delete</button>
+    <button id="excel" class="btn btn-primary">Export Excel</button>
+    <table id='Students'>
+        <thead>
+            <tr>
+                <th colspan="2">S.No.</th>
+                <th>Name.</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Gender</th>
+                <th>Date of Birth</th>
+                <th>City</th>
+                <th>State</th>
+                <th>District</th>
+                <th>Pincode</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody id="students">
+
+        </tbody>
+    </table>
+
+    <div class="modal" tabindex="-1" role="dialog" id="add">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="UID">
+                    First Name:<input type="text" id="first_name"><br>
+                    Last Name:<input type="text" id="last_name"><br>
+                    Email:<input type="email" id="email"><br>
+                    Contact:<input type="number" id="Contact" min="1111111111" max="9999999999"><br>
+                    Gender:
+                    <select id="gender">
+                        <option value="" selected disabled>Gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select><br>
+                    Address:<input type="text" id="Address"><br>
+                    City:<input type="text" id="City"><br>
+                    District:<input type="text" id="District"><br>
+                    State:<input type="text" id="State"><br>
+                    Date of Birth:<input type="date" id="dob"><br>
+                    Pincode:<input type="text" id="Pincode"><br>
+                    <select class="Class">
+                        <option value="" selected disabled>Class</option>
+                        {% for key in classes %}
+                        <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="ANS">Add Student</button>
+                    <button class="btn btn-primary" id="US">Update</button>
+                </div>
             </div>
         </div>
     </div>
