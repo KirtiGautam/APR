@@ -60,6 +60,9 @@ function delay(callback, ms) {
 
 $(document).ready(function () {
     getStudents();
+
+    $('.SIL').addClass('active text-light');
+
     $('#search').keyup(delay(function (e) {
         getStudents();
     }, 500));

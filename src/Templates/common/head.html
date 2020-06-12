@@ -53,13 +53,15 @@
                     <label class="header-icons-label">Settings</label>
                 </a>
                 <div class="dropdown-menu p-2">
-                    <a class="dropdown-item p-2" href="#">
+                    {% if user.admin %}
+                    <a class="dropdown-item p-2" href="{% url 'accounts:student_information' %}">
                         <i class="fas fa-user-cog dropdown-icon p-2"></i>
                         Admin Settings
                         <br>
                         <small>Get admin access upon clicking here</small>
                     </a>
                     <div class="dropdown-divider"></div>
+                    {% endif %}
                     <a class="dropdown-item p-2" href="{% url 'accounts:logout' %}">
                         <i class="fas fa-sign-out-alt dropdown-icon p-2"></i>
                         Logout of the device

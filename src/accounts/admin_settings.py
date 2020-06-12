@@ -114,11 +114,3 @@ def deleteStudents(request):
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': "You're not authorized"})
 
-
-def student_information(request):
-    if request.user.is_authenticated and request.user.admin:
-        data = {
-            'classes': Class.objects.all()
-        }
-        return render(request, 'settings/admin/studentinfo/studentInfo.html', data)
-    return redirect('accounts:dashboard')
