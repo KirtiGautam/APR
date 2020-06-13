@@ -8,8 +8,27 @@
     {% include "settings/admin/adminSidebar.html" %}
 </div>
 <div class="content">
-
-    <h1>Chapters Page</h1>
+    <select id="class">
+        <option value="" selected disabled>Class</option>
+        {% for key in classes %}
+        <option value="{{key.id}}">{{key.name}} {{key.section}}</option>
+        {% endfor %}
+    </select>
+    <select id="subject">
+        <option value="" selected disabled>Please select a class first</option>
+    </select>
+    <div class="row mt-5 pt-5">
+        <div class="col-lg-3">
+            <h6>Add Lesson</h6>
+            <input type="text" id="lesson">
+            <button type="button" id="save">Save</button>
+        </div>
+        <div class="col-lg-7">
+            <ul class="list-group" id="lessons">
+                <li class="text-danger">Please select a Subject</li>
+            </ul>
+        </div>
+    </div>
 </div>
 <script src="{% static 'js/admin/chapters.js' %}"></script>
 

@@ -18,7 +18,8 @@ from accounts.admin_settings import (
     getUser,
     newStaff,
     deleteStaff,
-    updateStaff
+    updateStaff,
+    newLesson,
 )
 
 app_name = 'accounts'
@@ -34,6 +35,7 @@ urlpatterns = [
          student_information, name='student_information'),
     path('settings/school-staff', school_staff, name='staff'),
     # Requests
+    path('new-lesson', newLesson, name='new-lesson'),
     path('get-staff', getStaff, name='get-staff'),
     path('get-user', getUser, name='get-user'),
     path('delete-staff', deleteStaff, name='delete-staff'),

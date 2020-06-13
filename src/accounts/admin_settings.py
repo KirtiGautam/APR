@@ -1,8 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from accounts.models import User, Class, Student
+from lessons.models import Lesson, Subject
 from django import http
 from django.db.models import Q
+
+
+def newLesson(request):
+    if request.user.is_authenticated and request.user.admin:
+        lesson = Lesson.objects.create(
+            Name=request.POST['lesson'], Subject=Subject.objects.get(id=request.POST['id']))
+        data = {
+            'message': 'Lesson addded'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
 
 
 def updateStaff(request):

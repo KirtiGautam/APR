@@ -39,41 +39,40 @@
                 </div>
 
             </div>
-            {% for vid in vids %}
+            {% for vid in video.lesson.lesson_videos.all %}
             <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
-                <a href="{% url 'video:video' vid.id %}">
+                <a href="{% url 'lessons:video' video.id %}">
                     <div class="shadow-sm p-3 rounded card text-black mb-3">
                         <h6 class="video-titl">Video</h6>
                         <div class="card-body row">
-                            <img class="col-lg-12" src="{% static 'Images/video.png' %}">
+                            <img class="col-lg-12" src="{% static 'Images/lesson/video.png' %}">
                             <p class="card-text text-dark">Name of sub topic</p>
                         </div>
                     </div>
                 </a>
             </div>
             {% endfor %}
-            {% for pdf in pdfs %}
+            {% for pdf in video.lesson.lesson_pdfs.all %}
             <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
                 <a href="{% get_media_prefix %}{{ pdf.file }}" target="_blank">
                     <div class="shadow-sm p-3 rounded card text-black mb-3">
                         <h6 class="video-titl">PDF</h6>
                         <div class="card-body row">
-                            <img class="col-lg-12" src="{% static 'Images/video.png' %}">
+                            <img class="col-lg-12" src="{% static 'Images/lesson/video.png' %}">
                             <p class="card-text text-dark">Name of sub topic</p>
                         </div>
                     </div>
                 </a>
             </div>
             {% endfor %}
-            {% for test in tests %}
+            {% for test in video.lesson.lesson_Test.all %}
             <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
-                <a href="{% url 'video:test' test.id %}">
+                <a href="{% url 'lessons:Test' test.id %}">
                     <div class="shadow-sm p-3 rounded card text-black mb-3 test-cards">
-                        <h6 class="test-titl">{% if test.Type == 'P' %}4 Tests | 120 Questions{% else %}15 Questions | 1
-                            hour{% endif %}</h6>
+                        <h6 class="test-titl">{{key.question.all.count}} Questions</h6>
                         <div class="card-body row">
-                            <img class="col-lg-12" src="{% static 'Images/test.png' %}">
-                            <p class="card-text text-dark">Name of sub topic</p>
+                            <img class="col-lg-12" src="{% static 'Images/lesson/test.png' %}">
+                            <p class="card-text text-dark">{% if key.final %}Final Test{% else %}Practice Test{% endif %}</p>
                         </div>
                     </div>
                 </a>

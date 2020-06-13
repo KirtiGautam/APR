@@ -11,7 +11,10 @@ def classes(request):
 
 def chapters(request):
     if request.user.is_authenticated and request.user.admin:
-        return render(request, 'settings/admin/Chapters/chapters.html')
+        data = {
+            'classes': Class.objects.all()
+        }
+        return render(request, 'settings/admin/Chapters/chapters.html', data)
     return redirect('accounts:dashboard')
 
 
