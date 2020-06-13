@@ -9,25 +9,23 @@
 </head>
 
 {% include "common/header.html" %}
-<div class="col-10 col-sm-4 col-md-4 col-lg-2 float-left">
+<div class="col-10 col-sm-6 col-md-4 col-lg-3 float-left">
     {% include "settings/admin/adminSidebar.html" %}
 </div>
 
 <div class="content">
     <div class="container-fluid">
         <div class="row row-one">
-            <span class="col-12 col-sm-8 col-md-8 col-lg-8 student-details">
+            <span class="col-12 col-sm-6 col-md-6 col-lg-8 student-details">
                 Student Details
             </span>
-            <span class="col-12 col-sm-4 col-md-4 col-lg-4">
-                <span class="d-flex justify-content-end">
-                    <button id="newStudent" class="btn buttons">Add New</button>
-                    <button id="" class="btn buttons">Import Data</button>
-                </span>
+            <span class="col-12 col-sm-6 col-md-6 col-lg-4">
+                <button id="newStudent" class="btn buttons">Add New</button>
+                <button id="" class="btn buttons">Import Data</button>
             </span>
         </div>
         <div class="row row-two">
-            <span class="col-6 col-sm-6 col-md-6 col-lg-2">
+            <span class="col-12 col-sm-6 col-md-6 col-lg-2">
                 <span class="selection">Search Class</span>
                 <span>
                     <select id="class" class="form-control drop">
@@ -38,25 +36,25 @@
                     </select>
                 </span>
             </span>
-            <span class="col-6 col-sm-6 col-md-6 col-lg-2">
+            <span class="col-12 col-sm-6 col-md-6 col-lg-2">
                 <span class="selection">Search Section</span>
                 <span class="form-control drop"></span>
             </span>
             <span class="col-12 col-sm-12 col-md-12 col-lg-1 text-center or">
                 <span class="selection">or</span>
             </span>
-            <span class="col-9 col-sm-9 col-md-9 col-lg-5">
+            <span class="col-12 col-sm-9 col-md-9 col-lg-5">
                 <input type="text" id="search" class="form-control drop or"
                     placeholder="Search using student name here ...">
             </span>
-            <span class="col-3 col-sm-3 col-md-3 col-lg-2">
-                <button class="btn search-button or">Search</button>
+            <span class="col-12 col-sm-3 col-md-3 col-lg-2">
+                <button class="btn search-button or col-12">Search</button>
             </span>
         </div>
 
         <div class="row row-three">
-            <span class="col-12 col-sm-12 col-md-12 col-lg-12">
-                <span class="d-flex justify-content-end">
+            <span class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                <span class="float-right">
                     <button id="delete" class="btn buttons">Delete</button>
                     <button id="edit" class="btn buttons">Edit</button>
                     <button id="" class="btn buttons">Filter</button>
@@ -65,7 +63,7 @@
                 </span>
             </span>
             <span class="col-12">
-                <div class="table-responsive contain">
+                <div class="table-responsive-sm contain">
                     <table id='Students' class="table table-hover table-sm w-auto">
                         <thead class="thead-light">
                             <tr>

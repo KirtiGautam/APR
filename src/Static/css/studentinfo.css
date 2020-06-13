@@ -68,7 +68,7 @@
 th {
   position: sticky;
   top: 0;
-  font-size: calc(7px + 1vmin);
+  font-size: calc(10px + 1vmin);
   color: #707070;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -78,7 +78,7 @@ tr:hover {
 }
 
 td {
-  font-size: calc(6px + 1vmin);
+  font-size: calc(8px + 1vmin);
   color: #707070;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
