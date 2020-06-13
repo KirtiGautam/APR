@@ -1,0 +1,14 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+{% include "common/header.html" %}
+<div class="col-10 col-sm-4 col-md-4 col-lg-2 float-left">
+    {% include "settings/admin/adminSidebar.html" %}
+</div>
+<div class="content">
+
+    <h1>Classes Page</h1>
+</div>
+<script src="{% static 'js/admin/classes.js' %}"></script>
+{% endblock %}

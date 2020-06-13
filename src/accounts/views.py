@@ -3,6 +3,18 @@ from django.contrib.auth import authenticate, login, logout
 from accounts.models import User, Class
 
 
+def classes(request):
+    if request.user.is_authenticated and request.user.admin:
+        return render(request, 'settings/admin/classes/classes.html')
+    return redirect('accounts:dashboard')
+
+
+def chapters(request):
+    if request.user.is_authenticated and request.user.admin:
+        return render(request, 'settings/admin/Chapters/chapters.html')
+    return redirect('accounts:dashboard')
+
+
 def student_information(request):
     if request.user.is_authenticated and request.user.admin:
         data = {
@@ -10,6 +22,7 @@ def student_information(request):
         }
         return render(request, 'settings/admin/studentinfo/studentInfo.html', data)
     return redirect('accounts:dashboard')
+
 
 def school_staff(request):
     if request.user.is_authenticated and request.user.admin:

@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="{% static 'css/adminSidebar.css' %}">
 </head>
 
-<div class="row sidebar js-fullheight">
+<div class="row sidebar js-fullheight leftside">
   <ul class="list-unstyled col-12">
     <li class="mt-3">
       <span class="sidebar-heading">Manage Modules</span>
@@ -28,12 +28,20 @@
         <span class="p-1 sidebar-text SSLT">School Staff</span>
       </a>
     </li>
-    <li class="sidebar-menu pt-1 pb-1">
-      <a href="#">
-        <span class="p-1 sidebar-icon">
+    <li class="sidebar-menu pt-1 pb-1 CSL">
+      <a href="{% url 'accounts:classes' %}">
+        <span class="p-1 sidebar-icon CSI">
           <i class="fas fa-swatchbook"></i>
         </span>
-        <span class="p-1 sidebar-text">Classes | Subjects</span>
+        <span class="p-1 sidebar-text CST">Classes | Subjects</span>
+      </a>
+    </li>
+    <li class="sidebar-menu pt-1 pb-1 CHL">
+      <a href="{% url 'accounts:chapters' %}">
+        <span class="p-1 sidebar-icon CHI">
+          <i class="fas fa-swatchbook"></i>
+        </span>
+        <span class="p-1 sidebar-text CHT">Chapters | Sub-Chapters</span>
       </a>
     </li>
     <li class="sidebar-menu pt-1 pb-1">

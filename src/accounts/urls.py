@@ -4,7 +4,9 @@ from accounts.views import (
     log,
     index,
     logo,
-    school_staff
+    school_staff,
+    classes,
+    chapters
 )
 from accounts.admin_settings import (
     getStudents,
@@ -26,6 +28,8 @@ urlpatterns = [
     path('', index, name='dashboard'),
     path('login', log, name='login'),
     path('logout', logo, name='logout'),
+    path('settings/chapters', chapters, name='chapters'),
+    path('settings/classes', classes, name='classes'),
     path('settings/student-information',
          student_information, name='student_information'),
     path('settings/school-staff', school_staff, name='staff'),
