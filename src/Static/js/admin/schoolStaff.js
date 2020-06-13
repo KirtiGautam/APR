@@ -1,5 +1,7 @@
 
 
 $(document).ready(function () {
-    $('.SSL').addClass('active text-light');
+    $('.SSL').addClass('active');
+    $('.SSLT').addClass('stw');
+    $('.SSLI').addClass('siw');
 });

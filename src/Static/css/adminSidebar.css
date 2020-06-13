@@ -40,6 +40,11 @@
     0% no-repeat padding-box;
 }
 
+.siw,
+.stw {
+  color: #FFF9FE;
+}
+
 a:hover {
   text-decoration: none;
 }
