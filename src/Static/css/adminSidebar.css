@@ -10,20 +10,20 @@
 }
 
 .sidebar-heading {
-  font-size: calc(15px + 1vmin);
+  font-size: calc(15px + 1vmax);
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #15202b;
 }
 
 .sidebar-text {
-  font-size: calc(10px + 1vmin);
+  font-size: calc(8px + 1vmax);
   font-family: Arial, Helvetica, sans-serif;
   color: #15202b;
 }
 
 .sidebar-icon {
-  font-size: calc(10px + 1vmin);
+  font-size: calc(8px + 1vmax);
   color: #15202b;
 }
 
