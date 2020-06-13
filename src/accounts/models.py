@@ -21,7 +21,6 @@ class UserManager(BaseUserManager):
         return user
 
     def create_admin(self, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('admin', True)
         extra_fields.setdefault('user_type', 'Staff')
         return self._create_user(email, password, **extra_fields)

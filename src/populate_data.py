@@ -11,6 +11,23 @@ from faker import Faker
 fakegen = Faker()
 import random
 
+def staff(N):
+    for _ in range(N):
+        email=fakegen.email()
+        user= User.objects.create_admin(
+            email=email, 
+            password=email, 
+            first_name=fakegen.first_name(),
+            last_name=fakegen.last_name(),
+            user_type='Staff')
+        email=fakegen.email()
+        user= User.objects.create_staff(
+            email=email, 
+            password=email, 
+            first_name=fakegen.first_name(),
+            last_name=fakegen.last_name(),
+            user_type='Staff')
+
 def student(N):
     lis = ['M', "F"]    
     for _ in range(N):
@@ -43,5 +60,6 @@ def student(N):
 
 if __name__ == "__main__":
     print('Populating data....')
-    student(10)
+    # student(10)
+    staff(5)
     print('Done')

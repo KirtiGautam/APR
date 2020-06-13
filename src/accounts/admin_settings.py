@@ -5,6 +5,88 @@ from django import http
 from django.db.models import Q
 
 
+def updateStaff(request):
+    if request.user.is_authenticated and request.user.admin:
+        user = User.objects.get(id=request.POST['id'])
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.email = request.POST['email']
+        user.save()
+        data = {
+            'message': 'Selected User is updated'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def deleteStaff(request):
+    if request.user.is_authenticated and request.user.admin:
+        User.objects.filter(id__in=request.POST.getlist('id[]')).delete()
+        data = {
+            'message': 'Selected Users are deleted'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def getUser(request):
+    if request.user.is_authenticated and request.user.admin:
+        user = User.objects.get(id=request.GET['id'])
+        data = {
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email,
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def newStaff(request):
+    if request.user.is_authenticated and request.user.admin:
+        # if request.POST['type'] == 'admin':
+        #     user = User.objects.create_admin(
+        #         email=request.POST['email'],
+        #         password=request.POST['email'],
+        #         first_name=request.POST['first_name'],
+        #         last_name=request.POST['last_name'],
+        #         user_type='Staff'
+        #     )
+        # else:
+        user = User.objects.create_staff(
+            email=request.POST['email'],
+            password=request.POST['email'],
+            first_name=request.POST['first_name'],
+            last_name=request.POST['last_name'],
+            user_type='Staff'
+        )
+        data = {
+            'message': 'User added'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def getStaff(request):
+    if request.user.is_authenticated and request.user.admin:
+        if request.GET['type'] == 'teacher':
+            staff = User.objects.filter(is_staff=True)
+        elif request.GET['type'] == 'admin':
+            staff = User.objects.filter(admin=True)
+        else:
+            staff = User.objects.filter(Q(admin=True) | Q(is_staff=True))
+        staff = staff.filter(Q(first_name__contains=request.GET['term']) | Q(
+            last_name__contains=request.GET['term']))
+        data = {
+            'staff': [{
+                'id': x.id,
+                'Name': x.get_full_name(),
+                'Email': x.email,
+            }for x in staff]
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
 def newStudent(request):
     if request.user.is_authenticated and request.user.admin:
         user = User.objects.create_user(
@@ -113,4 +195,3 @@ def deleteStudents(request):
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': "You're not authorized"})
-
