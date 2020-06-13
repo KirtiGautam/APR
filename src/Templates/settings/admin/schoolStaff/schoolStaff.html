@@ -10,65 +10,53 @@
 </div>
 <div class="content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-6 col-sm-8 col-md-10 col-lg-10">
-                <span>School Staff Information</span>
+        <div class="row row-one">
+            <div class="col-6 col-sm-8 col-md-8 col-lg-8">
+                <span class="staff-info">School Staff Information</span>
             </div>
-            <div class="col-6 col-sm-4 col-md-2 col-lg-2">
-                <button id="newStaff">Add new</button>
+            <div class="col-6 col-sm-4 col-md-4 col-lg-4">
+                <span class="d-flex justify-content-end">
+                    <button id="newStaff" class="btn buttons">Add new</button>
+                    <button id="" class="btn buttons">Import Data</button>
+                </span>
             </div>
         </div>
-        <div class="row">
+        <div class="row row-two">
             <div class="col-12 col-sm-12 col-md-5 col-lg-4">
-                <span>Select Category</span>
+                <span class="selection">Select Category</span>
                 <br>
-                <select id="type" class="form-control">
+                <select id="type" class="form-control drop">
                     <option value="" selected>ALL</option>
                     <option value="admin">Admin</option>
                     <option value="teacher">Teacher</option>
                 </select>
             </div>
-            <div class="col-12 col-sm-12 col-md-2 col-lg-1 text-center">
-                <span>or</span>
+            <div class="col-12 col-sm-12 col-md-2 col-lg-1 text-center or">
+                <span class="selection">or</span>
             </div>
             <div class="col-12 col-sm-12 col-md-5 col-lg-4">
                 <div class="input-group md-form form-sm form-1 pl-0">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text purple lighten-3" id="basic-text1"><i
-                                class="fas fa-search text-white" aria-hidden="true"></i></span>
-                    </div>
-                    <input class="form-control my-0 py-1" id="search" type="text"
-                        placeholder="Search using name here ..." aria-label="Search">
+                    <input class="form-control drop or" id="search" type="text" placeholder="Search using name here ...">
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-3">
-                <button>Search</button>
+                <button class="btn search-button or">Search</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-5">
-                <div class="input-group md-form form-sm form-1 pl-0">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text purple lighten-3" id="basic-text1"><i
-                                class="fas fa-search text-white" aria-hidden="true"></i></span>
-                    </div>
-                    <input class="form-control my-0 py-1" type="text" placeholder="Search using name here ..."
-                        aria-label="Search">
-                </div>
-                <div class="col-12 col-sm-12 col-md-12 col-lg-7">
-                    <div class="d-flex justify-content-around">
-                        <button id="delete">Delete</button>
-                        <button id="edit">Edit</button>
-                        <button>Filter</button>
-                        <button>Download as PDF</button>
-                        <button id="excel">Download as Excel</button>
-                    </div>
+        <div class="row row-three">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="d-flex justify-content-end">
+                    <button id="delete" class="btn buttons">Delete</button>
+                    <button id="edit" class="btn buttons">Edit</button>
+                    <button class="btn buttons">Filter</button>
+                    <button id="excel" class="btn buttons">Export Excel</button>
+                    <button class="btn buttons">Export PDF</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="table-responsive-sm">
-                    <table class="table table-striped w-auto">
-                        <thead>
+            <div class="col-12">
+                <div class="table-responsive contain">
+                    <table class="table table-hover table-sm w-auto">
+                        <thead class="thead-light">
                             <tr>
                                 <th></th>
                                 <th>S.No.</th>
@@ -76,31 +64,44 @@
                                 <th>Email</th>
                             </tr>
                         </thead>
-                        <tbody id="Staff">
-                        </tbody>
+                        <tbody id="Staff"></tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal" tabindex="-1" role="dialog" id="add">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <span class="modal-title">
+                        <span class="ansd">Add New Staff Details</span>
+                    </span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body row row-four">
                     <input type="hidden" id="UID">
-                    First Name:<input type="text" id="first_name"><br>
-                    Last Name:<input type="text" id="last_name"><br>
-                    Email:<input type="email" id="email"><br>
+                    <span class="col-6 col-sm-6 col-md-6 col-lg-6">
+                        <span class="selection">First Name</span>
+                        <br>
+                        <input type="text" id="first_name" class="form-control inp">
+                    </span>
+                    <span class="col-6 col-sm-6 col-md-6 col-lg-6">
+                        <span class="selection">Last Name</span>
+                        <br>
+                        <input type="text" id="last_name" class="form-control inp">
+                    </span>
+                    <span class="col-6 col-sm-6 col-md-6 col-lg-6">
+                        <span class="selection">Email</span>
+                        <br>
+                        <input type="email" id="email" class="form-control inp">
+                    </span>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="ANS">Add Student</button>
-                    <button class="btn btn-primary" id="US">Update</button>
+                    <button class="btn save" id="ANS">Save</button>
+                    <button class="btn save" id="US">Save</button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 .student-details {
-  font-size: calc(15px + 1vmax);
+  font-size: calc(20px + 1vmin);
   font-weight: bold;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #707070;
@@ -10,7 +10,7 @@
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 10px;
   font-weight: 600;
-  font-size: calc(3px + 1vmax);
+  font-size: calc(7px + 1vmin);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: calc(1vmax) !important;
   color: #626262;
@@ -32,7 +32,7 @@
 }
 
 .selection {
-  font-size: calc(5px + 1vmax);
+  font-size: calc(10px + 1vmin);
   font-weight: bold;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #626262;
@@ -42,7 +42,7 @@
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 2px solid #e6ecf0;
   border-radius: 15px;
-  font-size: calc(4px + 1vmax);
+  font-size: calc(9px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
 }
@@ -53,7 +53,7 @@
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 10px;
   font-weight: 600;
-  font-size: calc(3px + 1vmax);
+  font-size: calc(7px + 1vmin);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #ffffff;
 }
@@ -68,7 +68,7 @@
 th {
   position: sticky;
   top: 0;
-  font-size: calc(8px + 1vmin);
+  font-size: calc(7px + 1vmin);
   color: #707070;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -78,7 +78,7 @@ tr:hover {
 }
 
 td {
-  font-size: calc(7px + 1vmin);
+  font-size: calc(6px + 1vmin);
   color: #707070;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -98,14 +98,14 @@ td {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #707070;
   border-radius: 10px;
-  font-size: calc(4px + 1vmax);
+  font-size: calc(9px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
 }
 
 .ansi {
   font: Bold 28px/37px Segoe UI;
-  font-size: calc(10px + 1vmax);
+  font-size: calc(15px + 1vmin);
   font-weight: bold;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #707070;
@@ -116,8 +116,8 @@ td {
     0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 10px;
-  font-size: calc(3px + 1vmax);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: calc(7px + 1vmin);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 600;
   letter-spacing: 0px;
   color: #ffffff;
@@ -128,4 +128,8 @@ td {
     no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   outline: none;
+}
+
+.or{
+  margin-top: 20px !important;
 }
