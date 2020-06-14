@@ -2,31 +2,83 @@
 {% load static %}
 {% block content %}
 
+<head>
+    <link rel="stylesheet" href="{% static 'css/chapters.css' %}">
+</head>
 
 {% include "common/header.html" %}
 <div class="col-10 col-sm-4 col-md-4 col-lg-3 float-left">
     {% include "settings/admin/adminSidebar.html" %}
 </div>
 <div class="content">
-    <select id="class">
-        <option value="" selected disabled>Class</option>
-        {% for key in classes %}
-        <option value="{{key.id}}">{{key.name}} {{key.section}}</option>
-        {% endfor %}
-    </select>
-    <select id="subject">
-        <option value="" selected disabled>Please select a class first</option>
-    </select>
-    <div class="row mt-5 pt-5">
-        <div class="col-lg-3">
-            <h6>Add Lesson</h6>
-            <input type="text" id="lesson">
-            <button type="button" id="save">Save</button>
+    <div class="container-fluid">
+        <div class="row row-one">
+            <span class="col-12 col-sm-6 col-md-6 col-lg-8 heading-1">
+                Chapter Details
+            </span>
+            <span class="col-12 col-sm-6 col-md-6 col-lg-4">
+                <button id="" class="btn buttons">Import Data</button>
+            </span>
         </div>
-        <div class="col-lg-7">
-            <ul class="list-group" id="lessons">
-                <li class="text-danger">Please select a Subject</li>
-            </ul>
+        <div class="row row-two">
+            <span class="col-12 col-sm-12 col-md-6 col-lg-3">
+                <span class="selection">Search Class</span>
+                <span>
+                    <select id="class" class="form-control drop">
+                        <option value="" selected disabled>Class</option>
+                        {% for key in classes %}
+                        <option value="{{key.id}}">{{key.name}} {{key.section}}</option>
+                        {% endfor %}
+                    </select>
+                </span>
+            </span>
+            <span class="col-12 col-sm-12 col-md-6 col-lg-3">
+                <span class="selection">Search Section</span>
+                <span class="form-control drop"></span>
+            </span>
+            <span class="col-12 col-sm-12 col-md-6 col-lg-3">
+                <span class="selection">Search Subject</span>
+                <span>
+                    <select id="subject" class="form-control drop">
+                        <option value="" selected disabled>Please select a class first</option>
+                    </select>
+                </span>
+            </span>
+            <span class="col-12 col-sm-3 col-md-6 col-lg-3">
+                <button class="btn search-button col-12 or">Search</button>
+            </span>
+        </div>
+        <div class="row row-three">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 mb-5 p-2">
+                <div class="heading-2 p-2">Add Chapter</div>
+                <div class="dropdown-divider"></div>
+                <div class="p-1">
+                    <div class="selection p-1">Chapter Name</div>
+                    <div class="p-1">
+                        <textarea name="" id="lesson" cols="10" rows="2" class="form-control inp"></textarea>
+                    </div>
+                </div>
+                <div class="p-1">
+                    <div class="selection p-1">Chapter Number</div>
+                    <div class="p-1">
+                        <input type="number" name="" id="" class="form-control inp">
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="float-right p-1"><button class="btn save">Save</button></div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8 part-2 p-2">
+                <div class="col-6 col-sm-6 col-md-4 col-lg-4 part-2-1">
+                    <span class="row">
+                        <span class="col-12 cn">Chapter Number</span>
+                        <span class="col-2 num">1</span>
+                        <span class="col-10 chap-name">Name of Chapter</span>
+                    </span>
+                </div>
+                <ul class="list-group" id="lessons">
+                    <li class="text-danger">Please select a Subject</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
