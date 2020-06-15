@@ -90,9 +90,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Class(models.Model):
-    name = models.CharField(max_length=15)
-    section = models.CharField(max_length=5)
-    year = models.PositiveSmallIntegerField(default=date.today().year)
+    name = models.CharField(max_length=15, unique=True)
 
 
 class Student(models.Model):

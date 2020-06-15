@@ -5,7 +5,11 @@ from accounts.models import User, Class
 
 def classes(request):
     if request.user.is_authenticated and request.user.admin:
-        return render(request, 'settings/admin/classes/classes.html')
+        data = {
+            'classes': Class.objects.all(),
+            'teachers':User.objects.filter(is_staff=True)
+        }
+        return render(request, 'settings/admin/classes/classes.html', data)
     return redirect('accounts:dashboard')
 
 

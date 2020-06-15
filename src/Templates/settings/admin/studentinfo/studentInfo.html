@@ -31,7 +31,7 @@
                     <select id="class" class="form-control drop">
                         <option value="" selected>ALL</option>
                         {% for key in classes %}
-                        <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
+                        <option value="{{key.id}}">{{key.name}}</option>
                         {% endfor %}
                     </select>
                 </span>
@@ -106,7 +106,7 @@
                             <select class="Class form-control inp">
                                 <option value="" selected disabled>Class</option>
                                 {% for key in classes %}
-                                <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
+                                <option value="{{key.id}}">{{key.name}} </option>
                                 {% endfor %}
                             </select>
                         </span>

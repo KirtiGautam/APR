@@ -22,7 +22,7 @@
                     <select id="class" class="col-8 form-control first-dropdown m-2">
                         <option value="" disabled selected>Class</option>
                         {% for key in classes %}
-                        <option value="{{key.id}}">{{key.name}} {{key.section}} ({{key.year}})</option>
+                        <option value="{{key.id}}">{{key.name}}</option>
                         {% endfor %}
                     </select>
                     <span><button class="btn first-plus add-assign d-none" data-toggle="modal" data-backdrop="static"

@@ -38,7 +38,7 @@ def lessons(request):
     if request.user.is_authenticated:
         if request.user.admin:
             data = {
-                'classes': Class.objects.all().values('id', 'name', 'section', 'year')
+                'classes': Class.objects.all().values('id', 'name')
             }
         else:
             data = {

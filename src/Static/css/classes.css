@@ -8,6 +8,7 @@
 .menu-1 {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #dbdbdb;
+  cursor: pointer;
 }
 
 .menu-text {

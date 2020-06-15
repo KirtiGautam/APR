@@ -6,6 +6,110 @@ from django import http
 from django.db.models import Q
 
 
+def assignTeacher(request):
+    if request.user.is_authenticated and request.user.admin:
+        if request.POST['type'] == 'backup':
+            Subject.objects.filter(id=request.POST['id']).update(
+                backup_teacher=User.objects.get(id=request.POST['teacher']))
+        else:
+            Subject.objects.filter(id=request.POST['id']).update(
+                teacher=User.objects.get(id=request.POST['teacher']))
+        data = {
+            'message': "Teacher Assigned"
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def editSubject(request):
+    if request.user.is_authenticated and request.user.admin:
+        Subject.objects.filter(id=request.POST['id']).update(
+            Name=request.POST['name'])
+        data = {
+            'message': "Subject updated"
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def newSubject(request):
+    if request.user.is_authenticated and request.user.admin:
+        Subject.objects.create(
+            Name=request.POST['Name'], Class=Class.objects.get(id=request.POST['id']))
+        data = {
+            'message': "Subject created"
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def deleteSubject(request):
+    if request.user.is_authenticated and request.user.admin:
+        Subject.objects.filter(id=request.POST['id']).delete()
+        data = {
+            'message': "Subject deleted"
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def getSubjects(request):
+    if request.user.is_authenticated and request.user.admin:
+        subs = Subject.objects.filter(Name__contains=request.GET['term'])
+        data = {
+            'subject': [{
+                'id': s.id,
+                'Name': s.Name,
+                'Class': s.Class.name,
+            } for s in subs]
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def editClass(request):
+    if request.user.is_authenticated and request.user.admin:
+        Class.objects.filter(id=request.POST['id']).update(
+            name=request.POST['name'])
+        data = {
+            'message': 'Class updated'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def getClasses(request):
+    if request.user.is_authenticated and request.user.admin:
+        Classes = Class.objects.filter(
+            name__contains=request.GET['term']).values('id', 'name')
+        data = {
+            'class': list(Classes),
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def deleteClass(request):
+    if request.user.is_authenticated and request.user.admin:
+        Class.objects.filter(id=request.POST['id']).delete()
+        data = {
+            'message': 'Class deleted'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def newClass(request):
+    if request.user.is_authenticated and request.user.admin:
+        Class.objects.create(
+            name=request.POST['name'])
+        data = {
+            'message': 'Class addded'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
 def newLesson(request):
     if request.user.is_authenticated and request.user.admin:
         lesson = Lesson.objects.create(

@@ -1,11 +1,15 @@
 from django.db import models
-from accounts.models import Class
+from accounts.models import Class, User
 
 
 class Subject(models.Model):
     Class = models.ForeignKey(
         Class, on_delete=models.CASCADE, related_name='Subject')
     Name = models.CharField(max_length=100)
+    teacher = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='teacher', default=None, null=True)
+    backup_teacher = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='backup_teacher', default=None, null=True)
 
 
 class Lesson(models.Model):
