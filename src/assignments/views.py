@@ -46,7 +46,7 @@ def getSubjects(request):
 def getLessons(request):
     if request.user.is_authenticated and request.user.admin:
         return http.JsonResponse({
-            'lessons': list(Lesson.objects.filter(Subject=request.POST['id']).values('id', 'Name')),
+            'lessons': list(Lesson.objects.filter(Subject=request.POST['id']).values('id', 'Name', 'Number')),
         })
     return http.HttpResponseForbidden({'message': 'Unauthorized'})
 

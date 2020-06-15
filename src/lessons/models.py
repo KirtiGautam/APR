@@ -13,6 +13,7 @@ class Subject(models.Model):
 
 
 class Lesson(models.Model):
+    Number = models.PositiveIntegerField()
     Name = models.CharField(max_length=255)
     Subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name='Lesson')

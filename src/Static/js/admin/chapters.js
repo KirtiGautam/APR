@@ -29,7 +29,14 @@ const getLessons = () => {
         success: function (data) {
             html = '';
             for (x in data.lessons) {
-                html += `<li class="list-group-item">${data.lessons[x].Name}</li>`
+                html += `<div class="col-6 col-sm-6 col-md-4 col-lg-4 part-2-1 m-2">
+                <span class="row">
+                    <span class="col-12 cn">Chapter Number</span>
+                    <span class="col-2 num">${data.lessons[x].Number}</span>
+                    <span class="col-10 chap-name">${data.lessons[x].Name}</span>
+                </span>
+            </div>`
+                // html += `<li class="list-group-item">${data.lessons[x].Name}</li>`
             }
             $('#lessons').html(html);
         }
