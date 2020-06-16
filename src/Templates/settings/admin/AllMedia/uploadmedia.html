@@ -11,7 +11,7 @@
             <div class="modal-body mb-5">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <label for="dataType" class="selection">Select Media Type</label>
                             <br>
                             <select name="" id="dataType" class="drop form-control p-1">
@@ -20,7 +20,7 @@
                                 <option value="video">Video</option>
                             </select>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 d-none video_type">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 d-none video_type">
                             <label for="video_type" class="selection">Video Type</label>
                             <br>
                             <select id="video_type" class="drop p-1 form-control">
@@ -29,20 +29,20 @@
                                 <option value="other">Other</option>
                             </select>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <label for="FName" class="selection">Name</label>
                             <br>
                             <input type="text" id="FName" class="drop p-1 form-control">
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <label for="description" class="selection">Description</label>
                             <br>
-                            <input type="text" id="description" class="drop p-1 form-control">
+                            <textarea name="" id="description" cols="10" rows="2" class="drop p-1 form-control"></textarea>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <br>
                             <button onclick="upload('{% url 'accounts:allmedia-upload' %}');" id="upload_btn"
-                                class="btn import col-12">Upload</button>
+                                class="btn import col-12 mt-4">Upload</button>
                         </div>
 
                     </div>
