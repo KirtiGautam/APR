@@ -17,12 +17,19 @@
                 All media
             </span>
             <span class="col-12 col-sm-4 col-md-4 col-lg-2">
-                <button class="btn buttons">Upload Media</button>
+                <button class="btn buttons" data-toggle="modal" data-backdrop="static" data-target="#add">Upload
+                    Media</button>
             </span>
         </div>
         <div class="dropdown-divider"></div>
+        <select id="mediaType">
+            <option value="" selected>ALL</option>
+            <option value="video">Videos</option>
+            <option value="pdf">PDFS</option>
+        </select>
+        <div id="body"></div>
     </div>
 </div>
-
+{% include 'settings/admin/AllMedia/uploadmedia.html' %}
 <script src="{% static 'js/admin/allmedia.js' %}"></script>
 {% endblock %}

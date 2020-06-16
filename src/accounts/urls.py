@@ -31,7 +31,7 @@ from accounts.admin_settings import (
     assignTeacher
 )
 
-from accounts.media import allmedia
+from accounts.media import allmedia, upload, getMedia
 
 app_name = 'accounts'
 
@@ -47,6 +47,8 @@ urlpatterns = [
          student_information, name='student_information'),
     path('settings/school-staff', school_staff, name='staff'),
     # Requests
+    path('get-media', getMedia, name='get-media'),
+    path('upload-allmedia', upload, name='allmedia-upload'),
     path('assign-teacher', assignTeacher, name='assign-teacher'),
     path('edit-subject', editSubject, name='edit-subject'),
     path('new-subject', newSubject, name='new-subject'),

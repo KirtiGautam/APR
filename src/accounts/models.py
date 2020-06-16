@@ -5,6 +5,7 @@ from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 from datetime import date
 
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -111,4 +112,23 @@ class Student(models.Model):
     Class = models.ForeignKey(Class, on_delete=models.CASCADE)
 
     def __str__(self):
-        self.user.__str__
+        return self.user.__str__
+
+
+class video(models.Model):
+    Name = models.CharField(max_length=100)
+    Description = models.CharField(max_length=500)
+    Local = models.BooleanField(default=True)
+    file = models.FileField(upload_to='videos/', default=None, null=True)
+
+    def __str__(self):
+        return self.Name
+
+
+class pdf(models.Model):
+    Name = models.CharField(max_length=100)
+    Description = models.CharField(max_length=500)
+    file = models.FileField(upload_to='pdfs/')
+
+    def __str__(self):
+        return self.Name
