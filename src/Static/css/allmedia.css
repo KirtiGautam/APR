@@ -45,6 +45,23 @@
   outline: none;
 }
 
+.import {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: calc(3px + 1vmax);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.import:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
 .inp {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #707070;
@@ -57,7 +74,7 @@
 
 .drop {
   background: #ffffff 0% 0% no-repeat padding-box;
-  border: 2px solid #e6ecf0;
+  border: 1px solid #e6ecf0;
   border-radius: 15px;
   color: #376baa;
   font-size: calc(4px + 1vmax);
