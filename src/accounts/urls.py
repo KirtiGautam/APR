@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from accounts.views import (
     student_information,
     log,
@@ -31,13 +31,14 @@ from accounts.admin_settings import (
     assignTeacher
 )
 
-from accounts.media import allmedia, upload, getMedia
+from accounts.media import allmedia, upload, getMedia, allquestions, questions, uploadQuestions
 
 app_name = 'accounts'
 
 urlpatterns = [
     # Views
     path('settings/allmedia', allmedia, name='allmedia'),
+    path('settings/allquestions', allquestions, name='allquestions'),
     path('', index, name='dashboard'),
     path('login', log, name='login'),
     path('logout', logo, name='logout'),
@@ -46,7 +47,9 @@ urlpatterns = [
     path('settings/student-information',
          student_information, name='student_information'),
     path('settings/school-staff', school_staff, name='staff'),
+    re_path(r'^settings/allquestion/$', questions, name='get-allquestions'),
     # Requests
+    path('upload-questions', uploadQuestions, name='upload-questions'),    
     path('get-media', getMedia, name='get-media'),
     path('upload-allmedia', upload, name='allmedia-upload'),
     path('assign-teacher', assignTeacher, name='assign-teacher'),

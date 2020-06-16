@@ -1,0 +1,84 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+
+{% include "common/header.html" %}
+<div class="col-10 col-sm-4 col-md-4 col-lg-3 float-left">
+    {% include "settings/admin/adminSidebar.html" %}
+</div>
+<div class="content">
+    <form action="{% url 'accounts:get-allquestions' %}" method="get" onsubmit="return check();">
+        Class:
+        <select name="class" id="class">
+            <option value="" disabled selected>Select Class</option>
+            {% for key in class %}
+            <option value="{{key.id}}" {% if request.GET.class|add:"0" == key.id %} selected {% endif %}>{{key.name}}
+            </option>
+            {% endfor %}
+        </select><br>
+        Subject:
+        <select name="subject" id="subject">
+            <option value="" disabled selected>Please Select Class</option>
+            {% for key in class %}
+            {% if key.id == request.GET.class|add:"0" %}
+            {% for sub in key.Subject.all %}
+            <option value="{{sub.id}}" {% if request.GET.subject|add:"0" == sub.id %} selected {% endif %}>{{sub.Name}}
+            </option>
+            {% endfor %}
+            {% endif  %}
+            {% endfor %}
+        </select><br>
+        Chapter:
+        <select name="lesson" id="lesson">
+            <option value="" disabled selected>Select Subject</option>
+            {% for key in class %}
+            {% if key.id == request.GET.class|add:"0" %}
+            {% for sub in key.Subject.all %}
+            {% if sub.id == request.GET.subject|add:"0" %}
+            {% for lesson in sub.Lesson.all %}
+            <option value="{{lesson.id}}" {% if request.GET.lesson|add:"0" == lesson.id %} selected {% endif %}>
+                {{lesson.Name}}
+            </option>
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+            {% endif  %}
+            {% endfor %}
+        </select><br>
+        <button type="submit">Search</button>
+    </form>
+    <button type="submit" data-toggle="modal" data-backdrop="static" data-target="#add">Import data</button><br>
+
+    {% for key in question %}
+    {{key.Name}} <br>
+    {% for choice in key.choice.all %}
+    {% if choice.id == key.Answer.choice.id %}This is correct one! {% endif %}
+    {{choice.Name}} <br>
+    {% endfor %}
+    {% endfor %}
+
+    <div class="modal" tabindex="-1" role="dialog" id="add">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" id="file">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="upload_btn">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/admin/allquestion.js' %}"></script>
+<script src="{% static 'js/PapaParse.js' %}"></script>
+
+{% endblock %}

@@ -1,8 +1,54 @@
 from django.shortcuts import render, redirect
-from accounts.models import pdf, video
+from accounts.models import pdf, video, Class, question, choice, answer
+from lessons.models import Subject, Lesson
 from django import http
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+import json
+
+
+def uploadQuestions(request):
+    if request.user.is_authenticated and request.user.admin:
+        lesson = Lesson.objects.get(id=request.POST['lesson'])
+        for x in json.loads(request.POST['file']):
+            qn = question.objects.create(
+                Name=x['Question'], Lesson=lesson, Difficulty=x['Difficulty'])
+            c1 = choice.objects.create(
+                Name=x['Choice 1'].strip(), question=qn)
+            c2 = choice.objects.create(
+                Name=x['Choice 2'].strip(), question=qn)
+            c3 = choice.objects.create(
+                Name=x['Choice 3'].strip(), question=qn)
+            c4 = choice.objects.create(
+                Name=x['Choice 4'].strip(), question=qn)
+            c = [c1, c2, c3, c4]
+            for i in range(1, 5):
+                if x['Choice '+str(i)].strip().lower() == x['Correct Answer'].strip().lower():
+                    ans = answer.objects.create(question=qn, choice=c[i-1])
+        data = {
+            'message': 'File uploaded'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def questions(request):
+    if request.user.is_authenticated and request.user.admin:
+        data = {
+            'class': Class.objects.all(),
+            'question': question.objects.filter(Lesson__id=request.GET['lesson']),
+        }
+        return render(request, 'settings/admin/Allquestions/allquestions.html', data)
+    return redirect('accounts:dashboard')
+
+
+def allquestions(request):
+    if request.user.is_authenticated and request.user.admin:
+        data = {
+            'class': Class.objects.all()
+        }
+        return render(request, 'settings/admin/Allquestions/allquestions.html', data)
+    return redirect('accounts:dashboard')
 
 
 def allmedia(request):

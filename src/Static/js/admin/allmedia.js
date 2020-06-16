@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    getMedia('');
+    getMedia();
 
     $('.mdl').addClass('active');
     $('.mdt').addClass('stw');
@@ -30,11 +30,12 @@ $(document).ready(function () {
     })
 
     $('#mediaType').change(function () {
-        getMedia(this.value);
+        getMedia();
     })
 });
 
-const getMedia = type => {
+const getMedia = () => {
+    const type = $('#mediaType').val()
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
