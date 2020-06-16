@@ -22,12 +22,21 @@
             </span>
         </div>
         <div class="dropdown-divider"></div>
-        <select id="mediaType">
-            <option value="" selected>ALL</option>
-            <option value="video">Videos</option>
-            <option value="pdf">PDFS</option>
-        </select>
-        <div id="body"></div>
+        <div class="row row-two">
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+                <span class="selection">Select Category</span>
+                <br>
+                <select id="mediaType" class="form-control drop">
+                    <option value="" selected>ALL</option>
+                    <option value="pdf">PDF</option>
+                    <option value="video">Videos</option>
+                </select>
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                <button class="btn search-button or col-12">Search</button>
+            </div>
+        </div>
+        <div id="body" class="row row-three"></div>
     </div>
 </div>
 {% include 'settings/admin/AllMedia/uploadmedia.html' %}
