@@ -126,8 +126,9 @@
 }
 
 .back-text {
-  font-size: calc(2vmax + 1vmin);
-  font-family: NeueBold;
+  font-size: calc(25px + 1vmax);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
   color: #fd7f2c;
 }
 

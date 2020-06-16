@@ -14,7 +14,7 @@
     </div>
     <div class="content">
         <div class="container-fluid">
-            <div class="row mb-5">
+            <div class="row row-1">
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3">
                     <span class="select-subject">Select Subjects</span>
                 </div>
@@ -34,18 +34,19 @@
                     <div class="flexing" id="SB">
                     </div>
                 </div>
-                <div class="col-12 back">
-                    <span class="col-6 back-text">
-                        LESSONS AND
-                        <br>
-                        PRACTICE TEST
-                    </span>
-                    <span class="col-6 back-photo">
-                        <img src="/static/Images/lesson/back.png" alt="" class="rounded float-right col-3">
-                    </span>
-                </div>
-                <div id="body" class="col-12">
-                </div>
+            </div>
+            <div class="row row-2 back">
+                <span class="col-12 col-sm-8 col-md-8 col-lg-6 back-text">
+                    <span class="col-12">LESSONS AND</span>
+                    <br>
+                    <span class="col-12">PRACTICE TEST</span>
+                </span>
+                <span class="col-0 col-sm-4 col-md-4 col-lg-6 back-photo">
+                    <img src="/static/Images/lesson/back.png" alt="" class="rounded float-right col-0 col-sm-12 col-md-12 col-lg-6">
+                </span>
+            </div>
+            <div class="row row-three">
+                <div id="body" class="col-12"></div>
             </div>
             {% if user.admin %}
             <input type="hidden" id="ChapName">

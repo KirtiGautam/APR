@@ -12,7 +12,7 @@ const getStudents = () => {
             let html = '';
             for (let x = 0; x < data.students.length; x++) {
                 let stu = data.students[x];
-                html += `<tr><td><input type="checkbox" class="users" value="${stu['id']}"></td><td>${x + 1}</td><td>${stu['Name']}</td><td>${stu['Email']}</td><td>${stu['Contact']}</td><td>${stu['Gender']}</td><td>${stu['DOB']}</td><td>${stu['City']}</td><td>${stu['State']}</td><td>${stu['District']}</td><td>${stu['Pincode']}</td><td>${stu['Address']}</td></tr>`;
+                html += `<tr><td><input type="checkbox" class="users" value="${stu['id']}"></td><td>${x + 1}</td><td>${stu['Name']}</td><td>${stu['Gender']}</td><td>${stu['DOB']}</td><td>${stu['Email']}</td><td>${stu['Contact']}</td><td>${stu['Address']}</td><td>${stu['Pincode']}</td><td>${stu['City']}</td><td>${stu['District']}</td><td>${stu['State']}</td></tr>`;
             }
             $('#students').html(html);
         }
