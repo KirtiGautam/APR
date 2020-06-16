@@ -31,10 +31,13 @@ from accounts.admin_settings import (
     assignTeacher
 )
 
+from accounts.media import allmedia
+
 app_name = 'accounts'
 
 urlpatterns = [
     # Views
+    path('settings/allmedia', allmedia, name='allmedia'),
     path('', index, name='dashboard'),
     path('login', log, name='login'),
     path('logout', logo, name='logout'),
