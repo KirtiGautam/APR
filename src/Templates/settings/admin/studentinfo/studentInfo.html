@@ -20,15 +20,15 @@
                 Student Details
             </span>
             <span class="col-12 col-sm-6 col-md-6 col-lg-4">
-                <button id="newStudent" class="btn buttons">Add New</button>
-                <button id="" class="btn buttons">Import Data</button>
+                <button id="newStudent" class="btn buttons ">Add New</button>
+                <button id="" class="btn buttons ">Import Data</button>
             </span>
         </div>
         <div class="row row-two">
-            <span class="col-12 col-sm-6 col-md-6 col-lg-2">
-                <span class="selection">Search Class</span>
+            <span class="col-12 col-sm-12 col-md-12 col-lg-4">
+                <span class="selection ">Search Class</span>
                 <span>
-                    <select id="class" class="form-control drop">
+                    <select id="class" class="form-control drop ">
                         <option value="" selected>ALL</option>
                         {% for key in classes %}
                         <option value="{{key.id}}">{{key.name}}</option>
@@ -36,30 +36,30 @@
                     </select>
                 </span>
             </span>
-            <span class="col-12 col-sm-6 col-md-6 col-lg-2">
-                <span class="selection">Search Section</span>
+            <!-- <span class="col-12 col-sm-6 col-md-6 col-lg-2">
+                <span class="selection ">Search Section</span>
                 <span class="form-control drop"></span>
-            </span>
+            </span> -->
             <span class="col-12 col-sm-12 col-md-12 col-lg-1 text-center or">
-                <span class="selection">or</span>
+                <span class="selection ">or</span>
             </span>
             <span class="col-12 col-sm-9 col-md-9 col-lg-5">
-                <input type="text" id="search" class="form-control drop or"
+                <input type="text" id="search" class="form-control drop or "
                     placeholder="Search using student name here ...">
             </span>
             <span class="col-12 col-sm-3 col-md-3 col-lg-2">
-                <button class="btn search-button or col-12">Search</button>
+                <button class="btn search-button or col-12 ">Search</button>
             </span>
         </div>
 
         <div class="row row-three">
             <span class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
                 <span class="float-right">
-                    <button id="delete" class="btn buttons">Delete</button>
-                    <button id="edit" class="btn buttons">Edit</button>
-                    <button id="" class="btn buttons">Filter</button>
-                    <button id="excel" class="btn buttons">Export Excel</button>
-                    <button id="" class="btn buttons">Export PDF</button>
+                    <button id="delete" class="btn buttons ">Delete</button>
+                    <button id="edit" class="btn buttons ">Edit</button>
+                    <!-- <button id="" class="btn buttons ">Filter</button> -->
+                    <button id="excel" class="btn buttons ">Export Excel</button>
+                    <!-- <button id="" class="btn buttons ">Export PDF</button> -->
                 </span>
             </span>
             <span class="col-12">
@@ -70,15 +70,15 @@
                                 <th></th>
                                 <th>S.No.</th>
                                 <th>Name</th>
-                                <th>Email ID</th>
-                                <th>Contact</th>
                                 <th>Gender</th>
                                 <th>Date of Birth</th>
-                                <th>City</th>
-                                <th>State</th>
-                                <th>District</th>
-                                <th>Pincode</th>
+                                <th>Email ID</th>
+                                <th>Contact</th>
                                 <th>Address</th>
+                                <th>Pincode</th>
+                                <th>City</th>
+                                <th>District</th>
+                                <th>State</th>
                             </tr>
                         </thead>
                         <tbody id="students"></tbody>
@@ -100,10 +100,10 @@
                 <div class="modal-body row row-four">
                     <input type="hidden" id="UID">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">Class</span>
+                        <span class="selection ">Class</span>
                         <br>
                         <span>
-                            <select class="Class form-control inp">
+                            <select class="Class form-control inp ">
                                 <option value="" selected disabled>Class</option>
                                 {% for key in classes %}
                                 <option value="{{key.id}}">{{key.name}} </option>
@@ -112,20 +112,20 @@
                         </span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">First Name</span>
+                        <span class="selection ">First Name</span>
                         <br>
-                        <span><input type="text" id="first_name" class="form-control inp"></span>
+                        <span><input type="text" id="first_name" class="form-control inp "></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">Last Name</span>
+                        <span class="selection ">Last Name</span>
                         <br>
-                        <span><input type="text" id="last_name" class="form-control inp"></span>
+                        <span><input type="text" id="last_name" class="form-control inp "></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">Gender</span>
+                        <span class="selection ">Gender</span>
                         <br>
                         <span>
-                            <select id="gender" class="form-control inp">
+                            <select id="gender" class="form-control inp ">
                                 <option value="" selected disabled>Gender</option>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
@@ -133,50 +133,50 @@
                         </span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">Date of Birth</span>
+                        <span class="selection ">Date of Birth</span>
                         <br>
-                        <span><input type="date" id="dob" class="form-control inp"></span>
+                        <span><input type="date" id="dob" class="form-control inp "></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">Email ID</span>
+                        <span class="selection ">Email ID</span>
                         <br>
-                        <span><input type="text" id="email" class="form-control inp"></span>
+                        <span><input type="text" id="email" class="form-control inp "></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">Contact</span>
+                        <span class="selection ">Contact</span>
                         <br>
                         <span><input type="number" id="Contact" min="1111111111" max="9999999999"
-                                class="form-control inp"></span>
+                                class="form-control inp "></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">Address</span>
+                        <span class="selection ">Address</span>
                         <br>
-                        <span><input type="text" id="Address" class="form-control inp"></span>
+                        <span><input type="text" id="Address" class="form-control inp "></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">City</span>
+                        <span class="selection ">City</span>
                         <br>
-                        <span><input type="text" id="City" class="form-control inp"></span>
+                        <span><input type="text" id="City" class="form-control inp "></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">District</span>
+                        <span class="selection ">District</span>
                         <br>
-                        <span><input type="text" id="District" class="form-control inp"></span>
+                        <span><input type="text" id="District" class="form-control inp "></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">State</span>
+                        <span class="selection ">State</span>
                         <br>
-                        <span><input type="text" id="State" class="form-control inp"></span>
+                        <span><input type="text" id="State" class="form-control inp "></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection">Pincode</span>
+                        <span class="selection ">Pincode</span>
                         <br>
-                        <span><input type="text" id="Pincode" class="form-control inp"></span>
+                        <span><input type="text" id="Pincode" class="form-control inp "></span>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn save" id="ANS">Save</button>
-                    <button class="btn save" id="US">Save</button>
+                    <button class="btn save " id="ANS">Save</button>
+                    <button class="btn save " id="US">Save</button>
                 </div>
             </div>
         </div>

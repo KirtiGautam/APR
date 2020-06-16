@@ -10,20 +10,22 @@
 }
 
 .sidebar-heading {
-  font-size: calc(15px + 1vmax);
-  font-weight: bold;
+  font-size: calc(13px + 1vmax);
   font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
   color: #15202b;
 }
 
 .sidebar-text {
-  font-size: calc(8px + 1vmax);
+  font-size: calc(5px + 1vmax);
   font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
   color: #15202b;
 }
 
 .sidebar-icon {
-  font-size: calc(8px + 1vmax);
+  font-size: calc(5px + 1vmax);
+  font-weight: 100;
   color: #15202b;
 }
 
@@ -42,7 +44,7 @@
 
 .siw,
 .stw {
-  color: #FFF9FE;
+  color: #fff9fe;
 }
 
 a:hover {

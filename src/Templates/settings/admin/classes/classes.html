@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="modal" tabindex="-1" role="dialog" id="editClassName">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Edit Class Name</h5>
@@ -125,9 +125,11 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body row">
                             <input type="hidden" id="hiddenclassid">
-                            New Name: <input type="text" id="NewClassName">
+                            <span class="selection col-12 col-sm-6 col-md-5 col-lg-4">New Name</span>
+                            <input type="text" id="NewClassName"
+                                class="form-control inp col-12 col-sm-6 col-md-7 col-lg-8">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" id="updateClassName">Save changes</button>
@@ -171,7 +173,7 @@
                 <div class="heading-2 p-2">All Subjects List</div>
                 <div class="dropdown-divider"></div>
                 <div class="p-2"><input type="search" id="SUBC" class="form-control inp"
-                        placeholder="Search Classes list">
+                        placeholder="Search Subjects list">
                 </div>
                 <div class="col-12">
                     <div class="table-responsive">
@@ -205,14 +207,15 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Edit Class Name</h5>
+                            <h5 class="modal-title">Edit Subject Name</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body row">
                             <input type="hidden" id="hiddensubjectid">
-                            New Name: <input type="text" id="NewSubjectName">
+                            <span class="selection col-12 col-sm-6 col-md-5 col-lg-4">New Name</span>
+                            <input type="text" id="NewSubjectName" class="form-control inp col-12 col-sm-6 col-md-7 col-lg-8">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" id="updateSubjectName">Save changes</button>
