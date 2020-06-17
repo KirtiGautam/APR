@@ -77,53 +77,53 @@ $(document).ready(function () {
     getMedia("pdf");
     $("#homework_details").addClass("d-none");
     $("#data_div").removeClass("d-none");
-    $('#upload_btn').removeClass('d-none');
+    $("#upload_btn").removeClass("d-none");
   });
 
   $("#dataType").change(function () {
     if (this.value == "pdf") {
       getMedia("pdf");
-      $('#upload_btn, #data_display').removeClass('d-none');
-      $('#next_next_btn, .question_div').addClass('d-none');
+      $("#upload_btn, #data_display").removeClass("d-none");
+      $("#next_next_btn, .question_div").addClass("d-none");
     } else if (this.value == "test") {
       getQuestions();
-      $('#upload_btn, #data_display').addClass('d-none');
-      $('#next_next_btn, .question_div').removeClass('d-none');
+      $("#upload_btn, #data_display").addClass("d-none");
+      $("#next_next_btn, .question_div").removeClass("d-none");
     } else {
       getMedia("video");
-      $('#upload_btn, #data_display').removeClass('d-none');
-      $('#next_next_btn, .question_div').addClass('d-none');
+      $("#upload_btn, #data_display").removeClass("d-none");
+      $("#next_next_btn, .question_div").addClass("d-none");
     }
   });
 
-  $('#upload_btn').click(function () {
+  $("#upload_btn").click(function () {
     const Sdata = getSelecteddata();
     if (Sdata.length < 1) {
-      alert('Please select a atleast one data');
+      alert("Please select a atleast one data");
       return;
     }
     let data;
-    if ($("#dataType").val() == 'test') {
+    if ($("#dataType").val() == "test") {
       data = {
         type: $("#dataType").val(),
         data: getSelecteddata(),
-        lesson: $('#lessons').val(),
-        subject: $('#subjects').val(),
-        NOH: $('.homework-name').val(),
-        instruction: $('.homework-instructions').val(),
-        TN: $('#test_name').val(),
-        duration: $('#test_duration').val(),
-        final: ($('#final_flag').is(":checked")) ? 1 : 0,
-      }
+        lesson: $("#lessons").val(),
+        subject: $("#subjects").val(),
+        NOH: $(".homework-name").val(),
+        instruction: $(".homework-instructions").val(),
+        TN: $("#test_name").val(),
+        duration: $("#test_duration").val(),
+        final: $("#final_flag").is(":checked") ? 1 : 0,
+      };
     } else {
       data = {
         type: $("#dataType").val(),
         data: getSelecteddata(),
-        lesson: $('#lessons').val(),
-        subject: $('#subjects').val(),
-        NOH: $('.homework-name').val(),
-        instruction: $('.homework-instructions').val(),
-      }
+        lesson: $("#lessons").val(),
+        subject: $("#subjects").val(),
+        NOH: $(".homework-name").val(),
+        instruction: $(".homework-instructions").val(),
+      };
     }
     $.ajax({
       type: "POST",
@@ -132,21 +132,19 @@ $(document).ready(function () {
       data: data,
       dataType: "json",
       success: function (response) {
-        alert(response.message)
+        alert(response.message);
       },
     });
-  })
+  });
 
-  $('#next_next_btn').click(function () {
-    if (!$('#test_name').val() ||
-      !$('#test_duration').val()
-    ) {
-      alert('Please fill necessary details')
+  $("#next_next_btn").click(function () {
+    if (!$("#test_name").val() || !$("#test_duration").val()) {
+      alert("Please fill necessary details");
       return;
     }
-    $('#upload_btn, #data_display').removeClass('d-none');
-    $('#next_next_btn, .question_div, #data_div').addClass('d-none');
-  })
+    $("#upload_btn, #data_display").removeClass("d-none");
+    $("#next_next_btn, .question_div, #data_div").addClass("d-none");
+  });
 
   $("#class, #date").change(function () {
     getHomeworks();
@@ -161,21 +159,21 @@ $(document).ready(function () {
   $("#date").attr(
     "max",
     today.getFullYear() +
-    "-" +
-    (today.getMonth() + 1 < 10 ? "0" : "") +
-    (today.getMonth() + 1) +
-    "-" +
-    (today.getDate() < 10 ? "0" : "") +
-    today.getDate()
+      "-" +
+      (today.getMonth() + 1 < 10 ? "0" : "") +
+      (today.getMonth() + 1) +
+      "-" +
+      (today.getDate() < 10 ? "0" : "") +
+      today.getDate()
   );
   $("#date, #hold").val(
     today.getFullYear() +
-    "-" +
-    (today.getMonth() + 1 < 10 ? "0" : "") +
-    (today.getMonth() + 1) +
-    "-" +
-    (today.getDate() < 10 ? "0" : "") +
-    today.getDate()
+      "-" +
+      (today.getMonth() + 1 < 10 ? "0" : "") +
+      (today.getMonth() + 1) +
+      "-" +
+      (today.getDate() < 10 ? "0" : "") +
+      today.getDate()
   );
 
   $("#subjects").change(function () {
@@ -193,12 +191,13 @@ const getQuestions = () => {
     },
     dataType: "json",
     success: function (response) {
-      let html = "<ol>";
+      let html =
+        '<table class="table"><thead class="thead-light"><tr><th>Question</th><th>Difficulty</th><th></th></tr></thead><tbody>';
       for (let x = 0; x < response.questions.length; x++) {
         const data = response.questions[x];
-        html += `<li id='${data.id}'> ${data.Name} ${data.Difficulty} <span class="col-2 checkbox"><input type="checkbox" class="question_checkbox" value="${data.id}"></span></li>`;
+        html += `<tr><td id='${data.id}' class="ques-name"> ${data.Name} </td> <td class="ques-name"> ${data.Difficulty} </td><td> <span class="col-2 checkbox"><input type="checkbox" class="question_checkbox" value="${data.id}"></span></td></tr>`;
       }
-      html += "</ol>";
+      html += "</tbody></table>";
       $("#data_display").html(html);
     },
   });
@@ -232,20 +231,19 @@ const getMedia = (type) => {
   });
 };
 
-
 const getSelecteddata = () => {
   let data = [];
   let type;
-  if ($('#dataType').val() == 'pdf') {
-    type = 'pdf_checkbox'
-  } else if ($('#dataType').val() == 'video') {
-    type = 'video_checkbox'
+  if ($("#dataType").val() == "pdf") {
+    type = "pdf_checkbox";
+  } else if ($("#dataType").val() == "video") {
+    type = "video_checkbox";
   } else {
-    type = 'question_checkbox'
+    type = "question_checkbox";
   }
 
   $(`input.${type}:checkbox:checked`).each(function () {
     data.push($(this).val());
   });
   return data;
-}
+};

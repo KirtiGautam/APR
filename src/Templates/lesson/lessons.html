@@ -10,14 +10,14 @@
 </div>
 <div class="row mt-3">
     {% for pdf in lesson.lesson_pdfs.all %}
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{{ prefix }}{{pdf.pdf.file}}" target="_blank">
             <div class="lessons-cards p-2">
                 <span class="row lessons-row-head">
                     <span class="text-left col-10">PDF</span>
-                    <span class="checkbox col-2">
+                    <!-- <span class="checkbox col-2">
                         <input type="checkbox" onclick="return false;" readonly="readonly" checked>
-                    </span>
+                    </span> -->
                 </span>
                 <span class="row text-center">
                     <span class="col-3"></span>
@@ -33,14 +33,14 @@
     </div>
     {% endfor %}
     {% for video in lesson.lesson_videos.all %}
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{% url 'lessons:video' video.id %}">
             <div class="lessons-cards p-2">
                 <span class="row lessons-row-head">
                     <span class="text-left col-10">VIDEO</span>
-                    <span class="checkbox round col-2">
+                    <!-- <span class="checkbox round col-2">
                         <input type="checkbox" onclick="return false;" readonly="readonly" checked>
-                    </span>
+                    </span> -->
                 </span>
                 <span class="row text-center">
                     <span class="col-3"></span>
@@ -56,14 +56,14 @@
     </div>
     {% endfor %}
     {% for key in lesson.lesson_Test.all %}
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{% url 'lessons:Test' key.id %}">
             <div class="lessons-cards test p-2">
                 <span class="row lessons-row-head">
                     <span class="text-left col-10">{{key.question.all.count}} Questions</span>
-                    <span class="checkbox round col-2">
+                    <!-- <span class="checkbox round col-2">
                         <input type="checkbox" name="" id="">
-                    </span>
+                    </span> -->
                 </span>
                 <span class="row text-center">
                     <span class="col-3"></span>

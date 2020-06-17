@@ -12,6 +12,19 @@
   color: #fd7f2c;
 }
 
+.first-class-plus {
+  margin-top: 5%;
+}
+
+.drop {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: calc(5px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
 .plus {
   font-size: calc(6px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
@@ -37,8 +50,9 @@
   outline: none;
 }
 
-.first-class-plus {
-  margin-top: 5%;
+.first-one {
+  margin-top: 2%;
+  margin-left: 5%;
 }
 
 .date {
@@ -50,6 +64,10 @@
   color: #b3b6b8;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .homework-cards {
   background: transparent
     linear-gradient(124deg, #f5f8fa 0%, #eff3f6 75%, #e6ecf0 100%) 0% 0%
@@ -58,7 +76,7 @@
 }
 
 .title {
-  font-size: calc(13px + 1vmin);
+  font-size: calc(10px + 1vmin);
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
@@ -66,7 +84,7 @@
 }
 
 .summary {
-  font-size: calc(9px + 1vmin);
+  font-size: calc(8px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
@@ -81,7 +99,7 @@
 }
 
 .progress-text {
-  font-size: calc(9px + 1vmin);
+  font-size: calc(6px + 1vmin);
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
@@ -89,76 +107,30 @@
 }
 
 .moti {
-  font-size: calc(9px + 1vmin);
+  font-size: calc(7px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
-}
-
-.first-one {
-  margin-top: 2%;
-  margin-left: 5%;
 }
 
 .selection {
-  font-size: calc(8px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-.drop {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  border: 1px solid #b3b6b8;
-  border-radius: 5px;
-  font-size: calc(6px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
-
-.selection {
-  font-size: calc(8px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.import {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  font-family: "Poppins", sans-serif;
-  font-size: calc(11px + 1vmin);
-  color: #ffffff;
-}
-
-.import:focus {
-  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
-    no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
-.buttons {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  color: #626262;
   font-size: calc(7px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
 }
 
-.buttons:focus {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
+.selection {
+  font-size: calc(8px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
 }
 
 .cards {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #0000003b;
   border-radius: 5px;
-  height: max-content;
+  position: relative;
+  display: inline-block;
+  height: 100%;
 }
 
 .cards:hover {
@@ -180,21 +152,11 @@ a:hover {
   background: transparent;
   border: none;
 }
-.ques-num {
-  font-size: calc(4px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
 
 .ques-name {
   font-size: calc(3px + 1vmax);
   font-family: Arial, Helvetica, sans-serif;
   color: #112234;
-}
-
-.cards {
-  position: relative;
-  display: inline-block;
 }
 
 .cards .description {
@@ -228,6 +190,36 @@ a:hover {
 
 .cards:hover .description {
   visibility: visible;
+}
+
+.import {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  font-family: "Poppins", sans-serif;
+  font-size: calc(11px + 1vmin);
+  color: #ffffff;
+}
+
+.import:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.buttons {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #626262;
+  font-size: calc(7px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttons:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
 }
 
 @media screen and (max-width: 1000px) {
