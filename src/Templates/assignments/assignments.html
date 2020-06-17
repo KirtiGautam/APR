@@ -6,8 +6,8 @@
                 <span class="title col-12">{{key.assi.Subject.Name}}</span>
                 <span class="summary col-12">{{key.assi.videos.all.count}} Videos + {{key.assi.pdfs.all.count}}
                     Reading</span>
-                {% if not user.admin %}
             </span>
+            {% if not user.admin %}
             <div class="row">
                 <div class="col-9">
                     <div class="progress">
@@ -18,8 +18,8 @@
                 <span class="col-3 progress-text">
                     30%
                 </span>
-                {% endif %}
             </div>
+            {% endif %}
             <span class="row row-foot">
                 <span class="moti col-12">
                     TIME TO WORK!

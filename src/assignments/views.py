@@ -7,6 +7,7 @@ import datetime
 import json
 from lessons.models import Subject, Lesson
 from accounts.models import Class
+from assignments.models import assignment
 
 # def Test(request, id):
 #     if request.user.is_authenticated:
@@ -66,25 +67,23 @@ def assignments(request):
 
 def getAssignments(request):
     if request.user.is_authenticated:
-        # deads = []
-        # for x in assignment.objects.filter(
-        #         Subject__Class=request.POST['id']):
-        #     diff = x.Deadline-datetime.datetime.now(datetime.timezone.utc)
-        #     deads.append({
-        #         'assi': x,
-        #         'days': diff.days,
-        #         'hours': 24-datetime.datetime.now().hour,
-        #         'minutes': 60-datetime.datetime.now().minute,
-        #     })
-        # data = {
-        #     'assignments': deads
-        # }
-        # client = {
-        #     'body':  render_to_string('assignments/assignments.html', data),
-        #     'done': True
-        # }
-        # return http.JsonResponse(client)
-        pass
+        deads = []
+        for x in assignment.objects.filter(
+                Subject__Class=request.POST['id']):
+            diff = x.Deadline-datetime.datetime.now(datetime.timezone.utc)
+            deads.append({
+                'assi': x,
+                'days': diff.days,
+                'hours': 24-datetime.datetime.now().hour,
+                'minutes': 60-datetime.datetime.now().minute,
+            })
+        data = {
+            'assignments': deads
+        }
+        client = {
+            'body':  render_to_string('assignments/assignments.html', data),
+        }
+        return http.JsonResponse(client)
     else:
         http.HttpResponseForbidden({'message': 'Unauthorized'})
 
