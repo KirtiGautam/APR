@@ -12,8 +12,8 @@
     {% for pdf in lesson.lesson_pdfs.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <a href="{{ prefix }}{{pdf.pdf.file}}" target="_blank">
-            <div class="cards p-2">
-                <span class="row row-head">
+            <div class="lessons-cards p-2">
+                <span class="row lessons-row-head">
                     <span class="text-left col-10">PDF</span>
                     <span class="checkbox col-2">
                         <input type="checkbox" onclick="return false;" readonly="readonly" checked>
@@ -24,7 +24,7 @@
                     <img src="/static/Images/lesson/video.png" alt="" class="col-6">
 
                 </span>
-                <span class="row row-foot">
+                <span class="row lessons-row-foot">
                     <span class="col-8">{{pdf.pdf.Name}}</span>
                     <span class="time col-4">2 min</span>
                 </span>
@@ -35,8 +35,8 @@
     {% for video in lesson.lesson_videos.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <a href="{% url 'lessons:video' video.id %}">
-            <div class="cards p-2">
-                <span class="row row-head">
+            <div class="lessons-cards p-2">
+                <span class="row lessons-row-head">
                     <span class="text-left col-10">VIDEO</span>
                     <span class="checkbox round col-2">
                         <input type="checkbox" onclick="return false;" readonly="readonly" checked>
@@ -47,7 +47,7 @@
                     <img src="/static/Images/lesson/video.png" alt="" class="col-6">
 
                 </span>
-                <span class="row row-foot">
+                <span class="row lessons-row-foot">
                     <span class="col-8">{{video.video.Name}}</span>
                     <span class="time col-4">2 min</span>
                 </span>
@@ -58,8 +58,8 @@
     {% for key in lesson.lesson_Test.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <a href="{% url 'lessons:Test' key.id %}">
-            <div class="cards test p-2">
-                <span class="row row-head">
+            <div class="lessons-cards test p-2">
+                <span class="row lessons-row-head">
                     <span class="text-left col-10">{{key.question.all.count}} Questions</span>
                     <span class="checkbox round col-2">
                         <input type="checkbox" name="" id="">
@@ -70,7 +70,7 @@
                     <img src="/static/Images/lesson/test.png" class="col-6">
 
                 </span>
-                <span class="row row-foot text-right">
+                <span class="row lessons-row-foot text-right">
                     <span class="col-12">{% if key.final %}Final Test{% else %}Practice Test{% endif %}</span>
                 </span>
             </div>

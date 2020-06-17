@@ -3,21 +3,6 @@
   padding: 0;
 }
 
-.selection {
-  font-size: calc(8px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.drop {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  border: 1px solid #b3b6b8;
-  border-radius: 5px;
-  font-size: calc(7px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
-
 .subject {
   background: #f1f1f1 0% 0% no-repeat padding-box;
   border: 1px solid #e6ecf0;
@@ -90,11 +75,111 @@
   outline: none;
 }
 
+.lessons-cards {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #0000003b;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.lessons-row-head {
+  font-size: calc(5px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #c0c0c0;
+  background: transparent;
+  border: none;
+}
+
+.lessons-row-foot {
+  font-size: calc(4px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #343434;
+  background: transparent;
+  border: none;
+}
+
+.time {
+  font-size: calc(3px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #aeaeae;
+}
+
+.test {
+  background: transparent linear-gradient(56deg, #f792ab 0%, #fce584 100%) 0% 0%
+    no-repeat padding-box;
+}
+
+.test .lessons-row-head {
+  font-size: calc(5px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+}
+
+.test .lessons-row-foot {
+  font-size: calc(4px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #343434;
+  text-align: right;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.drop {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: calc(6px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.selection {
+  font-size: calc(8px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.import {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  font-family: "Poppins", sans-serif;
+  font-size: calc(11px + 1vmin);
+  color: #ffffff;
+}
+
+.import:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.buttons {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #626262;
+  font-size: calc(7px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttons:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
 .cards {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #0000003b;
   border-radius: 5px;
-  height: max-content;
+  height: 100%;
+}
+
+.cards:hover{
+  cursor: pointer;
 }
 
 .row-head {
@@ -112,35 +197,56 @@
   background: transparent;
   border: none;
 }
-
-.time {
-  float: right;
-  font-size: calc(3px + 2vmin);
+.ques-num {
+  font-size: calc(4px + 1vmax);
   font-family: Arial, Helvetica, sans-serif;
-  color: #aeaeae;
+  color: #376baa;
 }
 
-.test {
-  background: transparent linear-gradient(56deg, #f792ab 0%, #fce584 100%) 0% 0%
-    no-repeat padding-box;
-}
-
-.test .row-head {
-  font-size: calc(5px + 2vmin);
+.ques-name {
+  font-size: calc(3px + 1vmax);
   font-family: Arial, Helvetica, sans-serif;
-  color: #ffffff;
+  color: #112234;
 }
 
-.test .row-foot {
+.cards {
+  position: relative;
+  display: inline-block;
+}
+
+.cards .description {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
   font-size: calc(4px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #343434;
-  text-align: right;
+  position: absolute;
+  z-index: 1;
+  width: 120px;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
 }
 
-a:hover {
-  text-decoration: none;
+.cards .description::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%; /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
 }
+
+.cards:hover .description {
+  visibility: visible;
+}
+
 @media screen and (max-width: 600px) {
   .back-photo {
     display: none;
