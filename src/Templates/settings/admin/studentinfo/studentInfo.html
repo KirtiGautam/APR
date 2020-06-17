@@ -21,7 +21,8 @@
             </span>
             <span class="col-12 col-sm-6 col-md-6 col-lg-4">
                 <button id="newStudent" class="btn buttons ">Add New</button>
-                <button id="" class="btn buttons ">Import Data</button>
+                <button id="" class="btn buttons" data-toggle="modal" data-backdrop="static"
+                    data-target="#student_data_upload">Import Data</button>
             </span>
         </div>
         <div class="row row-two">
@@ -36,10 +37,6 @@
                     </select>
                 </span>
             </span>
-            <!-- <span class="col-12 col-sm-6 col-md-6 col-lg-2">
-                <span class="selection ">Search Section</span>
-                <span class="form-control drop"></span>
-            </span> -->
             <span class="col-12 col-sm-12 col-md-12 col-lg-1 text-center or">
                 <span class="selection ">or</span>
             </span>
@@ -48,7 +45,7 @@
                     placeholder="Search using student name here ...">
             </span>
             <span class="col-12 col-sm-3 col-md-3 col-lg-2">
-                <button class="btn search-button or col-12 ">Search</button>
+                <button type="submit" class="btn search-button or col-12 " id="search_btn">Search</button>
             </span>
         </div>
 
@@ -57,9 +54,7 @@
                 <span class="float-right">
                     <button id="delete" class="btn buttons ">Delete</button>
                     <button id="edit" class="btn buttons ">Edit</button>
-                    <!-- <button id="" class="btn buttons ">Filter</button> -->
                     <button id="excel" class="btn buttons ">Export Excel</button>
-                    <!-- <button id="" class="btn buttons ">Export PDF</button> -->
                 </span>
             </span>
             <span class="col-12">
@@ -85,6 +80,24 @@
                     </table>
                 </div>
             </span>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="student_data_upload">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Import Student data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" id="file">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="upload_btn">Save changes</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -186,5 +199,7 @@
 
 <script src="{% static 'js/admin/studentinfo.js' %}"></script>
 <script src="{% static 'js/tabletoexcel.js' %}"></script>
+<script src="{% static 'js/PapaParse.js' %}"></script>
 
 {% endblock %}
+

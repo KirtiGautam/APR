@@ -66,9 +66,9 @@ $(document).ready(function () {
     $('.SSLT').addClass('stw');
     $('.SSLI').addClass('siw');
 
-    $('#search').keyup(delay(function (e) {
+    $('#search_btn').click(function (e) {
         getStaff();
-    }, 500));
+    });
 
     $('#type').change(function () {
         getStaff();

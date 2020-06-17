@@ -56,7 +56,11 @@ $(document).ready(function () {
         getSubjects()
     });
 
-    $('#subject').change(function () {
+    $('#search_btn').click(function () {
+        if (!$('#subject').val()) {
+            alert('Please select a subject first');
+            return;
+        }
         getLessons()
     });
 

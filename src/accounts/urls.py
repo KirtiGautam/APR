@@ -28,7 +28,8 @@ from accounts.admin_settings import (
     deleteSubject,
     newSubject,
     editSubject,
-    assignTeacher
+    assignTeacher,
+    uploadStudents,
 )
 
 from accounts.media import allmedia, upload, getMedia, allquestions, questions, uploadQuestions
@@ -49,7 +50,8 @@ urlpatterns = [
     path('settings/school-staff', school_staff, name='staff'),
     re_path(r'^settings/allquestion/$', questions, name='get-allquestions'),
     # Requests
-    path('upload-questions', uploadQuestions, name='upload-questions'),    
+    path('upload-students', uploadStudents, name='upload-students'),
+    path('upload-questions', uploadQuestions, name='upload-questions'),
     path('get-media', getMedia, name='get-media'),
     path('upload-allmedia', upload, name='allmedia-upload'),
     path('assign-teacher', assignTeacher, name='assign-teacher'),

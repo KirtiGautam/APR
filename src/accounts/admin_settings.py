@@ -4,6 +4,45 @@ from accounts.models import User, Class, Student
 from lessons.models import Lesson, Subject
 from django import http
 from django.db.models import Q
+import json
+from datetime import datetime, timedelta
+
+
+def uploadStudents(request):
+    if request.user.is_authenticated and request.user.admin:
+        for x in json.loads(request.POST['file']):
+            cla = Class.objects.get(name=x['Class'])
+            ordinal = x['dob']
+            epoch = datetime(1900, 1, 1)
+            if ordinal > 59:
+                ordinal -= 1  # Excel leap year bug, 1900 is not a leap year!
+            inDays = int(ordinal)
+            frac = ordinal - inDays
+            inSecs = int(round(frac * 86400.0))
+            user = User.objects.create_user(
+                email=x['email'],
+                password=x['email'],
+                first_name=x['First Name'],
+                last_name=x['Last Name'],
+                user_type='Student'
+            )
+            Student.objects.create(
+                user=user,
+                gender=x['gender'],
+                Contact=x['Contact'],
+                dob=(epoch + timedelta(days=inDays - 1, seconds=inSecs)).date(),
+                Address=x['Address'],
+                City=x['City'],
+                District=x['District'],
+                State=x['State'],
+                Pincode=x['Pincode'],
+                Class=cla
+            )
+        data = {
+            'message': 'File uploaded'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
 
 
 def assignTeacher(request):
