@@ -69,10 +69,10 @@
         </div>
         <div class="row third mb-5">
             {% for key in assign.pdf.all %}
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-5">
                 <a href="{% get_media_prefix %}{{key.pdf.file}}" target="_blank">
-                    <div class="cards p-2">
-                        <span class="row row-head">
+                    <div class="assign-cards p-2">
+                        <span class="row assign-row-head">
                             <span class="text-left col-10">PDF</span>
                             <span class="checkbox col-2">
                                 <input type="checkbox" name="" id="">
@@ -82,7 +82,7 @@
                             <span class="col-3"></span>
                             <img src="/static/Images/lesson/video.png" alt="" class="col-6">
                         </span>
-                        <span class="row row-foot">
+                        <span class="row assign-row-foot">
                             <span class="col-8">{{key.Name}}</span>
                             <span class="col-4">
                                 <span class="float-right">
@@ -93,15 +93,15 @@
                     </div>
                 </a>
                 <div class="text-center">
-                    <span class="chapter">{{key.lesson.Name}}</span>
+                    <div class="chapter">{{key.lesson.Name}}</div>
                 </div>
             </div>
             {% endfor %}
             {% for key in assign.video.all %}
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-5">
                 <a href="{% url 'assignment:video' key.id %}">
-                    <div class="cards p-2">
-                        <span class="row row-head">
+                    <div class="assign-cards p-2">
+                        <span class="row assign-row-head">
                             <span class="text-left col-10">VIDEO</span>
                             <span class="checkbox round col-2">
                                 <input type="checkbox" name="" id="">
@@ -111,7 +111,7 @@
                             <span class="col-3"></span>
                             <img src="/static/Images/lesson/video.png" alt="" class="col-6">
                         </span>
-                        <span class="row row-foot">
+                        <span class="row assign-row-foot">
                             <span class="col-8">{{key.Name}}</span>
                             <span class="col-4">
                                 <span class="float-right">
@@ -122,15 +122,15 @@
                     </div>
                 </a>
                 <div class="text-center">
-                    <span class="chapter">{{key.lesson.Name}}</span>
+                    <div class="chapter">{{key.lesson.Name}}</div>
                 </div>
             </div>
             {% endfor %}
             {% for key in assign.Test.all %}
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-5">
                 <a href="{% url 'assignment:Test' key.id %}">
-                    <div class="cards test p-2">
-                        <span class="row row-head">
+                    <div class="assign-cards test p-2">
+                        <span class="row assign-row-head">
                             <span class="text-left col-10">{{key.question.all.count}} Questions</span>
                             <span class="checkbox round col-2">
                                 <input type="checkbox" name="" id="">
@@ -140,7 +140,7 @@
                             <span class="col-3"></span>
                             <img src="/static/Images/lesson/test.png" alt="" class="col-6">
                         </span>
-                        <span class="row row-foot">
+                        <span class="row assign-row-foot">
                             <span class="col-12">Practice Test</span>
                         </span>
                     </div>

@@ -1,8 +1,8 @@
 {% for key in assignments %}
 <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3">
     <a href="{% url 'assignment:assignmentDetails' key.assi.id %}">
-        <div class="cards p-3 deadline">
-            <span class="row row-head">
+        <div class="assignment-cards p-3 deadline">
+            <span class="row assignment-row-head">
                 <span class="title col-12">{{key.assi.Subject.Name}}</span>
                 <span class="summary col-12">{{key.assi.video.all.count}} Videos + {{key.assi.pdf.all.count}}
                     Reading</span>
@@ -20,7 +20,7 @@
                 </span>
             </div>
             {% endif %}
-            <span class="row row-foot">
+            <span class="row assignment-row-foot">
                 <span class="moti col-12">
                     TIME TO WORK!
                 </span>

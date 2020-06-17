@@ -1,8 +1,3 @@
-@font-face {
-  src: url("/static/fonts/HelveticaNeue-Medium.ttf");
-  font-family: NeueMedium;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +8,7 @@ img {
 }
 
 .subject-name {
-  font-size: calc(15px + 3vmin);
+  font-size: calc(12px + 2vmin);
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #fd7f2c;
@@ -30,7 +25,6 @@ img {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: calc(12px + 1vmin);
-  letter-spacing: 0px;
   color: #15202b;
 }
 
@@ -85,14 +79,14 @@ img {
   float: right;
 }
 
-.cards {
+.homework-cards {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #0000003b;
   border-radius: 5px;
-  height: max-content;
+  height: 100%;
 }
 
-.row-head {
+.homework-row-head {
   font-size: calc(1vmax + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #c0c0c0;
@@ -100,7 +94,7 @@ img {
   border: none;
 }
 
-.row-foot {
+.homework-row-foot {
   font-size: calc(12px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #343434;
@@ -119,13 +113,13 @@ img {
     no-repeat padding-box;
 }
 
-.test .row-head {
+.test .homework-row-head {
   font-size: calc(1vmax + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
 
-.test .row-foot {
+.test .homework-row-foot {
   font-size: calc(12px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #343434;
@@ -173,6 +167,127 @@ a:hover {
   font-family: "Poppins", sans-serif;
   font-size: calc(11px + 1vmin);
   color: #ffffff;
+}
+
+.drop {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: calc(6px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.selection {
+  font-size: calc(8px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.import {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  font-family: "Poppins", sans-serif;
+  font-size: calc(11px + 1vmin);
+  color: #ffffff;
+}
+
+.import:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.buttons {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #626262;
+  font-size: calc(7px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttons:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.cards {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #0000003b;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.cards:hover {
+  cursor: pointer;
+}
+
+.row-head {
+  font-size: calc(5px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #c0c0c0;
+  background: transparent;
+  border: none;
+}
+
+.row-foot {
+  font-size: calc(4px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #343434;
+  background: transparent;
+  border: none;
+}
+.ques-num {
+  font-size: calc(4px + 1vmax);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.ques-name {
+  font-size: calc(3px + 1vmax);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #112234;
+}
+
+.cards {
+  position: relative;
+  display: inline-block;
+}
+
+.cards .description {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: calc(4px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  z-index: 1;
+  width: 120px;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.cards .description::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%; /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.cards:hover .description {
+  visibility: visible;
 }
 
 @media screen and (max-width: 800px) {

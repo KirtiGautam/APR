@@ -46,7 +46,7 @@
 .deadline {
   background: transparent linear-gradient(132deg, #cb2d3e 0%, #ef473a 100%) 0% 0% no-repeat padding-box;
   border-radius: 10px;
-  height: max-content;
+  height: 100%;
 }
 
 .prime {
@@ -234,6 +234,7 @@ a:hover {
 .cards {
   position: relative;
   display: inline-block;
+  height: 100%;
 }
 
 .cards .description {
