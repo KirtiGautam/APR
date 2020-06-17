@@ -13,91 +13,64 @@
 .assign {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   border-radius: 10px;
-  min-height: 200px;
-  max-height: 200px;
-  margin-bottom: calc(1vmin + 2vmax) !important;
+  min-height: 100px;
+  max-height: 100px;
 }
 
 .assignments {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size: calc(10px + 1vmin);
+  font-size: calc(4px + 2vmin);
   color: #626262;
   border-bottom: 2px solid #bec1c3;
 }
 
 .assignments-data {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: calc(10px + 1vmin);
+  font-size: calc(3px + 2vmin);
   color: #626262;
 }
 
 .resume {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   border-radius: 10px;
-  min-height: 200px;
-  max-height: 200px;
-  margin-bottom: calc(1vmin + 2vmax) !important;
+  min-height: 100px;
+  max-height: 100px;
 }
 
 .resume-where-left {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size: calc(10px + 1vmin);
+  font-size: calc(4px + 2vmin);
   color: #626262;
   border-bottom: 2px solid #bec1c3;
 }
 
 .resume-where-left-data {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: calc(10px + 1vmin);
+  font-size: calc(3px + 2vmin);
   color: #626262;
 }
 
 .upcoming {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   border-radius: 10px;
-  min-height: 200px;
-  max-height: 200px;
-  margin-bottom: calc(1vmin + 2vmax) !important;
+  min-height: 100px;
+  max-height: 100px;
 }
 
 .upcoming-activities {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size: calc(10px + 1vmin);
+  font-size: calc(4px + 2vmin);
   color: #626262;
   border-bottom: 2px solid #bec1c3;
 }
 
 .upcoming-activities-data {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: calc(10px + 1vmin);
+  font-size: calc(3px + 2vmin);
   color: #626262;
-}
-
-@media screen and (max-width: 1000px) {
-  .assignments {
-    font-size: 13px;
-  }
-
-  .assignments-data {
-    font-size: 13px;
-  }
-  .resume-where-left {
-    font-size: 13px;
-  }
-
-  .resume-where-left-data {
-    font-size: 13px;
-  }
-  .upcoming-activities {
-    font-size: 13px;
-  }
-
-  .upcoming-activities-data {
-    font-size: 13px;
-  }
 }
 
 @media screen and (max-width:800px){

@@ -1,5 +1,7 @@
 .first {
-  background: transparent linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0% no-repeat padding-box;
+  background: transparent
+    linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
+    no-repeat padding-box;
 }
 
 .first-text {
@@ -7,6 +9,10 @@
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: #fd7f2c;
+}
+
+.first-class-plus {
+  margin-top: 3%;
 }
 
 .drop {
@@ -43,20 +49,49 @@
   outline: none;
 }
 
+.past {
+  text-align: left;
+  font-size: calc(15px + 1vmin);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.click-link {
+  font-size: calc(13px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.click-link:hover {
+  color: #7f7f7f;
+}
+
+.click-link:active {
+  color: #9e9e9e;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 .deadline {
-  background: transparent linear-gradient(132deg, #cb2d3e 0%, #ef473a 100%) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(132deg, #cb2d3e 0%, #ef473a 100%) 0%
+    0% no-repeat padding-box;
   border-radius: 10px;
   height: 100%;
 }
 
 .prime {
-  background: transparent linear-gradient(132deg, #2375d3 0%, #3ba9fe 100%) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(132deg, #2375d3 0%, #3ba9fe 100%) 0%
+    0% no-repeat padding-box;
   border-radius: 10px;
   height: 100%;
 }
 
 .complete {
-  background: transparent linear-gradient(132deg, #1d976c 0%, #9dd138 100%) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(132deg, #1d976c 0%, #9dd138 100%) 0%
+    0% no-repeat padding-box;
   border-radius: 10px;
   height: 100%;
 }
@@ -138,69 +173,19 @@
   text-transform: uppercase;
 }
 
-.first-class-plus {
-  margin-top: 3%;
-}
-
-.past {
-  text-align: left;
-  font-size: calc(15px + 1vmin);
-  font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.click-link {
-  font-size: calc(13px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.click-link:hover {
-  color: #7f7f7f;
-}
-
-.click-link:active {
-  color: #9e9e9e;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
 .selection {
   font-size: calc(8px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
 
-.import {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0% 0% no-repeat padding-box;
-  font-family: "Poppins", sans-serif;
-  font-size: calc(11px + 1vmin);
-  color: #ffffff;
-}
-
-.buttons {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  color: #626262;
-  font-size: calc(7px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.buttons:focus {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
 .cards {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #0000003b;
   border-radius: 5px;
-  height: max-content;
+  position: relative;
+  display: inline-block;
+  height: 100%;
 }
 
 .row-head {
@@ -219,22 +204,10 @@ a:hover {
   border: none;
 }
 
-.ques-num {
-  font-size: calc(4px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
-
 .ques-name {
   font-size: calc(3px + 1vmax);
   font-family: Arial, Helvetica, sans-serif;
   color: #112234;
-}
-
-.cards {
-  position: relative;
-  display: inline-block;
-  height: 100%;
 }
 
 .cards .description {
@@ -271,7 +244,32 @@ a:hover {
   visibility: visible;
 }
 
-@media screen and (max-width: 800px) {
+.import {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  font-family: "Poppins", sans-serif;
+  font-size: calc(11px + 1vmin);
+  color: #ffffff;
+}
+
+.buttons {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #626262;
+  font-size: calc(7px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttons:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+
+
+@media screen and (max-width: 1000px) {
   .first .image {
     display: none;
   }

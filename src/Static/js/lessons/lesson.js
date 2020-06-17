@@ -113,12 +113,13 @@ const getQuestions = () => {
     },
     dataType: "json",
     success: function (response) {
-      let html = "<ol>";
+      let html =
+        '<table class="table"><thead class="thead-light"><tr><th>Question</th><th>Difficulty</th><th></th></tr></thead><tbody>';
       for (let x = 0; x < response.questions.length; x++) {
         const data = response.questions[x];
-        html += `<li id='${data.id}'> ${data.Name} ${data.Difficulty} <span class="col-2 checkbox"><input type="checkbox" class="question_checkbox" value="${data.id}"></span></li>`;
+        html += `<tr><td id='${data.id}' class="ques-name"> ${data.Name} </td> <td class="ques-name"> ${data.Difficulty} </td><td> <span class="col-2 checkbox"><input type="checkbox" class="question_checkbox" value="${data.id}"></span></td></tr>`;
       }
-      html += "</ol>";
+      html += "</tbody></table>";
       $("#data_display").html(html);
     },
   });
