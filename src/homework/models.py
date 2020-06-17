@@ -1,5 +1,6 @@
 from django.db import models
-from lessons.models import Subject, Lesson
+from lessons.models import Subject, Lesson, question
+from accounts.models import video, pdf
 
 
 class homework(models.Model):
@@ -10,54 +11,30 @@ class homework(models.Model):
         Subject, on_delete=models.CASCADE, related_name='homework')
 
 
-class video(models.Model):
-    Name = models.CharField(max_length=255)
-    file = models.FileField(
-        upload_to='homeworks/videos/', default=None, null=True)
-    platform_choices = (
-        ('Y', 'YOUTUBE'),
-        ('L', 'LOCAL'),
-    )
-    platform = models.CharField(choices=platform_choices, max_length=1)
+class Video(models.Model):
+    video = models.ForeignKey(
+        video, on_delete=models.CASCADE, related_name='homework_videos')
     lesson = models.ForeignKey(
         Lesson, on_delete=models.CASCADE, related_name='homework_videos')
-    homework = models.ForeignKey(
-        homework, on_delete=models.CASCADE, related_name='videos')
 
 
-class pdf(models.Model):
-    Name = models.CharField(max_length=255)
-    file = models.FileField(
-        upload_to='homworks/pdfs/', default=None, null=True)
+class Pdf(models.Model):
+    pdf = models.ForeignKey(pdf, on_delete=models.CASCADE,
+                            related_name='homework_pdfs')
     lesson = models.ForeignKey(
         Lesson, on_delete=models.CASCADE, related_name='homework_pdfs')
-    homework = models.ForeignKey(
-        homework, on_delete=models.CASCADE, related_name='pdfs')
 
 
-class test(models.Model):
+class Test(models.Model):
     Name = models.CharField(max_length=50)
-    homework = models.ForeignKey(
-        homework, on_delete=models.CASCADE, related_name='Test')
-    Lesson = models.ForeignKey(
-        Lesson, on_delete=models.CASCADE, related_name='homework_Test')
+    Duration = models.CharField(max_length=10)
+    Homework = models.ForeignKey(
+        homework, on_delete=models.CASCADE, related_name='homework_Test')
     final = models.BooleanField(default=False)
 
 
-class question(models.Model):
-    Name = models.CharField(max_length=500)
-    test = models.ForeignKey(
-        test, on_delete=models.CASCADE, related_name='question')
-
-
-class choice(models.Model):
-    Name = models.CharField(max_length=255)
+class Test_question(models.Model):
     question = models.ForeignKey(
-        question, on_delete=models.CASCADE, related_name='choice')
-
-
-class answer(models.Model):
-    question = models.OneToOneField(
-        question, on_delete=models.CASCADE,  related_name='Answer')
-    choice = models.ForeignKey(
-        choice, on_delete=models.CASCADE, related_name='correct_choice')
+        question, on_delete=models.CASCADE, related_name='homework_test_questions')
+    test = models.ForeignKey(
+        Test, on_delete=models.CASCADE, related_name='question')

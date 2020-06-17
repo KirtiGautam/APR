@@ -65,10 +65,9 @@ $(document).ready(function () {
     });
 
     $('#save').click(function () {
-        if ($('#lesson').val() == '' ||
-            $('#lesson').val() == null ||
-            $('#subject').val() == '' ||
-            $('#subject').val() == null
+        if (!$('#lesson').val() ||
+            !$('#subject').val() ||
+            !$('#lesson_number').val()
         ) {
             alert('Please select Subject and Lesson Name');
             return;
@@ -79,13 +78,15 @@ $(document).ready(function () {
             url: '/new-lesson',
             data: {
                 'id': $('#subject').val(),
-                'lesson': $('#lesson').val()
+                'lesson': $('#lesson').val(),
+                'number': $('#lesson_number').val(),
             },
             dataType: 'json',
             success: function (data) {
                 alert(data.message);
                 getLessons();
                 $('#lesson').val('');
+                !$('#lesson_number').val('');
             }
         });
     });

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from accounts.models import pdf, video, Class, question, choice, answer
-from lessons.models import Subject, Lesson
+from accounts.models import pdf, video, Class
+from lessons.models import Subject, Lesson, question, choice, answer
 from django import http
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings

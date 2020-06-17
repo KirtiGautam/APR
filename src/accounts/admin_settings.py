@@ -152,7 +152,7 @@ def newClass(request):
 def newLesson(request):
     if request.user.is_authenticated and request.user.admin:
         lesson = Lesson.objects.create(
-            Name=request.POST['lesson'], Subject=Subject.objects.get(id=request.POST['id']))
+            Name=request.POST['lesson'], Number=request.POST['number'], Subject=Subject.objects.get(id=request.POST['id']))
         data = {
             'message': 'Lesson addded'
         }

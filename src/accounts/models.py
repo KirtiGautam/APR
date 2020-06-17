@@ -132,30 +132,3 @@ class pdf(models.Model):
 
     def __str__(self):
         return self.Name
-
-
-class question(models.Model):
-    from lessons.models import Lesson
-    Name = models.CharField(max_length=500)
-    difficulty_choices = (
-        ('E', 'Easy'),
-        ('M', 'Medium'),
-        ('H', 'Hard'),
-        ('D', 'Difficult'),
-    )
-    Difficulty = models.CharField(choices=difficulty_choices, max_length=2)
-    Lesson = models.ForeignKey(
-        Lesson, on_delete=models.CASCADE, related_name='question')
-
-
-class choice(models.Model):
-    Name = models.CharField(max_length=255)
-    question = models.ForeignKey(
-        question, on_delete=models.CASCADE, related_name='choice')
-
-
-class answer(models.Model):
-    question = models.OneToOneField(
-        question, on_delete=models.CASCADE,  related_name='Answer')
-    choice = models.ForeignKey(
-        choice, on_delete=models.CASCADE, related_name='correct_choice')
