@@ -11,7 +11,7 @@
 
 .name {
   font-weight: bold;
-  font-size: calc(7px + 1vmax);
+  font-size: calc(15px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #15202b;
 }
@@ -21,7 +21,7 @@
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   font-weight: 700;
-  font-size: calc(8px + 1vmin);
+  font-size: calc(10px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #f05e23 !important;
 }
@@ -44,14 +44,14 @@ li {
 }
 
 .leftside-menu-icon {
-  font-size: calc(5px + 1vmax);
+  font-size: calc(12px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 100;
   color: #15202b;
 }
 
 .leftside-menu-text {
-  font-size: calc(5px + 1vmax);
+  font-size: calc(12px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 100;
   color: #15202b;

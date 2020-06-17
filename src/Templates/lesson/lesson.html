@@ -16,11 +16,11 @@
         <div class="container-fluid">
             <div class="row row-1">
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3">
-                    <span class="select-subject">Select Subjects</span>
+                    <span class="selection">Select Subjects</span>
                 </div>
                 {% if user.admin %}
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3 text-center">
-                    <select id="class" class="select-class mb-3 p-1 form-control">
+                    <select id="class" class="drop mb-3 p-1 form-control">
                         <option value="" disabled selected>Class</option>
                         {% for key in classes %}
                         <option value="{{key.id}}">{{key.name}}</option>
