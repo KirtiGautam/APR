@@ -16,6 +16,8 @@ class Video(models.Model):
         video, on_delete=models.CASCADE, related_name='assignment_videos')
     lesson = models.ForeignKey(
         Lesson, on_delete=models.CASCADE, related_name='assignment_videos')
+    assignment = models.ForeignKey(
+        assignment, on_delete=models.CASCADE, related_name='video')
 
 
 class Pdf(models.Model):
@@ -23,13 +25,15 @@ class Pdf(models.Model):
                             related_name='assignment_pdfs')
     lesson = models.ForeignKey(
         Lesson, on_delete=models.CASCADE, related_name='assignment_pdfs')
+    assignment = models.ForeignKey(
+        assignment, on_delete=models.CASCADE, related_name='pdf')
 
 
 class Test(models.Model):
     Name = models.CharField(max_length=50)
     Duration = models.CharField(max_length=10)
     Assignment = models.ForeignKey(
-        assignment, on_delete=models.CASCADE, related_name='assignment_Test')
+        assignment, on_delete=models.CASCADE, related_name='Test')
     final = models.BooleanField(default=False)
 
 

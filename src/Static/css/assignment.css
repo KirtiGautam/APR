@@ -1,7 +1,5 @@
 .first {
-  background: transparent
-    linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
-    no-repeat padding-box;
+  background: transparent linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0% no-repeat padding-box;
 }
 
 .first-text {
@@ -46,22 +44,19 @@
 }
 
 .deadline {
-  background: transparent linear-gradient(132deg, #cb2d3e 0%, #ef473a 100%) 0%
-    0% no-repeat padding-box;
+  background: transparent linear-gradient(132deg, #cb2d3e 0%, #ef473a 100%) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   height: max-content;
 }
 
 .prime {
-  background: transparent linear-gradient(132deg, #2375d3 0%, #3ba9fe 100%) 0%
-    0% no-repeat padding-box;
+  background: transparent linear-gradient(132deg, #2375d3 0%, #3ba9fe 100%) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   height: 100%;
 }
 
 .complete {
-  background: transparent linear-gradient(132deg, #1d976c 0%, #9dd138 100%) 0%
-    0% no-repeat padding-box;
+  background: transparent linear-gradient(132deg, #1d976c 0%, #9dd138 100%) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   height: 100%;
 }
@@ -178,9 +173,9 @@ a:hover {
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
+
 .import {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0% 0% no-repeat padding-box;
   font-family: "Poppins", sans-serif;
   font-size: calc(11px + 1vmin);
   color: #ffffff;
@@ -223,6 +218,7 @@ a:hover {
   background: transparent;
   border: none;
 }
+
 .ques-num {
   font-size: calc(4px + 1vmax);
   font-family: Arial, Helvetica, sans-serif;
@@ -261,7 +257,8 @@ a:hover {
 .cards .description::after {
   content: " ";
   position: absolute;
-  bottom: 100%; /* At the top of the tooltip */
+  bottom: 100%;
+  /* At the top of the tooltip */
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
@@ -271,10 +268,6 @@ a:hover {
 
 .cards:hover .description {
   visibility: visible;
-}
-
-.checkbox {
-  opacity: 0;
 }
 
 @media screen and (max-width: 800px) {
