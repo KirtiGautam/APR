@@ -4,7 +4,19 @@ from django.template.loader import render_to_string
 from django.conf import settings
 import json
 from accounts.models import Class
-from lessons.models import Subject
+from lessons.models import Subject, question
+
+
+def getQuestions(request):
+    if request.user.admin and request.user.is_authenticated:
+        questions = question.objects.filter(
+            Lesson=request.POST['lesson']).values('id', 'Name', 'Difficulty')
+        data = {
+            'questions': list(questions)
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
 
 def Test(request, id):
     if request.user.is_authenticated:
@@ -67,7 +79,6 @@ def getLessons(request):
             'subjects': list(Subject.objects.filter(Class=request.POST['id']).values('id', 'Name'))
         }
         return http.JsonResponse(client, safe=False)
-        pass
     else:
         return http.HttpResponseForbidden({'messsage': 'You are not authorized for this request'})
 
