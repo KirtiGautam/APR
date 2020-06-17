@@ -3,8 +3,8 @@ from django import http
 from django.template.loader import render_to_string
 from django.conf import settings
 import json
-from accounts.models import Class
-from lessons.models import Subject, question
+from accounts.models import Class, video, pdf
+from lessons.models import Subject, question, Pdf, Video, Lesson, Test, Test_question
 
 
 def getQuestions(request):
@@ -18,29 +18,28 @@ def getQuestions(request):
     return http.HttpResponseForbidden({'message': 'Unauthorized'})
 
 
-def Test(request, id):
+def getTest(request, id):
     if request.user.is_authenticated:
-        pass
-        # if request.method == 'GET':
-        #     data = {
-        #         'test': test.objects.get(id=id),
-        #         'url': reverse('lessons:Test', args=[id]),
-        #     }
-        #     return render(request, 'test/test.html', data)
-        # else:
-        #     Test = test.objects.get(id=id).question.all()
-        #     correct = 0
-        #     for x in Test:
-        #         if request.POST[str(x.id)] != '':
-        #             if int(request.POST[str(x.id)]) == x.Answer.choice.id:
-        #                 correct += 1
-        #     data = {
-        #         'Number': Test.count(),
-        #         'Percentage': (correct/Test.count())*100,
-        #         'Correct': correct,
-        #         'Wrong': Test.count()-correct,
-        #     }
-        #     return render(request, 'test/result.html', data)
+        if request.method == 'GET':
+            data = {
+                'test': Test.objects.get(id=id),
+                'url': reverse('lessons:Test', args=[id]),
+            }
+            return render(request, 'test/test.html', data)
+        else:
+            Tes = Test.objects.get(id=id).question.all()
+            correct = 0
+            for x in Tes:
+                if request.POST[str(x.id)] != '':
+                    if int(request.POST[str(x.id)]) == x.question.Answer.choice.id:
+                        correct += 1
+            data = {
+                'Number': Tes.count(),
+                'Percentage': (correct/Tes.count())*100,
+                'Correct': correct,
+                'Wrong': Tes.count()-correct,
+            }
+            return render(request, 'test/result.html', data)
     else:
         return redirect('accounts:login')
 
@@ -85,51 +84,32 @@ def getLessons(request):
 
 def vid(request, id):
     if request.user.is_authenticated:
-        # videos = video.objects.get(id=id)
+        videos = Video.objects.get(id=id)
         return render(request, 'video/video.html', {'video': videos})
     else:
         return redirect('accounts:login')
 
 
-# def upload(request):
-#     if request.method == 'GET':
-#         return redirect('accounts:dashboard')
-#     else:
-#         File = request.POST['name']
-#         if request.POST['type'] == 'video':
-#             file = request.FILES['file']
-#             vid = video.objects.create(
-#                 Name=File, platform='L', lesson=Lesson.objects.get(id=request.POST['lesson']))
-#             file_name = default_storage.save(
-#                 'lessons/videos/'+str(vid.id)+'.mp4', file)
-#             vid.file = file_name
-#             vid.save()
-#         elif request.POST['type'] == 'csv':
-#             Tobj = test.objects.create(
-#                 Name=File, Lesson=Lesson.objects.get(id=request.POST['lesson']))
-#             for x in json.loads(request.POST['file']):
-#                 qn = question.objects.create(Name=x['Question'], test=Tobj)
-#                 c1 = choice.objects.create(
-#                     Name=x['Choice 1'].strip(), question=qn)
-#                 c2 = choice.objects.create(
-#                     Name=x['Choice 2'].strip(), question=qn)
-#                 c3 = choice.objects.create(
-#                     Name=x['Choice 3'].strip(), question=qn)
-#                 c4 = choice.objects.create(
-#                     Name=x['Choice 4'].strip(), question=qn)
-#                 c = [c1, c2, c3, c4]
-#                 for i in range(1, 5):
-#                     if x['Choice '+str(i)].strip() == x['Correct Answer'].strip():
-#                         ans = answer.objects.create(question=qn, choice=c[i-1])
-#         else:
-#             file = request.FILES['file']
-#             pd = pdf.objects.create(
-#                 Name=File, lesson=Lesson.objects.get(id=request.POST['lesson']))
-#             file_name = default_storage.save(
-#                 'lessons/pdfs/'+str(pd.id)+'.pdf', file)
-#             pd.file = file_name
-#             pd.save()
-#         data = {
-#             'message': 'File uploaded!'
-#         }
-#         return http.JsonResponse(data)
+def addResource(request):
+    if request.user.is_authenticated and request.user.admin:
+        data = request.POST.getlist('data[]')
+        if request.POST['type'] == 'pdf':
+            for x in data:
+                Pdf.objects.create(pdf=pdf.objects.get(
+                    id=x), lesson=Lesson.objects.get(id=request.POST['lesson']))
+        elif request.POST['type'] == 'video':
+            for x in data:
+                Video.objects.create(video=video.objects.get(
+                    id=x), lesson=Lesson.objects.get(id=request.POST['lesson']))
+        else:
+            final = True if request.POST['final'] == '1' else False
+            tes = Test.objects.create(Name=request.POST['Name'], Duration=request.POST['duration'],
+                                      final=final, Lesson=Lesson.objects.get(id=request.POST['lesson']))
+            for x in data:
+                Test_question.objects.create(
+                    question=question.objects.get(id=x), test=tes)
+        data = {
+            'message': 'Data added'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Forbidden'})

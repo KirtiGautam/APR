@@ -240,7 +240,3 @@ a:hover {
 .cards:hover .description {
   visibility: visible;
 }
-
-.checkbox{
-  opacity: 0;
-}

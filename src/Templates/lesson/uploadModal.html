@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body mb-5">
-                <div class="row">
+                <div class="row other_div">
                     <span class="selection col-12 col-sm-6 col-md-4 col-lg-3">Data Type</span>
                     <select id="dataType" class="form-control drop col-12 col-sm-6 col-md-8 col-lg-9">
                         <option value="pdf">PDF</option>
@@ -18,6 +18,14 @@
                     </select>
                 </div>
                 <div id="data_display" class="row mt-3"></div>
+                <div class="question_div d-none">
+                    Test Name:<input type="text" id="test_name"><br>
+                    Test duration(minutes):<input type="number" id="test_duration"><br>
+                    Final: <input type="checkbox" id="final_flag">
+                </div>
+                <button id="upload_btn">Save</button>
+                <button id="next_btn" class="d-none">Next</button>
+
             </div>
         </div>
     </div>

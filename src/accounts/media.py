@@ -97,16 +97,16 @@ def getMedia(request):
     if request.user.is_authenticated and request.user.admin:
         if request.POST['type'] == 'video':
             data = {
-                'video': list(video.objects.all().values('Name', 'Description', 'Local', 'file'))
+                'video': list(video.objects.all().values('id', 'Name', 'Description', 'Local', 'file'))
             }
         elif request.POST['type'] == 'pdf':
             data = {
-                'pdf': list(pdf.objects.all().values('Name', 'Description', 'file'))
+                'pdf': list(pdf.objects.all().values('id', 'Name', 'Description', 'file'))
             }
         else:
             data = {
-                'video': list(video.objects.all().values('Name', 'Description', 'Local', 'file')),
-                'pdf': list(pdf.objects.all().values('Name', 'Description', 'file'))
+                'video': list(video.objects.all().values('id', 'Name', 'Description', 'Local', 'file')),
+                'pdf': list(pdf.objects.all().values('id', 'Name', 'Description', 'file'))
             }
         data['prefix'] = settings.MEDIA_URL
         return http.JsonResponse(data)

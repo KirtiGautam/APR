@@ -11,7 +11,7 @@
 <div class="row mt-3">
     {% for pdf in lesson.lesson_pdfs.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
-        <a href="{{ prefix }}{{pdf.file}}" target="_blank">
+        <a href="{{ prefix }}{{pdf.pdf.file}}" target="_blank">
             <div class="cards p-2">
                 <span class="row row-head">
                     <span class="text-left col-10">PDF</span>
@@ -25,7 +25,7 @@
 
                 </span>
                 <span class="row row-foot">
-                    <span class="col-8">{{pdf.Name}}</span>
+                    <span class="col-8">{{pdf.pdf.Name}}</span>
                     <span class="time col-4">2 min</span>
                 </span>
             </div>
@@ -48,7 +48,7 @@
 
                 </span>
                 <span class="row row-foot">
-                    <span class="col-8">{{video.Name}}</span>
+                    <span class="col-8">{{video.video.Name}}</span>
                     <span class="time col-4">2 min</span>
                 </span>
             </div>
