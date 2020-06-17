@@ -74,7 +74,7 @@
 
 .drop {
   background: #ffffff 0% 0% no-repeat padding-box;
-  border: 1px solid #e6ecf0;
+  border: 2px solid #e6ecf0;
   border-radius: 15px;
   color: #376baa;
   font-size: calc(4px + 1vmax);

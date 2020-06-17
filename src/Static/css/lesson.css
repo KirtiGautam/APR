@@ -190,3 +190,57 @@ a:hover {
     display: none;
   }
 }
+
+.ques-num {
+  font-size: calc(4px + 1vmax);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.ques-name {
+  font-size: calc(3px + 1vmax);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #112234;
+}
+
+.cards {
+  position: relative;
+  display: inline-block;
+}
+
+.cards .description {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  width: 120px;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.cards .description::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%; /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.cards:hover .description {
+  visibility: visible;
+}
+
+.checkbox{
+  opacity: 0;
+}
