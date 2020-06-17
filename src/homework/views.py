@@ -40,9 +40,8 @@ def getHomeworks(request):
 
 def newHomework(request):
     if request.user.is_authenticated:
-        home = homework.objects.get(id=1)
-        # create(
-        #     Name=request.POST['NOH'], Instructions=request.POST['instruction'], Subject=Subject.objects.get(id=request.POST['subject']))
+        home = homework.objects.create(
+            Name=request.POST['NOH'], Instructions=request.POST['instruction'], Subject=Subject.objects.get(id=request.POST['subject']))
         data = request.POST.getlist('data[]')
         if request.POST['type'] == 'pdf':
             for x in data:
