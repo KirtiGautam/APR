@@ -19,13 +19,13 @@
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 first-class-plus">
                 {% if request.user.admin %}
                 <div class="col-12 row d-flex justify-content-around">
-                    <select id="class" class="col-8 form-control first-dropdown m-2">
+                    <select id="class" class="col-8 form-control drop m-2">
                         <option value="" disabled selected>Class</option>
                         {% for key in classes %}
                         <option value="{{key.id}}">{{key.name}}</option>
                         {% endfor %}
                     </select>
-                    <span><button class="btn first-plus add-assign d-none" data-toggle="modal" data-backdrop="static"
+                    <span><button class="btn plus add-assign d-none" data-toggle="modal" data-backdrop="static"
                             data-target="#add">+</button></span>
                 </div>
                 {% else %}

@@ -1,49 +1,21 @@
-@font-face {
-  src: url("/static/fonts/HelveticaNeue.ttf");
-  font-family: Neue;
-}
-
-@font-face {
-  src: url("/static/fonts/Helvetica-Neu-Bold.ttf");
-  font-family: NeueBold;
-}
-
-@font-face {
-  src: url("/static/fonts/HelveticaNeue-Medium.ttf");
-  font-family: NeueMedium;
-}
-
 * {
   margin: 0;
   padding: 0;
 }
 
-.select-subject {
+.selection {
   font-size: calc(8px + 2vmin);
-  font-family: NeueBold;
+  font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
 
-.select-class {
+.drop {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #b3b6b8;
   border-radius: 5px;
-  font-size: calc(8px + 2vmin);
+  font-size: calc(7px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
-}
-
-.subject.active {
-  background: #f05e23 0% 0% no-repeat padding-box;
-  border: 1px solid #e6ecf0;
-  border-radius: 10px;
-  font-size: calc(8px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #ffffff;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
 }
 
 .subject {
@@ -51,68 +23,23 @@
   border: 1px solid #e6ecf0;
   border-radius: 10px;
   color: #626262;
-  font-size: calc(8px + 2vmin);
+  font-size: calc(6px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   cursor: pointer;
 }
 
-.chapter {
-  font-size: calc(1vmax + 2vmin);
-  font-family: NeueMedium;
-  color: #5484ed;
-}
-
-.checkbox {
-  float: right;
-}
-
-.cards {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #0000003b;
-  border-radius: 5px;
-  height: max-content;
-}
-
-.row-head {
-  font-size: calc(1vmax + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #c0c0c0;
-  background: transparent;
-  border: none;
-}
-
-.row-foot {
-  font-size: calc(8px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #343434;
-  background: transparent;
-  border: none;
-}
-
-.time {
-  float: right;
-  font-size: 1vmax;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #aeaeae;
-}
-
-.test {
-  background: transparent linear-gradient(56deg, #f792ab 0%, #fce584 100%) 0% 0%
-    no-repeat padding-box;
-}
-
-.test .row-head {
-  font-size: calc(1vmax + 1vmin);
+.subject.active {
+  background: #f05e23 0% 0% no-repeat padding-box;
+  border: 1px solid #e6ecf0;
+  border-radius: 10px;
+  font-size: calc(6px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
-}
-
-.test .row-foot {
-  font-size: calc(8px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #343434;
-  text-align: right;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
 }
 
 .flexing {
@@ -126,48 +53,26 @@
 }
 
 .back-text {
-  font-size: calc(25px + 1vmax);
+  font-size: calc(4px + 4vmin);
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: #fd7f2c;
 }
 
+.chapter {
+  font-size: calc(13px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #5484ed;
+}
+
 .plus {
-  font-size: calc(15px + 1vmin);
+  font-size: calc(6px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 50%;
   color: #cbcdcf;
   width: fit-content;
-}
-
-.selection {
-  font-size: calc(1vmax + 1vmin);
-  font-family: NeueMedium;
-  color: #626262;
-}
-
-.drop {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  border: 0.5px solid #b3b6b8;
-  border-radius: 5px;
-  font-size: calc(12px + 1vmin);
-  font-weight: 500;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
-
-.import {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  font-family: "Poppins", sans-serif;
-  font-size: calc(11px + 1vmin);
-  color: #ffffff;
-}
-
-a:hover {
-  text-decoration: none;
 }
 
 .plus:hover {
@@ -180,15 +85,69 @@ a:hover {
   box-shadow: 0px 3px 6px #00000029;
   font-weight: 100;
   color: #bec1c3;
-  font-size: 25px;
+  font-size: calc(7px + 2vmin);
   border-radius: 50%;
   outline: none;
 }
 
-@media screen and (max-width: 600px) {
-  .back-photo {
-    display: none;
-  }
+.cards {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #0000003b;
+  border-radius: 5px;
+  height: max-content;
+}
+
+.row-head {
+  font-size: calc(5px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #c0c0c0;
+  background: transparent;
+  border: none;
+}
+
+.row-foot {
+  font-size: calc(4px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #343434;
+  background: transparent;
+  border: none;
+}
+
+.time {
+  float: right;
+  font-size: calc(3px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #aeaeae;
+}
+
+.test {
+  background: transparent linear-gradient(56deg, #f792ab 0%, #fce584 100%) 0% 0%
+    no-repeat padding-box;
+}
+
+.test .row-head {
+  font-size: calc(5px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+}
+
+.test .row-foot {
+  font-size: calc(4px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #343434;
+  text-align: right;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.import {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  font-family: "Poppins", sans-serif;
+  font-size: calc(11px + 1vmin);
+  color: #ffffff;
 }
 
 .ques-num {
@@ -216,8 +175,8 @@ a:hover {
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
-
-  /* Position the tooltip */
+  font-size: calc(4px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
   position: absolute;
   z-index: 1;
   width: 120px;
@@ -239,4 +198,14 @@ a:hover {
 
 .cards:hover .description {
   visibility: visible;
+}
+
+.checkbox {
+  opacity: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .back-photo {
+    display: none;
+  }
 }
