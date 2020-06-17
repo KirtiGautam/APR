@@ -3,92 +3,36 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close float-right"
-                    data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body mb-5">
-                <div class="container-fluid">
-                    <input type="hidden" id="homeworkid" value="{{homework.id}}">
-                    <div class="row">
-                        <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-4">
-                            <span class="selection">Subjects</span>
-                            <br>
-                            <select id="subjects" class="drop p-1 form-control">
-                                <option value="" selected disabled>Subjects</option>
-                                
-                            </select>
-                        </div> -->
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
-                            <span class="selection">Lessons</span>
-                            <br>
-                            <select id='lessons' class="drop p-1 form-control">
-                                <option value="" selected disabled>Lessons</option>
-                                {% for key in homework.Subject.Class.Subject.all %}
-                                <option value="{{key.id}}">{{key.Name}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
-                            <span for="" class="selection">Select Database</span>
-                            <br>
-                            <select id="dataType" class="drop p-1 form-control">
-                                <option value="" disabled selected>File Type</option>
-                                <option value="pdf">PDF</option>
-                                <option value="video">Video</option>
-                                <option value="csv">MCQ</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                            <label for="" class="selection">Name</label>
-                            <br>
-                            <input type="text" id="FName" class="drop form-control p-1">
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                            <br>
-                            <button onclick="upload('{% url 'homework:addresource'  %}');" id="upload_btn"
-                                class="btn import col-12">Upload</button>
-                        </div>
-                    </div>
+                <input type="hidden" id="homeworkid" value="{{homework.id}}">
+                <div class="row other_div">
+                    <select id="lessons">
+                        <option value="" selected disabled>Select lesson</option>
+                        {% for key in homework.Subject.Lesson.all %}
+                        <option value="{{key.id}}">{{key.Name}}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="selection col-12 col-sm-6 col-md-4 col-lg-3">Data Type</span>
+                    <select id="dataType" class="form-control drop col-12 col-sm-6 col-md-8 col-lg-9">
+                        <option value="" selected disabled>Select Lesson first</option>
+                        <option value="pdf">PDF</option>
+                        <option value="video">Video</option>
+                        <option value="test">Test</option>
+                    </select>
                 </div>
-                <div class="mb-3 mt-3">
-                    <div class="form-group mb-3">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="file_input" id="file_input"
-                                oninput="input_filename();">
-                            <label id="file_input_label" class="custom-file-label" for="image">Select
-                                file</label>
-                        </div>
-                    </div>
-                    <div class="selection csv d-none">
-                        Please upload a ".xls/.xlsx" file with following format
-                    </div>
-                    <div class="12 csv d-none">
-                        <img src="/static/Images/lesson/csv_example.png" alt="" class="col-12">
-                    </div>
-                    <button class="btn btn-primary d-none" id="loading_btn" type="button" disabled>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Uploading...
-                    </button>
-
-                    <button type="button" id="cancel_btn" class="btn btn-secondary d-none">Cancel
-                        upload</button>
+                <div id="data_display" class="row mt-3"></div>
+                <div class="question_div d-none">
+                    Test Name:<input type="text" id="test_name"><br>
+                    Test duration(minutes):<input type="number" id="test_duration"><br>
+                    Final: <input type="checkbox" id="final_flag">
                 </div>
-
-                <div id="progress_wrapper" class="d-none">
-                    <label id="progress_status"></label>
-                    <div class="progress mb-3">
-                        <div id="progress" class="progress-bar import" role="progressbar" aria-valuenow="25"
-                            aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div id="alert_wrapper"></div>
+                <button id="upload_btn">Save</button>
+                <button id="next_btn" class="d-none">Next</button>
             </div>
         </div>
     </div>
 </div>
-
-<script src="{% static 'js/upload.js' %}"></script>
-<script src="{% static 'js/PapaParse.js' %}"></script>

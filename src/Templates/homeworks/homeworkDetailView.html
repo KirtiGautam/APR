@@ -28,7 +28,7 @@
             <div class="col-12 mb-3">
                 <span class="homework-title">{{homework.Name}}</span>
                 {% if user.admin %}
-                <a><img src="/static/Images/assignment/edit.svg" alt="" class="img2 m-1"></a>
+                <!-- <a><img src="/static/Images/assignment/edit.svg" alt="" class="img2 m-1"></a> -->
                 {% endif %}
             </div>
             <div class="col-10 mb-3">
@@ -44,9 +44,9 @@
         </div>
 
         <div class="row mb-5">
-            {% for key in homework.pdfs.all %}
+            {% for key in homework.pdf.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
-                <a href="{{ prefix }}{{key.file}}" target="_blank">
+                <a href="{{ prefix }}{{key.pdf.file}}" target="_blank">
                     <div class="cards p-2">
                         <span class="row row-head">
                             <span class="text-left col-10">PDF</span>
@@ -59,7 +59,7 @@
                             <img src="/static/Images/lesson/video.png" alt="" class="col-6">
                         </span>
                         <span class="row row-foot">
-                            <span class="col-8">{{key.Name}}</span>
+                            <span class="col-8">{{key.pdf.Name}}</span>
                             <span class="col-4">
                                 <span class="float-right">
                                     <span class="time">2 min</span>
@@ -74,7 +74,7 @@
             </div>
             {% endfor %}
 
-            {% for key in homework.videos.all %}
+            {% for key in homework.video.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
                 <a href="{% url 'homework:video' key.id %}">
                     <div class="cards p-2">
@@ -89,7 +89,7 @@
                             <img src="/static/Images/lesson/video.png" alt="" class="col-6">
                         </span>
                         <span class="row row-foot">
-                            <span class="col-8">{{key.Name}}</span>
+                            <span class="col-8">{{key.video.Name}}</span>
                             <span class="col-4">
                                 <span class="float-right">
                                     <span class="time">2 min</span>
@@ -104,7 +104,7 @@
             </div>
             <!-- <a href="{% url 'homework:video' key.id %}">{{key.Name}}</a> -->
             {% endfor %}
-            {% for key in homework.Test.all %}
+            {% for key in homework.homework_Test.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3">
                 <a href="{% url 'homework:Test' key.id %}">
                     <div class="cards test p-2">
@@ -130,10 +130,10 @@
             {% endfor %}
         </div>
         {% if user.admin %}
-        <div class="row forth mb-3">
+        <!-- <div class="row forth mb-3">
             <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>
             <button class="btn home-save col-5 col-sm-5 col-md-3 col-lg-2 p-2">Save</button>
-        </div>
+        </div> -->
         {% endif %}
         {% include 'homeworks/addresource.html' %}
     </div>

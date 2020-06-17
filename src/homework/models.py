@@ -16,6 +16,8 @@ class Video(models.Model):
         video, on_delete=models.CASCADE, related_name='homework_videos')
     lesson = models.ForeignKey(
         Lesson, on_delete=models.CASCADE, related_name='homework_videos')
+    homework = models.ForeignKey(
+        homework, on_delete=models.CASCADE, related_name='video')
 
 
 class Pdf(models.Model):
@@ -23,6 +25,8 @@ class Pdf(models.Model):
                             related_name='homework_pdfs')
     lesson = models.ForeignKey(
         Lesson, on_delete=models.CASCADE, related_name='homework_pdfs')
+    homework = models.ForeignKey(
+        homework, on_delete=models.CASCADE, related_name='pdf')
 
 
 class Test(models.Model):
