@@ -17,7 +17,7 @@
         <div class="row">
             {% if not video.video.Local %}
             <iframe class="col-lg-7 col-md-12 col-sm-12 mt-5 pt-3 video"
-                src="https://www.youtube.com/embed/{{video.file}}" frameborder="0"
+                src="{{video.video.file}}" frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
 
@@ -30,7 +30,7 @@
             <div class="col-lg-5 col-md-12 col-sm-12 mt-5 text-left">
                 <h5 class="text-danger">{{video.lesson.Name}}</h5>
                 <div class="sub-topic font-weight-bold col-lg-5">
-                    {{video.Name}}
+                    {{video.video.Name}}
                 </div>
                 <!-- <div class="col-lg-12 col-md-12 col-sm-12 next-button">
                     <button class="col-lg-2 col-md-12 col-sm-12 btn btn-primary float-right align-bottom next-butto">
