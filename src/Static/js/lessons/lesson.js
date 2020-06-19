@@ -22,7 +22,7 @@ function getlessons(id = "") {
         html +=
           "<span onclick='getlessons(" +
           subjects[i].id +
-          ")' class='subject col-1 p-2 m-1";
+          ")' class='subject p-2 m-1";
         html +=
           id == subjects[i].id || (id == "" && i == 0) ? " active'>" : "'>";
         html += subjects[i].Name + "</span>  ";

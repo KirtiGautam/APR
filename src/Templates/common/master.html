@@ -21,6 +21,15 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
     <link rel="stylesheet" href="{% static 'css/content.css' %}">
+    <script>
+        jQuery(document).ready(function () {
+            jQuery(function () {
+                jQuery(this).bind("contextmenu", function (event) {
+                    event.preventDefault();
+                });
+            });
+        });
+    </script>
 </head>
 {% block content %}
 

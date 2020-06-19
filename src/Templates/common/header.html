@@ -22,29 +22,29 @@
             <br />
             <label class="header-icons-label">Home</label>
         </span>
-        <span class="text-center">
+        <!-- <span class="text-center">
             <img src="{% static 'Images/header/calender.png' %}" class="header-icons" />
             <br />
             <label class="header-icons-label">Calender</label>
-        </span>
-        <span class="col-1 col-sm-1 col-md-6 col-lg-6 text-center header-search" id="nav-search">
+        </span> -->
+        <!-- <span class="col-1 col-sm-1 col-md-6 col-lg-6 text-center header-search" id="nav-search">
             <input type="search" placeholder="Search iClass" class="form-control search-iclass" />
-        </span>
-        <span class="header-navigation-icon text-center">
+        </span> -->
+        <!-- <span class="header-navigation-icon text-center">
             <img src="{% static 'Images/header/search.png' %}" class="header-icons" />
             <br />
             <label class="header-icons-label">Search</label>
-        </span>
-        <span class="text-center">
+        </span> -->
+        <!-- <span class="text-center">
             <img src="{% static 'Images/header/messages.png' %}" class="header-icons" />
             <br />
             <label class="header-icons-label">Messages</label>
-        </span>
-        <span class="text-center">
+        </span> -->
+        <!-- <span class="text-center">
             <img src="{% static 'Images/header/notification.svg' %}" class="header-icons" />
             <br />
             <label class="header-icons-label">Notifications</label>
-        </span>
+        </span> -->
         <span class="text-center">
             <div class="dropdown">
                 <a class="" href="#" role="button" data-toggle="dropdown">
@@ -59,17 +59,19 @@
                         Admin Settings
                         <br>
                         <small>Get admin access upon clicking here</small>
-                    </a>                    
+                    </a>
                     <div class="dropdown-divider"></div>
                     {% endif %}
                     <a class="dropdown-item p-2" href="{% url 'accounts:logout' %}">
                         <i class="fas fa-sign-out-alt dropdown-icon"></i>
                         Logout of the device
                     </a>
+                    {% if user.admin %}
                     <a class="dropdown-item p-2" href="#">
                         <i class="fas fa-users dropdown-icon"></i>
                         Manage all users
                     </a>
+                    {% endif %}
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item p-2">
                         <i class="fas fa-toolbox dropdown-icon"></i>

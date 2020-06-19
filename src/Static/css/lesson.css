@@ -27,6 +27,7 @@
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   cursor: pointer;
+  display: inline-block;
 }
 
 .subject.active {
@@ -38,8 +39,6 @@
   color: #ffffff;
   text-align: center;
   cursor: pointer;
-  width: 100%;
-  height: 100%;
 }
 
 .back {
@@ -135,6 +134,19 @@ a:hover {
   font-family: Arial, Helvetica, sans-serif;
   color: #343434;
   text-align: right;
+}
+
+.lessons-cards-empty {
+  background: #f8f8f8 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #0000003b;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.row-body-text {
+  font-size: calc(6px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f05e23;
 }
 
 .cards {
