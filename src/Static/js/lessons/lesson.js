@@ -1,3 +1,4 @@
+let thumbr = [];
 function getlessons(id = "") {
   $.ajax({
     type: "POST",
@@ -142,19 +143,22 @@ const getMedia = (type) => {
     dataType: "json",
     success: function (response) {
       let html = "";
+      let thumbArray = [];
       if (type == "video") {
         for (let x = 0; x < response.video.length; x++) {
           const data = response.video[x];
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">VIDEO</span><span class="col-2 checkbox"><input type="checkbox" class="video_checkbox" value="${data.id}"></span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" alt="" class="col-6"></span><span class="row row-foot"><span class="col-8">${data.Name} </span><span class="description">${data.Description}</span></span></div></div>`;
+          thumbArray.push({ id: `#thumbM${data.id}`, link: `${data.Local ? response.prefix : ""}${data.file}` });
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">VIDEO</span><span class="col-2 checkbox"><input type="checkbox" class="video_checkbox" value="${data.id}"></span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" id="thumbM${data.id}"  class="col-6"></span><span class="row row-foot"><span class="col-8">${data.Name} </span><span class="description">${data.Description}</span></span></div></div>`;
         }
       }
       if (type == "pdf") {
         for (let x = 0; x < response.pdf.length; x++) {
           const data = response.pdf[x];
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">PDF</span><span class="col-2 checkbox"><input type="checkbox" class="pdf_checkbox" value="${data.id}"></span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" alt="" class="col-6"></span><span class="row row-foot"><span class="col-8">${data.Name}</span><span class="description">${data.Description}</span></span></div></div>`;
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">PDF</span><span class="col-2 checkbox"><input type="checkbox" class="pdf_checkbox" value="${data.id}"></span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" class="col-6"></span><span class="row row-foot"><span class="col-8">${data.Name}</span><span class="description">${data.Description}</span></span></div></div>`;
         }
       }
       $("#data_display").html(html);
+      generateThumbs(thumbArray);
     }, error: function (error) {
       alert(error.responseText);
     }

@@ -86,7 +86,7 @@
                         </span>
                         <span class="row">
                             <span class="col-3"></span>
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+                            <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-6">
                         </span>
                         <span class="row homework-row-foot">
                             <span class="col-8">{{key.video.Name}}</span>
@@ -140,4 +140,14 @@
 </div>
 
 <script src="{% static 'js/homeworks/detail.js' %}"></script>
+<script src="{% static 'js/thumb.js' %}"></script>
+<script>
+    {% for video in homework.video.all %}
+    thumbArr.push({
+        id: "#thumb{{video.id}}",
+        link: "{% if video.video.Local %}{{prefix}}{% endif %}{{video.video.file}}",
+    })
+    {% endfor %}
+    generateThumbs(thumbArr);
+</script>
 {% endblock %}

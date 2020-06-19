@@ -1,3 +1,4 @@
+let thumbArr = [];
 $(document).ready(function () {
   $("#dataType").change(function () {
     if (!$("#lessons").val()) {

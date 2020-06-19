@@ -42,7 +42,8 @@
                     <span class="col-12">PRACTICE TEST</span>
                 </span>
                 <span class="col-0 col-sm-4 col-md-4 col-lg-6 back-photo">
-                    <img src="/static/Images/lesson/back.png" alt="" class="rounded float-right col-0 col-sm-12 col-md-12 col-lg-6">
+                    <img src="/static/Images/lesson/back.png" alt=""
+                        class="rounded float-right col-0 col-sm-12 col-md-12 col-lg-6">
                 </span>
             </div>
             <div class="row row-three">
@@ -56,6 +57,7 @@
     </div>
 </body>
 <script src="{% static 'js/lessons/lesson.js' %}"></script>
+<script src="{% static 'js/thumb.js' %}"></script>
 <script>
     $(document).ready(function () {
         {% if request.user.admin %}

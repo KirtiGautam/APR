@@ -44,7 +44,7 @@
                 </span>
                 <span class="row text-center">
                     <span class="col-3"></span>
-                    <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+                    <img src="/static/Images/lesson/video.png" id="thumb{{video.id}}" class="col-6">
 
                 </span>
                 <span class="row lessons-row-foot">
@@ -88,3 +88,14 @@
     {% endif %}
 </div>
 {% endfor %}
+<script>
+    {% for lesson in lessons %}
+    {% for video in lesson.lesson_videos.all %}
+    thumbr.push({
+        id: "#thumb{{video.id}}",
+        link: "{% if video.video.Local %}{{prefix}}{% endif %}{{video.video.file}}",
+    })
+    {% endfor %}
+    {% endfor %}
+    generateThumbs(thumbr);
+</script>
