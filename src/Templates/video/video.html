@@ -15,69 +15,146 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            {% if not video.video.Local %}
-            <iframe class="col-lg-7 col-md-12 col-sm-12 mt-5 pt-3 video" src="{{video.video.file}}" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-
-            {% else %}
-            <video controls style="z-index: 1000;">
-                <source src="{% get_media_prefix %}{{video.video.file}}" type="video/mp4">
-                Your browser does not support HTML video.
-            </video>
-            {% endif %}
-            <div class="col-lg-5 col-md-12 col-sm-12 mt-5 text-left">
-                <h5 class="text-danger">{{video.lesson.Name}}</h5>
-                <div class="sub-topic font-weight-bold col-lg-5">
-                    {{video.video.Name}}
+            <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+                <div class="row">
+                    <span class="col-12">
+                        <span class="p-1 icon-1"><i class="fas fa-arrow-alt-circle-left"></i></span>
+                        <span class="heading-1 p-1">{{video.lesson.Name}}</span>
+                    </span>
+                    <span class="col-12">
+                        <div class="dropdown-divider mt-4 mb-4"></div>
+                    </span>
+                    <span class="col-12">
+                        <span class="row">
+                            <span class="col-12 col-sm-12 col-md-12 col-lg-8">
+                                <span class="row">
+                                    <span class="col-12">
+                                        {% if not video.video.Local %}
+                                        <iframe class="video col-12" src="{{video.video.file}}" frameborder="0"
+                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                        {% else %}
+                                        <video class="video col-12" controls>
+                                            <source src="{% get_media_prefix %}{{video.video.file}}" type="video/mp4">
+                                            Your browser does not support HTML video.
+                                        </video>
+                                        {% endif %}
+                                    </span>
+                                    <span class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                        <span class="heading-2 p-1">{{video.video.Name}}</span>
+                                    </span>
+                                    <span class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                        <span><button class="btn blue-buttons p-1">Mark as complete</button></span>
+                                        <span><button class="btn blue-buttons p-1">Next</button></span>
+                                    </span>
+                                    <span class="col-12 video-duration">
+                                        <span class="p-1">Time Duration:</span>
+                                        <span class="p-1">123</span>
+                                    </span>
+                                    <span class="col-12">
+                                        <span class="video-description p-1">{{video.video.Description}}</span>
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="col-12 col-sm-12 col-md-12 col-lg-4">
+                                <span class="row dis-row p-1">
+                                    <span class="col-12 text-center">
+                                        <span class="video-discuss">Discussions</span>
+                                    </span>
+                                    <span class="col-12">
+                                        <div class="dropdown-divider"></div>
+                                    </span>
+                                    <span class="col-12">
+                                        <input type="text" name="" id="" placeholder="Reply to the conversation"
+                                            class="form-control discussion-reply">
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
                 </div>
-                <!-- <div class="col-lg-12 col-md-12 col-sm-12 next-button">
-                    <button class="col-lg-2 col-md-12 col-sm-12 btn btn-primary float-right align-bottom next-butto">
-                        Next
-                    </button>
-                </div> -->
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="row video-all m-1">
+                    <span class="col-12 text-center"><span class="p-1 heading-3">Other content in this
+                            chapter</span></span>
+                    <span class="col-12">
+                        <span class="row p-1 m-1">
+                            {% for vid in video.lesson.lesson_videos.all %}
+                            <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-2">
+                                <a href="{% url 'lessons:video' video.id %}">
+                                    <div class="lessons-cards p-2">
+                                        <span class="row lessons-row-head">
+                                            <span class="text-left col-10">VIDEO</span>
+                                            <!-- <span class="checkbox round col-2">
+                                                <input type="checkbox" onclick="return false;" readonly="readonly" checked>
+                                            </span> -->
+                                        </span>
+                                        <span class="row text-center">
+                                            <span class="col-3"></span>
+                                            <img src="/static/Images/lesson/video.png" id="thumb{{video.id}}"
+                                                class="col-6">
 
+                                        </span>
+                                        <span class="row lessons-row-foot">
+                                            <span class="col-8">{{video.video.Name}}</span>
+                                            <span class="time col-4">2 min</span>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                            {% for pdf in video.lesson.lesson_pdfs.all %}
+                            <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-2">
+                                <a href="{% get_media_prefix %}{{ pdf.pdf.file }}" target="_blank">
+                                    <div class="lessons-cards p-2">
+                                        <span class="row lessons-row-head">
+                                            <span class="text-left col-10">PDF</span>
+                                            <!-- <span class="checkbox col-2">
+                                                <input type="checkbox" onclick="return false;" readonly="readonly" checked>
+                                            </span> -->
+                                        </span>
+                                        <span class="row text-center">
+                                            <span class="col-3"></span>
+                                            <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+
+                                        </span>
+                                        <span class="row lessons-row-foot">
+                                            <span class="col-8">{{pdf.pdf.Name}}</span>
+                                            <span class="time col-4">2 min</span>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                            {% for test in video.lesson.lesson_Test.all %}
+                            <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-2">
+                                <a href="#">
+                                    <div class="lessons-cards test p-2">
+                                        <span class="row lessons-row-head">
+                                            <span class="text-left col-10">{{test.question.all.count}} Questions</span>
+                                            <!-- <span class="checkbox round col-2">
+                                                <input type="checkbox" name="" id="">
+                                            </span> -->
+                                        </span>
+                                        <span class="row text-center">
+                                            <span class="col-3"></span>
+                                            <img src="/static/Images/lesson/test.png" class="col-6">
+
+                                        </span>
+                                        <span class="row lessons-row-foot text-right">
+                                            <span class="col-12">{% if test.final %}Final
+                                                Test{% else %}Practice
+                                                Test{% endif %}</span>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </span>
+                    </span>
+                </div>
             </div>
-            {% for vid in video.lesson.lesson_videos.all %}
-            <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
-                <a href="{% url 'lessons:video' video.id %}">
-                    <div class="shadow-sm p-3 rounded card text-black mb-3">
-                        <h6 class="video-titl">Video</h6>
-                        <div class="card-body row">
-                            <img class="col-lg-12" src="{% static 'Images/lesson/video.png' %}">
-                            <p class="card-text text-dark">Name of sub topic</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
-            {% for pdf in video.lesson.lesson_pdfs.all %}
-            <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
-                <a href="{% get_media_prefix %}{{ pdf.pdf.file }}" target="_blank">
-                    <div class="shadow-sm p-3 rounded card text-black mb-3">
-                        <h6 class="video-titl">PDF</h6>
-                        <div class="card-body row">
-                            <img class="col-lg-12" src="{% static 'Images/lesson/video.png' %}">
-                            <p class="card-text text-dark">Name of sub topic</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
-            {% for test in video.lesson.lesson_Test.all %}
-            <div class="col-lg-2 col-md-4 col-sm-12 pt-4">
-                <a href="#">
-                    <div class="shadow-sm p-3 rounded card text-black mb-3 test-cards">
-                        <h6 class="test-titl">{{test.question.all.count}} Questions</h6>
-                        <div class="card-body row">
-                            <img class="col-lg-12" src="{% static 'Images/lesson/test.png' %}">
-                            <p class="card-text text-dark">{% if test.final %}Final Test{% else %}Practice
-                                Test{% endif %}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
         </div>
     </div>
 </div>

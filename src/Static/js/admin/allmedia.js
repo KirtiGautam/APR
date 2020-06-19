@@ -49,20 +49,27 @@ const getMedia = () => {
       if (type == "video" || type == "" || type == null) {
         for (let x = 0; x < response.video.length; x++) {
           const data = response.video[x];
-          thumbArray.push({ id: `#thumb${data.id}`, link: `${data.Local ? response.prefix : ""}${data.file}` });
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3"><a href="${
+          thumbArray.push({
+            id: `#thumb${data.id}`,
+            link: `${data.Local ? response.prefix : ""}${data.file}`,
+          });
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><a href="${
             data.Local ? response.prefix : ""
-            }${
+          }${
             data.file
-            }"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">VIDEO</span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" id="thumb${data.id}" class="col-6"></span><span class="row row-foot"><span class="col-8">${
+          }"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">VIDEO</span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" id="thumb${
+            data.id
+          }" class="col-6"></span><span class="row row-foot"><span class="col-8">${
             data.Name
-            } </span><span class="description">${data.Description}</span></span></div></a></div>`;
+          } </span><span class="description">${
+            data.Description
+          }</span></span></div></a></div>`;
         }
       }
       if (type == "pdf" || type == "" || type == null) {
         for (let x = 0; x < response.pdf.length; x++) {
           const data = response.pdf[x];
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3"><a href="${response.prefix}${data.file}"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">PDF</span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" alt="" class="col-6"></span><span class="row row-foot"><span class="col-8">${data.Name}</span><span class="description">${data.Description}</span></span></div></a></div>`;
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><a href="${response.prefix}${data.file}"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">PDF</span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" alt="" class="col-6"></span><span class="row row-foot"><span class="col-8">${data.Name}</span><span class="description">${data.Description}</span></span></div></a></div>`;
         }
       }
       $("#body").html(html);
@@ -70,7 +77,7 @@ const getMedia = () => {
     },
     error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 };
 
