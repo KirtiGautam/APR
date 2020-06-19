@@ -1,52 +1,165 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-
-.video{
-    height: 40vh;
-    border-radius: 5px;
+.video {
+  height: 40vh;
+  border-radius: 5px;
 }
 
-.sub-topic{
-    text-align: left;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 0px;
-    color: #112234;
+.heading-1 {
+  font-size: calc(12px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #626262;
 }
 
-
-.video-titl{
-    color: #C0C0C0;
-    font-size: 60%;
+.heading-2 {
+  font-size: calc(10px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  color: #112234;
 }
 
-.test-titl{
-    color: #FFFFFF;
-    font-size: 60%;
+.heading-3 {
+  font-size: calc(8px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
 }
 
-.test-cards{
-    background: transparent linear-gradient(56deg, #F792AB 0%, #FCE584 100%) 0% 0% no-repeat padding-box;    
+.blue-buttons {
+  background: #5890ff 0% 0% no-repeat padding-box;
+  border-radius: 0px !important;
+  font-size: calc(3px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
 }
 
-.card-text{
-    font-size: 75%;
+.video-duration {
+  font-size: calc(3px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 200;
+  color: #828282;
 }
 
-.card{
-    box-shadow: 0px 3px 6px #0000003B;
+.video-description {
+  font-size: calc(4px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #112234;
 }
 
-.next-button{
-    height: 30vh;
+.dis-row {
+  border: 0.5px solid #707070;
+  border-radius: 5px;
 }
 
-.next-butto{
-    position: absolute;
-    right: 0;
-    bottom: 0;
+.video-discuss {
+  font-size: calc(5px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #112234;
+}
+
+.discussion-reply {
+  font-size: calc(3px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #c8c8c8;
+}
+
+.video-all {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+}
+
+.lessons-cards {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #0000003b;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.lessons-row-head {
+  font-size: calc(3px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #c0c0c0;
+  background: transparent;
+  border: none;
+}
+
+.lessons-row-foot {
+  font-size: calc(2px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #343434;
+  background: transparent;
+  border: none;
+}
+
+.time {
+  font-size: calc(1px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #aeaeae;
+}
+
+.test {
+  background: transparent linear-gradient(56deg, #f792ab 0%, #fce584 100%) 0% 0%
+    no-repeat padding-box;
+}
+
+.test .lessons-row-head {
+  font-size: calc(3px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+}
+
+.test .lessons-row-foot {
+  font-size: calc(2px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #343434;
+  text-align: right;
+}
+
+.icon-1 {
+  font-size: calc(12px + 2vmin);
+  color: #626262;
+}
+
+.sub-topic {
+  text-align: left;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0px;
+  color: #112234;
+}
+
+.video-titl {
+  color: #c0c0c0;
+  font-size: 60%;
+}
+
+.test-titl {
+  color: #ffffff;
+  font-size: 60%;
+}
+
+.test-cards {
+  background: transparent linear-gradient(56deg, #f792ab 0%, #fce584 100%) 0% 0%
+    no-repeat padding-box;
+}
+
+.card-text {
+  font-size: 75%;
+}
+
+.card {
+  box-shadow: 0px 3px 6px #0000003b;
+}
+
+.next-button {
+  height: 30vh;
+}
+
+.next-butto {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }

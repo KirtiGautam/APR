@@ -6,7 +6,7 @@
 .leftside {
   border-right: 3px solid #f5f8fa;
   background: #FFFFFF 0% 0% no-repeat padding-box;
-  padding-top: 60px !important;
+  padding-top: 70px !important;
 }
 
 .name {
@@ -57,6 +57,6 @@ a:hover {
 
 @media screen and (max-width:800px){
   .leftside{
-    padding-top: 20px !important;
+    padding-top: 30px !important;
   }
 }
