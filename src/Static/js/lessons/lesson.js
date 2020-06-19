@@ -28,7 +28,9 @@ function getlessons(id = "") {
         html += subjects[i].Name + "</span>  ";
       }
       $("#SB").html(html);
-    },
+    }, error: function (error) {
+      alert(error.responseText);
+    }
   });
 }
 
@@ -89,7 +91,9 @@ $(document).ready(function () {
       success: function (response) {
         alert(response.message);
         getlessons();
-      },
+      }, error: function (error) {
+        alert(error.responseText);
+      }
     });
   });
 
@@ -121,7 +125,9 @@ const getQuestions = () => {
       }
       html += "</tbody></table>";
       $("#data_display").html(html);
-    },
+    }, error: function (error) {
+      alert(error.responseText);
+    }
   });
 };
 
@@ -149,7 +155,9 @@ const getMedia = (type) => {
         }
       }
       $("#data_display").html(html);
-    },
+    }, error: function (error) {
+      alert(error.responseText);
+    }
   });
 };
 

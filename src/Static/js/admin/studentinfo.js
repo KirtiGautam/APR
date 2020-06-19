@@ -15,6 +15,8 @@ const getStudents = () => {
                 html += `<tr><td><input type="checkbox" class="users" value="${stu['id']}"></td><td>${x + 1}</td><td>${stu['Name']}</td><td>${stu['Gender']}</td><td>${stu['DOB']}</td><td>${stu['Email']}</td><td>${stu['Contact']}</td><td>${stu['Address']}</td><td>${stu['Pincode']}</td><td>${stu['City']}</td><td>${stu['District']}</td><td>${stu['State']}</td></tr>`;
             }
             $('#students').html(html);
+        }, error: function (error) {
+            alert(error.responseText);
         }
     });
 }
@@ -35,6 +37,8 @@ const getStudent = id => {
                 $('#' + x).val(data[x]);
             }
             console.log(data);
+        }, error: function (error) {
+            alert(error.responseText);
         }
     });
 }
@@ -85,6 +89,8 @@ $(document).ready(function () {
             success: function (data) {
 
                 JSONToCSVConvertor(data.students, "Students", true)
+            }, error: function (error) {
+                alert(error.responseText);
             }
         });
     });
@@ -148,6 +154,8 @@ $(document).ready(function () {
             success: function (data) {
                 alert(data.message);
                 getStudents();
+            }, error: function (error) {
+                alert(error.responseText);
             }
         });
     });
@@ -194,6 +202,8 @@ $(document).ready(function () {
             success: function (data) {
                 alert(data.message);
                 getStudents();
+            }, error: function (error) {
+                alert(error.responseText);
             }
         });
     });
@@ -228,6 +238,8 @@ $(document).ready(function () {
                 success: function (data) {
                     alert(data.message);
                     getStudents();
+                }, error: function (error) {
+                    alert(error.responseText);
                 }
             });
         }
@@ -268,6 +280,8 @@ $(document).ready(function () {
                         console.log(data)
                         $('#file').val('');
                         alert(data.message)
+                    }, error: function (error) {
+                        alert(error.responseText);
                     }
                 });
             };

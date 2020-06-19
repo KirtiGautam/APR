@@ -13,6 +13,8 @@ const getSubjects = () => {
                 html += `<option value="${data.subjects[x].id}" >${data.subjects[x].Name}</option>`
             }
             $('#subject').html(html);
+        }, error: function (error) {
+            alert(error.responseText);
         }
     });
 }
@@ -36,9 +38,10 @@ const getLessons = () => {
                     <span class="col-10 chap-name">${data.lessons[x].Name}</span>
                 </span>
             </div>`
-                // html += `<li class="list-group-item">${data.lessons[x].Name}</li>`
             }
             $('#lessons').html(html);
+        }, error: function (error) {
+            alert(error.responseText);
         }
     });
 }
@@ -87,6 +90,8 @@ $(document).ready(function () {
                 getLessons();
                 $('#lesson').val('');
                 !$('#lesson_number').val('');
+            }, error: function (error) {
+                alert(error.responseText);
             }
         });
     });

@@ -14,7 +14,9 @@ function getAssignments() {
         $("#body").html(data.body);
       }
       getSubjects();
-    },
+    }, error: function (error) {
+      alert(error.responseText);
+    }
   });
 }
 
@@ -33,7 +35,9 @@ function getSubjects() {
         html += `<option value="${data.subjects[x].id}" >${data.subjects[x].Name}</option>`;
       }
       $("#subjects").html(html);
-    },
+    }, error: function (error) {
+      alert(error.responseText);
+    }
   });
 }
 
@@ -52,7 +56,9 @@ function getLessons() {
         html += `<option value="${data.lessons[x].id}" >${data.lessons[x].Name}</option>`;
         $("#lessons").html(html);
       }
-    },
+    }, error: function (error) {
+      alert(error.responseText);
+    }
   });
 }
 
@@ -142,7 +148,9 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         alert(response.message);
-      },
+      }, error: function (error) {
+        alert(error.responseText);
+      }
     });
   });
 
@@ -174,7 +182,9 @@ const getQuestions = () => {
       }
       html += "</tbody></table>";
       $("#data_display").html(html);
-    },
+    }, error: function (error) {
+      alert(error.responseText);
+    }
   });
 };
 
@@ -202,7 +212,9 @@ const getMedia = (type) => {
         }
       }
       $("#data_display").html(html);
-    },
+    }, error: function (error) {
+      alert(error.responseText);
+    }
   });
 };
 

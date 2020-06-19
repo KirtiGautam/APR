@@ -50,11 +50,11 @@ const getMedia = () => {
           const data = response.video[x];
           html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3"><a href="${
             data.Local ? response.prefix : ""
-          }${
+            }${
             data.file
-          }"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">VIDEO</span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" alt="" class="col-6"></span><span class="row row-foot"><span class="col-8">${
+            }"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">VIDEO</span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" alt="" class="col-6"></span><span class="row row-foot"><span class="col-8">${
             data.Name
-          } </span><span class="description">${data.Description}</span></span></div></a></div>`;
+            } </span><span class="description">${data.Description}</span></span></div></a></div>`;
         }
       }
       if (type == "pdf" || type == "" || type == null) {
@@ -65,6 +65,9 @@ const getMedia = () => {
       }
       $("#body").html(html);
     },
+    error: function (error) {
+      alert(error.responseText);
+    }
   });
 };
 

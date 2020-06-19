@@ -173,7 +173,7 @@ const getclasses = term => {
             $('#CsearchTbody').html(html);
         },
         error: function (err) {
-            console.log(err)
+            alert(err)
         }
     })
 }

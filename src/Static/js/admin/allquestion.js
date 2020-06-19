@@ -18,6 +18,8 @@ $(document).ready(function () {
                     html += `<option value="${data.subjects[x].id}" >${data.subjects[x].Name}</option>`
                 }
                 $('#subject').html(html);
+            }, error: function (error) {
+                alert(error.responseText);
             }
         });
     })
@@ -37,6 +39,8 @@ $(document).ready(function () {
                     html += `<option value="${data.lessons[x].id}" >${data.lessons[x].Name}</option>`
                     $('#lesson').html(html);
                 }
+            }, error: function (error) {
+                alert(error.responseText);
             }
         });
     })

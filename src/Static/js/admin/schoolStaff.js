@@ -15,6 +15,8 @@ const getStaff = () => {
                 html += `<tr><td><input type="checkbox" class="users" value="${staff['id']}"></td><td>${x + 1}</td><td>${staff['Name']}</td><td>${staff['Email']}</td>`;
             }
             $('#Staff').html(html);
+        }, error: function (error) {
+            alert(error.responseText);
         }
     });
 }
@@ -33,6 +35,8 @@ const getUser = id => {
                 $('#' + x).val(data[x]);
             }
             console.log(data);
+        }, error: function (error) {
+            alert(error.responseText);
         }
     });
 }
@@ -87,6 +91,8 @@ $(document).ready(function () {
             success: function (data) {
 
                 JSONToCSVConvertor(data.staff, "Staff", true)
+            }, error: function (error) {
+                alert(error.responseText);
             }
         });
     });
@@ -122,6 +128,8 @@ $(document).ready(function () {
             success: function (data) {
                 alert(data.message);
                 getStaff();
+            }, error: function (error) {
+                alert(error.responseText);
             }
         });
     });
@@ -149,6 +157,8 @@ $(document).ready(function () {
             success: function (data) {
                 alert(data.message);
                 getStaff();
+            }, error: function (error) {
+                alert(error.responseText);
             }
         });
     });
@@ -184,6 +194,8 @@ $(document).ready(function () {
                 success: function (data) {
                     alert(data.message);
                     getStaff();
+                }, error: function (error) {
+                    alert(error.responseText);
                 }
             });
         }
