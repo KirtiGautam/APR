@@ -3,8 +3,9 @@
     <div class="col-12 mt-3">
         <span class="chapter col-8">{{lesson.Name}}</span>
         {% if admin %}
-        <button class="btn plus col-4 p-1 float-right" onclick="setChapName({{lesson.id}});" data-toggle="modal"
-            data-backdrop="static" data-target="#add">+</button>
+        <button class="btn float-right edit-add" onclick="setChapName({{lesson.id}});" data-toggle="modal" data-backdrop="static"
+            data-target="#add"><i class="fas fa-plus-circle"></i></button>
+        <button class="btn float-right edit-add"><i class="fas fa-pen-square"></i></button>
         {% endif %}
     </div>
 </div>
@@ -12,19 +13,17 @@
     {% for pdf in lesson.lesson_pdfs.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{{ prefix }}{{pdf.pdf.file}}" target="_blank">
-            <div class="lessons-cards p-2">
-                <span class="row lessons-row-head">
+            <div class="lessons-cards">
+                <span class="row">
+                    <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
+                </span>
+                <span class="row lessons-row-head p-1">
                     <span class="text-left col-10">PDF</span>
                     <!-- <span class="checkbox col-2">
                         <input type="checkbox" onclick="return false;" readonly="readonly" checked>
                     </span> -->
                 </span>
-                <span class="row text-center">
-                    <span class="col-3"></span>
-                    <img src="/static/Images/lesson/video.png" alt="" class="col-6">
-
-                </span>
-                <span class="row lessons-row-foot">
+                <span class="row lessons-row-foot p-1">
                     <span class="col-8">{{pdf.pdf.Name}}</span>
                     <span class="time col-4">2 min</span>
                 </span>
@@ -35,23 +34,21 @@
     {% for video in lesson.lesson_videos.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{% url 'lessons:video' video.id %}">
-            <div class="lessons-cards p-2">
-                <span class="row lessons-row-head">
+            <div class="lessons-cards">
+                <span class="row">
+                    <img src="/static/Images/lesson/video.png" id="thumb{{video.id}}" class="col-12 img">
+                </span>
+                <span class="row lessons-row-head p-1">
                     <span class="text-left col-10">VIDEO</span>
                     {% if not user.admin %}
                     <span class="checkbox round col-2">
-                        <input type="checkbox" onclick="return false;" readonly="readonly"
+                        <input type="checkbox" disabled onclick="return false;" readonly="readonly"
                             {% for watched in watched_videos %}{% if watched.id == video.id %} checked
                             {% endif %}{% endfor %}>
                     </span>
                     {% endif %}
                 </span>
-                <span class="row text-center">
-                    <span class="col-3"></span>
-                    <img src="/static/Images/lesson/video.png" id="thumb{{video.id}}" class="col-6">
-
-                </span>
-                <span class="row lessons-row-foot">
+                <span class="row lessons-row-foot p-1">
                     <span class="col-8">{{video.video.Name}}</span>
                     <span class="time col-4">2 min</span>
                 </span>
@@ -62,19 +59,17 @@
     {% for key in lesson.lesson_Test.all %}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
         <a href="{% url 'lessons:Test' key.id %}">
-            <div class="lessons-cards test p-2">
-                <span class="row lessons-row-head">
+            <div class="lessons-cards test">
+                <span class="row">
+                    <img src="/static/Images/lesson/test.png" class="col-12 img">
+                </span>
+                <span class="row lessons-row-head p-1">
                     <span class="text-left col-10">{{key.question.all.count}} Questions</span>
                     <!-- <span class="checkbox round col-2">
                         <input type="checkbox" name="" id="">
                     </span> -->
                 </span>
-                <span class="row text-center">
-                    <span class="col-3"></span>
-                    <img src="/static/Images/lesson/test.png" class="col-6">
-
-                </span>
-                <span class="row lessons-row-foot text-right">
+                <span class="row lessons-row-foot text-right p-1">
                     <span class="col-12">{% if key.final %}Final Test{% else %}Practice Test{% endif %}</span>
                 </span>
             </div>
