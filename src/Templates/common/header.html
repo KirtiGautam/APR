@@ -7,82 +7,87 @@
 </head>
 
 <div class="header">
-    <div class="d-flex justify-content-around">
-        <span class="iclass text-center">
-            <label>iClass</label>
+    <div class="row">
+        <span class="col">
+            <span class="iclass text-center">
+                <label>iClass</label>
+            </span>
         </span>
-        <span class="text-center" id="sidebarCollapse">
-            <img src="{% static 'Images/header/left-nav.jpeg' %}" class="header-icons" />
-            <br>
-            <label class="header-icons-label">Menu</label>
-        </span>
-        <span class="text-center">
-            <a href="{% url 'accounts:dashboard' %}"><img src="{% static 'Images/header/home.png' %}"
-                    class="header-icons" /></a>
-            <br />
-            <label class="header-icons-label">Home</label>
-        </span>
-        <!-- <span class="text-center">
-            <img src="{% static 'Images/header/calender.png' %}" class="header-icons" />
-            <br />
-            <label class="header-icons-label">Calender</label>
-        </span> -->
-        <!-- <span class="col-1 col-sm-1 col-md-6 col-lg-6 text-center header-search" id="nav-search">
-            <input type="search" placeholder="Search iClass" class="form-control search-iclass" />
-        </span> -->
-        <!-- <span class="header-navigation-icon text-center">
-            <img src="{% static 'Images/header/search.png' %}" class="header-icons" />
-            <br />
-            <label class="header-icons-label">Search</label>
-        </span> -->
-        <!-- <span class="text-center">
-            <img src="{% static 'Images/header/messages.png' %}" class="header-icons" />
-            <br />
-            <label class="header-icons-label">Messages</label>
-        </span> -->
-        <!-- <span class="text-center">
-            <img src="{% static 'Images/header/notification.svg' %}" class="header-icons" />
-            <br />
-            <label class="header-icons-label">Notifications</label>
-        </span> -->
-        <span class="text-center">
-            <div class="dropdown">
-                <a class="" href="#" role="button" data-toggle="dropdown">
-                    <img src="{% static 'Images/header/setting.png' %}" class="header-icons" />
+        <span class="col">
+            <div class="d-flex justify-content-end">
+                <span class="text-center mr-5" id="sidebarCollapse">
+                    <img src="{% static 'Images/header/left-nav.jpeg' %}" class="header-icons" />
+                    <br>
+                    <label class="header-icons-label">Menu</label>
+                </span>
+                <span class="text-center mr-5">
+                    <a href="{% url 'accounts:dashboard' %}"><img src="{% static 'Images/header/home.png' %}"
+                            class="header-icons" /></a>
                     <br />
-                    <label class="header-icons-label">Settings</label>
-                </a>
-                <div class="dropdown-menu p-2">
-                    {% if user.admin %}
-                    <a class="dropdown-item p-2" href="{% url 'accounts:student_information' %}">
-                        <i class="fas fa-user-cog dropdown-icon"></i>
-                        Admin Settings
-                        <br>
-                        <small>Get admin access upon clicking here</small>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    {% endif %}
-                    <a class="dropdown-item p-2" href="{% url 'accounts:logout' %}">
-                        <i class="fas fa-sign-out-alt dropdown-icon"></i>
-                        Logout of the device
-                    </a>
-                    {% if user.admin %}
-                    <a class="dropdown-item p-2" href="#">
-                        <i class="fas fa-users dropdown-icon"></i>
-                        Manage all users
-                    </a>
-                    {% endif %}
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item p-2">
-                        <i class="fas fa-toolbox dropdown-icon"></i>
-                        Change Password
-                        <br>
-                        <small>You can change your password here</small>
-                    </a>
-                </div>
+                    <label class="header-icons-label">Home</label>
+                </span>
+                <!-- <span class="text-center">
+                    <img src="{% static 'Images/header/calender.png' %}" class="header-icons" />
+                    <br />
+                    <label class="header-icons-label">Calender</label>
+                </span> -->
+                <!-- <span class="col-1 col-sm-1 col-md-6 col-lg-6 text-center header-search" id="nav-search">
+                    <input type="search" placeholder="Search iClass" class="form-control search-iclass" />
+                </span> -->
+                <!-- <span class="header-navigation-icon text-center">
+                    <img src="{% static 'Images/header/search.png' %}" class="header-icons" />
+                    <br />
+                    <label class="header-icons-label">Search</label>
+                </span> -->
+                <!-- <span class="text-center">
+                    <img src="{% static 'Images/header/messages.png' %}" class="header-icons" />
+                    <br />
+                    <label class="header-icons-label">Messages</label>
+                </span> -->
+                <!-- <span class="text-center">
+                    <img src="{% static 'Images/header/notification.svg' %}" class="header-icons" />
+                    <br />
+                    <label class="header-icons-label">Notifications</label>
+                </span> -->
+                <span class="text-center mr-5">
+                    <div class="dropdown">
+                        <a class="" href="#" role="button" data-toggle="dropdown">
+                            <img src="{% static 'Images/header/setting.png' %}" class="header-icons" />
+                            <br />
+                            <label class="header-icons-label">Settings</label>
+                        </a>
+                        <div class="dropdown-menu p-2">
+                            {% if user.admin %}
+                            <a class="dropdown-item p-2" href="{% url 'accounts:student_information' %}">
+                                <i class="fas fa-user-cog dropdown-icon"></i>
+                                Admin Settings
+                                <br>
+                                <small>Get admin access upon clicking here</small>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            {% endif %}
+                            <a class="dropdown-item p-2" href="{% url 'accounts:logout' %}">
+                                <i class="fas fa-sign-out-alt dropdown-icon"></i>
+                                Logout of the device
+                            </a>
+                            {% if user.admin %}
+                            <a class="dropdown-item p-2" href="#">
+                                <i class="fas fa-users dropdown-icon"></i>
+                                Manage all users
+                            </a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item p-2">
+                                <i class="fas fa-toolbox dropdown-icon"></i>
+                                Change Password
+                                <br>
+                                <small>You can change your password here</small>
+                            </a>
+                        </div>
+                    </div>
+                </span>
             </div>
         </span>
-
     </div>
 </div>
 <script src="{% static 'js/header.js' %}"></script>

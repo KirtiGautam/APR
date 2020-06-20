@@ -36,7 +36,15 @@
                 <button class="btn search-button or col-12">Search</button>
             </div>
         </div>
-        <div id="body" class="row row-three"></div>
+        <div class="row row-three">
+            <span class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                <span class="float-right">
+                    <button id="delete" class="btn buttons ">Delete</button>
+                    <button id="edit" class="btn buttons ">Edit</button>
+                </span>
+            </span>
+            <span id="body" class="col-12 row"></span>
+        </div>
     </div>
 </div>
 {% include 'settings/admin/AllMedia/uploadmedia.html' %}
