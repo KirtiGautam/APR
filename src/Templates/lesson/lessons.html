@@ -19,9 +19,13 @@
                 </span>
                 <span class="row lessons-row-head p-1">
                     <span class="text-left col-10">PDF</span>
-                    <!-- <span class="checkbox col-2">
-                        <input type="checkbox" onclick="return false;" readonly="readonly" checked>
-                    </span> -->
+                    {% if not user.admin %}
+                    <span class="checkbox round col-2">
+                        <input type="checkbox" onclick="return MARP({{pdf.id}}, this);"
+                            {% for read in read_pdfs %}{% if read.Pdf.id == pdf.id %} onclick="return false;"
+                            readonly="readonly" checked {% endif %}{% endfor %}>
+                    </span>
+                    {% endif %}
                 </span>
                 <span class="row lessons-row-foot p-1">
                     <span class="col-8">{{pdf.pdf.Name}}</span>

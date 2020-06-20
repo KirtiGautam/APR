@@ -7,6 +7,63 @@ from django.conf import settings
 import json
 
 
+def updateMedia(request):
+    if request.user.is_authenticated and request.user.admin:
+        if request.POST['type'] == 'pdf':
+            pd = pdf.objects.get(id=request.POST['id'])
+            pd.Name = request.POST['Name']
+            pd.Description = request.POST['Description']
+            pd.save()
+        else:
+            vd = video.objects.get(id=request.POST['id'])
+            vd.Name = request.POST['Name']
+            vd.Description = request.POST['Description']
+            vd.save()
+        data = {
+            'message': 'Details updated'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def mediaDetails(request):
+    if request.user.is_authenticated and request.user.admin:
+        if request.POST['type'] == 'pdf':
+            pd = pdf.objects.get(id=request.POST['value'])
+            data = {
+                'Name': pd.Name,
+                'Description': pd.Description,
+            }
+        else:
+            vd = video.objects.get(id=request.POST['value'])
+            data = {
+                'Name': vd.Name,
+                'Description': vd.Description,
+            }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def deleteMedia(request):
+    if request.user.is_authenticated and request.user.admin:
+        for x in request.POST.getlist('data[]'):
+            dat = json.loads(x)
+            if dat['type'] == 'pdf':
+                pd = pdf.objects.get(id=dat['value'])
+                pd.file.delete()
+                pd.delete()
+            else:
+                vd = video.objects.get(id=dat['value'])
+                if vd.Local:
+                    vd.file.delete()
+                vd.delete()
+        data = {
+            'message': 'Files deleted'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
 def uploadQuestions(request):
     if request.user.is_authenticated and request.user.admin:
         lesson = Lesson.objects.get(id=request.POST['lesson'])

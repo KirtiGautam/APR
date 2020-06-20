@@ -71,6 +71,7 @@ def getLessons(request):
                 'prefix': settings.MEDIA_URL,
                 'admin': request.user.admin,
                 'watched_videos': request.user.watched_lesson_video.all(),
+                'read_pdfs': request.user.read_lesson_pdf.all(),
             }
         else:
             data = {}
@@ -137,6 +138,22 @@ def video_watched(request):
         else:
             data = {
                 'message': 'Video already watched'
+            }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def pdf_read(request):
+    if request.user.is_authenticated:
+        progress, created = user_progress_pdf.objects.get_or_create(
+            User=request.user, Pdf=Pdf.objects.get(id=request.POST['id']))
+        if created:
+            data = {
+                'message': 'Pdf marked as read successfully!'
+            }
+        else:
+            data = {
+                'message': 'Pdf already read'
             }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})

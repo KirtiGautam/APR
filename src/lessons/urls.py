@@ -7,6 +7,7 @@ from lessons.views import (
     video_watched,
     vid,
     getTest,
+    pdf_read
 )
 
 app_name = 'lessons'
@@ -18,5 +19,6 @@ urlpatterns = [
     path('add-lesson-resource', addResource, name='add-lesson-resource'),
     path('video-mark-watched', video_watched, name='mark_watched'),
     path('lesson/video/<int:id>', vid, name='video'),
-    path('lesson/test/<int:id>', getTest, name='Test')
+    path('lesson/test/<int:id>', getTest, name='Test'),
+    path('mark-lesson-pdf-read', pdf_read, name='mark_read')
 ]

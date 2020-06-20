@@ -31,6 +31,88 @@ $(document).ready(function () {
   $("#mediaType").change(function () {
     getMedia();
   });
+
+  $('#edit_btn').click(function () {
+    const Sdata = getSelectedData()
+    if (Sdata.length != 1) {
+      alert('Cannot perform this operation, Please select single data')
+      return;
+    }
+    let da = JSON.parse(Sdata[0]);
+    $.ajax({
+      type: "POST",
+      headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+      url: "/get-media-details",
+      data: da,
+      dataType: "json",
+      success: function (response) {
+        $('#edit_media_details').modal('show');
+        $('#media_type_hidden').val(da.type);
+        $('#media_id_hidden').val(da.value);
+        for (x in response) {
+          $(`#${x}`).val(response[x])
+        }
+        console.log(response)
+      },
+      error: function (error) {
+        console.log(error)
+        alert('Some error occurred');
+      },
+    });
+  });
+
+  $('#delete_btn').click(function () {
+    const Sdata = getSelectedData();
+    if (Sdata.length < 1) {
+      alert('Please select some items to delete');
+      return;
+    }
+    if (confirm('Are you sure you want to delete the selected items?')) {
+      $.ajax({
+        type: "POST",
+        headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+        url: "/delete-media",
+        data: {
+          data: Sdata,
+        },
+        success: function (response) {
+          getMedia()
+          alert(response.message);
+        },
+        error: function (error) {
+          alert(error.responseText);
+        },
+      });
+    }
+  })
+
+  $('#update_details_btn').click(function () {
+    const Name = $('#Name').val()
+    const Description = $('#Description').val()
+    if (!Name || !Description) {
+      alert("Details cannot be empty");
+      return;
+    }
+    $.ajax({
+      type: "POST",
+      headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+      url: "/update-media",
+      data: {
+        id: $('#media_id_hidden').val(),
+        Name: Name,
+        Description: Description,
+        type: $('#media_type_hidden').val(),
+      },
+      success: function (response) {
+        getMedia()
+        alert(response.message);
+      },
+      error: function (error) {
+        alert(error.responseText);
+      },
+    });
+  })
+
 });
 
 const getMedia = () => {
@@ -55,21 +137,21 @@ const getMedia = () => {
           });
           html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><a href="${
             data.Local ? response.prefix : ""
-          }${
+            }${
             data.file
-          }"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" id="thumb${
+            }"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" id="thumb${
             data.id
-          }" class="col-12 pic"></span><span class="row row-head p-1"><span class="text-left col-8">VIDEO</span><span class="col-3"><input type="checkbox" class="form-control"></span></span><span class="row row-foot p-1"><span class="col-12">${
+            }" class="col-12 pic"></span><span class="row row-head p-1"><span class="text-left col-8">VIDEO</span><span class="col-3"><input type="checkbox" class="form-control video_checks" value="${data.id}" ></span></span><span class="row row-foot p-1"><span class="col-12">${
             data.Name
-          } </span><span class="description">${
+            } </span><span class="description">${
             data.Description
-          }</span></span></div></a></div>`;
+            }</span></span></div></a></div>`;
         }
       }
       if (type == "pdf" || type == "" || type == null) {
         for (let x = 0; x < response.pdf.length; x++) {
           const data = response.pdf[x];
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><a href="${response.prefix}${data.file}"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 pic"></span><span class="row row-head p-1"><span class="text-left col-8">PDF</span><span class="col-3"><input type="checkbox" class="form-control"></span></span><span class="row row-foot p-1"><span class="col-12">${data.Name}</span><span class="description">${data.Description}</span></span></div></a></div>`;
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><a href="${response.prefix}${data.file}"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 pic"></span><span class="row row-head p-1"><span class="text-left col-8">PDF</span><span class="col-3"><input type="checkbox" class="form-control pdf_checks" value="${data.id}" ></span></span><span class="row row-foot p-1"><span class="col-12">${data.Name}</span><span class="description">${data.Description}</span></span></div></a></div>`;
         }
       }
       $("#body").html(html);
@@ -148,3 +230,27 @@ const getFormData = () => {
   data.append("description", $("#description").val());
   return data;
 };
+
+
+const getSelectedData = () => {
+  let data = [];
+  const type = $("#mediaType").val();
+  if (type == 'pdf' || !type) {
+    $('input.pdf_checks:checkbox:checked').each(function () {
+      data.push(JSON.stringify({
+        'type': 'pdf',
+        'value': $(this).val()
+      }));
+    });
+  }
+  if (type == 'video' || !type) {
+    $('input.video_checks:checkbox:checked').each(function () {
+      data.push(JSON.stringify({
+        'type': 'video',
+        'value': $(this).val()
+      }));
+    });
+  }
+
+  return data;
+}

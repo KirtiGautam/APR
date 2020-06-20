@@ -26,10 +26,10 @@ def homeworks(request):
 
 def getHomeworks(request):
     if request.user.is_authenticated:
+        home = homework.objects.filter(
+            Subject__Class=request.POST['id'], date=request.POST['date'])
         data = {
-            'homeworks': homework.objects.filter(
-                Subject__Class=request.POST['id'], date=request.POST['date']),
-            'user': request.user
+            'homeworks': zip(home, [request.user.watched_homework_video.filter(Video__in=x.video.all()).count() for x in home]),
         }
         client = {
             'body':  render_to_string('homeworks/homeworks.html', data),

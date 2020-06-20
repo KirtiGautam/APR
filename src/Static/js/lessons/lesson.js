@@ -181,3 +181,24 @@ const getSelecteddata = () => {
   });
   return data;
 };
+
+const MARP = (id, check) => {
+  if ($(check).prop("checked") == false) {
+    return false;
+  }
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/mark-lesson-pdf-read",
+    data: {
+      id: id,
+    },
+    dataType: "json",
+    success: function (response) {
+      alert(response.message)
+    }, error: function (error) {
+      alert(error.responseText);
+    }
+  });
+  return true;
+}

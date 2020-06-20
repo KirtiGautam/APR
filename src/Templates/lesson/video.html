@@ -19,8 +19,8 @@
                         {% if not user.admin %}
                         <span class="checkbox round col-2">
                             <input type="checkbox" onclick="return false;" readonly="readonly"
-                                {% for watched in user.watched_lesson_video.all %}{% if watched.Video.id == vid.id %} checked
-                                {% endif %}{% endfor %}>
+                                {% for watched in user.watched_lesson_video.all %}{% if watched.Video.id == vid.id %}
+                                checked {% endif %}{% endfor %}>
                         </span>
                         {% endif %}
                     </span>
@@ -44,9 +44,10 @@
                     <span class="row lessons-row-head">
                         <span class="text-left col-10">PDF</span>
                         {% if not user.admin %}
-                        <span class="checkbox col-2">
+                        <span class="checkbox round col-2">
                             <input type="checkbox" onclick="return false;" readonly="readonly"
-                                {% if vid in user.read_lesson_pdf.all %}checked {% endif %}>
+                                {% for read in user.read_lesson_pdf.all %}{% if read.Pdf.id == pdf.id %} checked
+                                {% endif %}{% endfor %}>
                         </span>
                         {% endif %}
                     </span>

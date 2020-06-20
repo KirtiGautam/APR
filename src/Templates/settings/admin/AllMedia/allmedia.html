@@ -39,11 +39,32 @@
         <div class="row row-three">
             <span class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
                 <span class="float-right">
-                    <button id="delete" class="btn buttons ">Delete</button>
-                    <button id="edit" class="btn buttons ">Edit</button>
+                    <button id="delete_btn" class="btn buttons ">Delete</button>
+                    <button id="edit_btn" class="btn buttons ">Edit</button>
                 </span>
             </span>
             <span id="body" class="col-12 row"></span>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="edit_media_details">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Media details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="media_type_hidden">
+                    <input type="hidden" id="media_id_hidden">
+                    Name: <input type="text" id="Name"><br>
+                    Description: <textarea id="Description" cols="30" rows="10"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="update_details_btn">Save changes</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

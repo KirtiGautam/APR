@@ -32,7 +32,7 @@ from accounts.admin_settings import (
     uploadStudents,
 )
 
-from accounts.media import allmedia, upload, getMedia, allquestions, questions, uploadQuestions
+from accounts.media import allmedia, upload, getMedia, allquestions, questions, uploadQuestions, deleteMedia, mediaDetails, updateMedia
 
 app_name = 'accounts'
 
@@ -50,6 +50,9 @@ urlpatterns = [
     path('settings/school-staff', school_staff, name='staff'),
     re_path(r'^settings/allquestion/$', questions, name='get-allquestions'),
     # Requests
+    path('update-media', updateMedia, name='update-media'),
+    path('get-media-details', mediaDetails, name='media-details'),
+    path('delete-media', deleteMedia, name='delete-media'),
     path('upload-students', uploadStudents, name='upload-students'),
     path('upload-questions', uploadQuestions, name='upload-questions'),
     path('get-media', getMedia, name='get-media'),
