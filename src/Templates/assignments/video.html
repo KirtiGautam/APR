@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% extends 'video/video.html' %}
+{% load static %}
+{% block back %}
+<span class="p-1 icon-1"> <a href="{% url 'assignment:assignmentDetails' video.assignment.id %}"> <i
+            class="fas fa-arrow-alt-circle-left"></i></a></span>
+{% endblock %}
+
+{% block other %}
+<span class="col-12 text-center"><span class="p-1 heading-3">Other content in this
+        assignment</span></span>
+<span class="col-12">
+    <span class="row p-1 m-1">
+        {% for vid in video.assignment.video.all %}
+        <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-2">
+            <a href="{% url 'assignment:video' video.id %}">
+                <div class="lessons-cards p-2">
+                    <span class="row lessons-row-head">
+                        <span class="text-left col-10">VIDEO</span>
+                        {% if not user.admin %}
+                        <span class="checkbox round col-2">
+                            <input type="checkbox" onclick="return false;" readonly="readonly"
+                                {% for watched in user.watched_assignment_video.all %}{% if watched.Video.id == vid.id %}
+                                checked {% endif %}{% endfor %}>
+                        </span>
+                        {% endif %}
+                    </span>
+                    <span class="row text-center">
+                        <span class="col-3"></span>
+                        <img src="/static/Images/lesson/video.png" id="thumb{{video.id}}" class="col-6">
+
+                    </span>
+                    <span class="row lessons-row-foot">
+                        <span class="col-8">{{video.video.Name}}</span>
+                        <span class="time col-4">2 min</span>
+                    </span>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+        {% for pdf in video.assignment.pdf.all %}
+        <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-2">
+            <a href="{% get_media_prefix %}{{ pdf.pdf.file }}" target="_blank">
+                <div class="lessons-cards p-2">
+                    <span class="row lessons-row-head">
+                        <span class="text-left col-10">PDF</span>
+                        <!-- <span class="checkbox col-2">
+                        <input type="checkbox" onclick="return false;" readonly="readonly" checked>
+                    </span> -->
+                    </span>
+                    <span class="row text-center">
+                        <span class="col-3"></span>
+                        <img src="/static/Images/lesson/video.png" alt="" class="col-6">
+
+                    </span>
+                    <span class="row lessons-row-foot">
+                        <span class="col-8">{{pdf.pdf.Name}}</span>
+                        <span class="time col-4">2 min</span>
+                    </span>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+        {% for test in video.assignment.Test.all %}
+        <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-2">
+            <a href="#">
+                <div class="lessons-cards test p-2">
+                    <span class="row lessons-row-head">
+                        <span class="text-left col-10">{{test.question.all.count}} Questions</span>
+                        <!-- <span class="checkbox round col-2">
+                        <input type="checkbox" name="" id="">
+                    </span> -->
+                    </span>
+                    <span class="row text-center">
+                        <span class="col-3"></span>
+                        <img src="/static/Images/lesson/test.png" class="col-6">
+
+                    </span>
+                    <span class="row lessons-row-foot text-right">
+                        <span class="col-12">{% if test.final %}Final
+                            Test{% else %}Practice
+                            Test{% endif %}</span>
+                    </span>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </span>
+</span>
+{% endblock %}

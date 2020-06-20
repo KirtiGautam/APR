@@ -38,9 +38,13 @@
             <div class="lessons-cards p-2">
                 <span class="row lessons-row-head">
                     <span class="text-left col-10">VIDEO</span>
-                    <!-- <span class="checkbox round col-2">
-                        <input type="checkbox" onclick="return false;" readonly="readonly" checked>
-                    </span> -->
+                    {% if not user.admin %}
+                    <span class="checkbox round col-2">
+                        <input type="checkbox" onclick="return false;" readonly="readonly"
+                            {% for watched in watched_videos %}{% if watched.id == video.id %} checked
+                            {% endif %}{% endfor %}>
+                    </span>
+                    {% endif %}
                 </span>
                 <span class="row text-center">
                     <span class="col-3"></span>

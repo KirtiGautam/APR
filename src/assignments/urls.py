@@ -9,12 +9,14 @@ from .views import (
     newAssignment,
     getLessons,
     getTest,
-    addresource
+    addresource,
+    video_watched
 )
 
 app_name = 'assignment'
 
 urlpatterns = [
+    path('assignment-video-mark-watched', video_watched, name='mark_watched'),
     path('assignments', assignments, name='assignments'),
     path('get-assignments', getAssignments, name='get_assignments'),
     path('assignment/<int:id>', assignmentDetail, name='assignmentDetails'),

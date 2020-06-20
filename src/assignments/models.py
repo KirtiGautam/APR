@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import video, pdf
+from accounts.models import video, pdf, User
 from lessons.models import Subject, Lesson, question
 
 
@@ -42,3 +42,12 @@ class Test_question(models.Model):
         question, on_delete=models.CASCADE, related_name='assignment_test_questions')
     test = models.ForeignKey(
         Test, on_delete=models.CASCADE, related_name='question')
+
+
+class user_progress_pdf(models.Model):
+    User=models.ForeignKey(User, on_delete=models.CASCADE, related_name='read_assignment_pdf')
+    Pdf=models.ForeignKey(Pdf, on_delete=models.CASCADE, related_name='user_pdf')
+
+class user_progress_video(models.Model):
+    User=models.ForeignKey(User, on_delete=models.CASCADE, related_name='watched_assignment_video')
+    Video=models.ForeignKey(Video, on_delete=models.CASCADE, related_name='user_video')

@@ -64,7 +64,7 @@ function getSubjects() {
       }
       $("#subjects").html(html);
     }, error: function (error) {
-      alert(error.responseText);
+      console.log(error.responseText);
     }
   });
 }

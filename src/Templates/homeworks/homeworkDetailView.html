@@ -80,9 +80,13 @@
                     <div class="homework-cards p-2">
                         <span class="row homework-row-head">
                             <span class="text-left col-10">VIDEO</span>
+                            {% if not user.admin %}
                             <span class="checkbox round col-2">
-                                <input type="checkbox" name="" id="">
+                                <input type="checkbox" onclick="return false;" readonly="readonly"
+                                    {% for watched in user.watched_homework_video.all %}{% if watched.Video.id == key.id %}
+                                    checked {% endif %}{% endfor %}>
                             </span>
+                            {% endif %}
                         </span>
                         <span class="row">
                             <span class="col-3"></span>

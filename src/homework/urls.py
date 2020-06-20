@@ -7,12 +7,14 @@ from .views import (
     vid,
     getTest,
     addresource,
-    newHomework
+    newHomework,
+    video_watched
 )
 
 app_name = 'homework'
 
 urlpatterns = [
+    path('homework-video-mark-watched', video_watched, name='mark_watched'),
     path('homework', homeworks, name='homework'),
     path('get-homeworks', getHomeworks, name='get_homeworks'),
     path('homework/<int:id>', homeworkDetail, name='homeworkDetails'),

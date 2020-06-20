@@ -5,7 +5,7 @@ from django.conf import settings
 import datetime
 import json
 from accounts.models import Class, pdf, video
-from homework.models import homework, Pdf, Video, Test_question, Test
+from homework.models import homework, Pdf, Video, Test_question, Test, user_progress_video
 from lessons.models import Lesson, Subject, question
 
 
@@ -28,7 +28,8 @@ def getHomeworks(request):
     if request.user.is_authenticated:
         data = {
             'homeworks': homework.objects.filter(
-                Subject__Class=request.POST['id'], date=request.POST['date'])
+                Subject__Class=request.POST['id'], date=request.POST['date']),
+            'user': request.user
         }
         client = {
             'body':  render_to_string('homeworks/homeworks.html', data),
@@ -127,6 +128,32 @@ def homeworkDetail(request, id):
 def vid(request, id):
     if request.user.is_authenticated:
         videos = Video.objects.get(id=id)
-        return render(request, 'video/video.html', {'video': videos})
+        next = videos.homework.video.filter(id__gt=videos.id)
+        if len(next) > 0:
+            next = reverse('homework:video', args=[next[0].id])
+        else:
+            next = None
+        data = {
+            'video': videos,
+            'next': next,
+            'watched': reverse('homework:mark_watched'),
+        }
+        return render(request, 'homeworks/video.html', data)
     else:
         return redirect('accounts:login')
+
+
+def video_watched(request):
+    if request.user.is_authenticated:
+        progress, created = user_progress_video.objects.get_or_create(
+            User=request.user, Video=Video.objects.get(id=request.POST['id']))
+        if created:
+            data = {
+                'message': 'Video marked as watched successfully!'
+            }
+        else:
+            data = {
+                'message': 'Video already watched'
+            }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})

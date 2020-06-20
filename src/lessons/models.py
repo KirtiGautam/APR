@@ -71,3 +71,12 @@ class Test_question(models.Model):
         question, on_delete=models.CASCADE, related_name='lesson_test_questions')
     test = models.ForeignKey(
         Test, on_delete=models.CASCADE, related_name='question')
+
+
+class user_progress_pdf(models.Model):
+    User=models.ForeignKey(User, on_delete=models.CASCADE, related_name='read_lesson_pdf')
+    Pdf=models.ForeignKey(Pdf, on_delete=models.CASCADE, related_name='user_pdf')
+
+class user_progress_video(models.Model):
+    User=models.ForeignKey(User, on_delete=models.CASCADE, related_name='watched_lesson_video')
+    Video=models.ForeignKey(Video, on_delete=models.CASCADE, related_name='user_video')

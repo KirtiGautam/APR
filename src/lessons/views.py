@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.conf import settings
 import json
 from accounts.models import Class, video, pdf
-from lessons.models import Subject, question, Pdf, Video, Lesson, Test, Test_question
+from lessons.models import Subject, question, Pdf, Video, Lesson, Test, Test_question, user_progress_pdf, user_progress_video
 
 
 def getQuestions(request):
@@ -70,6 +70,7 @@ def getLessons(request):
                 'lessons': subject[0].Lesson.all(),
                 'prefix': settings.MEDIA_URL,
                 'admin': request.user.admin,
+                'watched_videos': request.user.watched_lesson_video.all(),
             }
         else:
             data = {}
@@ -85,7 +86,17 @@ def getLessons(request):
 def vid(request, id):
     if request.user.is_authenticated:
         videos = Video.objects.get(id=id)
-        return render(request, 'video/video.html', {'video': videos})
+        next = videos.lesson.lesson_videos.filter(id__gt=videos.id)
+        if len(next) > 0:
+            next = reverse('lessons:video', args=[next[0].id])
+        else:
+            next = None
+        data = {
+            'video': videos,
+            'next': next,
+            'watched': reverse('lessons:mark_watched'),
+        }
+        return render(request, 'lesson/video.html', data)
     else:
         return redirect('accounts:login')
 
@@ -113,3 +124,19 @@ def addResource(request):
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Forbidden'})
+
+
+def video_watched(request):
+    if request.user.is_authenticated:
+        progress, created = user_progress_video.objects.get_or_create(
+            User=request.user, Video=Video.objects.get(id=request.POST['id']))
+        if created:
+            data = {
+                'message': 'Video marked as watched successfully!'
+            }
+        else:
+            data = {
+                'message': 'Video already watched'
+            }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})

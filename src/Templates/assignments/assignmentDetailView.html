@@ -103,6 +103,13 @@
                     <div class="assign-cards p-2">
                         <span class="row assign-row-head">
                             <span class="text-left col-10">VIDEO</span>
+                            {% if not user.admin %}
+                            <span class="checkbox round col-2">
+                                <input type="checkbox" onclick="return false;" readonly="readonly"
+                                    {% for watched in user.watched_assignment_video.all %}{% if watched.Video.id == key.id %}
+                                    checked {% endif %}{% endfor %}>
+                            </span>
+                            {% endif %}
                             <!-- <span class="checkbox round col-2">
                                 <input type="checkbox" name="" id="">
                             </span> -->

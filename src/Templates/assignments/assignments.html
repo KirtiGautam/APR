@@ -1,7 +1,7 @@
 {% for key in assignments %}
 <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-3">
     <a href="{% url 'assignment:assignmentDetails' key.assi.id %}">
-        <div class="assignment-cards p-3 deadline">
+        <div class="assignment-cards p-3 {% if key.progress == 100 %}complete{% else %} deadline{% endif %}">
             <span class="row assignment-row-head">
                 <span class="title col-12">{{key.assi.Subject.Name}}</span>
                 <span class="summary col-12">{{key.assi.video.all.count}} Videos + {{key.assi.pdf.all.count}}
@@ -11,20 +11,25 @@
             <div class="row">
                 <div class="col-9">
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" role="progressbar" style="width: {{key.progress}}%"
+                            aria-valuenow="{{key.progress}}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
                 <span class="col-3 progress-text">
-                    30%
+                    {{key.progress}}%
                 </span>
             </div>
             {% endif %}
             <span class="row assignment-row-foot">
                 <span class="moti col-12">
-                    TIME TO WORK!
+                    {% if key.progress == 100 %}Great Job!{% else %} TIME TO WORK!{% endif %}
                 </span>
                 <span class="time-left">
+                    {% if key.progress == 100 %}
+                    <span class="note col-4">
+                        Assignment Done
+                    </span>
+                    {% endif %}
                     <span class="col-12 row">
                         <span class="col-4">
                             <span class="time-left-value">

@@ -5,9 +5,11 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 import datetime
 import json
+import math
 from lessons.models import Subject, Lesson, question
 from accounts.models import Class, pdf, video
-from assignments.models import assignment, Pdf, Video, Test, Test_question
+from assignments.models import assignment, Pdf, Video, Test, Test_question, user_progress_video, user_progress_pdf
+
 
 def getTest(request, id):
     if request.user.is_authenticated:
@@ -77,6 +79,7 @@ def getAssignments(request):
                 'days': diff.days,
                 'hours': 24-datetime.datetime.now().hour,
                 'minutes': 60-datetime.datetime.now().minute,
+                'progress': math.floor(request.user.watched_assignment_video.filter(Video__in=x.video.all()).count()/x.video.all().count())*100
             })
         data = {
             'assignments': deads
@@ -102,7 +105,17 @@ def assignmentDetail(request, id):
 def vid(request, id):
     if request.user.is_authenticated:
         videos = Video.objects.get(id=id)
-        return render(request, 'video/video.html', {'video': videos})
+        next = videos.assignment.video.filter(id__gt=videos.id)
+        if len(next) > 0:
+            next = reverse('assignment:video', args=[next[0].id])
+        else:
+            next = None
+        data = {
+            'video': videos,
+            'next': next,
+            'watched': reverse('assignment:mark_watched'),
+        }
+        return render(request, 'assignments/video.html', data)
     else:
         return redirect('accounts:login')
 
@@ -154,3 +167,19 @@ def addresource(request):
                     question=question.objects.get(id=x), test=tes)
         return http.JsonResponse({'message': 'File uploaded'})
     return http.HttpResponseForbidden({'message': 'Forbidden'})
+
+
+def video_watched(request):
+    if request.user.is_authenticated:
+        progress, created = user_progress_video.objects.get_or_create(
+            User=request.user, Video=Video.objects.get(id=request.POST['id']))
+        if created:
+            data = {
+                'message': 'Video marked as watched successfully!'
+            }
+        else:
+            data = {
+                'message': 'Video already watched'
+            }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})

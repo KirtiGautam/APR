@@ -4,7 +4,7 @@ from lessons.views import (
     getLessons,
     getQuestions,
     addResource,
-    # upload,
+    video_watched,
     vid,
     getTest,
 )
@@ -16,7 +16,7 @@ urlpatterns = [
     path('get-lessons', getLessons, name='get_lessons'),
     path('get-questions', getQuestions, name='get-questions'),
     path('add-lesson-resource', addResource, name='add-lesson-resource'),
-    # path('upload', upload, name='upload'),
+    path('video-mark-watched', video_watched, name='mark_watched'),
     path('lesson/video/<int:id>', vid, name='video'),
     path('lesson/test/<int:id>', getTest, name='Test')
 ]
