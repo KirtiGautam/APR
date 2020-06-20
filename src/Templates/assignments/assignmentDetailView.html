@@ -18,7 +18,7 @@
             <div class="col-6 col-sm-6 col-md-2 col-lg-1">
                 <div class="col-12">
                     <a href="{% url 'assignment:assignments' %}"><img src="/static/Images/assignment/back.png" alt=""
-                            class="img mt-2"></a>
+                            class="mt-2"></a>
                 </div>
             </div>
             <div class="col-6 col-sm-6 col-md-4 col-lg-5 subject-name">
@@ -71,18 +71,17 @@
             {% for key in assign.pdf.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
                 <a href="{% get_media_prefix %}{{key.pdf.file}}" target="_blank">
-                    <div class="assign-cards p-2">
-                        <span class="row assign-row-head">
+                    <div class="assign-cards">
+                        <span class="row">
+                            <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
+                        </span>
+                        <span class="row assign-row-head p-1">
                             <span class="text-left col-10">PDF</span>
                             <!-- <span class="checkbox col-2">
                                 <input type="checkbox" name="" id="">
                             </span> -->
                         </span>
-                        <span class="row">
-                            <span class="col-3"></span>
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-6">
-                        </span>
-                        <span class="row assign-row-foot">
+                        <span class="row assign-row-foot p-1">
                             <span class="col-8">{{key.Name}}</span>
                             <span class="col-4">
                                 <span class="float-right">
@@ -100,12 +99,15 @@
             {% for key in assign.video.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
                 <a href="{% url 'assignment:video' key.id %}">
-                    <div class="assign-cards p-2">
-                        <span class="row assign-row-head">
+                    <div class="assign-cards">
+                        <span class="row">
+                            <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-12 img">
+                        </span>
+                        <span class="row assign-row-head p-1">
                             <span class="text-left col-10">VIDEO</span>
                             {% if not user.admin %}
                             <span class="checkbox round col-2">
-                                <input type="checkbox" onclick="return false;" readonly="readonly"
+                                <input type="checkbox" onclick="return false;" readonly="readonly" disabled
                                     {% for watched in user.watched_assignment_video.all %}{% if watched.Video.id == key.id %}
                                     checked {% endif %}{% endfor %}>
                             </span>
@@ -114,11 +116,7 @@
                                 <input type="checkbox" name="" id="">
                             </span> -->
                         </span>
-                        <span class="row">
-                            <span class="col-3"></span>
-                            <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-6">
-                        </span>
-                        <span class="row assign-row-foot">
+                        <span class="row assign-row-foot p-1">
                             <span class="col-8">{{key.Name}}</span>
                             <span class="col-4">
                                 <span class="float-right">
@@ -136,18 +134,17 @@
             {% for key in assign.Test.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
                 <a href="{% url 'assignment:Test' key.id %}">
-                    <div class="assign-cards test p-2">
-                        <span class="row assign-row-head">
+                    <div class="assign-cards test">
+                        <span class="row">
+                            <img src="/static/Images/lesson/test.png" alt="" class="col-12 img">
+                        </span>
+                        <span class="row assign-row-head p-1">
                             <span class="text-left col-10">{{key.question.all.count}} Questions</span>
                             <!-- <span class="checkbox round col-2">
                                 <input type="checkbox" name="" id="">
                             </span> -->
                         </span>
-                        <span class="row">
-                            <span class="col-3"></span>
-                            <img src="/static/Images/lesson/test.png" alt="" class="col-6">
-                        </span>
-                        <span class="row assign-row-foot">
+                        <span class="row assign-row-foot p-1">
                             <span class="col-12">Practice Test</span>
                         </span>
                     </div>

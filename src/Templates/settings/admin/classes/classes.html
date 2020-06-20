@@ -215,7 +215,8 @@
                         <div class="modal-body row">
                             <input type="hidden" id="hiddensubjectid">
                             <span class="selection col-12 col-sm-6 col-md-5 col-lg-4">New Name</span>
-                            <input type="text" id="NewSubjectName" class="form-control inp col-12 col-sm-6 col-md-7 col-lg-8">
+                            <input type="text" id="NewSubjectName"
+                                class="form-control inp col-12 col-sm-6 col-md-7 col-lg-8">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" id="updateSubjectName">Save changes</button>
@@ -246,7 +247,6 @@
                                     <td rowspan="{{key.Subject.all.count}}">{{key.name}}</td>
                                     {% for sub in key.Subject.all %}
                                     {% if forloop.counter != 1 %}
-                                <tr>
                                     {% endif %}
                                     <td>{{sub.Name}}</td>
                                     <td>
@@ -271,7 +271,6 @@
                                             {% endfor %}
                                         </select>
                                     </td>
-
                                 </tr>
                                 {% endfor %}
                                 {% endfor %}

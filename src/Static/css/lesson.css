@@ -60,26 +60,26 @@
   color: #5484ed;
 }
 
-.plus {
+.edit-add {
   font-size: calc(6px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 50%;
-  color: #cbcdcf;
+  color: #15202B;
   width: fit-content;
 }
 
-.plus:hover {
-  color: #8a8d8f;
+.edit-add:hover {
+  color: #65717E;
   background: #effbff;
 }
 
-.plus:focus {
+.edit-add:focus {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   font-weight: 100;
-  color: #bec1c3;
+  color: #929EAD;
   font-size: calc(7px + 2vmin);
   border-radius: 50%;
   outline: none;
@@ -151,7 +151,7 @@ a:hover {
   color: #f05e23;
 }
 
-.hide{
+.hide {
   display: none;
 }
 
@@ -252,6 +252,10 @@ a:hover {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   outline: none;
+}
+
+.img {
+  height: 150px;
 }
 
 @media screen and (max-width: 600px) {

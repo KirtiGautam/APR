@@ -32,8 +32,9 @@ const getLessons = () => {
             html = '';
             for (x in data.lessons) {
                 html += `<div class="col-5 col-sm-5 col-md-5 col-lg-5 part-2-1 m-2">
-                <span class="row">
-                    <span class="col-12 cn">Chapter Number</span>
+                <span class="row p-1">
+                    <span class="col-11 cn">Chapter Number</span>
+                    <input type="checkbox" class="form-control col-1">
                     <span class="col-2 num">${data.lessons[x].Number}</span>
                     <span class="col-10 chap-name">${data.lessons[x].Name}</span>
                 </span>

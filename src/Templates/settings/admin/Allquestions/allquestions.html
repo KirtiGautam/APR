@@ -86,16 +86,25 @@
             </div>
         </form>
         <div class="row row-three">
-            <div class="part-1 col-12 col-sm-12 col-md-12 col-lg-12">
+            <span class="col-12 mb-5">
+                <span class="float-right">
+                    <button id="delete" class="btn buttons ">Delete</button>
+                    <button id="edit" class="btn buttons ">Edit</button>
+                </span>
+            </span>
+            <div class="col-12">
                 {% for key in question %}
-                <div class="ques-num">Question {{forloop.counter}}</div>
+                <div class="row">
+                    <div class="ques-num col-11">Question {{forloop.counter}}</div>
+                    <div class="col-1 float-right"><input type="checkbox" name="" id="" class="form-control"></div>
+                </div>
                 <div class="ques-name">{{key.Name}}</div>
                 {% for choice in key.choice.all %}
-                    <div class="p-2">
-                        <span class='{% if choice.id == key.Answer.choice.id %}ques-ans{% endif %} ques-opt p-1'>
-                            {% cycle 'A' 'B' 'C' 'D' %}</span>
-                        <span class="ques-choice p-1">{{choice.Name}}</span>
-                    </div>
+                <div class="p-2">
+                    <span class='{% if choice.id == key.Answer.choice.id %}ques-ans{% endif %} ques-opt p-1'>
+                        {% cycle 'A' 'B' 'C' 'D' %}</span>
+                    <span class="ques-choice p-1">{{choice.Name}}</span>
+                </div>
                 {% endfor %}
                 {% resetcycle %}
 

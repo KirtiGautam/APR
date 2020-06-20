@@ -18,7 +18,7 @@
         <div class="row first mb-5">
             <div class="col-6 col-sm-6 col-md-2 col-lg-1">
                 <a href="{% url 'homework:homework' %}"><img src="/static/Images/assignment/back.png" alt=""
-                        class="img mt-2"></a>
+                        class="mt-2"></a>
             </div>
             <div class="col-6 col-sm-6 col-md-4 col-lg-5 subject-name">
                 {{homework.Subject.Name}}
@@ -45,20 +45,19 @@
 
         <div class="row mb-5">
             {% for key in homework.pdf.all %}
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-5">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
                 <a href="{{ prefix }}{{key.pdf.file}}" target="_blank">
-                    <div class="homework-cards p-2">
-                        <span class="row homework-row-head">
+                    <div class="homework-cards">
+                        <span class="row">
+                            <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
+                        </span>
+                        <span class="row homework-row-head p-1">
                             <span class="text-left col-10">PDF</span>
                             <span class="checkbox col-2">
                                 <input type="checkbox" name="" id="">
                             </span>
                         </span>
-                        <span class="row">
-                            <span class="col-3"></span>
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-6">
-                        </span>
-                        <span class="row homework-row-foot">
+                        <span class="row homework-row-foot p-1">
                             <span class="col-8">{{key.pdf.Name}}</span>
                             <span class="col-4">
                                 <span class="float-right">
@@ -75,10 +74,13 @@
             {% endfor %}
 
             {% for key in homework.video.all %}
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-5">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
                 <a href="{% url 'homework:video' key.id %}">
-                    <div class="homework-cards p-2">
-                        <span class="row homework-row-head">
+                    <div class="homework-cards">
+                        <span class="row">
+                            <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-12 img">
+                        </span>
+                        <span class="row homework-row-head p-1">
                             <span class="text-left col-10">VIDEO</span>
                             {% if not user.admin %}
                             <span class="checkbox round col-2">
@@ -88,11 +90,7 @@
                             </span>
                             {% endif %}
                         </span>
-                        <span class="row">
-                            <span class="col-3"></span>
-                            <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-6">
-                        </span>
-                        <span class="row homework-row-foot">
+                        <span class="row homework-row-foo p-1t">
                             <span class="col-8">{{key.video.Name}}</span>
                             <span class="col-4">
                                 <span class="float-right">
@@ -109,20 +107,19 @@
             <!-- <a href="{% url 'homework:video' key.id %}">{{key.Name}}</a> -->
             {% endfor %}
             {% for key in homework.homework_Test.all %}
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-5">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
                 <a href="{% url 'homework:Test' key.id %}">
-                    <div class="homework-cards test p-2">
-                        <span class="row homework-row-head">
+                    <div class="homework-cards test">
+                        <span class="row">
+                            <img src="/static/Images/lesson/test.png" alt="" class="col-12 img">
+                        </span>
+                        <span class="row homework-row-head p-1">
                             <span class="text-left col-10">{{key.question.all.count}} Questions</span>
                             <span class="checkbox round col-2">
                                 <input type="checkbox" name="" id="">
                             </span>
                         </span>
-                        <span class="row">
-                            <span class="col-3"></span>
-                            <img src="/static/Images/lesson/test.png" alt="" class="col-6">
-                        </span>
-                        <span class="row homework-row-foot">
+                        <span class="row homework-row-foot p-1">
                             <span class="col-12">Practice Test</span>
                         </span>
                     </div>

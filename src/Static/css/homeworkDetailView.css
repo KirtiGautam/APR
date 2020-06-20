@@ -15,10 +15,8 @@ img {
   text-transform: uppercase;
 }
 
-.img {
-  float: right;
-  height: 30px;
-  width: 30px;
+.img{
+  height: 150px;
 }
 
 .homework-title {
