@@ -5,8 +5,11 @@
 
 .leftside {
   border-right: 3px solid #f5f8fa;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background: #ffffff 0% 0% no-repeat padding-box;
   padding-top: 70px !important;
+  position: fixed;
+  width: 200px;
+  z-index: 10;
 }
 
 .name {
@@ -55,8 +58,8 @@ a:hover {
   text-decoration: none;
 }
 
-@media screen and (max-width:800px){
-  .leftside{
-    padding-top: 30px !important;
+@media screen and (max-width: 800px) {
+  .leftside {
+    padding-top: 50px !important;
   }
 }

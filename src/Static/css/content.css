@@ -1,9 +1,14 @@
 .content {
   padding-top: 80px !important;
+  margin-left: 200px;
+}
+
+.no-margin{
+  margin-left: 0px !important;
 }
 
 @media screen and (max-width: 800px) {
   .content {
-    padding-top: 30px !important;
+    padding-top: 50px !important;
   }
 }
