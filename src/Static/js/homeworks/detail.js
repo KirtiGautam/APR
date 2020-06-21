@@ -68,6 +68,90 @@ $(document).ready(function () {
       },
     });
   });
+
+  $('#delete_btn').click(function () {
+    let data = [];
+    $(`input.pdf_checks:checkbox:checked`).each(function () {
+      data.push(JSON.stringify({
+        type: 'pdf',
+        value: $(this).val()
+      }));
+    });
+    $(`input.video_checks:checkbox:checked`).each(function () {
+      data.push(JSON.stringify({
+        type: 'video',
+        value: $(this).val()
+      }));
+    });
+    if (data.length < 1) {
+      alert('Please select some data to delete')
+      return;
+    }
+    $.ajax({
+      type: "POST",
+      headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+      url: "/delete-homework-media",
+      data: {
+        data: data,
+      },
+      dataType: "json",
+      success: function (response) {
+        alert(response.message);
+        location.reload(true);
+      }, error: function (error) {
+        alert(error.responseText);
+      }
+    });
+  })
+
+  $('#edit_btn').click(function () {
+    $.ajax({
+      type: "GET",
+      headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+      url: "/get-homework-details",
+      data: {
+        id: $('#hidden_home_id').val(),
+      },
+      dataType: "json",
+      success: function (response) {
+        for (let x in response) {
+          $(`#ed_${x}`).val(response[x])
+        }
+        $('#edit_modal').modal('show');
+      }, error: function (error) {
+        alert(error.responseText);
+      }
+    });
+  })
+
+  $('#update_home_details').click(function () {
+    if (
+      !$('#ed_Name').val() ||
+      !$('#ed_Instructions').val()
+    ) {
+      alert('Please fill all the details');
+      return;
+    }
+    $.ajax({
+      type: "POST",
+      headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+      url: "/update-homework-details",
+      data: {
+        id: $('#hidden_home_id').val(),
+        Name: $('#ed_Name').val(),
+        Instructions: $('#ed_Instructions').val(),
+      },
+      dataType: "json",
+      success: function (response) {
+        alert(response.message);
+        location.reload(true);
+      }, error: function (error) {
+        alert(error.responseText);
+      }
+    });
+  })
+
+
 });
 
 const getQuestions = () => {
@@ -148,3 +232,24 @@ const getSelecteddata = () => {
   });
   return data;
 };
+
+const MARP = (id, check) => {
+  if ($(check).prop("checked") == false) {
+    return false;
+  }
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/mark-homework-pdf-read",
+    data: {
+      id: id,
+    },
+    dataType: "json",
+    success: function (response) {
+      alert(response.message)
+    }, error: function (error) {
+      alert(error.responseText);
+    }
+  });
+  return true;
+}

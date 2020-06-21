@@ -8,7 +8,11 @@ from .views import (
     getTest,
     addresource,
     newHomework,
-    video_watched
+    video_watched,
+    pdf_read,
+    deleteMedia,
+    HomeDetails,
+    updateDetails
 )
 
 app_name = 'homework'
@@ -22,4 +26,9 @@ urlpatterns = [
     path('add-new-homework', newHomework, name='newHomework'),
     path('homework/test/<int:id>', getTest, name='Test'),
     path('add-homework-resource', addresource, name='addresource'),
+    path('mark-homework-pdf-read', pdf_read, name='pdf-read'),
+    path('delete-homework-media', deleteMedia, name='media-delete'),
+    path('get-homework-details', HomeDetails, name='homework-details'),
+    path('update-homework-details', updateDetails,
+         name='update-homework-details'),
 ]

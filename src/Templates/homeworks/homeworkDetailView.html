@@ -32,7 +32,7 @@
                     </div>
                     <div class="col-3 col-sm-3 col-md-2 col-lg-1">
                         {% if user.admin %}
-                        <button class="btn edit-add" title="Edit Details"><i class="fas fa-pen-square"></i></button>
+                        <button class="btn edit-add" title="Edit Details" id="edit_btn"><i class="fas fa-pen-square"></i></button>
                         {% endif %}
                     </div>
                 </div>
@@ -43,7 +43,7 @@
             </div>
             {% if user.admin %}
             <div class="col-2 mb-3">
-                <button class="btn edit-add" title="Delete Data"><i class="fas fa-trash"></i></button>
+                <button class="btn edit-add" title="Delete Data" id="delete_btn"><i class="fas fa-trash"></i></button>
                 <button class="btn edit-add" data-toggle="modal" data-backdrop="static" data-target="#add"
                     title="Add More Data"><i class="fas fa-plus-circle"></i></button>
             </div>
@@ -60,9 +60,13 @@
                         </span>
                         <span class="row homework-row-head p-1">
                             <span class="text-left col-10">PDF</span>
-                            <span class="checkbox col-2">
-                                <input type="checkbox" name="" id="">
-                            </span>
+                            {% if not user.admin %}
+                            <input type="checkbox" onclick="return MARP({{key.id}}, this);"
+                                {% for read in user.read_homework_pdf.all %}{% if read.Pdf.id == key.id %}
+                                onclick="return false;" readonly="readonly" checked {% endif %}{% endfor %}>
+                            {% else %}
+                            <input type="checkbox" class="pdf_checks" value="{{key.id}}">
+                            {% endif %}
                         </span>
                         <span class="row homework-row-foot p-1">
                             <span class="col-8">{{key.pdf.Name}}</span>
@@ -95,6 +99,8 @@
                                     {% for watched in user.watched_homework_video.all %}{% if watched.Video.id == key.id %}
                                     checked {% endif %}{% endfor %}>
                             </span>
+                            {% else %}
+                            <input type="checkbox" class="video_checks" value="{{key.id}}">
                             {% endif %}
                         </span>
                         <span class="row homework-row-foo p-1t">
@@ -136,6 +142,26 @@
                 </a>
             </div>
             {% endfor %}
+        </div>
+        <div class="modal" tabindex="-1" role="dialog" id="edit_modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Homework Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="hidden_home_id" value="{{homework.id}}">
+                        Name: <input type="text" id="ed_Name"><br>
+                        Instruction: <input type="text" id="ed_Instructions"><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="update_home_details">Update</button>                        
+                    </div>
+                </div>
+            </div>
         </div>
         {% if user.admin %}
         <!-- <div class="row forth mb-3">

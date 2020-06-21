@@ -5,7 +5,7 @@ from django.conf import settings
 import datetime
 import json
 from accounts.models import Class, pdf, video
-from homework.models import homework, Pdf, Video, Test_question, Test, user_progress_video
+from homework.models import homework, Pdf, Video, Test_question, Test, user_progress_video, user_progress_pdf
 from lessons.models import Lesson, Subject, question
 
 
@@ -29,10 +29,10 @@ def getHomeworks(request):
         home = homework.objects.filter(
             Subject__Class=request.POST['id'], date=request.POST['date'])
         data = {
-            'homeworks': zip(home, [request.user.watched_homework_video.filter(Video__in=x.video.all()).count() for x in home]),
+            'homeworks': zip(home, [sum([request.user.watched_homework_video.filter(Video__in=x.video.all()).count(), request.user.read_homework_pdf.filter(Pdf__in=x.pdf.all()).count()]) for x in home]),
         }
         client = {
-            'body':  render_to_string('homeworks/homeworks.html', data),
+            'body':  render_to_string('homeworks/homeworks.html', context=data, request=request),
         }
         return http.JsonResponse(client)
     else:
@@ -155,5 +155,58 @@ def video_watched(request):
             data = {
                 'message': 'Video already watched'
             }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def pdf_read(request):
+    if request.user.is_authenticated:
+        progress, created = user_progress_pdf.objects.get_or_create(
+            User=request.user, Pdf=Pdf.objects.get(id=request.POST['id']))
+        if created:
+            data = {
+                'message': 'Pdf marked as read successfully!'
+            }
+        else:
+            data = {
+                'message': 'Pdf already read'
+            }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def deleteMedia(request):
+    if request.user.is_authenticated and request.user.admin:
+        for x in request.POST.getlist('data[]'):
+            dat = json.loads(x)
+            if dat['type'] == 'pdf':
+                Pdf.objects.get(id=dat['value']).delete()
+            else:
+                Video.objects.get(id=dat['value']).delete()
+        data = {
+            'message': 'Media deleted'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def HomeDetails(request):
+    if request.user.is_authenticated and request.user.admin:
+        home = homework.objects.values(
+            'id', 'Name', 'Instructions').get(id=request.GET['id'])
+        data = home
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def updateDetails(request):
+    if request.user.is_authenticated and request.user.admin:
+        home = homework.objects.get(id=request.POST['id'])
+        home.Name = request.POST['Name']
+        home.Instructions = request.POST['Instructions']
+        home.save()
+        data = {
+            'message': 'Details updated'
+        }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})

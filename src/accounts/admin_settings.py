@@ -8,6 +8,29 @@ import json
 from datetime import datetime, timedelta
 
 
+def chapterDetail(request):
+    if request.user.is_authenticated and request.user.admin:
+        assign = assignment.objects.values(
+            'id', 'Name', 'Instructions', 'Deadline').get(id=request.GET['id'])
+        data = assign
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def updateChapterDetails(request):
+    if request.user.is_authenticated and request.user.admin:
+        assign = assignment.objects.get(id=request.POST['id'])
+        assign.Name = request.POST['Name']
+        assign.Instructions = request.POST['Instructions']
+        assign.Deadline = request.POST['Deadline']
+        assign.save()
+        data = {
+            'message': 'Details updated'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
 def uploadStudents(request):
     if request.user.is_authenticated and request.user.admin:
         for x in json.loads(request.POST['file']):

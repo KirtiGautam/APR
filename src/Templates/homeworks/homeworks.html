@@ -6,19 +6,21 @@
                 <span class="title col-12">{{key.0.Subject.Name}}</span>
                 <span class="summary col-12">{{key.0.video.all.count}} Videos + {{key.0.pdf.all.count}} Reading</span>
             </span>
+            {% if not user.admin %}
             <span class="row">
                 <div class="col-9">
                     <div class="progress">
                         <div class="progress-bar" role="progressbar"
-                            aria-valuenow="{% widthratio key.1 key.0.video.all.count 100  %}" aria-valuemin="0"
-                            style="width: {% widthratio key.1 key.0.video.all.count 100  %}%;" aria-valuemax="100">
+                            aria-valuenow="{% widthratio key.1 key.0.video.all.count|add:key.0.pdf.all.count 100  %}" aria-valuemin="0"
+                            style="width: {% widthratio key.1 key.0.video.all.count|add:key.0.pdf.all.count 100  %}%;" aria-valuemax="100">
                         </div>
                     </div>
                 </div>
                 <div class="col-3 progress-text">
-                    {% widthratio key.1 key.0.video.all.count 100  %}%
+                    {% widthratio key.1 key.0.video.all.count|add:key.0.pdf.all.count 100  %}%
                 </div>
             </span>
+            {% endif %}
             <span class="row homework-row-foot pl-3 pt-2">
                 <span class="moti">TIME TO WORK!</span>
             </span>

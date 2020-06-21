@@ -1,7 +1,6 @@
 let today = new Date();
 
 $(document).ready(function () {
-    getLivestreams();
     $('#Class').change(function () {
         getLivestreams();
     })

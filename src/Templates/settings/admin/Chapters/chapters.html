@@ -67,8 +67,8 @@
                 <div class="container-fluid">
                     <span class="col-12 mb-5">
                         <span class="float-right">
-                            <button id="delete" class="btn buttons ">Delete</button>
-                            <button id="edit" class="btn buttons ">Edit</button>
+                            <button class="btn buttons" id="delete_btn">Delete</button>
+                            <button class="btn buttons" id="edit_btn">Edit</button>
                         </span>
                     </span>
                     <div class="row" id="lessons"></div>
@@ -76,6 +76,27 @@
                 <!-- <ul class="list-group" >
                     <li class="text-danger">Please select a Subject</li>
                 </ul> -->
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="edit_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Chapter Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="hidden_assign_id" value="{{assign.id}}">
+                    Name: <input type="text" id="ed_Name"><br>
+                    Instruction: <input type="text" id="ed_Instructions"><br>
+                    Deadline: <input type="datetime-local" id="ed_Deadline"><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="update_assign_details">Update</button>                        
+                </div>
             </div>
         </div>
     </div>

@@ -25,7 +25,7 @@
                         {% if user.admin %}
                         <div class="col-6">
                             <select id="Class" class="form-control drop">
-                                <!-- <option value="" selected disabled>Select Class</option> -->
+                                <option value="" selected disabled>Select Class</option>
                                 {% for key in Class %}
                                 <option value="{{key.id}}">{{key.name}}</option>
                                 {% endfor %}
@@ -51,7 +51,7 @@
         </div>
 
         {% else %}
-        <input type="hidden" id="{{Class}}">
+        <input type="hidden" id="Class" value="{{Class}}">
         {% endif %}
 
         <div id="body"></div>
@@ -105,9 +105,9 @@
     $(document).ready(function () {
         {% if user.admin %}
         getTeachers();
-        // $('#Class').val('');
+        $('#Class').val('');
         {% else %}
-        // getLivestreams();
+        getLivestreams();
         {% endif %}
     })
 </script>
