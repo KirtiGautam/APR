@@ -2,7 +2,7 @@
 {% extends 'video/video.html' %}
 {% load static %}
 {% block back %}
-<span class="p-1 icon-1"> <a href="{% url 'assignment:assignmentDetails' video.assignment.id %}"> <button class="btn back"><i
+<span class="p-1 icon-1"> <a href="{% url 'assignment:assignmentDetails' video.assignment.id %}"> <button class="btn back" title="Back"><i
                 class="fas fa-arrow-alt-circle-left"></i></button></a></span>
 {% endblock %}
 

@@ -89,12 +89,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="hidden_lesson_id">
-                    Name: <input type="text" id="ed_Name"><br>
-                    Number: <input type="text" id="ed_Number"><br>
+                    <span class="col-12">
+                        <span class="selection">Name</span>
+                        <input type="text" id="ed_Name" class="form-control drop">
+                    </span>
+                    <span class="col-12">
+                        <span class="selection">Number</span>
+                        <input type="text" id="ed_Number" class="form-control drop">
+                    </span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="update_lesson_details">Update</button>
+                    <button type="button" class="btn import" id="update_lesson_details">Save</button>
                 </div>
             </div>
         </div>

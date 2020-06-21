@@ -4,8 +4,8 @@
         <span class="chapter col-8">{{lesson.Name}}</span>
         {% if admin %}
         <button class="btn float-right edit-add" onclick="setChapName({{lesson.id}});" data-toggle="modal"
-            data-backdrop="static" data-target="#add"><i class="fas fa-plus-circle"></i></button>
-        <button class="btn float-right edit-add" onclick="deleteMedia();"><i class="fas fa-trash"></i></button>
+            data-backdrop="static" data-target="#add" title="Add More Data"><i class="fas fa-plus-circle"></i></button>
+        <button class="btn float-right edit-add" onclick="deleteMedia();" title="Delete"><i class="fas fa-trash"></i></button>
         {% endif %}
     </div>
 </div>
