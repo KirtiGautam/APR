@@ -62,7 +62,8 @@ class Pdf(models.Model):
 class Test(models.Model):
     Name = models.CharField(max_length=50)
     Duration = models.CharField(max_length=10)
-    Lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='lesson_Test')
+    Lesson = models.ForeignKey(
+        Lesson, on_delete=models.CASCADE, related_name='lesson_Test')
     final = models.BooleanField(default=False)
 
 
@@ -74,9 +75,25 @@ class Test_question(models.Model):
 
 
 class user_progress_pdf(models.Model):
-    User=models.ForeignKey(User, on_delete=models.CASCADE, related_name='read_lesson_pdf')
-    Pdf=models.ForeignKey(Pdf, on_delete=models.CASCADE, related_name='user_pdf')
+    User = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='read_lesson_pdf')
+    Pdf = models.ForeignKey(
+        Pdf, on_delete=models.CASCADE, related_name='user_pdf')
+
 
 class user_progress_video(models.Model):
-    User=models.ForeignKey(User, on_delete=models.CASCADE, related_name='watched_lesson_video')
-    Video=models.ForeignKey(Video, on_delete=models.CASCADE, related_name='user_video')
+    User = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='watched_lesson_video')
+    Video = models.ForeignKey(
+        Video, on_delete=models.CASCADE, related_name='user_video')
+
+
+class liveStream(models.Model):
+    Class = models.ForeignKey(
+        Class, on_delete=models.CASCADE, related_name='live_stream')
+    User = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='livestream_duty')
+    Name = models.CharField(max_length=100)
+    Stream_link = models.URLField(max_length=200)
+    Time = models.DateTimeField()
+    Duration = models.DecimalField(max_digits=4, decimal_places=2)

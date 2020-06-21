@@ -1,45 +1,3 @@
-let thumbr = [];
-function getlessons(id = "") {
-  $.ajax({
-    type: "POST",
-    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-    url: "/get-lessons",
-    data: {
-      id: $("#class").val(),
-      subject: id,
-    },
-    dataType: "json",
-    success: function (data) {
-      if (data.body == "") {
-        $("#body").html(
-          '<h5 class="m-5 text-center"> No lessons available for this subject.</h5>'
-        );
-      } else {
-        $("#body").html(data.body);
-      }
-      let html = "";
-      let subjects = data.subjects;
-      for (let i = 0; i < subjects.length; i++) {
-        html +=
-          "<span onclick='getlessons(" +
-          subjects[i].id +
-          ")' class='subject p-2 m-1";
-        html +=
-          id == subjects[i].id || (id == "" && i == 0) ? " active'>" : "'>";
-        html += subjects[i].Name + "</span>  ";
-      }
-      $("#SB").html(html);
-    }, error: function (error) {
-      alert(error.responseText);
-    }
-  });
-}
-
-function setChapName(id) {
-  getMedia($("#dataType").val());
-  $("#ChapName").val(id);
-}
-
 $(document).ready(function () {
   $("#class").change(function () {
     getlessons();
@@ -106,7 +64,50 @@ $(document).ready(function () {
     $("#upload_btn, #data_display").removeClass("d-none");
     $("#next_btn, .question_div, .other_div").addClass("d-none");
   });
-});
+})
+
+let thumbr = [];
+function getlessons(id = "") {
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/get-lessons",
+    data: {
+      id: $("#class").val(),
+      subject: id,
+    },
+    dataType: "json",
+    success: function (data) {
+      if (data.body == "") {
+        $("#body").html(
+          '<h5 class="m-5 text-center"> No lessons available for this subject.</h5>'
+        );
+      } else {
+        $("#body").html(data.body);
+      }
+      let html = "";
+      let subjects = data.subjects;
+      for (let i = 0; i < subjects.length; i++) {
+        html +=
+          "<span onclick='getlessons(" +
+          subjects[i].id +
+          ")' class='subject p-2 m-1";
+        html +=
+          id == subjects[i].id || (id == "" && i == 0) ? " active'>" : "'>";
+        html += subjects[i].Name + "</span>  ";
+      }
+      $("#SB").html(html);
+    }, error: function (error) {
+      alert(error.responseText);
+    }
+  });
+}
+
+function setChapName(id) {
+  getMedia($("#dataType").val());
+  $("#ChapName").val(id);
+}
+
 
 const getQuestions = () => {
   $.ajax({
@@ -201,4 +202,43 @@ const MARP = (id, check) => {
     }
   });
   return true;
+}
+
+const deleteMedia = () => {
+  let data = [];
+  $('input.pdf_checks:checkbox:checked').each(function () {
+    data.push(JSON.stringify({
+      'type': 'pdf',
+      'value': $(this).val()
+    }));
+  });
+
+  $('input.video_checks:checkbox:checked').each(function () {
+    data.push(JSON.stringify({
+      'type': 'video',
+      'value': $(this).val()
+    }));
+
+  });
+  if (data.length < 1) {
+    alert('Please select some data to be deleted');
+    return
+  }
+  if (confirm('Are you sure you want to delete the selection? ')) {
+    $.ajax({
+      type: "POST",
+      headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+      url: "/delete-lesson-media",
+      data: {
+        data: data,
+      },
+      success: function (response) {
+        getlessons();
+        alert(response.message);
+      },
+      error: function (error) {
+        alert(error.responseText);
+      },
+    });
+  }
 }

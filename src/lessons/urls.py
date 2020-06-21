@@ -1,4 +1,14 @@
 from django.urls import path
+from lessons.livestream import (
+    index,
+    livestreams,
+    newLS,
+    deleteStream,
+    getStream,
+    editStream
+)
+
+
 from lessons.views import (
     lessons,
     getLessons,
@@ -7,12 +17,23 @@ from lessons.views import (
     video_watched,
     vid,
     getTest,
-    pdf_read
+    pdf_read,
+    deleteMedia
 )
 
 app_name = 'lessons'
 
 urlpatterns = [
+    # Livestream path
+    path('livestream', index, name='livestream'),
+    path('get-livestream', livestreams, name='livestreams'),
+    path('new-livestream', newLS, name='new-LS'),
+    path('delete-stream', deleteStream, name='delete-stream'),
+    path('get-stream', getStream, name='get-stream'),
+    path('update-stream', editStream, name='edit-stream'),
+
+    # Lessons path
+    path('delete-lesson-media', deleteMedia, name='delete-media'),
     path('lessons', lessons, name='lessons'),
     path('get-lessons', getLessons, name='get_lessons'),
     path('get-questions', getQuestions, name='get-questions'),

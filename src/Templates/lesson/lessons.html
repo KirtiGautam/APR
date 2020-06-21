@@ -3,9 +3,9 @@
     <div class="col-12 mt-3">
         <span class="chapter col-8">{{lesson.Name}}</span>
         {% if admin %}
-        <button class="btn float-right edit-add" onclick="setChapName({{lesson.id}});" data-toggle="modal" data-backdrop="static"
-            data-target="#add"><i class="fas fa-plus-circle"></i></button>
-        <button class="btn float-right edit-add"><i class="fas fa-pen-square"></i></button>
+        <button class="btn float-right edit-add" onclick="setChapName({{lesson.id}});" data-toggle="modal"
+            data-backdrop="static" data-target="#add"><i class="fas fa-plus-circle"></i></button>
+        <button class="btn float-right edit-add" onclick="deleteMedia();"><i class="fas fa-trash"></i></button>
         {% endif %}
     </div>
 </div>
@@ -19,13 +19,15 @@
                 </span>
                 <span class="row lessons-row-head p-1">
                     <span class="text-left col-10">PDF</span>
-                    {% if not user.admin %}
                     <span class="checkbox round col-2">
+                        {% if not admin %}
                         <input type="checkbox" onclick="return MARP({{pdf.id}}, this);"
                             {% for read in read_pdfs %}{% if read.Pdf.id == pdf.id %} onclick="return false;"
                             readonly="readonly" checked {% endif %}{% endfor %}>
+                        {% else %}
+                        <input type="checkbox" class="pdf_checks" value="{{pdf.id}}">
+                        {% endif %}
                     </span>
-                    {% endif %}
                 </span>
                 <span class="row lessons-row-foot p-1">
                     <span class="col-8">{{pdf.pdf.Name}}</span>
@@ -44,13 +46,15 @@
                 </span>
                 <span class="row lessons-row-head p-1">
                     <span class="text-left col-10">VIDEO</span>
-                    {% if not user.admin %}
                     <span class="checkbox round col-2">
+                        {% if not admin %}
                         <input type="checkbox" disabled onclick="return false;" readonly="readonly"
                             {% for watched in watched_videos %}{% if watched.id == video.id %} checked
                             {% endif %}{% endfor %}>
+                        {% else %}
+                        <input type="checkbox" class="video_checks" value="{{video.id}}">
+                        {% endif %}
                     </span>
-                    {% endif %}
                 </span>
                 <span class="row lessons-row-foot p-1">
                     <span class="col-8">{{video.video.Name}}</span>

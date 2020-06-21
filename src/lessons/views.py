@@ -157,3 +157,18 @@ def pdf_read(request):
             }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def deleteMedia(request):
+    if request.user.is_authenticated and request.user.admin:
+        for x in request.POST.getlist('data[]'):
+            dat = json.loads(x)
+            if dat['type'] == 'pdf':
+                Pdf.objects.get(id=dat['value']).delete()
+            else:
+                vd = Video.objects.get(id=dat['value']).delete()
+        data = {
+            'message': 'Files deleted'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': "You're not authorized"})

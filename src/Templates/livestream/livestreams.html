@@ -1,0 +1,13 @@
+<h1>Livestreams</h1>
+
+{% for key in livestream %}
+{{key.Name}}
+{{key.User.get_full_name}}
+{% if user.admin %}
+<input type="checkbox" class="live_checks" value="{{key.id}}">
+{% endif %}
+<a href="{{key.Stream_link}}">Click Here</a>
+{{key.Time}}
+{{key.Duration}}
+
+{% endfor %}
