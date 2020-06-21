@@ -7,6 +7,7 @@ class assignment(models.Model):
     Name = models.CharField(max_length=255)
     Instructions = models.CharField(max_length=1000, default=None, null=True)
     Deadline = models.DateTimeField(default=None, null=True)
+    Posted = models.DateTimeField(auto_now_add=True)
     Subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name='assignments')
 
@@ -45,9 +46,14 @@ class Test_question(models.Model):
 
 
 class user_progress_pdf(models.Model):
-    User=models.ForeignKey(User, on_delete=models.CASCADE, related_name='read_assignment_pdf')
-    Pdf=models.ForeignKey(Pdf, on_delete=models.CASCADE, related_name='user_pdf')
+    User = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='read_assignment_pdf')
+    Pdf = models.ForeignKey(
+        Pdf, on_delete=models.CASCADE, related_name='user_pdf')
+
 
 class user_progress_video(models.Model):
-    User=models.ForeignKey(User, on_delete=models.CASCADE, related_name='watched_assignment_video')
-    Video=models.ForeignKey(Video, on_delete=models.CASCADE, related_name='user_video')
+    User = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='watched_assignment_video')
+    Video = models.ForeignKey(
+        Video, on_delete=models.CASCADE, related_name='user_video')

@@ -1,5 +1,10 @@
-let thumbArr = [];
+let thumbArr = [], today = new Date();
+
 $(document).ready(function () {
+  const now = today.getFullYear() + '-' + (today.getMonth() + 1 < 10 ? '0' : '') + (today.getMonth() + 1) + '-' + today.getDate() + 'T' + today.getHours() + ":" + today.getMinutes();
+
+  $('#ed_Deadline').attr("min", now);
+
   $("#dataType").change(function () {
     if (!$("#lessons").val()) {
       alert("Please select lesson first");
@@ -20,6 +25,7 @@ $(document).ready(function () {
       $("#next_btn, .question_div").addClass("d-none");
     }
   });
+
   $("#next_btn").click(function () {
     if (!$("#test_name").val() || !$("#test_duration").val()) {
       alert("Please fill necessary details");
@@ -28,6 +34,7 @@ $(document).ready(function () {
     $("#upload_btn, #data_display").removeClass("d-none");
     $("#next_btn, .question_div, .other_div").addClass("d-none");
   });
+
   $("#upload_btn").click(function () {
     const Sdata = getSelecteddata();
     if (Sdata.length < 1) {
@@ -66,6 +73,91 @@ $(document).ready(function () {
       }
     });
   });
+
+  $('#edit_btn').click(function () {
+    $.ajax({
+      type: "GET",
+      headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+      url: "/get-assignment-details",
+      data: {
+        id: $('#hidden_assign_id').val(),
+      },
+      dataType: "json",
+      success: function (response) {
+        for (let x in response) {
+          $(`#ed_${x}`).val(response[x])
+        }
+        $('#ed_Deadline').val(response['Deadline'].substring(0, response['Deadline'].length - 4));
+        $('#edit_modal').modal('show');
+      }, error: function (error) {
+        alert(error.responseText);
+      }
+    });
+  })
+
+  $('#delete_btn').click(function () {
+    let data = [];
+    $(`input.pdf_checks:checkbox:checked`).each(function () {
+      data.push(JSON.stringify({
+        type: 'pdf',
+        value: $(this).val()
+      }));
+    });
+    $(`input.video_checks:checkbox:checked`).each(function () {
+      data.push(JSON.stringify({
+        type: 'video',
+        value: $(this).val()
+      }));
+    });
+    if (data.length < 1) {
+      alert('Please select some data to delete')
+      return;
+    }
+    $.ajax({
+      type: "POST",
+      headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+      url: "/delete-assignment-media",
+      data: {
+        data: data,
+      },
+      dataType: "json",
+      success: function (response) {
+        alert(response.message);
+        location.reload(true);
+      }, error: function (error) {
+        alert(error.responseText);
+      }
+    });
+  })
+
+  $('#update_assign_details').click(function () {
+    if (
+      !$('#ed_Name').val() ||
+      !$('#ed_Instructions').val() ||
+      !$('#ed_Deadline').val()
+    ) {
+      alert('Please fill all the details');
+      return;
+    }
+    $.ajax({
+      type: "POST",
+      headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+      url: "/update-assignment-details",
+      data: {
+        id: $('#hidden_assign_id').val(),
+        Name: $('#ed_Name').val(),
+        Instructions: $('#ed_Instructions').val(),
+        Deadline: $('#ed_Deadline').val(),
+      },
+      dataType: "json",
+      success: function (response) {
+        alert(response.message);
+        location.reload(true);
+      }, error: function (error) {
+        alert(error.responseText);
+      }
+    });
+  })
 });
 
 const getQuestions = () => {
@@ -103,10 +195,15 @@ const getMedia = (type) => {
     dataType: "json",
     success: function (response) {
       let html = "";
+      let thumbarr = [];
       if (type == "video") {
         for (let x = 0; x < response.video.length; x++) {
           const data = response.video[x];
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head p-1"><span class="text-left col-10">VIDEO</span><input type="checkbox" class="video_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot p-1"><span class="col-12">${data.Name} </span><span class="description">${data.Description}</span></span></div></div>`;
+          thumbarr.push({
+            id: `#thumbM${data.id}`,
+            link: `${data.Local ? response.prefix : ""}${data.file}`,
+          })
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" id="thumbM${data.id}" class="col-12 img"></span><span class="row row-head p-1"><span class="text-left col-10">VIDEO</span><input type="checkbox" class="video_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot p-1"><span class="col-12">${data.Name} </span><span class="description">${data.Description}</span></span></div></div>`;
         }
       }
       if (type == "pdf") {
@@ -116,6 +213,7 @@ const getMedia = (type) => {
         }
       }
       $("#data_display").html(html);
+      generateThumbs(thumbarr);
     }, error: function (error) {
       alert(error.responseText);
     }
@@ -138,3 +236,24 @@ const getSelecteddata = () => {
   });
   return data;
 };
+
+const MARP = (id, check) => {
+  if ($(check).prop("checked") == false) {
+    return false;
+  }
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/mark-assignment-pdf-read",
+    data: {
+      id: id,
+    },
+    dataType: "json",
+    success: function (response) {
+      alert(response.message)
+    }, error: function (error) {
+      alert(error.responseText);
+    }
+  });
+  return true;
+}

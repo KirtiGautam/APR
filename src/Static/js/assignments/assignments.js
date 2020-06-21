@@ -1,71 +1,9 @@
-function getAssignments() {
-  $.ajax({
-    type: "POST",
-    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-    url: "/get-assignments",
-    data: {
-      id: $("#class").val(),
-    },
-    dataType: "json",
-    success: function (data) {
-      if (data.body == "") {
-        $("#body").html("<h5 class='m-5 text-center'>No assignments</h5>");
-      } else {
-        $("#body").html(data.body);
-      }
-      getSubjects();
-    },
-    error: function (error) {
-      alert(error.responseText);
-    },
-  });
-}
-
-function getSubjects() {
-  $.ajax({
-    type: "POST",
-    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-    url: "/get-subjects",
-    data: {
-      id: $("#class").val(),
-    },
-    dataType: "json",
-    success: function (data) {
-      let html = '<option value="" selected disabled>Subjects</option>';
-      for (x in data.subjects) {
-        html += `<option value="${data.subjects[x].id}" >${data.subjects[x].Name}</option>`;
-      }
-      $("#subjects").html(html);
-    },
-    error: function (error) {
-      console.log(error.responseText);
-    },
-  });
-}
-
-function getLessons() {
-  $.ajax({
-    type: "POST",
-    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-    url: "/get-lesson",
-    data: {
-      id: $("#subjects").val(),
-    },
-    dataType: "json",
-    success: function (data) {
-      html = '<option value="" selected disabled>Lessons</option>';
-      for (x in data.lessons) {
-        html += `<option value="${data.lessons[x].id}" >${data.lessons[x].Name}</option>`;
-        $("#lessons").html(html);
-      }
-    },
-    error: function (error) {
-      alert(error.responseText);
-    },
-  });
-}
-
+const today = new Date();
 $(document).ready(function () {
+  const now = today.getFullYear() + '-' + (today.getMonth() + 1 < 10 ? '0' : '') + (today.getMonth() + 1) + '-' + today.getDate() + 'T' + today.getHours() + ":" + today.getMinutes();
+
+  $('#deadline').attr("min", now);
+  
   $("#next_btn").click(function () {
     if (
       !$("#subjects").val() ||
@@ -167,6 +105,74 @@ $(document).ready(function () {
     $("#next_next_btn, .question_div, #data_div").addClass("d-none");
   });
 });
+
+function getAssignments() {
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/get-assignments",
+    data: {
+      id: $("#class").val(),
+    },
+    dataType: "json",
+    success: function (data) {
+      if (data.body == "") {
+        $("#body").html("<h5 class='m-5 text-center'>No assignments</h5>");
+      } else {
+        $("#body").html(data.body);
+      }
+      getSubjects();
+    },
+    error: function (error) {
+      alert(error.responseText);
+    },
+  });
+}
+
+function getSubjects() {
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/get-subjects",
+    data: {
+      id: $("#class").val(),
+    },
+    dataType: "json",
+    success: function (data) {
+      let html = '<option value="" selected disabled>Subjects</option>';
+      for (x in data.subjects) {
+        html += `<option value="${data.subjects[x].id}" >${data.subjects[x].Name}</option>`;
+      }
+      $("#subjects").html(html);
+    },
+    error: function (error) {
+      console.log(error.responseText);
+    },
+  });
+}
+
+function getLessons() {
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/get-lesson",
+    data: {
+      id: $("#subjects").val(),
+    },
+    dataType: "json",
+    success: function (data) {
+      html = '<option value="" selected disabled>Lessons</option>';
+      for (x in data.lessons) {
+        html += `<option value="${data.lessons[x].id}" >${data.lessons[x].Name}</option>`;
+        $("#lessons").html(html);
+      }
+    },
+    error: function (error) {
+      alert(error.responseText);
+    },
+  });
+}
+
 
 const getQuestions = () => {
   $.ajax({

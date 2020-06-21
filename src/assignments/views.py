@@ -72,20 +72,26 @@ def getAssignments(request):
     if request.user.is_authenticated:
         deads = []
         for x in assignment.objects.filter(
-                Subject__Class=request.POST['id']):
+                Subject__Class=request.POST['id'], Deadline__gt=datetime.datetime.now(datetime.timezone.utc)):
             diff = x.Deadline-datetime.datetime.now(datetime.timezone.utc)
+            user_watched = request.user.watched_assignment_video.filter(
+                Video__in=x.video.all()).count()
+            user_read = request.user.read_assignment_pdf.filter(
+                Pdf__in=x.pdf.all()).count()
+            total_pdf = x.pdf.all().count()
+            total_video = x.video.all().count()
             deads.append({
                 'assi': x,
                 'days': diff.days,
-                'hours': 24-datetime.datetime.now().hour,
-                'minutes': 60-datetime.datetime.now().minute,
-                'progress': math.floor(request.user.watched_assignment_video.filter(Video__in=x.video.all()).count()/x.video.all().count())*100
+                'hours': 24-datetime.datetime.now(datetime.timezone.utc).hour,
+                'minutes': 60-datetime.datetime.now(datetime.timezone.utc).minute,
+                'progress': math.floor((sum([user_read, user_watched])/sum([total_pdf, total_video]))*100),
             })
         data = {
-            'assignments': deads
+            'assignments': deads,
         }
         client = {
-            'body':  render_to_string('assignments/assignments.html', data),
+            'body':  render_to_string('assignments/assignments.html', context=data, request=request),
         }
         return http.JsonResponse(client)
     else:
@@ -94,10 +100,17 @@ def getAssignments(request):
 
 def assignmentDetail(request, id):
     if request.user.is_authenticated:
-        data = {
-            'assign': assignment.objects.get(id=id),
-        }
-        return render(request, 'assignments/assignmentDetailView.html', data)
+        try:
+            assign = assignment.objects.get(id=id)
+        except assignment.DoesNotExist:
+            return http.HttpResponseNotFound({'message': 'Not found'})
+        if assign.Deadline > datetime.datetime.now(datetime.timezone.utc):
+            data = {
+                'assign': assign,
+            }
+            return render(request, 'assignments/assignmentDetailView.html', data)
+        else:
+            return redirect('assignment:assignments')
     else:
         return redirect('accounts:login')
 
@@ -121,7 +134,7 @@ def vid(request, id):
 
 
 def newAssignment(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.admin:
         assi = assignment.objects.create(
             Name=request.POST['NOA'], Instructions=request.POST['instruction'], Deadline=request.POST['deadline'], Subject=Subject.objects.get(id=request.POST['subject']))
         data = request.POST.getlist('data[]')
@@ -148,7 +161,7 @@ def newAssignment(request):
 
 
 def addresource(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.admin:
         data = request.POST.getlist('data[]')
         if request.POST['type'] == 'pdf':
             for x in data:
@@ -181,5 +194,59 @@ def video_watched(request):
             data = {
                 'message': 'Video already watched'
             }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def pdf_read(request):
+    if request.user.is_authenticated:
+        progress, created = user_progress_pdf.objects.get_or_create(
+            User=request.user, Pdf=Pdf.objects.get(id=request.POST['id']))
+        if created:
+            data = {
+                'message': 'Pdf marked as read successfully!'
+            }
+        else:
+            data = {
+                'message': 'Pdf already read'
+            }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def deleteMedia(request):
+    if request.user.is_authenticated and request.user.admin:
+        for x in request.POST.getlist('data[]'):
+            dat = json.loads(x)
+            if dat['type'] == 'pdf':
+                Pdf.objects.get(id=dat['value']).delete()
+            else:
+                Video.objects.get(id=dat['value']).delete()
+        data = {
+            'message': 'Media deleted'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def AssignDetails(request):
+    if request.user.is_authenticated and request.user.admin:
+        assign = assignment.objects.values(
+            'id', 'Name', 'Instructions', 'Deadline').get(id=request.GET['id'])
+        data = assign
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def updateDetails(request):
+    if request.user.is_authenticated and request.user.admin:
+        assign = assignment.objects.get(id=request.POST['id'])
+        assign.Name = request.POST['Name']
+        assign.Instructions = request.POST['Instructions']
+        assign.Deadline = request.POST['Deadline']
+        assign.save()
+        data = {
+            'message': 'Details updated'
+        }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})

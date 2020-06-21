@@ -7,7 +7,7 @@
                 <span class="summary col-12">{{key.assi.video.all.count}} Videos + {{key.assi.pdf.all.count}}
                     Reading</span>
             </span>
-            {% if not user.admin %}
+            {% if not request.user.admin %}
             <div class="row">
                 <div class="col-9">
                     <div class="progress">
@@ -21,11 +21,13 @@
             </div>
             {% endif %}
             <span class="row assignment-row-foot">
+                {% if not request.user.admin %}
                 <span class="moti col-12">
                     {% if key.progress == 100 %}Great Job!{% else %} TIME TO WORK!{% endif %}
                 </span>
+                {% endif %}
                 <span class="time-left">
-                    {% if key.progress == 100 %}
+                    {% if key.progress == 100 and not request.user.admin %}
                     <span class="note col-4">
                         Assignment Done
                     </span>

@@ -10,7 +10,11 @@ from .views import (
     getLessons,
     getTest,
     addresource,
-    video_watched
+    video_watched,
+    pdf_read,
+    deleteMedia,
+    AssignDetails,
+    updateDetails
 )
 
 app_name = 'assignment'
@@ -26,4 +30,8 @@ urlpatterns = [
     path('add-new-assignment', newAssignment, name='newAssignment'),
     path('assignment/test/<int:id>', getTest, name='Test'),
     path('add-assignment-resource', addresource, name='addresource'),
+    path('mark-assignment-pdf-read', pdf_read, name='pdf-read'),
+    path('delete-assignment-media', deleteMedia, name='media-delete'),
+    path('get-assignment-details', AssignDetails, name='assign-details'),
+    path('update-assignment-details', updateDetails, name='update-assign-details'),
 ]
