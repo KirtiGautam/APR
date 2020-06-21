@@ -125,7 +125,7 @@
   width: 100%;
 }
 
-.pic{
+.pic {
   height: 150px;
 }
 
@@ -160,4 +160,19 @@
 
 .cards:hover .description {
   visibility: visible;
+}
+
+.content {
+  padding-top: 80px !important;
+  margin-left: 300px;
+}
+
+.no-margin {
+  margin-left: 0px !important;
+}
+
+@media screen and (max-width: 800px) {
+  .content {
+    padding-top: 50px !important;
+  }
 }

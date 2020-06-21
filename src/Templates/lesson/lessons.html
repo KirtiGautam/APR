@@ -48,7 +48,7 @@
                     <span class="text-left col-10">VIDEO</span>
                     <span class="checkbox round col-2">
                         {% if not admin %}
-                        <input type="checkbox" disabled onclick="return false;" readonly="readonly"
+                        <input type="checkbox" onclick="return false;" readonly="readonly"
                             {% for watched in watched_videos %}{% if watched.id == video.id %} checked
                             {% endif %}{% endfor %}>
                         {% else %}

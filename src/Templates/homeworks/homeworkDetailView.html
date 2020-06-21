@@ -32,7 +32,8 @@
                     </div>
                     <div class="col-3 col-sm-3 col-md-2 col-lg-1">
                         {% if user.admin %}
-                        <button class="btn edit-add" title="Edit Details" id="edit_btn"><i class="fas fa-pen-square"></i></button>
+                        <button class="btn edit-add" title="Edit Details" id="edit_btn"><i
+                                class="fas fa-pen-square"></i></button>
                         {% endif %}
                     </div>
                 </div>
@@ -85,7 +86,7 @@
             {% endfor %}
 
             {% for key in homework.video.all %}
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
                 <a href="{% url 'homework:video' key.id %}">
                     <div class="homework-cards">
                         <span class="row">
@@ -103,7 +104,7 @@
                             <input type="checkbox" class="video_checks" value="{{key.id}}">
                             {% endif %}
                         </span>
-                        <span class="row homework-row-foo p-1t">
+                        <span class="row homework-row-foot p-1">
                             <span class="col-8">{{key.video.Name}}</span>
                             <span class="col-4">
                                 <span class="float-right">
@@ -144,7 +145,7 @@
             {% endfor %}
         </div>
         <div class="modal" tabindex="-1" role="dialog" id="edit_modal">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Edit Homework Details</h5>
@@ -154,11 +155,17 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="hidden_home_id" value="{{homework.id}}">
-                        Name: <input type="text" id="ed_Name"><br>
-                        Instruction: <input type="text" id="ed_Instructions"><br>
+                        <span class="col-12">
+                            <span class="selection">Name</span>
+                            <input type="text" id="ed_Name" class="form-control drop">
+                        </span>
+                        <span class="col-12">
+                            <span class="selection">Description</span>
+                            <textarea id="ed_Instructions" cols="10" rows="2" class="form-control drop"></textarea>
+                        </span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="update_home_details">Update</button>                        
+                        <button type="button" class="btn import" id="update_home_details">Save</button>
                     </div>
                 </div>
             </div>

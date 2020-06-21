@@ -27,7 +27,7 @@
                     </select>
                     <span><button class="btn edit-add add-assign d-none" title="Add New Assignment" data-toggle="modal"
                             data-backdrop="static" data-target="#add"><i class="fas fa-plus-circle"></i></button></span>
-                    <span><button class="btn edit-add" title="Delete Assignment"><i class="fas fa-trash"></i></button></span>
+                    <!-- <span><button class="btn edit-add" title="Delete Assignment"><i class="fas fa-trash"></i></button></span> -->
                 </div>
                 {% else %}
                 <input type="hidden" id="class" value="{{ class }}">
@@ -43,12 +43,12 @@
         {% if request.user.admin %}
         {% include 'assignments/newAssignment.html' %}
         {% endif %}
-        <div class="container-fluid">
+        <!-- <div class="container-fluid">
             <div class="row third mt-5 p-3">
                 <span class="past">Past Assignments - </span>
                 <a href="#" class="click-link ml-3">Click to see past assignments</a>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <script src="{% static 'js/assignments/assignments.js' %}"></script>

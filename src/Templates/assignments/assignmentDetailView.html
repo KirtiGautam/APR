@@ -154,7 +154,7 @@
             {% endfor %}
         </div>
         <div class="modal" tabindex="-1" role="dialog" id="edit_modal">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Edit Assignment Details</h5>
@@ -164,12 +164,20 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="hidden_assign_id" value="{{assign.id}}">
-                        Name: <input type="text" id="ed_Name"><br>
-                        Instruction: <input type="text" id="ed_Instructions"><br>
-                        Deadline: <input type="datetime-local" id="ed_Deadline"><br>
+                        <span class="col-12">
+                            <span class="selection">Name</span>
+                            <input type="text" id="ed_Name" class="form-control drop">
+                        </span>
+                        <span class="col-12">
+                            <span class="selection">Instruction</span>
+                            <textarea id="ed_Instructions" cols="10" rows="2" class="form-control drop"></textarea>
+                        </span><span class="col-12">
+                            <span class="selection">Deadline</span>
+                            <input type="datetime-local" id="ed_Deadline" class="form-control drop">
+                        </span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="update_assign_details">Update</button>                        
+                        <button type="button" class="btn import" id="update_assign_details">Update</button>                        
                     </div>
                 </div>
             </div>
