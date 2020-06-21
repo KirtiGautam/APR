@@ -25,8 +25,9 @@
                         <option value="{{key.id}}">{{key.name}}</option>
                         {% endfor %}
                     </select>
-                    <span><button class="btn plus add-assign d-none" data-toggle="modal" data-backdrop="static"
-                            data-target="#add">+</button></span>
+                    <span><button class="btn edit-add add-assign d-none" title="Add New Assignment" data-toggle="modal"
+                            data-backdrop="static" data-target="#add"><i class="fas fa-plus-circle"></i></button></span>
+                    <span><button class="btn edit-add" title="Delete Assignment"><i class="fas fa-trash"></i></button></span>
                 </div>
                 {% else %}
                 <input type="hidden" id="class" value="{{ class }}">
@@ -37,7 +38,7 @@
             </div>
         </div>
         <div class="row second p-3" id="body">
-    
+
         </div>
         {% if request.user.admin %}
         {% include 'assignments/newAssignment.html' %}

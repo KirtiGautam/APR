@@ -14,9 +14,10 @@ function getAssignments() {
         $("#body").html(data.body);
       }
       getSubjects();
-    }, error: function (error) {
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 }
 
@@ -35,9 +36,10 @@ function getSubjects() {
         html += `<option value="${data.subjects[x].id}" >${data.subjects[x].Name}</option>`;
       }
       $("#subjects").html(html);
-    }, error: function (error) {
+    },
+    error: function (error) {
       console.log(error.responseText);
-    }
+    },
   });
 }
 
@@ -56,9 +58,10 @@ function getLessons() {
         html += `<option value="${data.lessons[x].id}" >${data.lessons[x].Name}</option>`;
         $("#lessons").html(html);
       }
-    }, error: function (error) {
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 }
 
@@ -148,9 +151,10 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         alert(response.message);
-      }, error: function (error) {
+      },
+      error: function (error) {
         alert(error.responseText);
-      }
+      },
     });
   });
 
@@ -182,13 +186,14 @@ const getQuestions = () => {
       }
       html += "</tbody></table>";
       $("#data_display").html(html);
-    }, error: function (error) {
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 };
 
-const getMedia = type => {
+const getMedia = (type) => {
   $.ajax({
     type: "POST",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
@@ -199,25 +204,29 @@ const getMedia = type => {
     dataType: "json",
     success: function (response) {
       let html = "";
-      let thumbArray=[];
+      let thumbArray = [];
       if (type == "video") {
         for (let x = 0; x < response.video.length; x++) {
           const data = response.video[x];
-          thumbArray.push({ id: `#thumbM${data.id}`, link: `${data.Local ? response.prefix : ""}${data.file}` });
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">VIDEO</span><span class="col-2 checkbox"><input type="checkbox" class="video_checkbox" value="${data.id}"></span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" id="thumbM${data.id}" class="col-6"></span><span class="row row-foot"><span class="col-8">${data.Name} </span><span class="description">${data.Description}</span></span></div></div>`;
+          thumbArray.push({
+            id: `#thumbM${data.id}`,
+            link: `${data.Local ? response.prefix : ""}${data.file}`,
+          });
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" id="thumbM${data.id}" class="col-12 img"></span><span class="row row-head p-1"><span class="text-left col-10">VIDEO</span><input type="checkbox" class="video_checkbox form-control col-1" value="${data.id}"></span></span><span class="row row-foot p-1"><span class="col-12">${data.Name} </span><span class="description">${data.Description}</span></span></div></div>`;
         }
       }
       if (type == "pdf") {
         for (let x = 0; x < response.pdf.length; x++) {
           const data = response.pdf[x];
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mb-3"><div class="cards p-2"><span class="row row-head"><span class="text-left col-10">PDF</span><span class="col-2 checkbox"><input type="checkbox" class="pdf_checkbox" value="${data.id}"></span></span><span class="row text-center"><span class="col-3"></span><img src="/static/Images/lesson/video.png" alt="" class="col-6"></span><span class="row row-foot"><span class="col-8">${data.Name}</span><span class="description">${data.Description}</span></span></div></div>`;
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head p-1"><span class="text-left col-10">PDF</span><input type="checkbox" class="pdf_checkbox form-control col-1" value="${data.id}"></span></span><span class="row row-foot p-1"><span class="col-12">${data.Name}</span><span class="description">${data.Description}</span></span></div></div>`;
         }
       }
       $("#data_display").html(html);
       generateThumbs(thumbArray);
-    }, error: function (error) {
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 };
 
