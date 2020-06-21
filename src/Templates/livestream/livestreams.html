@@ -1,13 +1,23 @@
-<h1>Livestreams</h1>
-
 {% for key in livestream %}
-{{key.Name}}
-{{key.User.get_full_name}}
-{% if user.admin %}
-<input type="checkbox" class="live_checks" value="{{key.id}}">
-{% endif %}
-<a href="{{key.Stream_link}}">Click Here</a>
-{{key.Time}}
-{{key.Duration}}
-
+<div class="col-12 col-sm-12 col-md-6 col-lg-3 mt-2 mb-2">
+    <div class="cards p-2">
+        <a href="{{key.Stream_link}}">
+            <span class="row row-head">
+                <span class="teacher-name col-8">{{key.User.get_full_name}}</span>
+                {% if user.admin %}
+                <input type="checkbox" class="live_checks col-1 form-control check p-1" value="{{key.id}}">
+                {% endif %}
+            </span>
+            <span class="row row-body">
+                <span class="stream-name col-12">{{key.Name}}</span>
+                <span class="stream-time col-12">Date: {{key.Time}}</span>
+            </span>
+            <span class="row-row-foot">
+                <span class="stream-duration">
+                    Duration: {{key.Duration}}
+                </span>
+            </span>
+        </a>
+    </div>
+</div>
 {% endfor %}
