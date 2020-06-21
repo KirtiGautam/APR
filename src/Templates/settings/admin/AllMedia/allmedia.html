@@ -47,10 +47,10 @@
         </div>
     </div>
     <div class="modal" tabindex="-1" role="dialog" id="edit_media_details">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Media details</h5>
+                    <h5 class="modal-title text-3">Edit Media details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -58,11 +58,17 @@
                 <div class="modal-body">
                     <input type="hidden" id="media_type_hidden">
                     <input type="hidden" id="media_id_hidden">
-                    Name: <input type="text" id="Name"><br>
-                    Description: <textarea id="Description" cols="30" rows="10"></textarea>
+                    <span class="col-12">
+                        <span class="selection">Name</span>
+                        <input type="text" id="Name" class="form-control drop">
+                    </span>
+                    <span class="col-12">
+                        <span class="selection">Description</span>
+                        <textarea id="Description" cols="10" rows="2" class="form-control drop"></textarea>
+                    </span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="update_details_btn">Save changes</button>
+                    <button type="button" class="btn search-button" id="update_details_btn">Save</button>
                 </div>
             </div>
         </div>

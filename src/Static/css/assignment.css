@@ -126,9 +126,17 @@ a:hover {
   border-radius: 0px;
 }
 
+.prime .progress-bar {
+  background: #ffffff 0% 0% no-repeat padding-box;
+}
+
 .complete .progress {
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 0px;
+}
+
+.complete .progress-bar {
+  background: #ffffff 0% 0% no-repeat padding-box;
 }
 
 .moti {

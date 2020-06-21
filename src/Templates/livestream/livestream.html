@@ -21,23 +21,29 @@
                     <span class="col-12">SCHEDULED</span>
                     <br>
                     <span class="col-12">LIVE STREAMING SESSIONS</span>
-                    <div class="row row-1-2 mb-3">
-                        {% if user.admin %}
-                        <div class="col-6">
-                            <select id="Class" class="form-control drop">
-                                <option value="" selected disabled>Select Class</option>
-                                {% for key in Class %}
-                                <option value="{{key.id}}">{{key.name}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-6">
-                            <button onclick="prenew();" title="Add New Stream" class="btn edit-add float-right"><i
-                                    class="fas fa-plus-circle"></i></button>
-                            <button id="delete_btn" class="btn edit-add float-right" title="Delete"><i
-                                    class="fas fa-trash"></i></button>
-                            <button id="edit_btn" class="btn edit-add float-right" title="Edit"><i
-                                    class="fas fa-pen-square"></i></button>
+                    <br>
+                    <div class="col-12">
+                        <div class="row row-1-2 mb-3">
+                            {% if user.admin %}
+                            <div class="col-6">
+                                <select id="Class" class="form-control drop">
+                                    <option value="" selected disabled>Select Class</option>
+                                    {% for key in Class %}
+                                    <option value="{{key.id}}">{{key.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <button onclick="prenew();" title="Add New Stream" class="btn edit-add float-right"><i
+                                        class="fas fa-plus-circle"></i></button>
+                                <button id="delete_btn" class="btn edit-add float-right" title="Delete"><i
+                                        class="fas fa-trash"></i></button>
+                                <button id="edit_btn" class="btn edit-add float-right" title="Edit"><i
+                                        class="fas fa-pen-square"></i></button>
+                            </div>
+                            {% else %}
+                            <input type="hidden" id="Class" value="{{Class}}">
+                            {% endif %}
                         </div>
                     </div>
                 </span>
@@ -46,15 +52,11 @@
                         class="rounded float-right col-0 col-sm-12 col-md-12 col-lg-6">
                 </span>
             </div>
-            <div class="col-12">
-            </div>
         </div>
 
-        {% else %}
-        <input type="hidden" id="Class" value="{{Class}}">
-        {% endif %}
-
-        <div id="body"></div>
+        <div class="col-12">
+            <div id="body" class="row"></div>
+        </div>
 
 
         <div class="modal" tabindex="-1" role="dialog" id="add">

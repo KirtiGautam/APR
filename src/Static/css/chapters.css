@@ -140,3 +140,18 @@
 .chap-row{
   height: 100%;
 }
+
+.content {
+  padding-top: 80px !important;
+  margin-left: 300px;
+}
+
+.no-margin {
+  margin-left: 0px !important;
+}
+
+@media screen and (max-width: 800px) {
+  .content {
+    padding-top: 50px !important;
+  }
+}

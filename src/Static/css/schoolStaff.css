@@ -129,6 +129,21 @@ td {
   outline: none;
 }
 
-.or{
-    margin-top: 3vmin !important;
+.or {
+  margin-top: 3vmin !important;
+}
+
+.content {
+  padding-top: 80px !important;
+  margin-left: 300px;
+}
+
+.no-margin {
+  margin-left: 0px !important;
+}
+
+@media screen and (max-width: 800px) {
+  .content {
+    padding-top: 50px !important;
   }
+}
