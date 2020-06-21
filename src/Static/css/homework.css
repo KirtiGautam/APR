@@ -5,6 +5,10 @@
   margin-bottom: 5%;
 }
 
+.img{
+  height: 150px;
+}
+
 .first-text {
   font-size: calc(4px + 4vmin);
   font-family: Arial, Helvetica, sans-serif;
@@ -25,26 +29,26 @@
   color: #376baa;
 }
 
-.plus {
+.edit-add {
   font-size: calc(6px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 50%;
-  color: #cbcdcf;
+  color: #15202B;
   width: fit-content;
 }
 
-.plus:hover {
-  color: #8a8d8f;
+.edit-add:hover {
+  color: #65717E;
   background: #effbff;
 }
 
-.plus:focus {
+.edit-add:focus {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   font-weight: 100;
-  color: #bec1c3;
+  color: #929EAD;
   font-size: calc(7px + 2vmin);
   border-radius: 50%;
   outline: none;
@@ -131,6 +135,7 @@ a:hover {
   position: relative;
   display: inline-block;
   height: 100%;
+  width: 100%;
 }
 
 .cards:hover {

@@ -17,19 +17,25 @@
     <div class="container-fluid">
         <div class="row first mb-5">
             <div class="col-6 col-sm-6 col-md-2 col-lg-1">
-                <a href="{% url 'homework:homework' %}"><img src="/static/Images/assignment/back.png" alt=""
-                        class="mt-2"></a>
+                <a href="{% url 'homework:homework' %}"><button class="btn back" title="Back"><i
+                            class="fas fa-arrow-alt-circle-left"></i></button></a>
             </div>
             <div class="col-6 col-sm-6 col-md-4 col-lg-5 subject-name">
                 {{homework.Subject.Name}}
             </div>
         </div>
         <div class="row second mb-5">
-            <div class="col-12 mb-3">
-                <span class="homework-title">{{homework.Name}}</span>
-                {% if user.admin %}
-                <!-- <a><img src="/static/Images/assignment/edit.svg" alt="" class="img2 m-1"></a> -->
-                {% endif %}
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-9 col-sm-9 col-md-10 col-lg-11 homework-title mb-3">
+                        {{homework.Name}}
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-2 col-lg-1">
+                        {% if user.admin %}
+                        <button class="btn edit-add" title="Edit Details"><i class="fas fa-pen-square"></i></button>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
             <div class="col-10 mb-3">
                 <span class="instruction">Instructions related to homework: </span>
@@ -37,8 +43,9 @@
             </div>
             {% if user.admin %}
             <div class="col-2 mb-3">
-                <button class="btn plus p-1 float-right" data-toggle="modal" data-backdrop="static"
-                    data-target="#add">+</button>
+                <button class="btn edit-add" title="Delete Data"><i class="fas fa-trash"></i></button>
+                <button class="btn edit-add" data-toggle="modal" data-backdrop="static" data-target="#add"
+                    title="Add More Data"><i class="fas fa-plus-circle"></i></button>
             </div>
             {% endif %}
         </div>

@@ -1,0 +1,117 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.selection {
+  font-size: calc(7px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.drop {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: calc(5px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.row-1 {
+  background: transparent
+    linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
+    no-repeat padding-box;
+}
+
+.back-text {
+  font-size: calc(4px + 4vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #fd7f2c;
+}
+
+.edit-add {
+  font-size: calc(6px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 50%;
+  color: #15202b;
+  width: fit-content;
+}
+
+.edit-add:hover {
+  color: #65717e;
+  background: #effbff;
+}
+
+.edit-add:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  font-weight: 100;
+  color: #929ead;
+  font-size: calc(7px + 2vmin);
+  border-radius: 50%;
+  outline: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.import {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  font-family: "Poppins", sans-serif;
+  font-size: calc(11px + 1vmin);
+  color: #ffffff;
+}
+
+.import:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.cards {
+  background: transparent linear-gradient(132deg, #2375d3 0%, #3ba9fe 100%) 0%
+    0% no-repeat padding-box;
+  border-radius: 10px;
+}
+
+.teacher-name {
+  font-size: calc(5px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff700;
+  text-transform: capitalize;
+}
+
+.stream-name {
+  font-size: calc(4px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.stream-time {
+  font-size: calc(2px + 2vmin);
+  font-weight: 200;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  text-transform: capitalize;
+}
+
+.stream-duration {
+  font-size: calc(3px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 600px) {
+  .back-photo {
+    display: none;
+  }
+}

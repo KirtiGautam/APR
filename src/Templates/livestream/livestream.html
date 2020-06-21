@@ -3,48 +3,99 @@
 {% load static %}
 {% block content %}
 
-<h1>Livestream Page</h1>
+<head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+    <link rel="stylesheet" href="{% static 'css/livestream.css' %}">
+</head>
 
-{% if user.admin %}
-<button onclick="prenew();">Add new Stream</button>
-<button id="delete_btn">Delete</button>
-<button id="edit_btn">Edit</button>
+{% include "common/header.html" %}
+<div class="col-10 col-sm-4 col-md-3 col-lg-2 float-left left">
+    {% include "home/leftside.html" %}
+</div>
 
-
-
-<select id="Class">
-    <!-- <option value="" selected disabled>Select Class</option> -->
-    {% for key in Class %}
-    <option value="{{key.id}}">{{key.name}}</option>
-    {% endfor %}
-</select>
-{% else %}
-<input type="hidden" id="{{Class}}">
-{% endif %}
-
-<div id="body"></div>
-
-
-<div class="modal" tabindex="-1" role="dialog" id="add">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Stream</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row row-1 mb-2">
+            <div class="row row-1-1">
+                <span class="col-12 col-sm-8 col-md-8 col-lg-6 back-text">
+                    <span class="col-12">SCHEDULED</span>
+                    <br>
+                    <span class="col-12">LIVE STREAMING SESSIONS</span>
+                    <div class="row row-1-2 mb-3">
+                        {% if user.admin %}
+                        <div class="col-6">
+                            <select id="Class" class="form-control drop">
+                                <!-- <option value="" selected disabled>Select Class</option> -->
+                                {% for key in Class %}
+                                <option value="{{key.id}}">{{key.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <button onclick="prenew();" title="Add New Stream" class="btn edit-add float-right"><i
+                                    class="fas fa-plus-circle"></i></button>
+                            <button id="delete_btn" class="btn edit-add float-right" title="Delete"><i
+                                    class="fas fa-trash"></i></button>
+                            <button id="edit_btn" class="btn edit-add float-right" title="Edit"><i
+                                    class="fas fa-pen-square"></i></button>
+                        </div>
+                    </div>
+                </span>
+                <span class="col-0 col-sm-4 col-md-4 col-lg-6 back-photo">
+                    <img src="/static/Images/lesson/back.png" alt=""
+                        class="rounded float-right col-0 col-sm-12 col-md-12 col-lg-6">
+                </span>
             </div>
-            <div class="modal-body">
-                <input type="hidden" id="hidden_ls_id">
-                <select id="teacher"></select> <br>
-                Description: <input type="text" id="Name"><br>
-                Streaming Link: <input type="text" id="Stream_link"><br>
-                Time: <input type="datetime-local" id="Time"><br>
-                Duration: <input type="number" step="0.01" id="Duration"><br>
+            <div class="col-12">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="newLS">Save</button>
-                <button type="button" class="btn btn-primary" id="updateLS">Update</button>
+        </div>
+
+        {% else %}
+        <input type="hidden" id="{{Class}}">
+        {% endif %}
+
+        <div id="body"></div>
+
+
+        <div class="modal" tabindex="-1" role="dialog" id="add">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Stream</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body row">
+                        <input type="hidden" id="hidden_ls_id">
+                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                            <span class="selection">Select Teacher</span>
+                            <br>
+                            <span><select id="teacher" class="form-control drop"></select></span>
+                        </span>
+                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                            <span class="selection">Streaming Link</span>
+                            <span><input type="text" id="Stream_link" class="form-control drop"></span>
+                        </span>
+                        <span class="col-12 mb-2">
+                            <span class="selection">Description</span>
+                            <span><textarea name="" id="Name" class="form-control drop" cols="10"
+                                    rows="2"></textarea></span>
+                        </span>
+                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                            <span class="selection">Time</span>
+                            <span><input type="datetime-local" id="Time" class="form-control drop"></span>
+                        </span>
+                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                            <span class="selection">Duration</span>
+                            <span><input type="number" step="0.01" id="Duration" class="form-control drop"></span>
+                        </span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn import" id="newLS">Save</button>
+                        <button type="button" class="btn import" id="updateLS">Update</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
