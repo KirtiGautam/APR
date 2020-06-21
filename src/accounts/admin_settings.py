@@ -8,22 +8,31 @@ import json
 from datetime import datetime, timedelta
 
 
+def deleteChapters(request):
+    if request.user.is_authenticated and request.user.admin:
+        Lesson.objects.filter(id__in=request.POST.getlist('data[]')).delete()
+        data = {
+            'message': 'Chapters deleted successfully'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
 def chapterDetail(request):
     if request.user.is_authenticated and request.user.admin:
-        assign = assignment.objects.values(
-            'id', 'Name', 'Instructions', 'Deadline').get(id=request.GET['id'])
-        data = assign
+        lesson = Lesson.objects.values(
+            'id', 'Name', 'Number').get(id=request.GET['id'])
+        data = lesson
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
 
 
 def updateChapterDetails(request):
     if request.user.is_authenticated and request.user.admin:
-        assign = assignment.objects.get(id=request.POST['id'])
-        assign.Name = request.POST['Name']
-        assign.Instructions = request.POST['Instructions']
-        assign.Deadline = request.POST['Deadline']
-        assign.save()
+        lesson = Lesson.objects.get(id=request.POST['id'])
+        lesson.Name = request.POST['Name']
+        lesson.Number = request.POST['Number']
+        lesson.save()
         data = {
             'message': 'Details updated'
         }

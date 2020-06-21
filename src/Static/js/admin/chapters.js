@@ -99,13 +99,14 @@ $(document).ready(function () {
 
     $('#edit_btn').click(function () {
         let data = []
-        $(`input.pdf_checks:checkbox:checked`).each(function () {
+        $(`input.lesson_checks:checkbox:checked`).each(function () {
             data.push($(this).val());
         });
-        if(data.length<1){
-            alert('Please select a chapter to edit');
+        if (data.length != 1) {
+            alert('Please select one chapter to edit');
             return;
         }
+        $('#hidden_lesson_id').val(data[0]);
         $.ajax({
             type: "GET",
             headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
@@ -115,7 +116,61 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (data) {
-                console.log(data)
+                for (const x in data) {
+                    $(`#ed_${x}`).val(data[x])
+                }
+                $('#edit_modal').modal('show');
+            }, error: function (error) {
+                alert(error.responseText);
+            }
+        });
+    })
+
+    $('#update_lesson_details').click(function () {
+        if (!$('#ed_Name').val() ||
+            !$('#ed_Number').val()) {
+            alert('Values cannot be empty')
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
+            url: '/update-chapter-details',
+            data: {
+                id: $('#hidden_lesson_id').val(),
+                Name: $('#ed_Name').val(),
+                Number: $('#ed_Number').val(),
+            },
+            dataType: 'json',
+            success: function (data) {
+                getLessons();
+                alert(data.message)
+            }, error: function (error) {
+                alert(error.responseText);
+            }
+        });
+    })
+
+    $('#delete_btn').click(function () {
+        let data = []
+        $(`input.lesson_checks:checkbox:checked`).each(function () {
+            data.push($(this).val());
+        });
+        if (data.length < 1) {
+            alert('Please select one chapter to delete');
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
+            url: '/delete-chapters',
+            data: {
+                'data': data,
+            },
+            dataType: 'json',
+            success: function (data) {
+                getLessons()
+                alert(data.message);
             }, error: function (error) {
                 alert(error.responseText);
             }

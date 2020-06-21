@@ -30,6 +30,9 @@ from accounts.admin_settings import (
     editSubject,
     assignTeacher,
     uploadStudents,
+    chapterDetail,
+    updateChapterDetails,
+    deleteChapters
 )
 
 from accounts.media import allmedia, upload, getMedia, allquestions, questions, uploadQuestions, deleteMedia, mediaDetails, updateMedia
@@ -50,6 +53,9 @@ urlpatterns = [
     path('settings/school-staff', school_staff, name='staff'),
     re_path(r'^settings/allquestion/$', questions, name='get-allquestions'),
     # Requests
+    path('delete-chapters', deleteChapters, name='chapter-delete'),
+    path('update-chapter-details', updateChapterDetails,name='update-chapter-detail'),
+    path('chapter-details', chapterDetail, name='chapter-detail'),
     path('update-media', updateMedia, name='update-media'),
     path('get-media-details', mediaDetails, name='media-details'),
     path('delete-media', deleteMedia, name='delete-media'),
