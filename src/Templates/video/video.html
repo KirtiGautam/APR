@@ -14,17 +14,15 @@
         <div class="row">
             <div class="col-12 col-sm-12 col-md-8 col-lg-9">
                 <div class="row">
+                    {% block back %}
+                    {% endblock %}
+                    <span class="heading-1 pl-3 mt-1">{{video.lesson.Name}}</span>
                     <span class="col-12">
-                        {% block back %}
-                        {% endblock %}
-                        <span class="heading-1 p-1">{{video.lesson.Name}}</span>
-                    </span>
-                    <span class="col-12">
-                        <div class="dropdown-divider mt-4 mb-4"></div>
+                        <div class="dropdown-divider mb-4"></div>
                     </span>
                     <span class="col-12">
                         <span class="row">
-                            <span class="col-12 col-sm-12 col-md-12 col-lg-8">
+                            <span class="col-12 col-sm-12 col-md-12 col-lg-9">
                                 <span class="row">
                                     <span class="col-12">
                                         {% if not video.video.Local %}
@@ -38,42 +36,52 @@
                                         </video>
                                         {% endif %}
                                     </span>
-                                    <span class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                        <span class="heading-2 p-1">{{video.video.Name}}</span>
-                                    </span>
-                                    <span class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                        {% if not user.admin %}
-                                        <span><button class="btn blue-buttons p-1"
-                                                onclick="MAS('{{watched}}', {{video.id}});">Mark as
-                                                complete</button></span>
-                                        {% endif %}
-                                        {% if next %}
-                                        <span><a class="btn blue-buttons p-1" href="{{next}}">Next</a></span>
-                                        {% endif %}
-                                    </span>
-                                    <span class="col-12 video-duration">
-                                        <span class="p-1">Time Duration:</span>
-                                        <span class="p-1">123</span>
+                                    <span class="col-12">
+                                        <span class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                            <span class="heading-2 p-1">{{video.video.Name}}</span>
+                                        </span>
+                                        <span class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                            {% if next %}
+                                            <span class="float-right pr-3"><a href="{{next}}"> <button
+                                                        class="btn blue-buttons pl-3 pr-3 pt-2 pb-2">Next</button>
+                                                </a></span>
+                                            {% endif %}
+                                            {% if not user.admin %}
+                                            <span class="float-right"><button class="btn blue-buttons p-1"
+                                                    onclick="MAS('{{watched}}', {{video.id}});">Mark as
+                                                    complete</button></span>
+                                            {% endif %}
+                                        </span>
                                     </span>
                                     <span class="col-12">
-                                        <span class="video-description p-1">{{video.video.Description}}</span>
+                                        <span class="col-12 video-duration">
+                                            <span class="p-1">Time Duration:</span>
+                                            <span class="p-1">123</span>
+                                        </span>
+                                        <br>
+                                        <span class="col-12">
+                                            <span class="video-description p-1">{{video.video.Description}}</span>
+                                        </span>
                                     </span>
                                 </span>
                             </span>
-                            <!-- <span class="col-12 col-sm-12 col-md-12 col-lg-4">
-                                <span class="row dis-row p-1">
-                                    <span class="col-12 text-center">
+                            <span class="col-12 col-sm-12 col-md-12 col-lg-3">
+                                <div class="card dis-row">
+                                    <div class="card-header bg-transparent">
                                         <span class="video-discuss">Discussions</span>
-                                    </span>
-                                    <span class="col-12">
-                                        <div class="dropdown-divider"></div>
-                                    </span>
-                                    <span class="col-12">
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- <h5 class="card-title">Special title treatment</h5>
+                                        <p class="card-text">With supporting text below as a natural lead-in to
+                                            additional content.</p>
+                                        <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                    </div>
+                                    <div class="card-footer bg-transparent p-0 m-0">
                                         <input type="text" name="" id="" placeholder="Reply to the conversation"
-                                            class="form-control discussion-reply">
-                                    </span>
-                                </span>
-                            </span> -->
+                                            class="discussion-reply form-control">
+                                    </div>
+                                </div>
+                            </span>
                         </span>
                     </span>
                 </div>
@@ -81,7 +89,7 @@
             <div class="col-12 col-sm-12 col-md-4 col-lg-3">
                 <script src="{% static 'js/video/video.js' %}"></script>
                 <script src="{% static 'js/thumb.js' %}"></script>
-                <div class="row video-all m-1">
+                <div class="row video-all ml-1">
                     {% block other %}
                     {% endblock %}
                 </div>
@@ -89,4 +97,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    (function ($) {
+        "use strict";
+
+        var fullHeight = function () {
+            $(".video-all").css("height", $(window).height() - 100);
+            $(window).resize(function () {
+                $(".video-all").css("height", $(window).height() - 100);
+            });
+        };
+        fullHeight();
+
+    })(jQuery);
+</script>
+
 {% endblock %}

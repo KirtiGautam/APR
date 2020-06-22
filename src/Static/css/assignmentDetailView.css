@@ -52,12 +52,12 @@
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 50%;
-  color: #15202B;
+  color: #15202b;
   width: fit-content;
 }
 
 .edit-add:hover {
-  color: #65717E;
+  color: #65717e;
   background: #effbff;
 }
 
@@ -65,7 +65,7 @@
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   font-weight: 100;
-  color: #929EAD;
+  color: #929ead;
   font-size: calc(7px + 2vmin);
   border-radius: 50%;
   outline: none;
@@ -74,17 +74,17 @@
 .back {
   font-size: calc(6px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #15202B;
+  color: #15202b;
   width: fit-content;
 }
 
 .back:hover {
-  color: #65717E;
+  color: #65717e;
 }
 
 .back:focus {
   box-shadow: 0px 0px 0px #00000029;
-  color: #929EAD;
+  color: #929ead;
   font-size: calc(7px + 2vmin);
   outline: none;
 }
@@ -96,31 +96,34 @@ a:hover {
 .assign-cards {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #0000003b;
-  border-radius: 5px;
   height: 100%;
 }
 
 .assign-row-head {
-  font-size: calc(4px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #c0c0c0;
   background: transparent;
   border: none;
 }
 
 .assign-row-foot {
-  font-size: calc(3px + 2vmin);
+  font-size: calc(7px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #343434;
+  color: #000000;
   background: transparent;
   border: none;
+  font-weight: 600;
+}
+
+.text-left {
+  font-size: calc(8px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #376baa;
 }
 
 .time {
-  float: right;
-  font-size: calc(2px + 2vmin);
+  font-size: calc(6px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #aeaeae;
+  color: #606060;
 }
 
 .test {
@@ -128,17 +131,19 @@ a:hover {
     no-repeat padding-box;
 }
 
-.test .assign-row-head {
-  font-size: calc(4px + 2vmin);
+.test-text-left {
+  font-size: calc(8px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.test .assign-row-head {
   color: #ffffff;
 }
 
 .test .assign-row-foot {
-  font-size: calc(3px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
   color: #343434;
-  text-align: right;
 }
 
 .chapter {
@@ -265,7 +270,7 @@ a:hover {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.img{
+.img {
   height: 150px;
 }
 

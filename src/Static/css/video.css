@@ -5,15 +5,19 @@
   padding: 0;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .video {
-  height: 40vh;
-  border-radius: 5px;
+  height: 450px;
+  border-radius: 3%;
 }
 
 .heading-1 {
   font-size: calc(12px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
+  font-weight: 510;
   color: #626262;
 }
 
@@ -25,9 +29,14 @@
 }
 
 .heading-3 {
-  font-size: calc(8px + 2vmin);
+  font-size: calc(6px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
+}
+
+.row-vids{
+  padding-left: 2vmax;
+  padding-right: 2vmax;
 }
 
 .blue-buttons {
@@ -54,6 +63,7 @@
 .dis-row {
   border: 0.5px solid #707070;
   border-radius: 5px;
+  height: 500px;
 }
 
 .video-discuss {
@@ -70,35 +80,41 @@
 
 .video-all {
   background: #f5f8fa 0% 0% no-repeat padding-box;
+  overflow-y: scroll;
 }
 
 .lessons-cards {
   background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #0000003b;
-  border-radius: 5px;
+  box-shadow: 0px 3px 6px #00000029;
   height: 100%;
 }
 
 .lessons-row-head {
-  font-size: calc(3px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #c0c0c0;
+  color: #606060;
   background: transparent;
   border: none;
 }
 
-.lessons-row-foot {
-  font-size: calc(2px + 2vmin);
+.text-left {
+  font-size: calc(8px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #343434;
-  background: transparent;
-  border: none;
+  font-weight: 600;
+  color: #376baa;
 }
 
 .time {
-  font-size: calc(1px + 2vmin);
+  font-size: calc(6px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #aeaeae;
+  color: #606060;
+}
+
+.lessons-row-foot {
+  font-size: calc(7px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  background: transparent;
+  border: none;
+  font-weight: 600;
 }
 
 .test {
@@ -106,66 +122,22 @@
     no-repeat padding-box;
 }
 
+.test-text-left {
+  font-size: calc(8px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+}
+
 .test .lessons-row-head {
-  font-size: calc(3px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
 
 .test .lessons-row-foot {
-  font-size: calc(2px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #343434;
   text-align: right;
-}
-
-.icon-1 {
-  font-size: calc(12px + 2vmin);
-  color: #626262;
-}
-
-.sub-topic {
-  text-align: left;
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 0px;
-  color: #112234;
-}
-
-.video-titl {
-  color: #c0c0c0;
-  font-size: 60%;
-}
-
-.test-titl {
-  color: #ffffff;
-  font-size: 60%;
-}
-
-.test-cards {
-  background: transparent linear-gradient(56deg, #f792ab 0%, #fce584 100%) 0% 0%
-    no-repeat padding-box;
-}
-
-.card-text {
-  font-size: 75%;
-}
-
-.card {
-  box-shadow: 0px 3px 6px #0000003b;
-}
-
-.next-button {
-  height: 30vh;
-}
-
-.next-butto {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-
-a:hover {
-  text-decoration: none;
 }
 
 .back {
@@ -188,4 +160,14 @@ a:hover {
 
 .content {
   margin-left: 0 !important;
+}
+
+.img {
+  height: 100px;
+}
+
+@media screen and (max-width: 900px) {
+  .dis-row {
+    display: none;
+  }
 }
