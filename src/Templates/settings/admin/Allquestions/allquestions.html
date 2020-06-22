@@ -86,17 +86,17 @@
             </div>
         </form>
         <div class="row row-three">
-            <!-- <span class="col-12 mb-5">
+            <span class="col-12 mb-5">
                 <span class="float-right">
-                    <button id="delete" class="btn buttons ">Delete</button>
-                    <button id="edit" class="btn buttons ">Edit</button>
+                    <button class="btn buttons" id="delete_btn">Delete</button>
+                    <button class="btn buttons" id="edit_btn">Edit</button>
                 </span>
-            </span> -->
+            </span>
             <div class="col-12">
                 {% for key in question %}
                 <div class="row">
                     <div class="ques-num col-11">Question {{forloop.counter}}</div>
-                    <div class="col-1 float-right"><input type="checkbox" name="" id="" class="form-control"></div>
+                    <div class="col-1 float-right"><input type="checkbox" class="form-control ques_checks" value="{{key.id}}"></div>
                 </div>
                 <div class="ques-name">{{key.Name}}</div>
                 {% for choice in key.choice.all %}
@@ -109,6 +109,44 @@
                 {% resetcycle %}
 
                 {% endfor %}
+            </div>
+
+            <div class="modal" tabindex="-1" role="dialog" id="edit">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title">
+                                <span class="QD">Edit Question</span>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="hidden_question_field">
+                            <input type="hidden" id="hidden_choice_1">
+                            <input type="hidden" id="hidden_choice_2">
+                            <input type="hidden" id="hidden_choice_3">
+                            <input type="hidden" id="hidden_choice_4">
+                            <textarea id="question_Name" cols="30" rows="10"></textarea>
+                            <textarea id="choice_1" cols="30" rows="10"></textarea>
+                            <textarea id="choice_2" cols="30" rows="10"></textarea>
+                            <textarea id="choice_3" cols="30" rows="10"></textarea>
+                            <textarea id="choice_4" cols="30" rows="10"></textarea>
+                            <select id="Difficulty">
+                                <option value="E">Easy</option>
+                                <option value="M">Medium</option>
+                                <option value="H">Hard</option>
+                                <option value="D">Difficult</option>
+                            </select>
+                            <select id="Answer">
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn import" id="update_btn">Save</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="modal" tabindex="-1" role="dialog" id="add">

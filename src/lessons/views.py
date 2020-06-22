@@ -10,9 +10,13 @@ from lessons.models import Subject, question, Pdf, Video, Lesson, Test, Test_que
 def getQuestions(request):
     if request.user.admin and request.user.is_authenticated:
         questions = question.objects.filter(
-            Lesson=request.POST['lesson']).values('id', 'Name', 'Difficulty')
+            Lesson=request.POST['lesson'])
         data = {
-            'questions': list(questions)
+            'questions': [{
+                'id': ques.id,
+                'Name': ques.Name,
+                'Difficulty': ques.get_Difficulty_display()
+            } for ques in questions]
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Unauthorized'})

@@ -94,6 +94,6 @@ class liveStream(models.Model):
     Subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name='livestream')
     Name = models.CharField(max_length=100)
-    Stream_link = models.URLField(max_length=200)
+    Stream_link = models.URLField(max_length=2000)
     Time = models.DateTimeField()
     Duration = models.DecimalField(max_digits=4, decimal_places=2)

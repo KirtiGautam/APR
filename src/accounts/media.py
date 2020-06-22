@@ -7,6 +7,53 @@ from django.conf import settings
 import json
 
 
+def delete_question(request):
+    if request.user.is_authenticated and request.user.admin:
+        question.objects.filter(id__in=request.POST.getlist('data[]')).delete()
+        data = {
+            'message': 'Selected questions deleted successfully'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def get_question(request):
+    if request.user.is_authenticated and request.user.admin:
+        ques = question.objects.get(id=request.GET['question'])
+        data = {
+            'Name': ques.Name,
+            'choices': [{
+                'id': c.id,
+                'Name': c.Name
+            }for c in ques.choice.all()],
+            'Difficulty': ques.get_Difficulty_display(),
+            'Answer': ques.Answer.choice.id,
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def edit_question(request):
+    if request.user.is_authenticated and request.user.admin:
+        ques = question.objects.get(id=request.POST['question'])
+        ques.Name = request.POST['Name']
+        ques.Difficulty = request.POST['Difficulty']
+        ques.save()
+        for x in request.POST.getlist('choices[]'):
+            c = json.loads(x)
+            ch = choice.objects.get(id=c['id'])
+            ch.Name = c['Name']
+            ch.save()
+        ans = ques.Answer
+        ans.choice = choice.objects.get(id=request.POST['answer'])
+        ans.save()
+        data = {
+            'message': 'Question updated'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
 def updateMedia(request):
     if request.user.is_authenticated and request.user.admin:
         if request.POST['type'] == 'pdf':
