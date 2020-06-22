@@ -79,6 +79,8 @@
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-3">
+                <script src="{% static 'js/video/video.js' %}"></script>
+                <script src="{% static 'js/thumb.js' %}"></script>
                 <div class="row video-all m-1">
                     {% block other %}
                     {% endblock %}
@@ -87,5 +89,4 @@
         </div>
     </div>
 </div>
-<script src="{% static 'js/video/video.js' %}"></script>
 {% endblock %}

@@ -16,7 +16,7 @@
             <a href="{% url 'homework:video' vid.id %}">
                 <div class="lessons-cards">
                     <span class="row">
-                        <img src="/static/Images/lesson/video.png" id="thumb{{video.id}}" class="col-12">
+                        <img src="/static/Images/lesson/video.png" id="thumb{{vid.id}}" class="col-12">
                     </span>
                     <span class="row lessons-row-head p-1">
                         <span class="text-left col-10">VIDEO</span>
@@ -29,7 +29,7 @@
                         {% endif %}
                     </span>
                     <span class="row lessons-row-foot p-1">
-                        <span class="col-8">{{video.video.Name}}</span>
+                        <span class="col-8">{{vid.video.Name}}</span>
                         <span class="time col-4">2 min</span>
                     </span>
                 </div>
@@ -85,4 +85,13 @@
         {% endfor %}
     </span>
 </span>
+<script>
+    {% for vid in video.homework.video.all %}
+    thumbarr.push({
+        id: "#thumb{{vid.id}}",
+        link: "{% if video.video.Local %}{{prefix}}{% endif %}{{vid.video.file}}",
+    })
+    {% endfor %}
+    generateThumbs(thumbarr);
+</script>
 {% endblock %}
