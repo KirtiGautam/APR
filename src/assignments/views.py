@@ -86,7 +86,7 @@ def getAssignments(request):
                 'days': diff.days,
                 'hours': diff.seconds//3600,
                 'minutes': (diff.seconds//60) % 60,
-                'progress': math.floor((sum([user_read, user_watched])/sum([total_pdf, total_video]))*100),
+                'progress': math.floor((sum([user_read, user_watched])/sum([total_pdf, total_video]) if sum([total_pdf, total_video]) > 0 else 1)*100),
             })
         data = {
             'assignments': deads,
@@ -138,24 +138,8 @@ def newAssignment(request):
     if request.user.is_authenticated and request.user.admin:
         dead = timezone.make_aware(
             dateparse.parse_datetime(request.POST['deadline']))
-        assi = assignment.objects.create(
+        assignment.objects.create(
             Name=request.POST['NOA'], Instructions=request.POST['instruction'], Deadline=dead, Subject=Subject.objects.get(id=request.POST['subject']))
-        data = request.POST.getlist('data[]')
-        if request.POST['type'] == 'pdf':
-            for x in data:
-                Pdf.objects.create(pdf=pdf.objects.get(id=x), lesson=Lesson.objects.get(
-                    id=request.POST['lesson']), assignment=assi)
-        elif request.POST['type'] == 'video':
-            for x in data:
-                Video.objects.create(video=video.objects.get(id=x), lesson=Lesson.objects.get(
-                    id=request.POST['lesson']), assignment=assi)
-        else:
-            final = True if request.POST['final'] == '1' else False
-            tes = Test.objects.create(Name=request.POST['TN'], Duration=request.POST['duration'],
-                                      final=final, Assignment=assi)
-            for x in data:
-                Test_question.objects.create(
-                    question=question.objects.get(id=x), test=tes)
         data = {
             'message': 'Data added'
         }

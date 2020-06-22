@@ -82,9 +82,3 @@ $(document).ready(function () {
     });
 
 });
-
-$(window).bind('beforeunload', function () {
-
-    return 'Your test will be saved';
-
-});

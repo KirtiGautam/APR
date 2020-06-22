@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from accounts.views import (
     student_information,
     log,
@@ -41,6 +41,7 @@ from accounts.media import (allmedia, upload, getMedia, allquestions, questions,
 app_name = 'accounts'
 
 urlpatterns = [
+    path('', include('accounts.user_urls')),
     # Views
     path('settings/allmedia', allmedia, name='allmedia'),
     path('settings/allquestions', allquestions, name='allquestions'),
