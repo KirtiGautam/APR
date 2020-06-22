@@ -15,12 +15,12 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row row-1">
-                <div class="col-6 col-sm-6 col-md-6 col-lg-2">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-3 pt-1">
                     <span class="selection">Select Subjects</span>
                 </div>
                 {% if user.admin %}
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3 text-center">
-                    <select id="class" class="drop mb-3 p-1 form-control">
+                    <select id="class" class="drop mb-1 form-control">
                         <option value="" disabled selected>Class</option>
                         {% for key in classes %}
                         <option value="{{key.id}}">{{key.name}}</option>
@@ -30,20 +30,19 @@
                 {% else %}
                 <input type="hidden" id="class" value="{{class}}">
                 {% endif %}
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 mb-3">
-                    <div class="flexing float-right" id="SB">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-1">
+                    <div class="flexing float-right pt-1" id="SB">
                     </div>
                 </div>
             </div>
-            <div class="row row-2 back">
-                <span class="col-12 col-sm-8 col-md-8 col-lg-6 back-text">
-                    <span class="col-12">LESSONS AND</span>
+            <div class="row row-2 back pb-2">
+                <span class="col-12 col-sm-8 col-md-8 col-lg-8 back-text">
+                    <span class="col-12 pl-3">LESSONS AND</span>
                     <br>
-                    <span class="col-12">PRACTICE TEST</span>
+                    <span class="col-12 pl-3">PRACTICE TEST</span>
                 </span>
-                <span class="col-0 col-sm-4 col-md-4 col-lg-6 back-photo">
-                    <img src="/static/Images/lesson/back.png" alt=""
-                        class="rounded float-right col-0 col-sm-12 col-md-12 col-lg-6">
+                <span class="col-4 pt-2 ">
+                    <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo mr-5">
                 </span>
             </div>
             <div class="row row-three">

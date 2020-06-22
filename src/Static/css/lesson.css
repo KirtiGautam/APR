@@ -23,7 +23,7 @@
   border: 1px solid #e6ecf0;
   border-radius: 10px;
   color: #626262;
-  font-size: calc(4px + 2vmin);
+  font-size: calc(2px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   cursor: pointer;
@@ -34,7 +34,7 @@
   background: #f05e23 0% 0% no-repeat padding-box;
   border: 1px solid #e6ecf0;
   border-radius: 10px;
-  font-size: calc(4px + 2vmin);
+  font-size: calc(2px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
   text-align: center;
@@ -52,16 +52,22 @@
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: #fd7f2c;
+  margin-top: 40px;
+}
+
+.back-photo {
+  width: 210px;
+  height: 180px;
 }
 
 .chapter {
-  font-size: calc(10px + 2vmin);
+  font-size: calc(5px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #5484ed;
 }
 
 .edit-add {
-  font-size: calc(6px + 2vmin);
+  font-size: calc(4px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -80,7 +86,7 @@
   box-shadow: 0px 3px 6px #00000029;
   font-weight: 100;
   color: #929ead;
-  font-size: calc(7px + 2vmin);
+  font-size: calc(4px + 2vmin);
   border-radius: 50%;
   outline: none;
 }
@@ -93,6 +99,7 @@ a:hover {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   height: 100%;
+  margin-left: -15px !important;
 }
 
 .lessons-row-head {
@@ -143,12 +150,11 @@ a:hover {
 }
 
 .lessons-cards-empty {
-  background: #f8f8f8 0% 0% no-repeat padding-box;
+  background: #fdfdfd 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #0000003b;
-  border-radius: 5px;
-  height: 100%;
-  min-height: 140px;
-  max-height: 100%;
+  border-radius: 0px;
+  min-height: 190px;
+  margin-left: -15px !important;
 }
 
 .row-body-text {
@@ -261,11 +267,14 @@ a:hover {
 }
 
 .img {
-  height: 150px;
+  height: 140px !important;
 }
 
 @media screen and (max-width: 600px) {
   .back-photo {
     display: none;
+  }
+  .back-text {
+    margin-top: 10px !important;
   }
 }
