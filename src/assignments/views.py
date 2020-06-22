@@ -3,12 +3,13 @@ from django import http
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.core.files.storage import default_storage
-import datetime
-import json
-import math
 from lessons.models import Subject, Lesson, question
 from accounts.models import Class, pdf, video
 from assignments.models import assignment, Pdf, Video, Test, Test_question, user_progress_video, user_progress_pdf
+from django.utils import timezone, dateparse
+import datetime
+import json
+import math
 
 
 def getTest(request, id):
@@ -72,8 +73,8 @@ def getAssignments(request):
     if request.user.is_authenticated:
         deads = []
         for x in assignment.objects.filter(
-                Subject__Class=request.POST['id'], Deadline__gt=datetime.datetime.now(datetime.timezone.utc)):
-            diff = x.Deadline-datetime.datetime.now(datetime.timezone.utc)
+                Subject__Class=request.POST['id'], Deadline__gt=timezone.localtime()):
+            diff = x.Deadline-timezone.localtime()
             user_watched = request.user.watched_assignment_video.filter(
                 Video__in=x.video.all()).count()
             user_read = request.user.read_assignment_pdf.filter(
@@ -83,8 +84,8 @@ def getAssignments(request):
             deads.append({
                 'assi': x,
                 'days': diff.days,
-                'hours': 24-datetime.datetime.now(datetime.timezone.utc).hour,
-                'minutes': 60-datetime.datetime.now(datetime.timezone.utc).minute,
+                'hours': diff.seconds//3600,
+                'minutes': (diff.seconds//60) % 60,
                 'progress': math.floor((sum([user_read, user_watched])/sum([total_pdf, total_video]))*100),
             })
         data = {
@@ -135,8 +136,10 @@ def vid(request, id):
 
 def newAssignment(request):
     if request.user.is_authenticated and request.user.admin:
+        dead = timezone.make_aware(
+            dateparse.parse_datetime(request.POST['deadline']))
         assi = assignment.objects.create(
-            Name=request.POST['NOA'], Instructions=request.POST['instruction'], Deadline=request.POST['deadline'], Subject=Subject.objects.get(id=request.POST['subject']))
+            Name=request.POST['NOA'], Instructions=request.POST['instruction'], Deadline=dead, Subject=Subject.objects.get(id=request.POST['subject']))
         data = request.POST.getlist('data[]')
         if request.POST['type'] == 'pdf':
             for x in data:

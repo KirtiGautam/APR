@@ -1,9 +1,9 @@
 const today = new Date();
 $(document).ready(function () {
-  const now = today.getFullYear() + '-' + (today.getMonth() + 1 < 10 ? '0' : '') + (today.getMonth() + 1) + '-' + today.getDate() + 'T' + today.getHours() + ":" + today.getMinutes();
+  const now = today.getFullYear() + '-' + (today.getMonth() + 1 < 10 ? '0' : '') + (today.getMonth() + 1) + '-' + (today.getDate() < 10 ? '0' : '') + today.getDate() + 'T' + (today.getHours() < 10 ? '0' : '') + today.getHours() + ":" + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
 
   $('#deadline').attr("min", now);
-  
+
   $("#next_btn").click(function () {
     if (
       !$("#subjects").val() ||
@@ -88,6 +88,7 @@ $(document).ready(function () {
       data: data,
       dataType: "json",
       success: function (response) {
+        getAssignments();
         alert(response.message);
       },
       error: function (error) {
@@ -164,8 +165,8 @@ function getLessons() {
       html = '<option value="" selected disabled>Lessons</option>';
       for (x in data.lessons) {
         html += `<option value="${data.lessons[x].id}" >${data.lessons[x].Name}</option>`;
-        $("#lessons").html(html);
       }
+      $("#lessons").html(html);
     },
     error: function (error) {
       alert(error.responseText);

@@ -89,10 +89,10 @@ class user_progress_video(models.Model):
 
 
 class liveStream(models.Model):
-    Class = models.ForeignKey(
-        Class, on_delete=models.CASCADE, related_name='live_stream')
     User = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='livestream_duty')
+    Subject = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name='livestream')
     Name = models.CharField(max_length=100)
     Stream_link = models.URLField(max_length=200)
     Time = models.DateTimeField()

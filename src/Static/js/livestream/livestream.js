@@ -2,6 +2,13 @@ let today = new Date();
 
 $(document).ready(function () {
     $('#Class').change(function () {
+        if (!this.value) {
+            alert('Please select a Class')
+            $('#widgets').addClass('d-none')
+            return;
+        }
+        $('#widgets').removeClass('d-none')
+        getSubjects(this.value);
         getLivestreams();
     })
 
@@ -14,8 +21,13 @@ $(document).ready(function () {
             !$('#Name').val() ||
             !$('#Stream_link').val() ||
             !$('#Time').val() ||
+            !$('#Subject').val() ||
             !$('#Duration').val()) {
             alert('Please fill all the values');
+            return;
+        }
+        if ($('#Duration').val() > 12) {
+            alert('Invalid Duration');
             return;
         }
         $.ajax({
@@ -23,11 +35,11 @@ $(document).ready(function () {
             headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
             url: '/new-livestream',
             data: {
-                class: $('#Class').val(),
                 teacher: $('#teacher').val(),
                 Name: $('#Name').val(),
                 Stream_link: $('#Stream_link').val(),
                 Time: $('#Time').val(),
+                Subject: $('#Subject').val(),
                 Duration: $('#Duration').val()
             },
             dataType: 'json',
@@ -75,6 +87,7 @@ $(document).ready(function () {
             !$('#Name').val() ||
             !$('#Stream_link').val() ||
             !$('#Time').val() ||
+            !$('#Subject').val() ||
             !$('#Duration').val()) {
             alert('Please fill all the values');
             return;
@@ -89,6 +102,7 @@ $(document).ready(function () {
                 Name: $('#Name').val(),
                 Stream_link: $('#Stream_link').val(),
                 Time: $('#Time').val(),
+                Subject: $('#Subject').val(),
                 Duration: $('#Duration').val()
             },
             dataType: 'json',
@@ -186,5 +200,28 @@ const prenew = () => {
     $('#Stream_link').val('')
     $('#Time').val('')
     $('#Duration').val('')
+    $('#Subject').val('')
     $('#add').modal('show');
+}
+
+const getSubjects = id => {
+    $.ajax({
+        type: "POST",
+        headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+        url: "/get-subjects",
+        data: {
+            id: id,
+        },
+        dataType: "json",
+        success: function (data) {
+            let html = '<option value="" selected disabled>Subjects</option>';
+            for (x in data.subjects) {
+                html += `<option value="${data.subjects[x].id}" >${data.subjects[x].Name}</option>`;
+            }
+            $("#Subject").html(html);
+        },
+        error: function (error) {
+            console.log(error.responseText);
+        },
+    });
 }

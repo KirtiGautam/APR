@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django import http
 from accounts.models import Class, User
-from lessons.models import liveStream
+from lessons.models import liveStream, Subject
+from django.utils import timezone, dateparse
 
 
 def index(request):
@@ -23,7 +24,7 @@ def index(request):
 def livestreams(request):
     if request.user.is_authenticated:
         client = {
-            'livestream': liveStream.objects.filter(Class=Class.objects.get(id=request.GET['class']))
+            'livestream': liveStream.objects.filter(Subject__Class=Class.objects.get(id=request.GET['class']), Time__gt=timezone.now())
         }
         data = {
             'body': render_to_string('livestream/livestreams.html', context=client, request=request)
@@ -34,11 +35,12 @@ def livestreams(request):
 
 def newLS(request):
     if request.user.is_authenticated:
-        clas = Class.objects.get(id=request.POST['class'])
+        time = timezone.make_aware(
+            dateparse.parse_datetime(request.POST['Time']))
+        subject = Subject.objects.get(id=request.POST['Subject'])
         teacher = User.objects.get(id=request.POST['teacher'])
         liveStream.objects.create(
-            Class=clas, User=teacher, Name=request.POST['Name'], Stream_link=request.POST['Stream_link'], Time=request.POST['Time'], Duration=request.POST['Duration'])
-        print([clas.name, teacher.get_full_name(), request.POST])
+            Subject=subject, User=teacher, Name=request.POST['Name'], Stream_link=request.POST['Stream_link'], Time=time, Duration=request.POST['Duration'])
         data = {
             'message': 'Live Stream added'
         }
@@ -67,6 +69,7 @@ def getStream(request):
             'Stream_link': LS.Stream_link,
             'Time': LS.Time,
             'Duration': LS.Duration,
+            'Subject': LS.Subject.id
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Unauthorized'})
@@ -80,6 +83,7 @@ def editStream(request):
         livestream.Duration = request.POST['Duration']
         livestream.Time = request.POST['Time']
         livestream.User = User.objects.get(id=request.POST['teacher'])
+        livestream.Subject = Subject.objects.get(id=request.POST['Subject'])
         livestream.save()
         data = {
             'message': 'Selected streams updated'
