@@ -12,7 +12,7 @@
 }
 
 .img {
-  height: 150px;
+  height: 140px;
 }
 
 .back {
@@ -91,30 +91,34 @@
 .homework-cards {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #0000003b;
-  border-radius: 5px;
   height: 100%;
 }
 
 .homework-row-head {
-  font-size: calc(4px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #c0c0c0;
   background: transparent;
   border: none;
 }
 
 .homework-row-foot {
-  font-size: calc(3px + 1vmax);
+  font-size: calc(7px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #343434;
+  color: #000000;
   background: transparent;
   border: none;
+  font-weight: 600;
+}
+
+.text-left {
+  font-size: calc(8px + 1vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #376baa;
 }
 
 .time {
-  font-size: calc(2px + 2vmin);
+  font-size: calc(6px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #aeaeae;
+  color: #606060;
 }
 
 .test {
@@ -122,15 +126,18 @@
     no-repeat padding-box;
 }
 
-.test .homework-row-head {
-  font-size: calc(4px + 1vmax);
+.test-text-left {
+  font-size: calc(8px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.test .homework-row-head {
   color: #ffffff;
 }
 
 .test .homework-row-foot {
-  font-size: calc(3px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
   color: #343434;
   text-align: right;
 }
@@ -140,8 +147,7 @@ a:hover {
 }
 
 .chapter {
-  font-size: calc(8px + 2vmin);
-  font-weight: bold;
+  font-size: calc(4px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #5484ed;
 }
@@ -150,13 +156,13 @@ a:hover {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #b3b6b8;
   border-radius: 5px;
-  font-size: calc(6px + 2vmin);
+  font-size: calc(5px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
 }
 
 .selection {
-  font-size: calc(8px + 2vmin);
+  font-size: calc(7px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
@@ -206,20 +212,21 @@ a:hover {
 }
 
 .row-head {
-  font-size: calc(4px + 2vmin);
+  font-size: calc(8px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #c0c0c0;
-  background: transparent;
-  border: none;
+  font-weight: 600;
+  color: #376baa;
 }
 
 .row-foot {
-  font-size: calc(3px + 2vmin);
+  font-size: calc(7px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #343434;
+  color: #000000;
   background: transparent;
   border: none;
+  font-weight: 600;
 }
+
 .ques-num {
   font-size: calc(4px + 1vmax);
   font-family: Arial, Helvetica, sans-serif;

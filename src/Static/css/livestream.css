@@ -18,6 +18,11 @@
   color: #376baa;
 }
 
+.back-photo {
+  width: 210px;
+  height: 180px;
+}
+
 .row-1 {
   background: transparent
     linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
@@ -29,6 +34,7 @@
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: #fd7f2c;
+  margin-top: 40px;
 }
 
 .edit-add {
@@ -79,6 +85,7 @@ a:hover {
   background: transparent linear-gradient(132deg, #2375d3 0%, #3ba9fe 100%) 0%
     0% no-repeat padding-box;
   border-radius: 10px;
+  height: 100%;
 }
 
 .teacher-name {
@@ -110,8 +117,20 @@ a:hover {
   color: #ffffff;
 }
 
-@media screen and (max-width: 600px) {
+.stream-subject{
+  font-size: calc(2px + 2vmin);
+  font-weight: 200;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff700;
+  text-transform: capitalize; 
+}
+
+@media screen and (max-width:1100px) {
   .back-photo {
     display: none;
+  }
+
+  .first-text {
+    margin-top: 10px !important;
   }
 }

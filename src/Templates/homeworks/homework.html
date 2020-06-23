@@ -12,13 +12,14 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row first">
-            <span class="col-12 col-sm-6 col-md-6 col-lg-4 first-text">
-                DAILY<br>HOMEWORKS
+            <span class="col-6 col-sm-6 col-md-6 col-lg-3 first-text">
+                <span class="col-12 pl-3">DAILY</span>
                 <br>
+                <span class="col-12 pl-3">HOMEWORKS</span>
             </span>
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-4 first-class-plus">
                 {% if request.user.admin %}
-                <div class="col-12 row first-class-plus d-flex justify-content-around">
+                <div class="col-12 row d-flex justify-content-around">
                     <select id="class" class="col-8 form-control drop m-2">
                         <option value="" disabled selected>Class</option>
                         {% for key in classes %}
@@ -26,7 +27,8 @@
                         {% endfor %}
                     </select>
                     <span><button class="btn edit-add add-home d-none" data-toggle="modal" data-backdrop="static"
-                            data-target="#add" title="Add New Homework"><i class="fas fa-plus-circle"></i></button></span>
+                            data-target="#add" title="Add New Homework"><i
+                                class="fas fa-plus-circle"></i></button></span>
                     <!-- <span><button class="btn edit-add" title="Delete Homework"><i
                                 class="fas fa-trash"></i></button></span> -->
                 </div>
@@ -34,10 +36,10 @@
                 <input type="hidden" id="class" value="{{class}}">
                 {% endif %}
             </div>
-            <div class="col-0 col-md-4 col-lg-4 image">
-                <img src="/static/Images/lesson/back.png" alt="" class="col-8 float-right">
+            <div class="col-5 pt-2">
+                <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo mr-5">
             </div>
-            <div class="row first-one">
+            <div class="row first-one ml-4">
                 <input type="text" id="hold" placeholder="Date"
                     class="form-control col-8 col-sm-6 col-md-6 col-lg-6 date p-1" disabled>
                 <div class="col-4 col-sm-6 col-md-6 col-lg-6">
@@ -46,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="row second mt-5" id="body">
+        <div class="row second col-12 mt-5" id="body">
 
         </div>
         {% if user.admin %}

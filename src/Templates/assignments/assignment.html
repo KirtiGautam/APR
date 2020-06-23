@@ -12,11 +12,13 @@
 </div>
 <div class="content">
     <div class="container-fluid">
-        <div class="row first">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 first-text m-2">
-                ALL <br> ASSIGNMENTS
+        <div class="row first pb-2">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3 first-text">
+                <span class="col-12 pl-3">ALL</span>
+                <br>
+                <span class="col-12 pl-3">ASSIGNMENTS</span>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4 first-class-plus">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-4 first-class-plus">
                 {% if request.user.admin %}
                 <div class="col-12 row d-flex justify-content-around">
                     <select id="class" class="col-8 form-control drop m-2">
@@ -33,13 +35,11 @@
                 <input type="hidden" id="class" value="{{ class }}">
                 {% endif %}
             </div>
-            <div class="col-xs-0 col-sm-0 col-md-0 col-lg-3 image">
-                <img src="/static/Images/lesson/back.png" alt="" class="col-12">
+            <div class="col-5 pt-2">
+                <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo mr-5">
             </div>
         </div>
-        <div class="row second p-3" id="body">
-
-        </div>
+        <div class="row second col-12 mt-5" id="body"></div>
         {% if request.user.admin %}
         {% include 'assignments/newAssignment.html' %}
         {% endif %}

@@ -1,22 +1,22 @@
 {% for key in livestream %}
 <div class="col-12 col-sm-12 col-md-6 col-lg-3 mt-2 mb-2">
-    <div class="cards p-2">
+    <div class="cards p-3">
         <a href="{{key.Stream_link}}">
             <span class="row row-head">
-                <span class="teacher-name col-8">{{key.User.get_full_name}}</span>
+                <span class="teacher-name col-10">{{key.User.get_full_name}}</span>
                 {% if user.admin %}
                 <input type="checkbox" class="live_checks col-1 form-control check p-1" value="{{key.id}}">
                 {% endif %}
             </span>
             <span class="row row-body">
                 <span class="stream-name col-12">{{key.Name}}</span>
-                <span class="stream-time col-12">{{key.Subject.Name}}</span>
                 <span class="stream-time col-12">Date: {{key.Time}}</span>
             </span>
             <span class="row-row-foot">
                 <span class="stream-duration">
                     Duration: {{key.Duration}}
                 </span>
+                <span class="stream-subject float-right">{{key.Subject.Name}}</span>
             </span>
         </a>
     </div>

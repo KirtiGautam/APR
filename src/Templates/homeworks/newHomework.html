@@ -10,33 +10,33 @@
             <div class="modal-body mb-5">
                 <div class="container-fluid">
                     <div class="row" id="homework_details">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
                             <span class="selection">Subjects</span>
                             <br>
                             <select id="subjects" class="drop p-1 form-control"></select>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
                             <span class="selection">Lessons</span>
                             <br>
                             <select id='lessons' class="drop p-1 form-control"></select>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
                             <span class="selection">Title of Homework</span>
                             <br>
                             <input type="text" class="homework-name drop p-1 form-control">
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 p-2">
                             <span class="selection">Instructions</span>
                             <br>
                             <textarea class="homework-instructions drop p-1 form-control"></textarea>
                         </div>
-                        <div class="col-12 mt-1">
+                        <div class="col-12 p-2">
                             <button id="next_btn" class="btn buttons float-right">Next</button>
                         </div>
                     </div>
                     <div class="row d-none" id="data_div">
-                        <span class="selection col-12 col-sm-6 col-md-4 col-lg-3">Data Type</span>
-                        <select id="dataType" class="form-control drop col-12 col-sm-6 col-md-8 col-lg-9">
+                        <span class="selection col-12 col-sm-6 col-md-4 col-lg-3 p-2">Data Type</span>
+                        <select id="dataType" class="form-control drop col-12 col-sm-6 col-md-8 col-lg-9 p-2">
                             <option value="pdf">PDF</option>
                             <option value="video">Video</option>
                             <option value="test">Test</option>
@@ -44,22 +44,22 @@
                     </div>
                     <div class="row mt-3" id="data_display"></div>
                     <div class="question_div d-none row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
                             <span class="selection">Test Name</span>
                             <br>
                             <span><input type="text" id="test_name" class="form-control drop"></span>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
                             <span class="selection">Test duration(minutes)</span>
                             <br>
                             <span><input type="number" id="test_duration" class="form-control drop"></span>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 p-2">
                             <span class="selection">Final</span>
                             <input type="checkbox" id="final_flag">
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 p-2">
                         <button id="upload_btn" class="d-none btn import float-right">Save</button>
                         <button id="next_next_btn" class="d-none btn buttons float-right">Next</button>
                     </div>

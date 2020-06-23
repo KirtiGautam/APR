@@ -14,7 +14,7 @@
 </div>
 <div class="content">
     <div class="container-fluid">
-        <div class="row first mb-5">
+        <div class="row first mb-5 mt-3">
             <div class="col-3 col-sm-3 col-md-2 col-lg-1">
                 <div class="col-12">
                     <a href="{% url 'assignment:assignments' %}"><button class="btn back" title="Back"><i
@@ -24,7 +24,7 @@
             <div class="col-9 col-sm-9 col-md-6 col-lg-7 subject-name">
                 {{assign.Subject.Name}}
             </div>
-            <div class="col-12 col-sm-12 col-md-4 col-lg-4 time-left">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 time-left mt-2">
                 {{assign.Deadline|timeuntil}} to go
             </div>
         </div>
@@ -42,105 +42,113 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 mb-3">
+            <div class="col-11 mb-3 text-justify">
                 <span class="instruction">Instructions related to assignment: </span>
                 <span class="instruct">{{assign.Instructions}}</span>
             </div>
-            <div class="col-5 mb-3">
+            <div class="col-4 mb-3 pl-4">
                 <span class="posted">Posted on: </span>
                 <span class="posted-on">{{assign.Posted}}</span>
             </div>
-            <div class="col-5 mb-3">
+            <div class="col-4 mb-3">
                 <span class="due">Due date: </span>
                 <span class="due-date">{{assign.Deadline}}</span>
             </div>
-            <div class="col-2">
+            <div class="col-4">
                 {% if user.admin %}
-                <button class="btn edit-add" id="delete_btn" title="Delete"><i class="fas fa-trash"></i></button>
-                <button class="btn edit-add" data-toggle="modal" data-backdrop="static" data-target="#add"
+                <button class="btn edit-add float-right" data-toggle="modal" data-backdrop="static" data-target="#add"
                     title="Add More Data"><i class="fas fa-plus-circle"></i></button>
+                <button class="btn edit-add float-right" id="delete_btn" title="Delete"><i
+                        class="fas fa-trash"></i></button>
                 {% endif %}
             </div>
         </div>
-        <div class="row third mb-5">
+        <div class="row third mb-5 col-12">
             {% for key in assign.pdf.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
-                <a href="{% get_media_prefix %}{{key.pdf.file}}" target="_blank">
-                    <div class="assign-cards">
-                        <span class="row">
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
-                        </span>
-                        <span class="row assign-row-head pl-3 pr-3 pt-1">
-                            <span class="text-left col-7 pt-2">PDF</span>
-                            <span class="time col-3 pt-2">2 min</span>
-                            {% if not user.admin %}
-                            <input type="checkbox" onclick="return MARP({{key.id}}, this);"
-                                {% for read in user.read_assignment_pdf.all %}{% if read.Pdf.id == key.id %}
-                                onclick="return false;" readonly="readonly" checked {% endif %}{% endfor %}
-                                class="col-1 form-control">
-                            {% else %}
-                            <input type="checkbox" class="pdf_checks col-1 form-control" value="{{key.id}}">
-                            {% endif %}
-                        </span>
-                        <span class="row assign-row-foot pl-3 pr-3">
-                            <span class="col-12">{{key.pdf.Name}}</span>
-                        </span>
+                <div class="col-11">
+                    <a href="{% get_media_prefix %}{{key.pdf.file}}" target="_blank">
+                        <div class="assign-cards">
+                            <span class="row">
+                                <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
+                            </span>
+                            <span class="row assign-row-head pl-3 pr-3 pt-1">
+                                <span class="text-left col-6 pt-2">PDF</span>
+                                <span class="time col-4 pt-2">2 min</span>
+                                {% if not user.admin %}
+                                <input type="checkbox" onclick="return MARP({{key.id}}, this);"
+                                    {% for read in user.read_assignment_pdf.all %}{% if read.Pdf.id == key.id %}
+                                    onclick="return false;" readonly="readonly" checked {% endif %}{% endfor %}
+                                    class="col-1 form-control">
+                                {% else %}
+                                <input type="checkbox" class="pdf_checks col-1 form-control" value="{{key.id}}">
+                                {% endif %}
+                            </span>
+                            <span class="row assign-row-foot pl-3 pr-3 pb-3">
+                                <span class="col-12">{{key.pdf.Name}}</span>
+                            </span>
+                        </div>
+                    </a>
+                    <div class="text-center">
+                        <div class="chapter">{{key.lesson.Name}}</div>
                     </div>
-                </a>
-                <div class="text-center">
-                    <div class="chapter">{{key.lesson.Name}}</div>
                 </div>
             </div>
             {% endfor %}
             {% for key in assign.video.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
-                <a href="{% url 'assignment:video' key.id %}">
-                    <div class="assign-cards">
-                        <span class="row">
-                            <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-12 img">
-                        </span>
-                        <span class="row assign-row-head pl-3 pr-3 pt-1">
-                            <span class="text-left col-7 pt-2">VIDEO</span>
-                            <span class="time col-3 pt-2">2 min</span>
-                            {% if not user.admin %}
-                            <input type="checkbox" onclick="return false;" readonly="readonly"
-                                {% for watched in user.watched_assignment_video.all %}{% if watched.Video.id == key.id %}
-                                checked {% endif %}{% endfor %} class="col-1 form-control">
-                            {% else %}
-                            <input type="checkbox" class="video_checks col-1 form-control" value="{{key.id}}">
-                            {% endif %}
-                        </span>
-                        <span class="row assign-row-foot pl-3 pr-3">
-                            <span class="col-12">{{key.video.Name}}</span>
-                        </span>
+                <div class="col-11">
+                    <a href="{% url 'assignment:video' key.id %}">
+                        <div class="assign-cards">
+                            <span class="row">
+                                <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-12 img">
+                            </span>
+                            <span class="row assign-row-head pl-3 pr-3 pt-1">
+                                <span class="text-left col-6 pt-2">VIDEO</span>
+                                <span class="time col-4 pt-2">2 min</span>
+                                {% if not user.admin %}
+                                <input type="checkbox" onclick="return false;" readonly="readonly"
+                                    {% for watched in user.watched_assignment_video.all %}{% if watched.Video.id == key.id %}
+                                    checked {% endif %}{% endfor %} class="col-1 form-control">
+                                {% else %}
+                                <input type="checkbox" class="video_checks col-1 form-control" value="{{key.id}}">
+                                {% endif %}
+                            </span>
+                            <span class="row assign-row-foot pl-3 pr-3 pb-3">
+                                <span class="col-12">{{key.video.Name}}</span>
+                            </span>
+                        </div>
+                    </a>
+                    <div class="text-center">
+                        <div class="chapter">{{key.lesson.Name}}</div>
                     </div>
-                </a>
-                <div class="text-center">
-                    <div class="chapter">{{key.lesson.Name}}</div>
                 </div>
             </div>
             {% endfor %}
             {% for key in assign.Test.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
-                <a href="{% url 'assignment:Test' key.id %}">
-                    <div class="assign-cards test">
-                        <span class="row">
-                            <img src="/static/Images/lesson/test.png" alt="" class="col-12 img">
-                        </span>
-                        <span class="row assign-row-head pl-3 pr-3 pt-1">
-                            <span class="test-text-left col-7 pt-2">{{key.question.all.count}} Questions</span>
-                            <!-- <span class="checkbox round col-2">
+                <div class="col-11">
+                    <a href="{% url 'assignment:Test' key.id %}">
+                        <div class="assign-cards test">
+                            <span class="row">
+                                <img src="/static/Images/lesson/test.png" alt="" class="col-12 img">
+                            </span>
+                            <span class="row assign-row-head pl-3 pr-3 pt-1">
+                                <span class="test-text-left col-10">{{key.question.all.count}} Questions</span>
+                                <!-- <span class="checkbox round col-2">
                                 <input type="checkbox" name="" id="">
                             </span> -->
-                        </span>
-                        <span class="row assign-row-foot pl-3 pr-3">
-                            <span class="col-12">{% if key.final %}Final Test{% else %}Practice Test{% endif %}</span>
-                        </span>
-                    </div>
-                    <div class="text-center">
-                        <span class="chapter">{{key.Lesson.Name}}</span>
-                    </div>
-                </a>
+                            </span>
+                            <span class="row assign-row-foot pl-3 pr-3 pb-3">
+                                <span class="col-12">{% if key.final %}Final Test{% else %}Practice
+                                    Test{% endif %}</span>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <span class="chapter">{{key.Lesson.Name}}</span>
+                        </div>
+                    </a>
+                </div>
             </div>
             {% endfor %}
         </div>

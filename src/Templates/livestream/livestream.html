@@ -15,49 +15,42 @@
 
 <div class="content">
     <div class="container-fluid">
-        <div class="row row-1 mb-2">
-            <div class="row row-1-1">
-                <span class="col-12 col-sm-8 col-md-8 col-lg-6 back-text">
-                    <span class="col-12">SCHEDULED</span>
-                    <br>
-                    <span class="col-12">LIVE STREAMING SESSIONS</span>
-                    <br>
-                    <div class="col-12">
-                        <div class="row row-1-2 mb-3">
-                            {% if user.admin %}
-                            <div class="col-6">
-                                <select id="Class" class="form-control drop">
-                                    <option value="" selected disabled>Select Class</option>
-                                    {% for key in Class %}
-                                    <option value="{{key.id}}">{{key.name}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-6 d-none" id="widgets">
-                                <button onclick="prenew();" title="Add New Stream" class="btn edit-add float-right"><i
-                                        class="fas fa-plus-circle"></i></button>
-                                <button id="delete_btn" class="btn edit-add float-right" title="Delete"><i
-                                        class="fas fa-trash"></i></button>
-                                <button id="edit_btn" class="btn edit-add float-right" title="Edit"><i
-                                        class="fas fa-pen-square"></i></button>
-                            </div>
-                            {% else %}
-                            <input type="hidden" id="Class" value="{{Class}}">
-                            {% endif %}
+        <div class="row row-1 pb-2">
+            <span class="col-12 col-sm-8 col-md-12 col-lg-7 back-text">
+                <span class="col-12 pl-3">SCHEDULED</span>
+                <br>
+                <span class="col-12 pl-3">LIVE STREAMING SESSIONS</span>
+                <br>
+                <div class="col-12">
+                    <div class="row row-1-2 mb-3">
+                        {% if user.admin %}
+                        <div class="col-6">
+                            <select id="Class" class="form-control drop">
+                                <option value="" selected disabled>Select Class</option>
+                                {% for key in Class %}
+                                <option value="{{key.id}}">{{key.name}}</option>
+                                {% endfor %}
+                            </select>
                         </div>
+                        <div class="col-6 d-none" id="widgets">
+                            <button onclick="prenew();" title="Add New Stream" class="btn edit-add float-right"><i
+                                    class="fas fa-plus-circle"></i></button>
+                            <button id="delete_btn" class="btn edit-add float-right" title="Delete"><i
+                                    class="fas fa-trash"></i></button>
+                            <button id="edit_btn" class="btn edit-add float-right" title="Edit"><i
+                                    class="fas fa-pen-square"></i></button>
+                        </div>
+                        {% else %}
+                        <input type="hidden" id="Class" value="{{Class}}">
+                        {% endif %}
                     </div>
-                </span>
-                <span class="col-0 col-sm-4 col-md-4 col-lg-6 back-photo">
-                    <img src="/static/Images/lesson/back.png" alt=""
-                        class="rounded float-right col-0 col-sm-12 col-md-12 col-lg-6">
-                </span>
+                </div>
+            </span>
+            <div class="col-5 pt-2">
+                <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo mr-5">
             </div>
         </div>
-
-        <div class="col-12">
-            <div id="body" class="row"></div>
-        </div>
-
+        <div class="row second col-12 mt-5" id="body"></div>
 
         <div class="modal" tabindex="-1" role="dialog" id="add">
             <div class="modal-dialog modal-xl" role="document">
@@ -80,7 +73,7 @@
                             <br>
                             <span><select id="Subject" class="form-control drop"></select></span>
                         </span>
-                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                        <span class="col-12 col-sm-12 col-md-12 col-lg-12 mb-2">
                             <span class="selection">Streaming Link</span>
                             <span><input type="text" id="Stream_link" class="form-control drop"></span>
                         </span>

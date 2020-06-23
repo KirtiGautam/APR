@@ -1,5 +1,5 @@
 .content {
-  padding-top: 8vmin !important;
+  padding-top: 6.7vmin !important;
   margin-left: 250px;
 }
 
@@ -9,6 +9,6 @@
 
 @media screen and (max-width: 800px) {
   .content {
-    padding-top: 10vmin !important;
+    padding-top: 8vmin !important;
   }
 }
