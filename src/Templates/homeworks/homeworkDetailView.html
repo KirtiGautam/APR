@@ -15,12 +15,12 @@
 </div>
 <div class="content">
     <div class="container-fluid">
-        <div class="row first mb-5">
-            <div class="col-6 col-sm-6 col-md-2 col-lg-1">
+        <div class="row first mb-5 mt-3">
+            <div class="col-3 col-sm-3 col-md-2 col-lg-1">
                 <a href="{% url 'homework:homework' %}"><button class="btn back" title="Back"><i
                             class="fas fa-arrow-alt-circle-left"></i></button></a>
             </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-5 subject-name">
+            <div class="col-9 col-sm-9 col-md-6 col-lg-7 subject-name">
                 {{homework.Subject.Name}}
             </div>
         </div>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-10 mb-3">
+            <div class="col-10 mb-3 text-justify">
                 <span class="instruction">Instructions related to homework: </span>
                 <span class="instruct">{{homework.Instructions}}</span>
             </div>
@@ -51,87 +51,94 @@
             {% endif %}
         </div>
 
-        <div class="row mb-5">
+        <div class="row mb-5 col-12">
             {% for key in homework.pdf.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
-                <a href="{{ prefix }}{{key.pdf.file}}" target="_blank">
-                    <div class="homework-cards">
-                        <span class="row">
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
-                        </span>
-                        <span class="row homework-row-head pl-3 pr-3 pt-1">
-                            <span class="text-left col-7 pt-2">PDF</span>
-                            <span class="time col-3 pt-2">2 min</span>
-                            {% if not user.admin %}
-                            <input type="checkbox" onclick="return MARP({{key.id}}, this);"
-                                {% for read in user.read_homework_pdf.all %}{% if read.Pdf.id == key.id %}
-                                onclick="return false;" readonly="readonly" checked {% endif %}{% endfor %}
-                                class="col-1 form-control">
-                            {% else %}
-                            <input type="checkbox" class="pdf_checks col-1 form-control" value="{{key.id}}">
-                            {% endif %}
-                        </span>
-                        <span class="row homework-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12">{{key.pdf.Name}}</span>
-                        </span>
+                <div class="col-11">
+                    <a href="{{ prefix }}{{key.pdf.file}}" target="_blank">
+                        <div class="homework-cards">
+                            <span class="row">
+                                <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
+                            </span>
+                            <span class="row homework-row-head pl-3 pr-3 pt-1">
+                                <span class="text-left col-6 pt-2">PDF</span>
+                                <span class="time col-4 pt-2">2 min</span>
+                                {% if not user.admin %}
+                                <input type="checkbox" onclick="return MARP({{key.id}}, this);"
+                                    {% for read in user.read_homework_pdf.all %}{% if read.Pdf.id == key.id %}
+                                    onclick="return false;" readonly="readonly" checked {% endif %}{% endfor %}
+                                    class="col-1 form-control">
+                                {% else %}
+                                <input type="checkbox" class="pdf_checks col-1 form-control" value="{{key.id}}">
+                                {% endif %}
+                            </span>
+                            <span class="row homework-row-foot pl-3 pr-3 pb-3">
+                                <span class="col-12">{{key.pdf.Name}}</span>
+                            </span>
+                        </div>
+                    </a>
+                    <div class="text-center">
+                        <span class="chapter">{{key.lesson.Name}}</span>
                     </div>
-                </a>
-                <div class="text-center">
-                    <span class="chapter">{{key.lesson.Name}}</span>
                 </div>
             </div>
             {% endfor %}
 
             {% for key in homework.video.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
-                <a href="{% url 'homework:video' key.id %}">
-                    <div class="homework-cards">
-                        <span class="row">
-                            <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-12 img">
-                        </span>
-                        <span class="row homework-row-head pl-3 pr-3 pt-1">
-                            <span class="text-left col-7 pt-2">VIDEO</span>
-                            <span class="time col-3 pt-2">2 min</span>
-                            {% if not user.admin %}
-                            <input type="checkbox" onclick="return false;" readonly="readonly"
-                                {% for watched in user.watched_homework_video.all %}{% if watched.Video.id == key.id %}
-                                checked {% endif %}{% endfor %} class="col-1 form-control">
-                            {% else %}
-                            <input type="checkbox" class="video_checks col-1 form-control" value="{{key.id}}">
-                            {% endif %}
-                        </span>
-                        <span class="row homework-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12">{{key.video.Name}}</span>
-                        </span>
+                <div class="col-11">
+                    <a href="{% url 'homework:video' key.id %}">
+                        <div class="homework-cards">
+                            <span class="row">
+                                <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-12 img">
+                            </span>
+                            <span class="row homework-row-head pl-3 pr-3 pt-1">
+                                <span class="text-left col-6 pt-2">VIDEO</span>
+                                <span class="time col-4 pt-2">2 min</span>
+                                {% if not user.admin %}
+                                <input type="checkbox" onclick="return false;" readonly="readonly"
+                                    {% for watched in user.watched_homework_video.all %}{% if watched.Video.id == key.id %}
+                                    checked {% endif %}{% endfor %} class="col-1 form-control">
+                                {% else %}
+                                <input type="checkbox" class="video_checks col-1 form-control" value="{{key.id}}">
+                                {% endif %}
+                            </span>
+                            <span class="row homework-row-foot pl-3 pr-3 pb-3">
+                                <span class="col-12">{{key.video.Name}}</span>
+                            </span>
+                        </div>
+                    </a>
+                    <div class="text-center">
+                        <span class="chapter">{{key.lesson.Name}}</span>
                     </div>
-                </a>
-                <div class="text-center">
-                    <span class="chapter">{{key.lesson.Name}}</span>
                 </div>
             </div>
             <!-- <a href="{% url 'homework:video' key.id %}">{{key.Name}}</a> -->
             {% endfor %}
             {% for key in homework.homework_Test.all %}
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
-                <a href="{% url 'homework:Test' key.id %}">
-                    <div class="homework-cards test">
-                        <span class="row">
-                            <img src="/static/Images/lesson/test.png" alt="" class="col-12 img">
-                        </span>
-                        <span class="row homework-row-head pl-3 pr-3 pt-1">
-                            <span class="text-left col-10">{{key.question.all.count}} Questions</span>
-                            <!-- <span class="checkbox round col-2">
+                <div class="col-11">
+                    <a href="{% url 'homework:Test' key.id %}">
+                        <div class="homework-cards test">
+                            <span class="row">
+                                <img src="/static/Images/lesson/test.png" alt="" class="col-12 img">
+                            </span>
+                            <span class="row homework-row-head pl-3 pr-3 pt-1">
+                                <span class="test-text-left col-10">{{key.question.all.count}} Questions</span>
+                                <!-- <span class="checkbox round col-2">
                                 <input type="checkbox" name="" id="">
                             </span> -->
-                        </span>
-                        <span class="row homework-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12">{% if key.final %}Final Test{% else %}Practice Test{% endif %}</span>
-                        </span>
-                    </div>
-                    <div class="text-center">
-                        <span class="chapter">{{key.Lesson.Name}}</span>
-                    </div>
-                </a>
+                            </span>
+                            <span class="row homework-row-foot pl-3 pr-3 pb-3">
+                                <span class="col-12">{% if key.final %}Final Test{% else %}Practice
+                                    Test{% endif %}</span>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <span class="chapter">{{key.Lesson.Name}}</span>
+                        </div>
+                    </a>
+                </div>
             </div>
             {% endfor %}
         </div>

@@ -137,7 +137,7 @@
   color: #707070;
 }
 
-.chap-row{
+.chap-row {
   height: 100%;
 }
 
@@ -148,6 +148,23 @@
 
 .no-margin {
   margin-left: 0px !important;
+}
+
+.import {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: calc(3px + 1vmax);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.import:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
 }
 
 @media screen and (max-width: 800px) {

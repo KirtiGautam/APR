@@ -4,60 +4,53 @@
 
 <head>
     <link rel="stylesheet" href="{% static 'css/test.css' %}">
-    <link rel="stylesheet" href="{% static 'css/content.css' %}">
 </head>
 
-<body>
-    
-    <div class="col content">
-        <div class="row">
-            <div class="container-fluid test-name">
-                <div class="row">
-                    <h6 class="col-lg-12 pl-5 text-secondary">{{test.Lesson.Name}}</h6>
-                    <h3 class="col-lg-10 pl-5 text-secondary">{{test.Name}}
-                </div>
-            </div>
-            <div id="timer"></div>
-            <div class="container">
-                <form action="{{url}}" method="post" id="myform">
-                    {% csrf_token %}
-                    <div class="row">
-                        {% for key in test.question.all %}
-                        <input type="hidden" name="{{key.id}}" id="{{key.id}}">
-                        <div class="col-lg-12 mt-5 mcq">
-                            <div class="col-lg-12">
-                                <h6 class="question-text pt-3 pl-3">Question {{ forloop.counter }}</h6>
-                            </div>
-                            <div class="col-lg-12">
-                                <h6 class="mcq-text pl-3 pb-4 border-bottom">{{key.question.Name}}</h6>
-                            </div>
-                            {% for choice in key.question.choice.all %}
-                            <div class="col-lg-12 border-bottom mcq-text mb-2 p-2 option option{{key.id}}"
-                                id="C{{choice.id}}" onclick="set({{key.id}}, this.id);">
-                                <span
-                                    class="col-lg-1 text-center mt-2 ml-2 option-no">{% cycle 'A' 'B' 'C' 'D' %}</span>
-                                <span class="col-lg-11 mt-2">{{choice.Name}}</span>
-                            </div>
-                            {% endfor %}
-                            {% resetcycle %}
-                        </div>
-                        {% endfor %}
-                        {% if not request.user.admin %}
-                        <div class="col-lg-12 mt-4">
-                            <center>
-                                <input class="text-center text-light btn btn-lg mb-5 subtn" type="Submit"
-                                    value="Submit Quiz">
-                            </center>
-                        </div>
-                        {% endif %}
-                    </div>
-                </form>
-            </div>
+<div class="container-fluid">
+    <div class="jumbotron test-name">
+        <div class="container">
+            <h6 class="col-lg-12 text-secondary">{{test.Lesson.Name}}</h6>
+            <h3 class="col-lg-10 text-secondary">{{test.Name}}</h3>
         </div>
     </div>
-
-
-</body>
+    <div class="row">
+        <div id="timer"></div>
+        <div class="container-fluid">
+            <form action="{{url}}" method="post" id="myform">
+                {% csrf_token %}
+                <div class="row">
+                    {% for key in test.question.all %}
+                    <input type="hidden" name="{{key.id}}" id="{{key.id}}">
+                    <div class="col-lg-12 mt-5 mcq">
+                        <div class="col-lg-12">
+                            <h6 class="question-text pt-3 pl-3">Question {{ forloop.counter }}</h6>
+                        </div>
+                        <div class="col-lg-12">
+                            <h6 class="mcq-text pl-3 pb-4 border-bottom">{{key.question.Name}}</h6>
+                        </div>
+                        {% for choice in key.question.choice.all %}
+                        <div class="col-lg-12 border-bottom mcq-text mb-2 p-2 option option{{key.id}}"
+                            id="C{{choice.id}}" onclick="set({{key.id}}, this.id);">
+                            <span class="col-lg-1 text-center mt-2 ml-2 option-no">{% cycle 'A' 'B' 'C' 'D' %}</span>
+                            <span class="col-lg-11 mt-2">{{choice.Name}}</span>
+                        </div>
+                        {% endfor %}
+                        {% resetcycle %}
+                    </div>
+                    {% endfor %}
+                    {% if not request.user.admin %}
+                    <div class="col-lg-12 mt-4">
+                        <center>
+                            <input class="text-center text-light btn btn-lg mb-5 subtn" type="Submit"
+                                value="Submit Quiz">
+                        </center>
+                    </div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script src="{% static 'js/test/test.js' %}"></script>
 
 {% if not user.admin %}
