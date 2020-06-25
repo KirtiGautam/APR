@@ -86,7 +86,7 @@ def uploadStudents(request):
             print(html_message)
         student.user.email_user(
             subject=' Welcome to the Digital Classes - Akshara International School',
-            from_email=request.user.email,
+            from_email='Akshara <noreply@akshara.ubiqe.in>',
             message=strip_tags(html_message),
             html_message=html_message,
             connection=connection,
@@ -325,7 +325,7 @@ def newStudent(request):
             'mails/new-Student.html', context={'student': student, 'password': password, 'host': host}, request=request)
         student.user.email_user(
             subject=' Welcome to the Digital Classes - Akshara International School',
-            from_email=request.user.email,
+            from_email='Akshara <noreply@akshara.ubiqe.in>',
             message=strip_tags(html_message),
             html_message=html_message,
             fail_silently=True)

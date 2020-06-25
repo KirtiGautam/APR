@@ -41,19 +41,19 @@
         }
 
         .bg-head {
+            padding: 20px 20px 20px 20px;
             background-color: #8B82B6;
             color: #FFFFFF;
         }
 
-        .mb-2{
+        .mb-2 {
             margin-bottom: 1%;
         }
-
     </style>
 </head>
 
 <body>
-    <!-- <img src="D:\Workspace\APR\src\Static\Images\logo\Logo.png" alt="Scholarise Logo"> -->
+    <!-- <img src="{% static 'Images/logo/Logo.png' %}" alt="Scholarise Logo"> -->
     <h1 class="text-center bg-head p-1">Akshara International School</h1>
     <div class="mb-2">{{student.user.get_full_name}},</div>
     <div class="text-justify mb-3">
@@ -74,10 +74,10 @@
     <div class="mb-2">Sincerely,</div>
     <div class="mb-3">Akshara International School</div>
     <small class="text-center">
-        <div class="bg-box p-1">This is a system generated email, please do not reply to this email.</div>
-        <div class="bg-box p-1">For further queries mail to <a
+        <div class="bg-box">This is a system generated email, please do not reply to this email.</div>
+        <div class="bg-box">For further queries mail to <a
                 href="mailto:admin@aksharavijayawada.in">admin@aksharavijayawada.in</a></div>
-        <div class="bg-box p-1">&#169; 2020 | Akshara International School | All Rights Reserved</div>
+        <div class="bg-box">&#169; 2020 | Akshara International School | All Rights Reserved</div>
     </small>
     </div>
 
