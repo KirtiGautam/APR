@@ -59,7 +59,7 @@
             </span>
             <span class="col-12">
                 <div class="table-responsive-sm contain">
-                    <table id='Students' class="table table-hover table-sm w-auto">
+                    <table id='Students' class="table table-hover table-sm w-auto text-center">
                         <thead class="thead-light">
                             <tr>
                                 <th></th>
@@ -83,18 +83,18 @@
         </div>
     </div>
     <div class="modal" tabindex="-1" role="dialog" id="student_data_upload">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Import Student Data</h5>
+                    <div class="modal-title ansi">Import Student Data</div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body row">
-                    <button class="btn col-lg-6"><i class="fa fa-download"></i> <a
-                            href="{% static 'files/Students.xlsx' %}" >Download Template</a></button>
-                    <input type="file" class="col-lg-6" id="file">
+                <div class="modal-body">
+                    <button class="btn float-right buttons"><i class="fa fa-download"></i> <a
+                            href="{% static 'files/Students.xlsx' %}" class="text-secondary" >Download Template</a></button>
+                    <input type="file" class="mt-5 form-control-file" id="file">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn import" id="upload_btn">Import</button>
