@@ -4,56 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akshara International School</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
     <style>
-        .user-pass-box {
-            background-color: #F5F8FA;
-            width: max-content;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #15202B;
+            line-height: 40px;
         }
 
-        .foot {
-            background-color: #F5F8FA;
-            width: max-content;
+        .text-justify {
+            text-align: justify;
+            justify-content: space-evenly;
         }
+
+        li {
+            list-style: none;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .p-1 {
+            padding: 0.5%;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5%;
+        }
+
+        .bg-box {
+            background-color: #F5F8FA;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .bg-head {
+            background-color: #8B82B6;
+            color: #FFFFFF;
+        }
+
+        .mb-2{
+            margin-bottom: 1%;
+        }
+
     </style>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="h5 text-center">Akshara International School</div>
-        <div>Dear Student,</div>
-        <div class="text-justify">
-            You have been successfully enrolled to the Digital Classes of Akshara International School.
-            Please visit <a href="{{host}}">{{host}}</a> to access your account using
-            below given login credentials.
-        </div>
-
-
-        <ul class="list-unstyled user-pass-box p-2">
-            <li><span class="font-weight-bold">Username:</span> {{student.user.get_full_name}}</li>
-            <li><span class="font-weight-bold">Password:</span> {{password}}</li>
-        </ul>
-
-
-        <div class="text-justify">Kindly select the <span class="font-weight-bold">Account Type</span> as "<span
-                class="font-weight-bold">Student</span>" which is available on the top of the page.</div>
-
-        <div class="text-justify mb-3">Detailed instructions on how to use the platform can be seen here <a
-                href="https://vimeo.com/431856007/1c859f7760">https://vimeo.com/431856007/1c859f7760</a></div>
-        <div>Happy Learning!</div>
-        <div>Sincerely,</div>
-        <div>Akshara International School</div>
-        <small class="col-12 text-center">
-            <div class="row">
-                <span class="col-12 foot">This is a system generated email, please do not reply to this email.</span>
-                <span class="col-12 foot">For further queries mail to <a
-                        href="mailto:admin@aksharavijayawada.in">admin@aksharavijayawada.in</a></span>
-                <span class="col-12 foot">&#169; 2020 | Akshara International School | All Rights Reserved</span>
-            </div>
-        </small>
+    <!-- <img src="D:\Workspace\APR\src\Static\Images\logo\Logo.png" alt="Scholarise Logo"> -->
+    <h1 class="text-center bg-head p-1">Akshara International School</h1>
+    <div class="mb-2">{{student.user.get_full_name}},</div>
+    <div class="text-justify mb-3">
+        You have been successfully enrolled to the Digital Classes of Akshara International School.
+        Please visit <a href="{{host}}">{{host}}</a> to access your account using
+        below given login credentials.
     </div>
+    <ul class="bg-box mb-3">
+        <li class="p-1"><span class="font-weight-bold">Username:</span> {{student.user.email}}</li>
+        <li class="p-1"><span class="font-weight-bold">Password:</span> {{password}}</li>
+    </ul>
+    <div class="text-justify mb-2">Kindly select the <span class="font-weight-bold">Account Type</span> as "<span
+            class="font-weight-bold">Student</span>" which is available on the top of the page.</div>
+
+    <div class="text-justify mb-3">Detailed instructions on how to use the platform can be seen here <a
+            href="https://vimeo.com/431856007/1c859f7760">https://vimeo.com/431856007/1c859f7760</a></div>
+    <div class="mb-2">Happy Learning!</div>
+    <div class="mb-2">Sincerely,</div>
+    <div class="mb-3">Akshara International School</div>
+    <small class="text-center">
+        <div class="bg-box p-1">This is a system generated email, please do not reply to this email.</div>
+        <div class="bg-box p-1">For further queries mail to <a
+                href="mailto:admin@aksharavijayawada.in">admin@aksharavijayawada.in</a></div>
+        <div class="bg-box p-1">&#169; 2020 | Akshara International School | All Rights Reserved</div>
+    </small>
+    </div>
+
 </body>
 
 </html>
