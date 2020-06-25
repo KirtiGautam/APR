@@ -160,8 +160,10 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <input type="file" id="file">
+                        <div class="modal-body row">
+                            <button class="btn col-lg-6"><i class="fa fa-download"></i> <a
+                                href="{% static 'files/MCQ.xlsx' %}" >Download Template</a></button>
+                            <input type="file col-lg-6" id="file">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn import" id="upload_btn">Upload</button>

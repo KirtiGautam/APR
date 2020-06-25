@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
 from accounts.models import User, Class, Student
 from lessons.models import Lesson, Subject
 from django import http
+from django.utils.html import strip_tags
 from django.db.models import Q
+from django.core import mail
 import json
+import random
+import string
 from datetime import datetime, timedelta
 
 
@@ -42,6 +47,9 @@ def updateChapterDetails(request):
 
 def uploadStudents(request):
     if request.user.is_authenticated and request.user.admin:
+        host = request.build_absolute_uri('/login')
+        connection = mail.get_connection()
+        connection.open()
         for x in json.loads(request.POST['file']):
             cla = Class.objects.get(name=x['Class'])
             ordinal = x['dob']
@@ -51,14 +59,17 @@ def uploadStudents(request):
             inDays = int(ordinal)
             frac = ordinal - inDays
             inSecs = int(round(frac * 86400.0))
+            password_characters = string.ascii_letters + string.digits + string.punctuation
+            password = ''.join(random.choice(password_characters)
+                               for i in range(random.randint(8, 12)))
             user = User.objects.create_user(
                 email=x['email'],
-                password=x['email'],
+                password=password,
                 first_name=x['First Name'],
                 last_name=x['Last Name'],
                 user_type='Student'
             )
-            Student.objects.create(
+            student = Student.objects.create(
                 user=user,
                 gender=x['gender'],
                 Contact=x['Contact'],
@@ -70,6 +81,17 @@ def uploadStudents(request):
                 Pincode=x['Pincode'],
                 Class=cla
             )
+            html_message = render_to_string(
+                'mails/new-Student.html', context={'student': student, 'password': password, 'host': host}, request=request)
+            print(html_message)
+        student.user.email_user(
+            subject=' Welcome to the Digital Classes - Akshara International School',
+            from_email=request.user.email,
+            message=strip_tags(html_message),
+            html_message=html_message,
+            connection=connection,
+            fail_silently=True
+        )
         data = {
             'message': 'File uploaded'
         }
@@ -276,14 +298,18 @@ def getStaff(request):
 
 def newStudent(request):
     if request.user.is_authenticated and request.user.admin:
+        host = request.build_absolute_uri('/login')
+        password_characters = string.ascii_letters + string.digits + string.punctuation
+        password = ''.join(random.choice(password_characters)
+                           for i in range(random.randint(8, 12)))
         user = User.objects.create_user(
             email=request.POST['email'],
-            password=request.POST['email'],
+            password=password,
             first_name=request.POST['first_name'],
             last_name=request.POST['last_name'],
             user_type='Student'
         )
-        stuent = Student.objects.create(
+        student = Student.objects.create(
             user=user,
             gender=request.POST['gender'],
             Contact=request.POST['Contact'],
@@ -295,6 +321,14 @@ def newStudent(request):
             Pincode=request.POST['Pincode'],
             Class=Class.objects.get(id=request.POST['Class'])
         )
+        html_message = render_to_string(
+            'mails/new-Student.html', context={'student': student, 'password': password, 'host': host}, request=request)
+        student.user.email_user(
+            subject=' Welcome to the Digital Classes - Akshara International School',
+            from_email=request.user.email,
+            message=strip_tags(html_message),
+            html_message=html_message,
+            fail_silently=True)
         data = {
             'message': 'User Added'
         }

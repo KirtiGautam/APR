@@ -91,11 +91,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <input type="file" id="file">
+                <div class="modal-body row">
+                    <button class="btn col-lg-6"><i class="fa fa-download"></i> <a
+                            href="{% static 'files/Students.xlsx' %}" >Download Template</a></button>
+                    <input type="file" class="col-lg-6" id="file">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn import" id="upload_btn">Import</button>
+                    <button type="button" class="btn import d-none" id="wait_btn">Uploading data Please wait...</button>
                 </div>
             </div>
         </div>
@@ -186,10 +189,16 @@
                         <br>
                         <span><input type="text" id="Pincode" class="form-control inp "></span>
                     </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 d-none" id="ask_mail">
+                        <span class="selection ">Send mail?</span>
+                        <br>
+                        <span><input type="checkbox" id="mail_send" class="form-control inp "></span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn save " id="ANS">Save</button>
                     <button class="btn save " id="US">Save</button>
+                    <button class="btn save d-none" id="add_wait_btn">Please wait...</button>
                 </div>
             </div>
         </div>
@@ -202,4 +211,3 @@
 <script src="{% static 'js/PapaParse.js' %}"></script>
 
 {% endblock %}
-

@@ -111,6 +111,7 @@ $(document).ready(function () {
         $('.Class').val('')
         $('#dob').val('')
         $('#Contact').val('')
+        $('#ask_mail').addClass('d-none')
         $('#add').modal('show');
     });
 
@@ -132,6 +133,8 @@ $(document).ready(function () {
             alert('Please fill all necessary values');
             return;
         }
+        $('#ANS').addClass('d-none');
+        $('#add_wait_btn').removeClass('d-none');
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
@@ -153,9 +156,25 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 alert(data.message);
+                $('#ANS').removeClass('d-none');
+                $('#add_wait_btn').addClass('d-none');
+                $('#first_name').val('')
+                $('#last_name').val('')
+                $('#gender').val('')
+                $('#email').val('')
+                $('#Address').val('')
+                $('#City').val('')
+                $('#District').val('')
+                $('#State').val('')
+                $('#Pincode').val('')
+                $('.Class').val('')
+                $('#dob').val('')
+                $('#Contact').val('')
                 getStudents();
             }, error: function (error) {
                 alert(error.responseText);
+                $('#ANS').removeClass('d-none');
+                $('#wait_btn').addClass('d-none');
             }
         });
     });
@@ -179,6 +198,8 @@ $(document).ready(function () {
             alert('Please fill all necessary values');
             return;
         }
+        $('#US').addClass('d-none');
+        $('#add_wait_btn').removeClass('d-none');
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
@@ -201,6 +222,8 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 alert(data.message);
+                $('#US').removeClass('d-none');
+                $('#add_wait_btn').addClass('d-none');
                 getStudents();
             }, error: function (error) {
                 alert(error.responseText);
@@ -264,9 +287,10 @@ $(document).ready(function () {
 
                     var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
                     var json_object = JSON.stringify(XL_row_object);
-                    console.log(json_object);
                     json_data = json_object;
                 })
+                $('#upload_btn').addClass('d-none');
+                $('#wait_btn').removeClass('d-none');
                 $.ajax({
                     type: "POST",
                     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
@@ -277,11 +301,14 @@ $(document).ready(function () {
                     },
                     dataType: 'json',
                     success: function (data) {
-                        console.log(data)
                         $('#file').val('');
                         alert(data.message)
+                        $('#upload_btn').removeClass('d-none');
+                        $('#wait_btn').addClass('d-none');
+                        getStudents();
                     }, error: function (error) {
                         alert(error.responseText);
+                        $('#upload_btn').removeClass('d-none');
                     }
                 });
             };

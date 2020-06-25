@@ -26,13 +26,13 @@
         <div>Dear Student,</div>
         <div class="text-justify">
             You have been successfully enrolled to the Digital Classes of Akshara International School.
-            Please visit <a href="https://akshara.ubiqe.in/">https://akshara.ubiqe.in/</a> to access your account using
+            Please visit <a href="{{host}}">{{host}}</a> to access your account using
             below given login credentials.
         </div>
 
 
         <ul class="list-unstyled user-pass-box p-2">
-            <li><span class="font-weight-bold">Username:</span> {{username}}</li>
+            <li><span class="font-weight-bold">Username:</span> {{student.user.get_full_name}}</li>
             <li><span class="font-weight-bold">Password:</span> {{password}}</li>
         </ul>
 
