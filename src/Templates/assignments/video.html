@@ -93,7 +93,7 @@
     {% for vid in video.assignment.video.all %}
     thumbarr.push({
         id: "#thumb{{vid.id}}",
-        link: "{% if video.video.Local %}{{prefix}}{% endif %}{{vid.video.file}}",
+        link: "{% if video.video.Local %}{% get_media_prefix %}{% endif %}{{vid.video.file}}",
     })
     {% endfor %}
     generateThumbs(thumbarr);

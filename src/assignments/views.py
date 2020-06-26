@@ -279,21 +279,32 @@ def updateDetails(request):
 
 def studentStats(request):
     if request.user.is_authenticated and request.user.admin:
+        labels = []
+        datac = []
         assign = assignment.objects.get(id=request.GET['id'])
         dat = []
+        Total = sum([assign.pdf.all().count(), assign.video.all().count()])
         for x in assign.Subject.Class.Students.all():
             watched = x.user.watched_assignment_video.all().count()
             read = x.user.read_assignment_pdf.all().count()
+            total = watched+read
+            labels.append(x.user.get_full_name())
+            datac.append(math.floor((total/Total if Total > 0 else 1)*100))
             dat.append({
                 'Name': x.user.get_full_name(),
                 'Completed_videos': watched,
                 'Completed_pdfs': read,
-                'Total': watched+read,
+                'Total': total,
+                'percentage': math.floor((total/Total if Total > 0 else 1)*100)
             })
         data = {
             'assignment': assign,
             'students': dat,
-            'Total': sum([assign.pdf.all().count(), assign.video.all().count()])
+            'Total': Total,
+            'Pdf': assign.pdf.all().count(),
+            'Video': assign.video.all().count(),
+            'labels': labels,
+            'data': datac
         }
         return render(request, 'assignments/studentStats.html', data)
     return redirect('accounts:login')

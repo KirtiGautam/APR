@@ -17,12 +17,12 @@
         <div class="row first mb-5 mt-3">
             <div class="col-3 col-sm-3 col-md-2 col-lg-1">
                 <div class="col-12">
-                    <a href=""><button class="btn back" title="Back"><i
+                    <a href="{% url 'assignment:assignmentDetails' assignment.id %}"><button class="btn back" title="Back"><i
                                 class="fas fa-arrow-alt-circle-left"></i></button></a>
                 </div>
             </div>
             <div class="col-9 col-sm-9 col-md-6 col-lg-7 subject-name">
-                {{assign.Name}}
+                {{assignment.Name}}
             </div>
         </div>
         <div class="table-responsive contain">
@@ -41,32 +41,71 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for key in students %}
                     <tr class="tr">
-                        <td>1</td>
-                        <td>Riya</td>
-                        <td>30</td>
-                        <td>100</td>
-                        <td>30</td>
-                        <td>100</td>
-                        <td>60</td>
-                        <td>100</td>
-                        <td class="pending"></td>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{key.Name}}</td>
+                        <td>{{key.Completed_videos}}</td>
+                        <td>{% widthratio key.Completed_videos Video 1 %}</td>
+                        <td>{{key.Completed_pdfs}}</td>
+                        <td>{% widthratio key.Completed_pdfs Pdf 1 %}</td>
+                        <td>{{key.Total}}</td>
+                        <td>{{key.percentage}}%</td>
+                        <td class="{% if key.percentage  == 100 %}done{% else %}pending{% endif %}"></td>
                     </tr>
-                    <tr class="tr">
-                        <td>1</td>
-                        <td>Riya</td>
-                        <td>30</td>
-                        <td>100</td>
-                        <td>30</td>
-                        <td>100</td>
-                        <td>60</td>
-                        <td>100</td>
-                        <td class="done"></td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
+        <div style="max-width: 200px; max-height: 200px;">
+            <canvas id="myChart" width="200px" height="200px"></canvas>
+        </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    let labels = []; {% for label in labels %} labels.push('{{ label }}'){% endfor %}
+    let data = []; {% for dat in data %} data.push('{{ dat }}'){% endfor %}
+    var myChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Percentage',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1,
+                barThickness: 10,
+                maxBarThickness: 15,
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        suggestedMax: 100
+                    }
+                }]
+            }
+        }
+    });
+</script>
 
 {% endblock %}
