@@ -12,7 +12,7 @@ body {
   font-size: calc(10px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 0px;
-  color: #376baa !important;
+  color: #376baa;
   margin-top: 30px !important;
 }
 
@@ -24,9 +24,9 @@ body {
   font-weight: bold;
   font-size: calc(10px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #376baa !important;
-  border-radius: 5px !important;
-  border: 1px solid #b3b6b8 !important;
+  color: #376baa;
+  border-radius: 5px;
+  border: 1px solid #b3b6b8;
   box-sizing: border-box;
   margin-left: 25px !important;
   margin-right: 15px !important;
@@ -38,9 +38,7 @@ body {
   position: fixed;
   font-family: Arial, Helvetica, sans-serif;
   font-size: calc(3px + 2vmin);
-  letter-spacing: 0px;
   color: #626262;
-  text-align: center !important;
   margin-left: 10px !important;
   padding-bottom: 10px !important;
 }
@@ -48,8 +46,8 @@ body {
 .account {
   font-size: calc(10px + 2vmin);
   font-weight: bold;
-  letter-spacing: 0px;
-  color: #376baa !important;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
   margin-top: 110px !important;
   margin-left: 10px !important;
   margin-right: 10px !important;
@@ -61,25 +59,25 @@ body {
   margin-right: 10px !important;
   font-size: calc(10px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #626262 !important;
+  color: #626262;
 }
 
 .form-group .form-control {
-  font-size: calc(12px + 1vmin);
-  border: 1px solid #b3b6b8 !important;
+  font-size: calc(11px + 1vmin);
+  border: 1px solid #b3b6b8;
   border-radius: 0%;
+  font-family: Arial, Helvetica, sans-serif;
   margin-top: 10px !important;
   padding: 10px !important;
 }
 
 .login {
   margin-top: 25px !important;
-  padding: 10px !important;
-  background: #8b82b6 0% 0% no-repeat padding-box !important;
-  /* font-weight: 900; */
+  padding: 8px !important;
+  background: #8b82b6 0% 0% no-repeat padding-box;
   font-size: calc(10px + 1vmin);
   font-family: Arial, Helvetica, sans-serif;
-  color: #ffffff !important;
+  color: #ffffff;
   border-radius: 0px !important;
   margin-bottom: 50px !important;
 }
@@ -103,17 +101,18 @@ img {
 }
 
 .right {
+  font-family: Arial, Helvetica, sans-serif;
   display: flex;
   float: right;
   color: #376baa;
-  text-align: right !important;
+  text-align: right;
 }
 
 .right:hover {
   cursor: pointer;
   text-decoration: underline;
   color: #003c75;
-  text-align: right !important;
+  text-align: right;
 }
 
 .right:active {
@@ -121,7 +120,7 @@ img {
 }
 
 .login:hover {
-  background-color: #6d6597 !important;
+  background-color: #6d6597;
   transition: 0.3s;
 }
 
@@ -133,7 +132,7 @@ img {
 
 @media screen and (max-width: 480px) {
   .input-group {
-    text-align: center !important;
+    text-align: center;
   }
   .account {
     margin-top: 60px !important;
