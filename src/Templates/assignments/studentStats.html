@@ -2,29 +2,71 @@
 {% load static %}
 {% block content %}
 
-<table>
-    <thead>
-        <tr>
-            <th>S.No.</th>
-            <th>Name</th>
-            <th>Videos</th>
-            <th>PDFS</th>
-            <th>Total</th>
-            <th>Percentage</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{key.Name}}</td>
-            <td>{{key.Completed_videos}}</td>
-            <td>{{key.Completed_pdfs}}</td>
-            <td>{{key.Total}}</td>
-            <td>{% widthratio key.Total Total 1 %}</td>
-            <td>{{key.Name}}</td>
-        </tr>
-    </tbody>
-</table>
+<head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+    <link rel="stylesheet" href="{% static 'css/studentStats.css' %}">
+</head>
+
+{% include "common/header.html" %}
+<div class="col-10 col-sm-4 col-md-3 col-lg-2 float-left left">
+    {% include "home/leftside.html" %}
+</div>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row first mb-5 mt-3">
+            <div class="col-3 col-sm-3 col-md-2 col-lg-1">
+                <div class="col-12">
+                    <a href=""><button class="btn back" title="Back"><i
+                                class="fas fa-arrow-alt-circle-left"></i></button></a>
+                </div>
+            </div>
+            <div class="col-9 col-sm-9 col-md-6 col-lg-7 subject-name">
+                {{assign.Name}}
+            </div>
+        </div>
+        <div class="table-responsive contain">
+            <table class="table table-hover table-sm table-borderless text-center">
+                <thead class="thead">
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Name</th>
+                        <th>Videos Completed</th>
+                        <th>Videos Completed %</th>
+                        <th>PDFs Completed</th>
+                        <th>PDFs Completed %</th>
+                        <th>Total Completed</th>
+                        <th>Total Completed %</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="tr">
+                        <td>1</td>
+                        <td>Riya</td>
+                        <td>30</td>
+                        <td>100</td>
+                        <td>30</td>
+                        <td>100</td>
+                        <td>60</td>
+                        <td>100</td>
+                        <td class="pending"></td>
+                    </tr>
+                    <tr class="tr">
+                        <td>1</td>
+                        <td>Riya</td>
+                        <td>30</td>
+                        <td>100</td>
+                        <td>30</td>
+                        <td>100</td>
+                        <td>60</td>
+                        <td>100</td>
+                        <td class="done"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

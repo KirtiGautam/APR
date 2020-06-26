@@ -1,0 +1,69 @@
+.first {
+  border-bottom: 1px solid #e3e0f3;
+}
+
+th {
+  position: sticky;
+  top: 0;
+}
+
+.tr{
+    border-bottom: 0.5px solid #B3B6B8;
+    border-radius: 0%;
+}
+
+tr:hover {
+  cursor: pointer;
+}
+
+.table {
+  position: relative;
+  table-layout: auto;
+  width: 100% !important;
+}
+
+.contain {
+  width: 100%;
+  min-height: max-content;
+  max-height: 550px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.thead {
+  border-bottom: 1px solid #376baa !important;
+  border-radius: 0%;
+  color: #376baa;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(3px + 1vmax);
+}
+
+td {
+  font-size: calc(2px + 1vmax);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.done {
+  background: #06a710 0% 0% no-repeat padding-box;
+  border: 0.5px solid #b3b6b8;
+  border-radius: 5px;
+}
+
+.done::before {
+  content: "Done";
+  color: #ffffff;
+  font-size: calc(1px + 1vmax);
+}
+
+.pending {
+  background: #d93636 0% 0% no-repeat padding-box;
+  border: 0.5px solid #b3b6b8;
+  border-radius: 5px;
+}
+
+.pending::before {
+  content: "Pending";
+  color: #ffffff;
+  font-size: calc(1px + 1vmax);
+}
