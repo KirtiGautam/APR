@@ -60,6 +60,10 @@ def assignments(request):
             data = {
                 'classes': Class.objects.all().values('id', 'name')
             }
+        elif request.user.is_staff:
+            data = {
+                'Classes'
+            }
         else:
             data = {
                 'class': request.user.Student.Class.id

@@ -14,6 +14,10 @@ $(document).ready(function () {
     }
   });
 
+  $("#past_btn").click(function () {
+    $('#past_assign').toggleClass('d-none');
+  })
+
   $("#upload_btn").click(function () {
     let data = {
       subject: $("#subjects").val(),

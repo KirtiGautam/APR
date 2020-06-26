@@ -43,12 +43,13 @@
         {% if request.user.admin %}
         {% include 'assignments/newAssignment.html' %}
         {% endif %}
-        <!-- <div class="container-fluid">
+        <div class="container-fluid">
             <div class="row third mt-5 p-3">
-                <span class="past">Past Assignments - </span>
-                <a href="#" class="click-link ml-3">Click to see past assignments</a>
+                <button class=" btn click-link ml-3" id="past_btn"><span class="past">Past Assignments - </span>Click to
+                    see past assignments</button>
             </div>
-        </div> -->
+            <div id="past_assign" class="d-none">Add cards here</div>
+        </div>
     </div>
 </div>
 <script src="{% static 'js/assignments/assignments.js' %}"></script>
