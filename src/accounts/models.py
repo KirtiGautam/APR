@@ -109,7 +109,7 @@ class Student(models.Model):
     District = models.CharField(max_length=255)
     Pincode = models.PositiveIntegerField()
     Contact = models.CharField(max_length=15)
-    Class = models.ForeignKey(Class, on_delete=models.CASCADE)
+    Class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='Students')
 
     def __str__(self):
         return self.user.__str__

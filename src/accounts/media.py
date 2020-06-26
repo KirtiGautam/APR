@@ -170,7 +170,8 @@ def upload(request):
             pdf.objects.create(
                 Name=request.POST['Name'], Description=request.POST['description'], file=name)
             data = {
-                'url': fs.url(name)
+                'url': fs.url(name),
+                'message': 'Data uploaded'
             }
         elif request.POST['dataType'] == 'video':
             if request.POST['videoType'] == 'local':
@@ -189,6 +190,7 @@ def upload(request):
                 data = {
                     'url': file
                 }
+            data['message'] = 'Data uploaded'
         else:
             data = {
                 'message': 'Undefined Media type uploaded'

@@ -6,7 +6,6 @@ $(document).ready(function () {
 
   $("#class").change(function () {
     getAssignments();
-    getSubjects();
     if (this.value == "") {
       $(".add-assign").addClass("d-none");
     } else {
@@ -43,16 +42,41 @@ $(document).ready(function () {
 
 });
 
-function getAssignments() {
+// function getAssignments() {
+//   $.ajax({
+//     type: "GET",
+//     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+//     url: "/get-assignments",
+//     data: {
+//       id: $("#class").val(),
+//       time: 'present'
+//     },
+//     dataType: "json",
+//     success: function (data) {
+//       if (data.body == "") {
+//         $("#body").html("<h5 class='m-5 text-center'>No assignments</h5>");
+//       } else {
+//         $("#body").html(data.body);
+//       }
+//     },
+//     error: function (error) {
+//       alert(error.responseText);
+//     },
+//   });
+// }
+
+const getAssignments = () => {
   $.ajax({
-    type: "POST",
+    type: "GET",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
     url: "/get-assignments",
     data: {
       id: $("#class").val(),
+      time: 'present'
     },
     dataType: "json",
     success: function (data) {
+      pastAssignments();
       if (data.body == "") {
         $("#body").html("<h5 class='m-5 text-center'>No assignments</h5>");
       } else {
@@ -65,7 +89,31 @@ function getAssignments() {
   });
 }
 
-function getSubjects() {
+const pastAssignments = () => {
+  $.ajax({
+    type: "GET",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/get-assignments",
+    data: {
+      id: $("#class").val(),
+      time: 'past'
+    },
+    dataType: "json",
+    success: function (data) {
+      getSubjects();
+      if (data.body == "") {
+        $("#past_assign").html("<h5 class='m-5 text-center'>No past assignments</h5>");
+      } else {
+        $("#past_assign").html(data.body);
+      }
+    },
+    error: function (error) {
+      alert(error.responseText);
+    },
+  });
+}
+
+const getSubjects = () => {
   $.ajax({
     type: "POST",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },

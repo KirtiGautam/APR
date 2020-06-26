@@ -76,24 +76,41 @@ def assignments(request):
 def getAssignments(request):
     if request.user.is_authenticated:
         deads = []
-        for x in assignment.objects.filter(
-                Subject__Class=request.POST['id'], Deadline__gt=timezone.localtime()):
-            diff = x.Deadline-timezone.localtime()
-            user_watched = request.user.watched_assignment_video.filter(
-                Video__in=x.video.all()).count()
-            user_read = request.user.read_assignment_pdf.filter(
-                Pdf__in=x.pdf.all()).count()
-            total_pdf = x.pdf.all().count()
-            total_video = x.video.all().count()
-            deads.append({
-                'assi': x,
-                'days': diff.days,
-                'hours': diff.seconds//3600,
-                'minutes': (diff.seconds//60) % 60,
-                'progress': math.floor((sum([user_read, user_watched])/sum([total_pdf, total_video]) if sum([total_pdf, total_video]) > 0 else 1)*100),
-            })
+        if request.GET['time'] == 'present':
+            present = True
+            for x in assignment.objects.filter(
+                    Subject__Class=request.GET['id'], Deadline__gt=timezone.localtime()):
+                diff = x.Deadline-timezone.localtime()
+                user_watched = request.user.watched_assignment_video.filter(
+                    Video__in=x.video.all()).count()
+                user_read = request.user.read_assignment_pdf.filter(
+                    Pdf__in=x.pdf.all()).count()
+                total_pdf = x.pdf.all().count()
+                total_video = x.video.all().count()
+                deads.append({
+                    'assi': x,
+                    'days': diff.days,
+                    'hours': diff.seconds//3600,
+                    'minutes': (diff.seconds//60) % 60,
+                    'progress': math.floor((sum([user_read, user_watched])/sum([total_pdf, total_video]) if sum([total_pdf, total_video]) > 0 else 1)*100),
+                })
+        else:
+            present = False
+            for x in assignment.objects.filter(
+                    Subject__Class=request.GET['id'], Deadline__lt=timezone.localtime()):
+                user_watched = request.user.watched_assignment_video.filter(
+                    Video__in=x.video.all()).count()
+                user_read = request.user.read_assignment_pdf.filter(
+                    Pdf__in=x.pdf.all()).count()
+                total_pdf = x.pdf.all().count()
+                total_video = x.video.all().count()
+                deads.append({
+                    'assi': x,
+                    'progress': math.floor((sum([user_read, user_watched])/sum([total_pdf, total_video]) if sum([total_pdf, total_video]) > 0 else 1)*100),
+                })
         data = {
             'assignments': deads,
+            'present': present
         }
         client = {
             'body':  render_to_string('assignments/assignments.html', context=data, request=request),
@@ -109,13 +126,14 @@ def assignmentDetail(request, id):
             assign = assignment.objects.get(id=id)
         except assignment.DoesNotExist:
             return http.HttpResponseNotFound({'message': 'Not found'})
+        data = {
+            'assign': assign,
+        }
         if assign.Deadline > datetime.datetime.now(datetime.timezone.utc):
-            data = {
-                'assign': assign,
-            }
-            return render(request, 'assignments/assignmentDetailView.html', data)
+            data['present'] = True
         else:
-            return redirect('assignment:assignments')
+            data['present'] = False
+        return render(request, 'assignments/assignmentDetailView.html', data)
     else:
         return redirect('accounts:login')
 
@@ -175,32 +193,48 @@ def addresource(request):
 
 def video_watched(request):
     if request.user.is_authenticated:
-        progress, created = user_progress_video.objects.get_or_create(
-            User=request.user, Video=Video.objects.get(id=request.POST['id']))
-        if created:
+        vid = Video.objects.get(id=request.POST['id'])
+        if vid.assignment.Deadline < datetime.datetime.now(datetime.timezone.utc):
             data = {
-                'message': 'Video marked as watched successfully!'
+                'message': 'Cannot submit after deadline',
+                'success': False,
             }
         else:
-            data = {
-                'message': 'Video already watched'
-            }
+            progress, created = user_progress_video.objects.get_or_create(
+                User=request.user, Video=vid)
+            if created:
+                data = {
+                    'message': 'Video marked as watched successfully!',
+                }
+            else:
+                data = {
+                    'message': 'Vido already watched',
+                }
+            data['success'] = True
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
 
 
 def pdf_read(request):
     if request.user.is_authenticated:
-        progress, created = user_progress_pdf.objects.get_or_create(
-            User=request.user, Pdf=Pdf.objects.get(id=request.POST['id']))
-        if created:
+        pd = Pdf.objects.get(id=request.POST['id'])
+        if pd.assignment.Deadline < datetime.datetime.now(datetime.timezone.utc):
             data = {
-                'message': 'Pdf marked as read successfully!'
+                'message': 'Cannot submit after deadline',
+                'success': False
             }
         else:
-            data = {
-                'message': 'Pdf already read'
-            }
+            progress, created = user_progress_pdf.objects.get_or_create(
+                User=request.user, Pdf=pd)
+            if created:
+                data = {
+                    'message': 'Pdf marked as read successfully!'
+                }
+            else:
+                data = {
+                    'message': 'Pdf already read'
+                }
+            data['success'] = True
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
 
@@ -241,3 +275,25 @@ def updateDetails(request):
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def studentStats(request):
+    if request.user.is_authenticated and request.user.admin:
+        assign = assignment.objects.get(id=request.GET['id'])
+        dat = []
+        for x in assign.Subject.Class.Students.all():
+            watched = x.user.watched_assignment_video.all().count()
+            read = x.user.read_assignment_pdf.all().count()
+            dat.append({
+                'Name': x.user.get_full_name(),
+                'Completed_videos': watched,
+                'Completed_pdfs': read,
+                'Total': watched+read,
+            })
+        data = {
+            'assignment': assign,
+            'students': dat,
+            'Total': sum([assign.pdf.all().count(), assign.video.all().count()])
+        }
+        return render(request, 'assignments/studentStats.html', data)
+    return redirect('accounts:login')

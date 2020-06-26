@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from .views import (
     assignments,
@@ -14,7 +14,8 @@ from .views import (
     pdf_read,
     deleteMedia,
     AssignDetails,
-    updateDetails
+    updateDetails,
+    studentStats
 )
 
 app_name = 'assignment'
@@ -34,4 +35,5 @@ urlpatterns = [
     path('delete-assignment-media', deleteMedia, name='media-delete'),
     path('get-assignment-details', AssignDetails, name='assign-details'),
     path('update-assignment-details', updateDetails, name='update-assign-details'),
+    re_path(r'^student-stats$', studentStats, name='student-stats'),
 ]

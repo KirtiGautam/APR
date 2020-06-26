@@ -1,0 +1,30 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<table>
+    <thead>
+        <tr>
+            <th>S.No.</th>
+            <th>Name</th>
+            <th>Videos</th>
+            <th>PDFS</th>
+            <th>Total</th>
+            <th>Percentage</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{key.Name}}</td>
+            <td>{{key.Completed_videos}}</td>
+            <td>{{key.Completed_pdfs}}</td>
+            <td>{{key.Total}}</td>
+            <td>{% widthratio key.Total Total 1 %}</td>
+            <td>{{key.Name}}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

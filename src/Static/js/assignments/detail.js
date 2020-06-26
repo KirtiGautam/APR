@@ -67,6 +67,7 @@ $(document).ready(function () {
       data: data,
       dataType: "json",
       success: function (response) {
+        location.reload()
         alert(response.message);
       }, error: function (error) {
         alert(error.responseText);
@@ -250,6 +251,9 @@ const MARP = (id, check) => {
     },
     dataType: "json",
     success: function (response) {
+      if (!response.success) {
+        $(check).prop("checked", false)
+      }
       alert(response.message)
     }, error: function (error) {
       alert(error.responseText);

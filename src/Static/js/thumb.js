@@ -50,27 +50,13 @@ const generateThumbs = arr => {
         } else if (link.includes('vimeo')) {
             $.ajax({
                 type: 'GET',
-                url: `http://vimeo.com/api/oembed.json?url=${link}`,
+                url: `https://vimeo.com/api/oembed.json?url=${link}`,
                 jsonp: 'callback',
                 dataType: 'jsonp',
                 success: function (response) {
                     $(arr[x].id).attr("src", `${response.thumbnail_url}`);
                 }
             });
-            // $.ajax({
-            //     type: "GET",
-            //     url: `http://vimeo.com/api/v2/video/${vimeo_parse(link)}.json`,
-            //     data: {},
-            //     dataType: "json",
-            //     success: function (response) {
-            //         console.log($(arr[x].id))
-            //         $(arr[x].id).attr("src", `${response[0].thumbnail_small}`);
-            //         console.log(response[0].thumbnail_small)
-            //         console.log(response)
-            //     }, error: function (error) {
-            //         console.log(error.responseText);
-            //     }
-            // });
         } else {
             fetchVideoThumb(link).then(function (thumb) {
                 $(arr[x].id).attr("src", thumb);
