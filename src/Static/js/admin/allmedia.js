@@ -135,23 +135,25 @@ const getMedia = () => {
             id: `#thumb${data.id}`,
             link: `${data.Local ? response.prefix : ""}${data.file}`,
           });
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><a href="${
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
+          <div class="col-11">
+          <a href="${
             data.Local ? response.prefix : ""
             }${
             data.file
             }"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" id="thumb${
             data.id
-            }" class="col-12 pic"></span><span class="row row-head p-1"><span class="text-left col-8">VIDEO</span><span class="col-3"><input type="checkbox" class="form-control video_checks" value="${data.id}" ></span></span><span class="row row-foot p-1"><span class="col-12">${
+            }" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10 pt-1">Video</span><input type="checkbox" class="form-control video_checks col-1" value="${data.id}" ></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12">${
             data.Name
             } </span><span class="description">${
             data.Description
-            }</span></span></div></a></div>`;
+            }</span></span></div></a></div></div>`;
         }
       }
       if (type == "pdf" || type == "" || type == null) {
         for (let x = 0; x < response.pdf.length; x++) {
           const data = response.pdf[x];
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><a href="${response.prefix}${data.file}"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 pic"></span><span class="row row-head p-1"><span class="text-left col-8">PDF</span><span class="col-3"><input type="checkbox" class="form-control pdf_checks" value="${data.id}" ></span></span><span class="row row-foot p-1"><span class="col-12">${data.Name}</span><span class="description">${data.Description}</span></span></div></a></div>`;
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="col-11"><a href="${response.prefix}${data.file}"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10 pt-1">PDF</span><input type="checkbox" class="form-control pdf_checks col-1" value="${data.id}" ></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12">${data.Name}</span><span class="description">${data.Description}</span></span></div></a></div></div>`;
         }
       }
       $("#body").html(html);

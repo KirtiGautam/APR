@@ -15,10 +15,8 @@
     <div class="container-fluid">
         <div class="row first mb-5 mt-3">
             <div class="col-3 col-sm-3 col-md-2 col-lg-1">
-                <div class="col-12">
-                    <a href="{% url 'assignment:assignments' %}"><button class="btn back" title="Back"><i
-                                class="fas fa-arrow-alt-circle-left"></i></button></a>
-                </div>
+                <a href="{% url 'assignment:assignments' %}"><button class="btn back" title="Back"><i
+                            class="fas fa-arrow-alt-circle-left"></i></button></a>
             </div>
             <div class="col-9 col-sm-9 col-md-6 col-lg-7 subject-name">
                 {{assign.Subject.Name}}
