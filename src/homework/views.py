@@ -237,8 +237,9 @@ def studentStats(request):
         dat = []
         Total = sum([home.pdf.all().count(), home.video.all().count()])
         for x in home.Subject.Class.Students.all():
-            watched = x.user.watched_homework_video.all().count()
-            read = x.user.read_homework_pdf.all().count()
+            watched = x.user.watched_homework_video.filter(
+                Video__homework=home).count()
+            read = x.user.read_homework_pdf.filter(Pdf__homework=home).count()
             total = watched+read
             labels.append(x.user.get_full_name())
             datac.append(math.floor((total/Total if Total > 0 else 1)*100))
