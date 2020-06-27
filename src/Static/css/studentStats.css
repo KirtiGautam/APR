@@ -2,14 +2,68 @@
   border-bottom: 1px solid #e3e0f3;
 }
 
+.buttons {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #626262;
+  font-size: calc(3px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
+}
+
+.buttons:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.chart{
+  width: 100%;
+}
+
+.assignment-name {
+  font-size: calc(12px + 2vmin);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fd7f2c;
+  text-transform: uppercase;
+}
+
+.subject-name {
+  font-size: calc(12px + 2vmin);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fd7f2c;
+  text-transform: uppercase;
+}
+
+.back {
+  font-size: calc(6px + 2vmin);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #15202b;
+  width: fit-content;
+}
+
+.back:hover {
+  color: #65717e;
+}
+
+.back:focus {
+  box-shadow: 0px 0px 0px #00000029;
+  color: #929ead;
+  font-size: calc(7px + 2vmin);
+  outline: none;
+}
+
 th {
   position: sticky;
   top: 0;
 }
 
-.tr{
-    border-bottom: 0.5px solid #B3B6B8;
-    border-radius: 0%;
+.tr {
+  border-bottom: 0.5px solid #b3b6b8;
+  border-radius: 0%;
 }
 
 tr:hover {
@@ -35,11 +89,11 @@ tr:hover {
   border-radius: 0%;
   color: #376baa;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: calc(3px + 1vmax);
+  font-size: calc(4px + 1vmax);
 }
 
 td {
-  font-size: calc(2px + 1vmax);
+  font-size: calc(3px + 1vmax);
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }

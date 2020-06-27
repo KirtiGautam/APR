@@ -38,16 +38,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-10 mb-3 text-justify">
+            <div class="col-10 mb-3 mt-3 text-justify">
                 <span class="instruction">Instructions related to homework: </span>
                 <span class="instruct">{{homework.Instructions}}</span>
             </div>
             {% if user.admin %}
-            <div class="col-2 mb-3">
-                <button class="btn edit-add" title="Delete" id="delete_btn"><i class="fas fa-trash"></i></button>
-                <button class="btn edit-add" data-toggle="modal" data-backdrop="static" data-target="#add"
+            <div class="col-2 mb-3 mt-3">
+                <button class="btn edit-add float-right" title="Delete" id="delete_btn"><i class="fas fa-trash"></i></button>
+                <button class="btn edit-add float-right" data-toggle="modal" data-backdrop="static" data-target="#add"
                     title="Add More Data"><i class="fas fa-plus-circle"></i></button>
-                <button class="btn edit-add" title="Student Stats"><a
+                <button class="btn edit-add float-right" title="Student Stats"><a
                         href="{% url 'homework:student-stats' %}?id={{homework.id}}"> <i class="fa fa-eye"></i></a>
             </div>
             {% endif %}
