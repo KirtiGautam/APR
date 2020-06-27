@@ -3,6 +3,7 @@ from django import http
 from django.template.loader import render_to_string
 from django.conf import settings
 import json
+import math
 from accounts.models import Class, video, pdf
 from lessons.models import Subject, question, Pdf, Video, Lesson, Test, Test_question, user_progress_pdf, user_progress_video
 
@@ -176,3 +177,36 @@ def deleteMedia(request):
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': "You're not authorized"})
+
+
+def studentStats(request):
+    if request.user.is_authenticated and request.user.admin:
+        labels = []
+        datac = []
+        lesson = Lesson.objects.get(id=request.GET['id'])
+        dat = []
+        Total = sum([lesson.lesson_pdfs.all().count(), lesson.lesson_videos.all().count()])
+        for x in lesson.Subject.Class.Students.all():
+            watched = x.user.watched_lesson_video.all().count()
+            read = x.user.read_lesson_pdf.all().count()
+            total = watched+read
+            labels.append(x.user.get_full_name())
+            datac.append(math.floor((total/Total if Total > 0 else 1)*100))
+            dat.append({
+                'Name': x.user.get_full_name(),
+                'Completed_videos': watched,
+                'Completed_pdfs': read,
+                'Total': total,
+                'percentage': math.floor((total/Total if Total > 0 else 1)*100)
+            })
+        data = {
+            'lesson': lesson,
+            'students': dat,
+            'Total': Total,
+            'Pdf': lesson.lesson_pdfs.all().count(),
+            'Video': lesson.lesson_videos.all().count(),
+            'labels': labels,
+            'data': datac
+        }
+        return render(request, 'lesson/studentStats.html', data)
+    return redirect('accounts:login')

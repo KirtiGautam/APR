@@ -42,29 +42,6 @@ $(document).ready(function () {
 
 });
 
-// function getAssignments() {
-//   $.ajax({
-//     type: "GET",
-//     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-//     url: "/get-assignments",
-//     data: {
-//       id: $("#class").val(),
-//       time: 'present'
-//     },
-//     dataType: "json",
-//     success: function (data) {
-//       if (data.body == "") {
-//         $("#body").html("<h5 class='m-5 text-center'>No assignments</h5>");
-//       } else {
-//         $("#body").html(data.body);
-//       }
-//     },
-//     error: function (error) {
-//       alert(error.responseText);
-//     },
-//   });
-// }
-
 const getAssignments = () => {
   $.ajax({
     type: "GET",
@@ -77,7 +54,7 @@ const getAssignments = () => {
     dataType: "json",
     success: function (data) {
       pastAssignments();
-      if (data.body == "") {
+      if (!data.body.replace(/(\r\n|\n|\r)/gm,"")) {
         $("#body").html("<h5 class='m-5 text-center'>No assignments</h5>");
       } else {
         $("#body").html(data.body);
@@ -101,7 +78,7 @@ const pastAssignments = () => {
     dataType: "json",
     success: function (data) {
       getSubjects();
-      if (data.body == "") {
+      if (!data.body.replace(/(\r\n|\n|\r)/gm,"")) {
         $("#past_assign").html("<h5 class='m-5 text-center'>No past assignments</h5>");
       } else {
         $("#past_assign").html(data.body);

@@ -179,7 +179,7 @@ const getQuestions = () => {
   });
 };
 
-const getMedia = (type) => {
+const getMedia = type => {
   $.ajax({
     type: "POST",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
@@ -246,6 +246,9 @@ const MARP = (id, check) => {
     },
     dataType: "json",
     success: function (response) {
+      if (!response.success) {
+        $(check).prop("checked", false)
+      }
       alert(response.message)
     }, error: function (error) {
       alert(error.responseText);

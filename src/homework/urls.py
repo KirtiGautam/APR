@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from .views import (
     homeworks,
@@ -12,7 +12,8 @@ from .views import (
     pdf_read,
     deleteMedia,
     HomeDetails,
-    updateDetails
+    updateDetails,
+    studentStats
 )
 
 app_name = 'homework'
@@ -31,4 +32,5 @@ urlpatterns = [
     path('get-homework-details', HomeDetails, name='homework-details'),
     path('update-homework-details', updateDetails,
          name='update-homework-details'),
+    re_path(r'^homework-student-stats$', studentStats, name='student-stats'),
 ]

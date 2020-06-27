@@ -35,5 +35,5 @@ urlpatterns = [
     path('delete-assignment-media', deleteMedia, name='media-delete'),
     path('get-assignment-details', AssignDetails, name='assign-details'),
     path('update-assignment-details', updateDetails, name='update-assign-details'),
-    re_path(r'^student-stats$', studentStats, name='student-stats'),
+    re_path(r'^assignment-student-stats$', studentStats, name='student-stats'),
 ]

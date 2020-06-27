@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from lessons.livestream import (
     index,
     livestreams,
@@ -18,7 +18,8 @@ from lessons.views import (
     vid,
     getTest,
     pdf_read,
-    deleteMedia
+    deleteMedia,
+    studentStats
 )
 
 app_name = 'lessons'
@@ -41,5 +42,6 @@ urlpatterns = [
     path('video-mark-watched', video_watched, name='mark_watched'),
     path('lesson/video/<int:id>', vid, name='video'),
     path('lesson/test/<int:id>', getTest, name='Test'),
-    path('mark-lesson-pdf-read', pdf_read, name='mark_read')
+    path('mark-lesson-pdf-read', pdf_read, name='mark_read'),
+    re_path(r'^lesson-student-stats$', studentStats, name='student-stats'),
 ]

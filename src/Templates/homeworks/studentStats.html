@@ -17,12 +17,12 @@
         <div class="row first mb-5 mt-3">
             <div class="col-3 col-sm-3 col-md-2 col-lg-1">
                 <div class="col-12">
-                    <a href="{% url 'assignment:assignmentDetails' assignment.id %}"><button class="btn back"
-                            title="Back"><i class="fas fa-arrow-alt-circle-left"></i></button></a>
+                    <a href="{% url 'homework:homeworkDetails' homework.id %}"><button class="btn back" title="Back"><i
+                                class="fas fa-arrow-alt-circle-left"></i></button></a>
                 </div>
             </div>
             <div class="col-9 col-sm-9 col-md-6 col-lg-7 subject-name">
-                {{assignment.Name}}
+                {{homework.Name}}
             </div>
         </div>
         <button class="btn btn-primary btn-sm" id="btnExpo"> EXPORT </button>
@@ -64,8 +64,8 @@
                 </tbody>
             </table>
         </div>
-        <div style="max-width: 500px; max-height: 500px;">
-            <canvas id="myChart"></canvas>
+        <div style="max-width: 200px; max-height: 200px;">
+            <canvas id="myChart" width="200px" height="200px"></canvas>
         </div>
     </div>
 </div>
@@ -79,6 +79,7 @@
             preserveColors: true // set to true if you want background colors and font colors preserved
         });
     })
+
     var ctx = document.getElementById('myChart').getContext('2d');
     let labels = []; {% for label in labels %} labels.push('{{ label }}'){% endfor %}
     let data = []; {% for dat in data %} data.push('{{ dat }}'){% endfor %}

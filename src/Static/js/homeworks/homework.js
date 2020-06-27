@@ -138,6 +138,7 @@ $(document).ready(function () {
       data: data,
       dataType: "json",
       success: function (response) {
+        location.reload()
         alert(response.message);
       }, error: function (error) {
         alert(error.responseText);

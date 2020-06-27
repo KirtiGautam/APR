@@ -4,6 +4,7 @@ from django.template.loader import render_to_string
 from django.conf import settings
 import datetime
 import json
+import math
 from accounts.models import Class, pdf, video
 from homework.models import homework, Pdf, Video, Test_question, Test, user_progress_video, user_progress_pdf
 from lessons.models import Lesson, Subject, question
@@ -145,32 +146,48 @@ def vid(request, id):
 
 def video_watched(request):
     if request.user.is_authenticated:
-        progress, created = user_progress_video.objects.get_or_create(
-            User=request.user, Video=Video.objects.get(id=request.POST['id']))
-        if created:
+        vid = Video.objects.get(id=request.POST['id'])
+        if vid.homework.Deadline < datetime.datetime.now(datetime.timezone.utc):
             data = {
-                'message': 'Video marked as watched successfully!'
+                'message': 'Cannot submit after deadline',
+                'success': False,
             }
         else:
-            data = {
-                'message': 'Video already watched'
-            }
+            progress, created = user_progress_video.objects.get_or_create(
+                User=request.user, Video=vid)
+            if created:
+                data = {
+                    'message': 'Video marked as watched successfully!',
+                }
+            else:
+                data = {
+                    'message': 'Vido already watched',
+                }
+            data['success'] = True
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
 
 
 def pdf_read(request):
     if request.user.is_authenticated:
-        progress, created = user_progress_pdf.objects.get_or_create(
-            User=request.user, Pdf=Pdf.objects.get(id=request.POST['id']))
-        if created:
+        pd = Pdf.objects.get(id=request.POST['id'])
+        if pd.homework.Deadline < datetime.datetime.now(datetime.timezone.utc):
             data = {
-                'message': 'Pdf marked as read successfully!'
+                'message': 'Cannot submit after deadline',
+                'success': False
             }
         else:
-            data = {
-                'message': 'Pdf already read'
-            }
+            progress, created = user_progress_pdf.objects.get_or_create(
+                User=request.user, Pdf=pd)
+            if created:
+                data = {
+                    'message': 'Pdf marked as read successfully!'
+                }
+            else:
+                data = {
+                    'message': 'Pdf already read'
+                }
+            data['success'] = True
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
 
@@ -210,3 +227,36 @@ def updateDetails(request):
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def studentStats(request):
+    if request.user.is_authenticated and request.user.admin:
+        home = homework.objects.get(id=request.GET['id'])
+        labels = []
+        datac = []
+        dat = []
+        Total = sum([home.pdf.all().count(), home.video.all().count()])
+        for x in home.Subject.Class.Students.all():
+            watched = x.user.watched_homework_video.all().count()
+            read = x.user.read_homework_pdf.all().count()
+            total = watched+read
+            labels.append(x.user.get_full_name())
+            datac.append(math.floor((total/Total if Total > 0 else 1)*100))
+            dat.append({
+                'Name': x.user.get_full_name(),
+                'Completed_videos': watched,
+                'Completed_pdfs': read,
+                'Total': total,
+                'percentage': math.floor((total/Total if Total > 0 else 1)*100)
+            })
+        data = {
+            'homework': home,
+            'students': dat,
+            'Total': Total,
+            'Pdf': home.pdf.all().count(),
+            'Video': home.video.all().count(),
+            'labels': labels,
+            'data': datac
+        }
+        return render(request, 'homeworks/studentStats.html', data)
+    return redirect('accounts:login')
