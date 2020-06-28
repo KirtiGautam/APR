@@ -93,12 +93,14 @@
                 </div>
                 <div class="modal-body row-4">
                     <button class="btn float-right button-1"><i class="fa fa-download"></i> <a
-                            href="{% static 'files/Students.xlsx' %}" class="text-secondary" >Download Template</a></button>
+                            href="{% static 'files/Students.xlsx' %}" class="text-secondary">Download
+                            Template</a></button>
                     <input type="file" class="mt-5 form-control-file" id="file">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn button-2" id="upload_btn">Import</button>
-                    <button type="button" class="btn button-2 d-none" id="wait_btn">Uploading data Please wait...</button>
+                    <button type="button" class="btn button-2 d-none" id="wait_btn">Uploading data Please
+                        wait...</button>
                 </div>
             </div>
         </div>
@@ -178,8 +180,10 @@
                         <span><input type="text" id="Pincode" class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4 d-none" id="ask_mail">
-                        <span class="heading-2 p-1">Send mail?</span>
-                        <span><input type="checkbox" id="mail_send" class="form-control text-1 p-1"></span>
+                        <div class="row pl-3">
+                            <span class="heading-2 p-1 col-7">Send mail?</span>
+                            <span class="col-5"><input type="checkbox" id="mail_send" class="form-control text-1 p-2 col-3"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

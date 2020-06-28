@@ -74,9 +74,8 @@
 {% else %}
 {% regroup assignments by assi.Deadline as assignment_list %}
 {% for assign in assignment_list %}
-{{assign.grouper}}
+<span class="heading-3 p-1 col-12">{{assign.grouper}}</span>
 {% for assignment in assign.list %}
-
 <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-3">
     <a href="{% url 'assignment:assignmentDetails' assignment.assi.id %}">
         <div class="past-cards p-3">
