@@ -45,13 +45,28 @@
         {% endif %}
         <div class="container-fluid">
             <div class="row third mt-5 p-3">
-                <button class="btn click-link ml-3" id="past_btn"><span class="past">Past Assignments - </span>Click to
-                    see past assignments</button>
-            </div>
-            <div class="row row-three col-12 mt-5 d-none" id="past_assign">
+                {% if user.admin %}
+                <form action="{% url 'assignment:get_assignments' %}" method="GET">
+                    <input type="hidden" name="id">
+                    <input type="hidden" name="time" value="past">
+                    <button type="submit" class="btn click-link ml-3 d-none" id="past_btn"><span class="past">Past
+                            Assignments
+                            -
+                        </span>Click to
+                        see past assignments</button>
+                </form>
+                {% else %}
+                <a href="{% url 'assignment:get_assignments' %}?time=past&id={{class}}"><button type="submit"
+                        class="btn click-link ml-3"><span class="past">Past
+                            Assignments
+                            -
+                        </span>Click to
+                        see past assignments</button></a>
+                {% endif%}
             </div>
         </div>
     </div>
+</div>
 </div>
 <script src="{% static 'js/assignments/assignments.js' %}"></script>
 <script src="{% static 'js/thumb.js' %}"></script>

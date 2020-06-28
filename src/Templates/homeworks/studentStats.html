@@ -59,9 +59,9 @@
                         <td>{{forloop.counter}}</td>
                         <td>{{key.Name}}</td>
                         <td>{{key.Completed_videos}}</td>
-                        <td>{% widthratio key.Completed_videos Video 1 %}</td>
+                        <td>{% widthratio key.Completed_videos Video 100 %}%</td>
                         <td>{{key.Completed_pdfs}}</td>
-                        <td>{% widthratio key.Completed_pdfs Pdf 1 %}</td>
+                        <td>{% widthratio key.Completed_pdfs Pdf 100 %}%</td>
                         <td>{{key.Total}}</td>
                         <td>{{key.percentage}}%</td>
                         <td><span class="{% if key.percentage  == 100 %}done{% else %}pending{% endif %} p-1"></span>

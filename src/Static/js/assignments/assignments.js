@@ -6,16 +6,15 @@ $(document).ready(function () {
 
   $("#class").change(function () {
     getAssignments();
+    $('input[name="id"]').val(this.value)
+    console.log($('input[name="id"]').val());
+    $("#past_btn").removeClass("d-none");
     if (this.value == "") {
       $(".add-assign").addClass("d-none");
     } else {
       $(".add-assign").removeClass("d-none");
     }
   });
-
-  $("#past_btn").click(function () {
-    $('#past_assign').toggleClass('d-none');
-  })
 
   $("#upload_btn").click(function () {
     let data = {
@@ -53,8 +52,8 @@ const getAssignments = () => {
     },
     dataType: "json",
     success: function (data) {
-      pastAssignments();
-      if (!data.body.replace(/(\r\n|\n|\r)/gm,"")) {
+      // pastAssignments();
+      if (!data.body.replace(/(\r\n|\n|\r)/gm, "")) {
         $("#body").html("<h5 class='m-5 text-center'>No assignments</h5>");
       } else {
         $("#body").html(data.body);
@@ -78,7 +77,7 @@ const pastAssignments = () => {
     dataType: "json",
     success: function (data) {
       getSubjects();
-      if (!data.body.replace(/(\r\n|\n|\r)/gm,"")) {
+      if (!data.body.replace(/(\r\n|\n|\r)/gm, "")) {
         $("#past_assign").html("<h5 class='m-5 text-center'>No past assignments</h5>");
       } else {
         $("#past_assign").html(data.body);

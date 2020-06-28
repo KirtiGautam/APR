@@ -416,6 +416,7 @@ def updateStudent(request):
                 message=strip_tags(html_message),
                 html_message=html_message,
                 fail_silently=True)
+            user.save()
         data = {
             'message': 'Selected User is updated'
         }

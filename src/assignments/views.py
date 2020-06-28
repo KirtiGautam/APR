@@ -94,6 +94,13 @@ def getAssignments(request):
                     'minutes': (diff.seconds//60) % 60,
                     'progress': math.floor((sum([user_read, user_watched])/sum([total_pdf, total_video]) if sum([total_pdf, total_video]) > 0 else 1)*100),
                 })
+            data = {
+                'assignments': deads,
+            }
+            client = {
+                'body':  render_to_string('assignments/assignments.html', context=data, request=request),
+            }
+            return http.JsonResponse(client)
         else:
             present = False
             for x in assignment.objects.filter(
@@ -109,14 +116,7 @@ def getAssignments(request):
                     'assi': x,
                     'progress': math.floor((sum([user_read, user_watched])/sum([total_pdf, total_video]) if sum([total_pdf, total_video]) > 0 else 1)*100),
                 })
-        data = {
-            'assignments': deads,
-            'present': present
-        }
-        client = {
-            'body':  render_to_string('assignments/assignments.html', context=data, request=request),
-        }
-        return http.JsonResponse(client)
+            return render(request, 'assignments/past_assignments.html', {'assignments': deads})
     else:
         http.HttpResponseForbidden({'message': 'Unauthorized'})
 
