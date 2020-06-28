@@ -14,22 +14,22 @@
 </div>
 
 <div class="content">
-    <div class="container-fluid">
-        <div class="row row-one pl-3 pr-3">
-            <span class="col-12 col-sm-6 col-md-6 col-lg-8 student-details">
+    <div class="container-fluid pl-4 pr-4">
+        <div class="row row-1">
+            <span class="col-12 col-sm-6 col-md-6 col-lg-8 heading-1">
                 Student Details
             </span>
             <span class="col-12 col-sm-6 col-md-6 col-lg-4">
-                <button id="newStudent" class="btn buttons float-right m-1">Add New</button>
-                <button id="" class="btn buttons float-right m-1" data-toggle="modal" data-backdrop="static"
+                <button id="newStudent" class="btn button-1 float-right m-1">Add New</button>
+                <button id="" class="btn button-1 float-right m-1" data-toggle="modal" data-backdrop="static"
                     data-target="#student_data_upload">Import Data</button>
             </span>
         </div>
-        <div class="row row-two">
+        <div class="row row-2">
             <span class="col-12 col-sm-12 col-md-12 col-lg-4">
-                <span class="selection ">Search Class</span>
+                <span class="heading-2">Search Class</span>
                 <span>
-                    <select id="class" class="form-control drop ">
+                    <select id="class" class="form-control text-1">
                         <option value="" selected>ALL</option>
                         {% for key in classes %}
                         <option value="{{key.id}}">{{key.name}}</option>
@@ -38,23 +38,23 @@
                 </span>
             </span>
             <span class="col-12 col-sm-12 col-md-12 col-lg-1 text-center or">
-                <span class="selection ">or</span>
+                <span class="heading-2">or</span>
             </span>
             <span class="col-12 col-sm-9 col-md-9 col-lg-5">
-                <input type="text" id="search" class="form-control drop or "
+                <input type="text" id="search" class="form-control text-1 or "
                     placeholder="Search using student name here ...">
             </span>
             <span class="col-12 col-sm-3 col-md-3 col-lg-2">
-                <button type="submit" class="btn search-button or col-12 " id="search_btn">Search</button>
+                <button type="submit" class="btn button-2 or col-12 " id="search_btn">Search</button>
             </span>
         </div>
 
-        <div class="row row-three">
+        <div class="row row-3">
             <span class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
                 <span class="float-right">
-                    <button id="delete" class="btn buttons ">Delete</button>
-                    <button id="edit" class="btn buttons ">Edit</button>
-                    <button id="excel" class="btn buttons ">Export Excel</button>
+                    <button id="delete" class="btn button-1">Delete</button>
+                    <button id="edit" class="btn button-1">Edit</button>
+                    <button id="excel" class="btn button-1">Export Excel</button>
                 </span>
             </span>
             <span class="col-12">
@@ -86,40 +86,39 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title ansi">Import Student Data</div>
+                    <div class="modal-title heading-1">Import Student Data</div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <button class="btn float-right buttons"><i class="fa fa-download"></i> <a
+                <div class="modal-body row-4">
+                    <button class="btn float-right button-1"><i class="fa fa-download"></i> <a
                             href="{% static 'files/Students.xlsx' %}" class="text-secondary" >Download Template</a></button>
                     <input type="file" class="mt-5 form-control-file" id="file">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn import" id="upload_btn">Import</button>
-                    <button type="button" class="btn import d-none" id="wait_btn">Uploading data Please wait...</button>
+                    <button type="button" class="btn button-2" id="upload_btn">Import</button>
+                    <button type="button" class="btn button-2 d-none" id="wait_btn">Uploading data Please wait...</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="modal" tabindex="-1" role="dialog" id="add">
-        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title ansi">Add New Student Information</div>
+                    <div class="modal-title heading-1">Add New Student Information</div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body row row-four">
+                <div class="modal-body row row-4">
                     <input type="hidden" id="UID">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">Class</span>
-                        <br>
+                        <span class="heading-2 p-1">Class</span>
                         <span>
-                            <select class="Class form-control inp ">
+                            <select class="Class form-control text-1 p-1">
                                 <option value="" selected disabled>Class</option>
                                 {% for key in classes %}
                                 <option value="{{key.id}}">{{key.name}} </option>
@@ -128,20 +127,17 @@
                         </span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">First Name</span>
-                        <br>
-                        <span><input type="text" id="first_name" class="form-control inp "></span>
+                        <span class="heading-2 p-1">First Name</span>
+                        <span><input type="text" id="first_name" class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">Last Name</span>
-                        <br>
-                        <span><input type="text" id="last_name" class="form-control inp "></span>
+                        <span class="heading-2 p-1">Last Name</span>
+                        <span><input type="text" id="last_name" class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">Gender</span>
-                        <br>
+                        <span class="heading-2 p-1">Gender</span>
                         <span>
-                            <select id="gender" class="form-control inp ">
+                            <select id="gender" class="form-control text-1 p-1">
                                 <option value="" selected disabled>Gender</option>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
@@ -149,56 +145,47 @@
                         </span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">Date of Birth</span>
-                        <br>
-                        <span><input type="date" id="dob" class="form-control inp "></span>
+                        <span class="heading-2 p-1">Date of Birth</span>
+                        <span><input type="date" id="dob" class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">Email ID</span>
-                        <br>
-                        <span><input type="text" id="email" class="form-control inp "></span>
+                        <span class="heading-2 p-1">Email ID</span>
+                        <span><input type="text" id="email" class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">Contact</span>
-                        <br>
+                        <span class="heading-2 p-1">Contact</span>
                         <span><input type="number" id="Contact" min="1111111111" max="9999999999"
-                                class="form-control inp "></span>
+                                class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">Address</span>
-                        <br>
-                        <span><input type="text" id="Address" class="form-control inp "></span>
+                        <span class="heading-2 p-1">Address</span>
+                        <span><input type="text" id="Address" class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">City</span>
-                        <br>
-                        <span><input type="text" id="City" class="form-control inp "></span>
+                        <span class="heading-2 p-1">City</span>
+                        <span><input type="text" id="City" class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">District</span>
-                        <br>
-                        <span><input type="text" id="District" class="form-control inp "></span>
+                        <span class="heading-2 p-1">District</span>
+                        <span><input type="text" id="District" class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">State</span>
-                        <br>
-                        <span><input type="text" id="State" class="form-control inp "></span>
+                        <span class="heading-2 p-1">State</span>
+                        <span><input type="text" id="State" class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <span class="selection ">Pincode</span>
-                        <br>
-                        <span><input type="text" id="Pincode" class="form-control inp "></span>
+                        <span class="heading-2 p-1">Pincode</span>
+                        <span><input type="text" id="Pincode" class="form-control text-1 p-1"></span>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4 d-none" id="ask_mail">
-                        <span class="selection ">Send mail?</span>
-                        <br>
-                        <span><input type="checkbox" id="mail_send" class="form-control inp "></span>
+                        <span class="heading-2 p-1">Send mail?</span>
+                        <span><input type="checkbox" id="mail_send" class="form-control text-1 p-1"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn save " id="ANS">Save</button>
-                    <button class="btn save " id="US">Save</button>
-                    <button class="btn save d-none" id="add_wait_btn">Please wait...</button>
+                    <button class="btn button-2" id="ANS">Save</button>
+                    <button class="btn button-2" id="US">Save</button>
+                    <button class="btn button-2 d-none" id="add_wait_btn">Please wait...</button>
                 </div>
             </div>
         </div>

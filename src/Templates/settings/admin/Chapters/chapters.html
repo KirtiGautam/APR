@@ -11,20 +11,20 @@
     {% include "settings/admin/adminSidebar.html" %}
 </div>
 <div class="content">
-    <div class="container-fluid">
-        <div class="row row-one">
-            <span class="col-12 col-sm-6 col-md-6 col-lg-8 heading-1 ml-3">
+    <div class="container-fluid pl-4 pr-4">
+        <div class="row row-1">
+            <span class="col-12 col-sm-6 col-md-6 col-lg-8 heading-1">
                 Chapter Details
             </span>
             <!-- <span class="col-12 col-sm-6 col-md-6 col-lg-4">
                 <button id="" class="btn buttons">Import Data</button>
             </span> -->
         </div>
-        <div class="row row-two">
-            <span class="col-12 col-sm-12 col-md-4 col-lg-4">
-                <span class="selection">Search Class</span>
+        <div class="row row-2 p-2">
+            <span class="col-12 col-sm-12 col-md-4 col-lg-5">
+                <span class="heading-2">Search Class</span>
                 <span>
-                    <select id="class" class="form-control drop">
+                    <select id="class" class="form-control text-1">
                         <option value="" selected disabled>Class</option>
                         {% for key in classes %}
                         <option value="{{key.id}}">{{key.name}}</option>
@@ -32,46 +32,46 @@
                     </select>
                 </span>
             </span>
-            <span class="col-12 col-sm-12 col-md-4 col-lg-4">
-                <span class="selection">Search Subject</span>
+            <span class="col-12 col-sm-12 col-md-4 col-lg-5">
+                <span class="heading-2">Search Subject</span>
                 <span>
-                    <select id="subject" class="form-control drop">
+                    <select id="subject" class="form-control text-1">
                         <option value="" selected disabled>Please select a class first</option>
                     </select>
                 </span>
             </span>
-            <span class="col-12 col-sm-3 col-md-4 col-lg-4">
-                <button class="btn search-button col-12 or" id="search_btn">Search</button>
+            <span class="col-12 col-sm-3 col-md-4 col-lg-2">
+                <button class="btn button-2 col-12 or" id="search_btn">Search</button>
             </span>
         </div>
-        <div class="row row-three pl-4 pr-4">
-            <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 mb-5 p-2">
+        <div class="row row-3 mb-5">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 p-2 mr-3 mb-3">
                 <div class="heading-2 p-2">Add Chapter</div>
                 <div class="dropdown-divider"></div>
                 <div class="p-1">
-                    <div class="selection p-1">Chapter Name</div>
+                    <div class="heading-2 p-1">Chapter Name</div>
                     <div class="p-1">
-                        <textarea name="" id="lesson" cols="10" rows="2" class="form-control inp"></textarea>
+                        <textarea name="" id="lesson" cols="10" rows="2" class="form-control text-1"></textarea>
                     </div>
                 </div>
                 <div class="p-1">
-                    <div class="selection p-1">Chapter Number</div>
+                    <div class="heading-2 p-1">Chapter Number</div>
                     <div class="p-1">
-                        <input type="number" name="" id="lesson_number" class="form-control inp">
+                        <input type="number" name="" id="lesson_number" class="form-control text-1">
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
-                <div class="float-right p-1"><button class="btn save" id="save">Save</button></div>
+                <div class="float-right p-1"><button class="btn button-2" id="save">Save</button></div>
             </div>
-            <div class="col-12 col-sm-12 col-md-8 col-lg-8 part-2 p-2">
+            <div class="col-12 col-sm-12 col-md-8 col-lg part-2 p-2">
                 <div class="container-fluid">
                     <span class="col-12 mb-5">
                         <span class="float-right">
-                            <button class="btn buttons" id="delete_btn">Delete</button>
-                            <button class="btn buttons" id="edit_btn">Edit</button>
+                            <button class="btn button-1" id="delete_btn">Delete</button>
+                            <button class="btn button-1" id="edit_btn">Edit</button>
                         </span>
                     </span>
-                    <div class="row" id="lessons"></div>
+                    <div class="row mt-2 col-12" id="lessons"></div>
                 </div>
                 <!-- <ul class="list-group" >
                     <li class="text-danger">Please select a Subject</li>
@@ -80,27 +80,27 @@
         </div>
     </div>
     <div class="modal" tabindex="-1" role="dialog" id="edit_modal">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Chapter Details</h5>
+                    <h5 class="modal-title heading-1">Edit Chapter Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body row-4">
                     <input type="hidden" id="hidden_lesson_id">
-                    <span class="col-12">
-                        <span class="selection">Name</span>
-                        <input type="text" id="ed_Name" class="form-control drop">
-                    </span>
-                    <span class="col-12">
-                        <span class="selection">Number</span>
-                        <input type="text" id="ed_Number" class="form-control drop">
-                    </span>
+                    <div class="col-12">
+                        <span class="heading-2 p-1">Name</span>
+                        <input type="text" id="ed_Name" class="form-control text-1 p-1">
+                    </div>
+                    <div class="col-12">
+                        <span class="heading-2 p-1">Number</span>
+                        <input type="text" id="ed_Number" class="form-control text-1 p-1">
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn import" id="update_lesson_details">Save</button>
+                    <button type="button" class="btn button-2" id="update_lesson_details">Save</button>
                 </div>
             </div>
         </div>

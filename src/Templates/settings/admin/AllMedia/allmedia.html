@@ -11,64 +11,64 @@
     {% include "settings/admin/adminSidebar.html" %}
 </div>
 <div class="content">
-    <div class="container-fluid">
+    <div class="container-fluid pl-4 pr-4">
         <div class="row row-1">
-            <span class="col-12 col-sm-8 col-md-8 col-lg-10 text-3">
+            <span class="col-12 col-sm-8 col-md-8 col-lg-10 heading-1">
                 All media
             </span>
             <span class="col-12 col-sm-4 col-md-4 col-lg-2">
-                <button class="btn buttons" data-toggle="modal" data-backdrop="static" data-target="#add">Upload
+                <button class="btn button-1" data-toggle="modal" data-backdrop="static" data-target="#add">Upload
                     Media</button>
             </span>
         </div>
         <div class="dropdown-divider"></div>
-        <div class="row row-two">
+        <div class="row row-2">
             <div class="col-8 col-sm-8 col-md-8 col-lg-8">
-                <span class="selection">Select Category</span>
+                <span class="heading-2">Select Category</span>
                 <br>
-                <select id="mediaType" class="form-control drop">
+                <select id="mediaType" class="form-control text-1">
                     <option value="" selected>ALL</option>
                     <option value="pdf">PDF</option>
                     <option value="video">Videos</option>
                 </select>
             </div>
             <div class="col-4 col-sm-4 col-md-4 col-lg-4">
-                <button class="btn search-button or col-12">Search</button>
+                <button class="btn button-2 or col-12">Search</button>
             </div>
         </div>
-        <div class="row row-three">
+        <div class="row row-3">
             <span class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
                 <span class="float-right">
-                    <button id="delete_btn" class="btn buttons ">Delete</button>
-                    <button id="edit_btn" class="btn buttons ">Edit</button>
+                    <button id="delete_btn" class="btn button-1">Delete</button>
+                    <button id="edit_btn" class="btn button-1">Edit</button>
                 </span>
             </span>
             <span id="body" class="col-12 row"></span>
         </div>
     </div>
     <div class="modal" tabindex="-1" role="dialog" id="edit_media_details">
-        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-3">Edit Media details</h5>
+                    <h5 class="modal-title heading-1">Edit Media details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body row-4">
                     <input type="hidden" id="media_type_hidden">
                     <input type="hidden" id="media_id_hidden">
-                    <span class="col-12">
-                        <span class="selection">Name</span>
-                        <input type="text" id="Name" class="form-control drop">
-                    </span>
-                    <span class="col-12">
-                        <span class="selection">Description</span>
-                        <textarea id="Description" cols="10" rows="2" class="form-control drop"></textarea>
-                    </span>
+                    <div class="col-12">
+                        <span class="heading-2 p-1">Name</span>
+                        <input type="text" id="Name" class="form-control text-1 p-1">
+                    </div>
+                    <div class="col-12">
+                        <span class="heading-2 p-1">Description</span>
+                        <textarea id="Description" cols="10" rows="2" class="form-control text-1 p-1"></textarea>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn search-button" id="update_details_btn">Save</button>
+                    <button type="button" class="btn button-2" id="update_details_btn">Save</button>
                 </div>
             </div>
         </div>

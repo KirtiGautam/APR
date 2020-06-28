@@ -11,11 +11,11 @@
     {% include "settings/admin/adminSidebar.html" %}
 </div>
 <div class="content">
-    <div class="container-fluid pl-5 pr-5">
-        <div class="row row-one">
-            <div class="ic">Individual Categories</div>
+    <div class="container-fluid pl-4 pr-4">
+        <div class="row row-1">
+            <div class="heading-1 col-12">Individual Categories</div>
         </div>
-        <div class="row row-two">
+        <div class="row row-2 pl-3 pr-3">
             <nav class="navbar navbar-expand-lg">
                 <ul class="row list-unstyled ul">
                     <!-- <li class="p-2 menu-1 " id="secB">
@@ -41,8 +41,8 @@
                 <div class="heading-2 p-2">Add Section</div>
                 <div class="dropdown-divider"></div>
                 <div class="p-1">
-                    <div class="selection p-1">Section Name</div>
-                    <div class="p-1"><input type="text" class="form-control inp"></div>
+                    <div class="heading-2 p-1">Section Name</div>
+                    <div class="p-1"><input type="text" class="form-control text-1"></div>
                 </div>
                 <div class="dropdown-divider"></div>
                 <div class="float-right p-1"><button class="btn save">Save</button></div>
@@ -51,7 +51,7 @@
             <div class="col-12 col-sm-12 col-md-7 col-lg-7 part-2 p-2">
                 <div class="heading-2 p-2">All Section List</div>
                 <div class="dropdown-divider"></div>
-                <div class="p-2"><input type="search" name="" id="" class="form-control inp"
+                <div class="p-2"><input type="search" name="" id="" class="form-control text-1"
                         placeholder="Search Sections list"></div>
                 <div class="col-12">
                     <div class="table-responsive">
@@ -74,22 +74,22 @@
                 </div>
             </div>
         </div> -->
-        <div class="row row-three" id="classT">
+        <div class="row row-3 p-4" id="classT">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 mb-5 p-2">
-                <div class="heading-2 p-2">Add Class</div>
+                <div class="heading-3 p-2">Add Class</div>
                 <div class="dropdown-divider"></div>
                 <div class="p-1">
-                    <div class="selection p-1">Class Name</div>
-                    <div class="p-1"><input type="text" class="form-control inp" id="CN"></div>
+                    <div class="heading-2 p-1">Class Name</div>
+                    <div class="p-1"><input type="text" class="form-control text-1" id="CN"></div>
                 </div>
                 <div class="dropdown-divider"></div>
-                <div class="float-right p-1"><button class="btn save" id="newClass">Save</button></div>
+                <div class="float-right p-1"><button class="btn button-2" id="newClass">Save</button></div>
             </div>
             <div class="col-12 col-sm-12 col-md-1 col-lg-1"></div>
             <div class="col-12 col-sm-12 col-md-7 col-lg-7 part-2 p-2">
-                <div class="heading-2 p-2">All Classes List</div>
+                <div class="heading-3 p-2">All Classes List</div>
                 <div class="dropdown-divider"></div>
-                <div class="p-2"><input type="search" id="CSsearch" class="form-control inp"
+                <div class="p-2"><input type="search" id="CSsearch" class="form-control text-1"
                         placeholder="Search Classes list">
                 </div>
                 <div class="col-12">
@@ -117,34 +117,35 @@
                 </div>
             </div>
             <div class="modal" tabindex="-1" role="dialog" id="editClassName">
-                <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Edit Class Name</h5>
+                            <h5 class="modal-title heading-1">Edit Class Name</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body row">
-                            <input type="hidden" id="hiddenclassid">
-                            <span class="selection col-12 col-sm-6 col-md-5 col-lg-4">New Name</span>
-                            <input type="text" id="NewClassName"
-                                class="form-control inp col-12 col-sm-6 col-md-7 col-lg-8">
+                        <div class="modal-body row-4">
+                            <div class="col-12">
+                                <input type="hidden" id="hiddenclassid">
+                                <span class="heading-2 p-1">New Name</span>
+                                <input type="text" id="NewClassName" class="form-control text-1 p-1">
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="updateClassName">Save changes</button>
+                            <button type="button" class="btn button-2" id="updateClassName">Save</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row row-three d-none" id="subT">
+        <div class="row row-3 d-none p-4" id="subT">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 mb-5 p-2">
-                <div class="heading-2 p-2">Add Subject</div>
+                <div class="heading-3 p-2">Add Subject</div>
                 <div class="dropdown-divider"></div>
                 <div class="p-1">
-                    <div class="selection p-1">Subject Name</div>
-                    <div class="p-1"><input type="text" class="form-control inp" id="SubName"></div>
+                    <div class="heading-2 p-1">Subject Name</div>
+                    <div class="p-1"><input type="text" class="form-control text-1" id="SubName"></div>
                 </div>
                 <div class="col-12">
                     <div class="table-responsive">
@@ -166,13 +167,13 @@
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
-                <div class="float-right p-1"><button class="btn save" id="SAS">Save</button></div>
+                <div class="float-right p-1"><button class="btn button-2" id="SAS">Save</button></div>
             </div>
             <div class="col-12 col-sm-12 col-md-1 col-lg-1"></div>
             <div class="col-12 col-sm-12 col-md-7 col-lg-7 part-2 p-2">
-                <div class="heading-2 p-2">All Subjects List</div>
+                <div class="heading-3 p-2">All Subjects List</div>
                 <div class="dropdown-divider"></div>
-                <div class="p-2"><input type="search" id="SUBC" class="form-control inp"
+                <div class="p-2"><input type="search" id="SUBC" class="form-control text-1"
                         placeholder="Search Subjects list">
                 </div>
                 <div class="col-12">
@@ -204,32 +205,33 @@
                 </div>
             </div>
             <div class="modal" tabindex="-1" role="dialog" id="editSubjectName">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Edit Subject Name</h5>
+                            <h5 class="modal-title heading-1">Edit Subject Name</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body row">
-                            <input type="hidden" id="hiddensubjectid">
-                            <span class="selection col-12 col-sm-6 col-md-5 col-lg-4">New Name</span>
-                            <input type="text" id="NewSubjectName"
-                                class="form-control inp col-12 col-sm-6 col-md-7 col-lg-8">
+                        <div class="modal-body row row-4">
+                            <div class="col-12">
+                                <input type="hidden" id="hiddensubjectid">
+                                <span class="heading-2 p-1">New Name</span>
+                                <input type="text" id="NewSubjectName" class="form-control text-1 p-1">
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="updateSubjectName">Save changes</button>
+                            <button type="button" class="btn button-2" id="updateSubjectName">Save</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row row-three d-none" id="TeachT">
+        <div class="row row-3 d-none p-4" id="TeachT">
             <div class="col-12 part-1 p-2">
-                <div class="heading-2 p-2">Assign Teachers</div>
+                <div class="heading-3 p-2">Assign Teachers</div>
                 <div class="dropdown-divider"></div>
-                <!-- <div class="p-2"><input type="search" name="" id="" class="form-control inp" placeholder="Search list">
+                <!-- <div class="p-2"><input type="search" name="" id="" class="form-control text-1" placeholder="Search list">
                 </div> -->
                 <div class="col-12">
                     <div class="table-responsive">
@@ -250,7 +252,7 @@
                                     {% endif %}
                                     <td>{{sub.Name}}</td>
                                     <td>
-                                        <select class="form-control inp teacher" id="{{sub.id}}">
+                                        <select class="form-control text-1 teacher" id="{{sub.id}}">
                                             <option value="" {% if not sub.teacher %} selected {% endif %} disabled>
                                                 Select Teacher</option>
                                             {% for teach in teachers %}
@@ -261,7 +263,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-control inp backupteacher" id="{{sub.id}}">
+                                        <select class="form-control text-1 backupteacher" id="{{sub.id}}">
                                             <option value="" {% if not sub.backup_teacher %} selected {% endif %}
                                                 disabled>Select Teacher</option>
                                             {% for teach in teachers %}
@@ -280,13 +282,13 @@
                 </div>
             </div>
         </div>
-        <div class="row row-three d-none" id="syllT">
+        <div class="row row-3 d-none" id="syllT">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 mb-5 p-2">
-                <div class="heading-2 p-2">Add Syllabus</div>
+                <div class="heading-3 p-2">Add Syllabus</div>
                 <div class="dropdown-divider"></div>
                 <div class="p-1">
-                    <div class="selection p-1">Syllabus Type</div>
-                    <div class="p-1"><input type="text" class="form-control inp"></div>
+                    <div class="heading-2 p-1">Syllabus Type</div>
+                    <div class="p-1"><input type="text" class="form-control text-1"></div>
                 </div>
                 <div class="dropdown-divider"></div>
                 <div class="float-right p-1"><button class="btn save">Save</button></div>
@@ -295,7 +297,8 @@
             <div class="col-12 col-sm-12 col-md-7 col-lg-7 part-2 p-2">
                 <div class="heading-2 p-2">All Syllabus Types</div>
                 <div class="dropdown-divider"></div>
-                <div class="p-2"><input type="search" name="" id="" class="form-control inp" placeholder="Search list">
+                <div class="p-2"><input type="search" name="" id="" class="form-control text-1"
+                        placeholder="Search list">
                 </div>
                 <div class="col-12">
                     <div class="table-responsive">
