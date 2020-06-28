@@ -4,7 +4,7 @@
 
 <head>
     <link rel="stylesheet" href="{% static 'css/content.css' %}">
-    <link rel="stylesheet" href="{% static 'css/lesson.css' %}">
+    <link rel="stylesheet" href="{% static 'css/past_assignments.css' %}">
 </head>
 
 <body>
@@ -14,8 +14,8 @@
     </div>
     <div class="content">
         <div class="container-fluid">
-            <div class="row row-2 back pb-2">
-                <span class="col-12 col-sm-8 col-md-8 col-lg-8 back-text">
+            <div class="row row-2 first pb-2">
+                <span class="col-12 col-sm-8 col-md-8 col-lg-8 first-text">
                     <span class="col-12 pl-3">PAST</span>
                     <br>
                     <span class="col-12 pl-3">ASSIGNMENTS</span>
@@ -33,42 +33,45 @@
                             <span class="heading-3 p-1 col-12">{{assign.grouper}}</span>
                         </div>
                     </div>
-                    {% for assignment in assign.list %}
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-3">
-                        <a href="{% url 'assignment:assignmentDetails' assignment.assi.id %}">
-                            <div class="past-cards p-3">
-                                <span class="row assignment-row-head">
-                                    <span
-                                        class="title-{% if assignment.progress == 100 or request.user.admin %}complete {% elif assignment.progress == 0 %}deadline {% else %}prime {% endif %}col-12 mt-1 mb-1">{{assignment.assi.Subject.Name}}</span>
-                                    <span class="summary col-12 mt-1 mb-1">{{assignment.assi.video.all.count}} Videos +
-                                        {{assignment.assi.pdf.all.count}}
-                                        Reading</span>
-                                </span>
-                                {% if not request.user.admin %}
-                                <div class="row mt-1 mb-1">
-                                    <div class="col-9">
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar"
-                                                style="width:{{assignment.progress}}%"
-                                                aria-valuenow="{{assignment.progress}}" aria-valuemin="0"
-                                                aria-valuemax="100">
+                    <div class="row">
+                        {% for assignment in assign.list %}
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-3 mt-2">
+                            <a href="{% url 'assignment:assignmentDetails' assignment.assi.id %}">
+                                <div class="past-cards p-3">
+                                    <span class="row assignment-row-head">
+                                        <span
+                                            class="title-{% if assignment.progress == 100 or request.user.admin %}complete {% elif assignment.progress == 0 %}deadline {% else %}prime {% endif %}col-12 mt-1 mb-1">{{assignment.assi.Subject.Name}}</span>
+                                        <span class="summary col-12 mt-1 mb-1">{{assignment.assi.video.all.count}}
+                                            Videos +
+                                            {{assignment.assi.pdf.all.count}}
+                                            Reading</span>
+                                    </span>
+                                    {% if not request.user.admin %}
+                                    <div class="row mt-1 mb-1">
+                                        <div class="col-9">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar"
+                                                    style="width:{{assignment.progress}}%"
+                                                    aria-valuenow="{{assignment.progress}}" aria-valuemin="0"
+                                                    aria-valuemax="100">
+                                                </div>
                                             </div>
                                         </div>
+                                        <span class="col-3 progress-text">
+                                            {{assignment.progress}}%
+                                        </span>
                                     </div>
-                                    <span class="col-3 progress-text">
-                                        {{assignment.progress}}%
+                                    {% endif %}
+                                    <span class="row assignment-row-foot mt-1 mb-1">
+                                        <span class="moti col-12">
+                                            TIME IS OVER
+                                        </span>
                                     </span>
                                 </div>
-                                {% endif %}
-                                <span class="row assignment-row-foot mt-1 mb-1">
-                                    <span class="moti col-12">
-                                        TIME IS OVER
-                                    </span>
-                                </span>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                     {% endfor %}
                 </div>
             </div>
