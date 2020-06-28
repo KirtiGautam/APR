@@ -1,93 +1,75 @@
 {% load static %}
 <div class="modal" role="dialog" id="add">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <div class="modal-title">
+                    <span class="heading-1">Add New Media</span>
+                </div>
                 <button type="button" class="close col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 float-right"
                     data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body mb-5">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <label for="dataType" class="selection">Select Media Type</label>
-                            <br>
-                            <select name="" id="dataType" class="drop form-control p-1">
-                                <option value="" disabled selected>File Type</option>
-                                <option value="pdf">PDF</option>
-                                <option value="video">Video</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 d-none video_type">
-                            <label for="video_type" class="selection">Video Type</label>
-                            <br>
-                            <select id="video_type" class="drop p-1 form-control">
-                                <option value="" disabled selected>Video Type</option>
-                                <option value="local">Local</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <label for="FName" class="selection">Name</label>
-                            <br>
-                            <input type="text" id="FName" class="drop p-1 form-control">
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <label for="description" class="selection">Description</label>
-                            <br>
-                            <textarea name="" id="description" cols="10" rows="2" class="drop p-1 form-control"></textarea>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <br>
-                            <button onclick="upload('{% url 'accounts:allmedia-upload' %}');" id="upload_btn"
-                                class="btn import col-12 mt-4">Upload</button>
-                        </div>
-
+            <div class="modal-body row row-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <span class="heading-2 p-1">Select Media Type</span>
+                    <select name="" id="dataType" class="text-1 form-control p-1">
+                        <option value="" disabled selected>File Type</option>
+                        <option value="pdf">PDF</option>
+                        <option value="video">Video</option>
+                    </select>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <span class="heading-2 p-1">Name</span>
+                    <input type="text" id="FName" class="text-1 p-1 form-control">
+                </div>
+                <div class="col-12">
+                    <span class="heading-2 p-1">Description</span>
+                    <textarea name="" id="description" cols="10" rows="2" class="text-1 p-1 form-control"></textarea>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 d-none video_type">
+                    <span class="heading-2 p-1">Video Type</span>
+                    <select id="video_type" class="text-1 p-1 form-control">
+                        <option value="" disabled selected>Video Type</option>
+                        <option value="local">Local</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg">
+                    <div class="custom-file d-none">
+                        <input type="file" class="form-control-file mt-4" name="file_input" id="file_input"
+                            oninput="input_filename();">
                     </div>
-                    <div class="row">
-
-                        <div class="col-1"></div>
-
-                        <div class="col-1"></div>
+                    <div class="link-div d-none">
+                        <span id="link_label" class="selection p-1">Video Link</span>
+                        <input type="text" id="video_link" class="form-control text-1 p-1">
                     </div>
                 </div>
-                <div class="mb-3 mt-3">
-                    <div class="form-group mb-3">
-                        <div class="custom-file d-none">
-                            <input type="file" class="custom-file-input form-control" name="file_input" id="file_input"
-                                oninput="input_filename();">
-                            <label id="file_input_label" class="custom-file-label" for="image">Select
-                                file</label>
-                        </div>
-                        <div class="link-div d-none">
-                            <label for="video_link" id="link_label">Video Link</label>
-                            <input type="text" id="video_link">
-                        </div>
-                    </div>
-                    <button class="btn btn-primary d-none" id="loading_btn" type="button" disabled>
+            </div>
+            <div class="modal-footer">
+                <button onclick="upload('{% url 'accounts:allmedia-upload' %}');" id="upload_btn"
+                    class="btn button-2 m-1 float-right">Upload</button>
+                <div class="mb-3 mt-3 col-12">
+                    <button type="button" id="cancel_btn" class="btn btn-secondary d-none float-right m-1">Cancel
+                        upload</button>
+                    <button class="btn btn-primary d-none float-right m-1" id="loading_btn" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Uploading...
                     </button>
 
-                    <button type="button" id="cancel_btn" class="btn btn-secondary d-none">Cancel
-                        upload</button>
-
                 </div>
-
-                <div id="progress_wrapper" class="d-none">
+                <div id="progress_wrapper" class="d-none col-12">
                     <label id="progress_status"></label>
                     <div class="progress mb-3">
                         <div id="progress" class="progress-bar import" role="progressbar" aria-valuenow="25"
                             aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
-
-                <div id="alert_wrapper"></div>
+                <div id="alert_wrapper" class="col-12"></div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="{% static 'js/admin/upload.js' %}"></script>
+
+    <script src="{% static 'js/admin/upload.js' %}"></script>

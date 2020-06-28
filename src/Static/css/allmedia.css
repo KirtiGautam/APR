@@ -1,97 +1,77 @@
-.text-3 {
-  font-size: calc(10px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
+.heading-1 {
   color: #707070;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
-.buttons {
+.button-1 {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 10px;
   color: #626262;
-  font-size: calc(3px + 2vmin);
+  font-size: 17px;
   font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
 }
 
-.buttons:focus {
+.button-1:focus {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   outline: none;
 }
 
-.selection {
+.row-2,
+.row-3 {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  margin: 10px 3px;
+  padding: 10px;
+}
+
+.row-4 {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.heading-2 {
   color: #626262;
-  font-size: calc(5px + 1vmax);
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
 }
 
-.search-button {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  color: #ffffff;
-  font-size: calc(3px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.search-button:focus {
-  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
-    no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
-.import {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  color: #ffffff;
-  font-size: calc(3px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.import:focus {
-  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
-    no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
-.inp {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  border: 1px solid #707070;
-  border-radius: 10px;
-  font-size: calc(5px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 100;
-  color: #376baa;
-}
-
-.drop {
+.text-1 {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 2px solid #e6ecf0;
   border-radius: 15px;
   color: #376baa;
-  font-size: calc(4px + 1vmax);
+  font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: 100;
+}
+
+.button-2 {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button-2:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
 }
 
 .or {
-  margin-top: 2vmax !important;
-}
-
-.row-two,
-.row-three {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-  margin: 1vmax !important;
-  padding: 1vmax !important;
+  margin-top: 20px;
 }
 
 .cards {
@@ -168,6 +148,11 @@
 
 .no-margin {
   margin-left: 0px !important;
+}
+
+.progress-bar {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
 }
 
 @media screen and (max-width: 800px) {

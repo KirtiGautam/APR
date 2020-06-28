@@ -11,23 +11,23 @@
     {% include "settings/admin/adminSidebar.html" %}
 </div>
 <div class="content">
-    <div class="container-fluid">
-        <div class="row row-one">
-            <span class="col-12 col-sm-6 col-md-6 col-lg-8 QD">
+    <div class="container-fluid pl-4 pr-4">
+        <div class="row row-1">
+            <span class="col-12 col-sm-6 col-md-6 col-lg-8 heading-1">
                 Questions Database
             </span>
             <span class="col-12 col-sm-6 col-md-6 col-lg-4">
                 <button type="submit" data-toggle="modal" data-backdrop="static" data-target="#add"
-                    class="btn buttons">Import Data</button>
+                    class="btn button-1 float-right">Import Data</button>
             </span>
         </div>
         <form action="{% url 'accounts:get-allquestions' %}" method="get" onsubmit="return check();">
-            <div class="row row-two">
+            <div class="row row-2">
                 <span class="col-12 col-sm-12 col-md-6 col-lg-3">
-                    <span class="selection">Select Class</span>
+                    <span class="heading-2">Select Class</span>
                     <br>
                     <span>
-                        <select name="class" id="class" class="form-control drop">
+                        <select name="class" id="class" class="form-control text-1">
                             <option value="" disabled selected>Select Class</option>
                             {% for key in class %}
                             <option value="{{key.id}}" {% if request.GET.class|add:"0" == key.id %} selected
@@ -39,10 +39,10 @@
                     </span>
                 </span>
                 <span class="col-12 col-sm-12 col-md-6 col-lg-3">
-                    <span class="selection">Select Subject</span>
+                    <span class="heading-2">Select Subject</span>
                     <br>
                     <span>
-                        <select name="subject" id="subject" class="form-control drop">
+                        <select name="subject" id="subject" class="form-control text-1">
                             <option value="" disabled selected>Please Select Class</option>
                             {% for key in class %}
                             {% if key.id == request.GET.class|add:"0" %}
@@ -58,10 +58,10 @@
                     </span>
                 </span>
                 <span class="col-12 col-sm-12 col-md-6 col-lg-3">
-                    <span class="selection">Select Chapter</span>
+                    <span class="heading-2">Select Chapter</span>
                     <br>
                     <span>
-                        <select name="lesson" id="lesson" class="form-control drop">
+                        <select name="lesson" id="lesson" class="form-control text-1">
                             <option value="" disabled selected>Select Subject</option>
                             {% for key in class %}
                             {% if key.id == request.GET.class|add:"0" %}
@@ -81,15 +81,15 @@
                     </span>
                 </span>
                 <span class="col-12 col-sm-12 col-md-6 col-lg-3">
-                    <span><button type="submit" class="btn search-button or col-12">Search</button></span>
+                    <span><button type="submit" class="btn button-2 or col-12">Search</button></span>
                 </span>
             </div>
         </form>
-        <div class="row row-three">
+        <div class="row row-3">
             <span class="col-12 mb-5">
                 <span class="float-right">
-                    <button class="btn buttons" id="delete_btn">Delete</button>
-                    <button class="btn buttons" id="edit_btn">Edit</button>
+                    <button class="btn button-1" id="delete_btn">Delete</button>
+                    <button class="btn button-1" id="edit_btn">Edit</button>
                 </span>
             </span>
             <div class="col-12">
@@ -113,38 +113,60 @@
             </div>
 
             <div class="modal" tabindex="-1" role="dialog" id="edit">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <div class="modal-title">
-                                <span class="QD">Edit Question</span>
+                                <span class="heading-1">Edit Question</span>
                             </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body row row-4">
                             <input type="hidden" id="hidden_question_field">
                             <input type="hidden" id="hidden_choice_1">
                             <input type="hidden" id="hidden_choice_2">
                             <input type="hidden" id="hidden_choice_3">
                             <input type="hidden" id="hidden_choice_4">
-                            <textarea id="question_Name" cols="30" rows="10"></textarea>
-                            <textarea id="choice_1" cols="30" rows="10"></textarea>
-                            <textarea id="choice_2" cols="30" rows="10"></textarea>
-                            <textarea id="choice_3" cols="30" rows="10"></textarea>
-                            <textarea id="choice_4" cols="30" rows="10"></textarea>
-                            <select id="Difficulty">
-                                <option value="E">Easy</option>
-                                <option value="M">Medium</option>
-                                <option value="H">Hard</option>
-                                <option value="D">Difficult</option>
-                            </select>
-                            <select id="Answer">
-                            </select>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <span class="heading-2 p-1">Question</span>
+                                <textarea id="question_Name" cols="10" rows="2"
+                                    class="form-control text-1 p-1"></textarea>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <span class="heading-2 p-1">Choice 1</span>
+                                <textarea id="choice_1" cols="10" rows="2" class="form-control text-1 p-1"></textarea>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <span class="heading-2 p-1">Choice 2</span>
+                                <textarea id="choice_2" cols="10" rows="2" class="form-control text-1 p-1"></textarea>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <span class="heading-2 p-1">Choice 3</span>
+                                <textarea id="choice_3" cols="10" rows="2" class="form-control text-1 p-1"></textarea>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <span class="heading-2 p-1">Choice 4</span>
+                                <textarea id="choice_4" cols="10" rows="2" class="form-control text-1 p-1"></textarea>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <span class="heading-2 p-1">Difficulty</span>
+                                <select id="Difficulty" class="form-control text-1 p-1">
+                                    <option value="E">Easy</option>
+                                    <option value="M">Medium</option>
+                                    <option value="H">Hard</option>
+                                    <option value="D">Difficult</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <span class="heading-2 p-1">Answer</span>
+                                <select id="Answer" class="form-control text-1 p-1"></select>
+                            </div>
+                            
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn import" id="update_btn">Save</button>
+                            <button type="button" class="btn button-2" id="update_btn">Save</button>
                         </div>
                     </div>
                 </div>
@@ -155,20 +177,20 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <div class="modal-title">
-                                <span class="QD">Import Questions</span>
+                                <span class="heading-1">Import Questions</span>
                             </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <button class="btn float-right buttons"><i class="fa fa-download"></i> <a
-                                    href="{% static 'files/MCQ.xlsx' %}" class="text-secondary">Download
+                        <div class="modal-body row-4">
+                            <button class="btn float-right button-1"><i class="fa fa-download"></i> <a
+                                    href="{% static 'files/MCQ.xlsx' %}">Download
                                     Template</a></button>
                             <input type="file" class="mt-5 form-control-file" id="file">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn import" id="upload_btn">Upload</button>
+                            <button type="button" class="btn button-2" id="upload_btn">Upload</button>
                         </div>
                     </div>
                 </div>

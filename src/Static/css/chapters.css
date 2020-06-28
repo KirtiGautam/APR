@@ -1,136 +1,26 @@
-.heading-1 {
-  font-size: calc(20px + 1vmin);
-  font-weight: bold;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #707070;
-}
-
-.buttons {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  font-size: calc(3px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.buttons:focus {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
-.row-two {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-  margin: 1vmax !important;
-  padding: 1vmax !important;
-}
-
-.selection {
-  font-size: calc(10px + 1vmin);
-  font-weight: bold;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #626262;
-}
-
-.drop {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  border: 2px solid #e6ecf0;
-  border-radius: 15px;
-  font-size: calc(9px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
-
-.search-button {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: calc(7px + 1vmin);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #ffffff;
-}
-
-.search-button:focus {
-  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
-    no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
-.or {
-  margin-top: 2vmax !important;
-}
-
-.part-1,
-.part-2 {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
-  border: 1px solid #dbdbdb;
-  border-radius: 0px 10px 10px 10px;
-  height: max-content;
-}
-
-.heading-2 {
-  font-size: calc(12px + 1vmin);
-  font-weight: 600;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #626262;
-}
-
-.save {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  font-size: calc(7px + 1vmin);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 600;
-  letter-spacing: 0px;
-  color: #ffffff;
-}
-
-.save:focus {
-  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
-    no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
-.inp {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  border: 1px solid #b3b6b8;
-  border-radius: 10px;
-  font-size: calc(9px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
-
 .part-2-1 {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 5px;
+  width: 100%;
 }
 
 .cn {
-  font-size: calc(9px + 1vmin);
+  font-size: 12px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
 }
 
 .num {
-  font-size: calc(11px + 1vmin);
+  font-size: 18px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #707070;
 }
 
 .chap-name {
-  font-size: calc(10px + 1vmin);
+  font-size: 16px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #707070;
@@ -140,6 +30,122 @@
   height: 100%;
 }
 
+.heading-1 {
+  color: #707070;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.button-1 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #626262;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
+}
+
+.button-1:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.row-2 {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  margin: 0px 3px;
+  padding: 10px;
+}
+
+.row-4 {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.heading-2 {
+  color: #626262;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+}
+
+.text-1 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 2px solid #e6ecf0;
+  border-radius: 15px;
+  color: #376baa;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button-2 {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button-2:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.part-1,
+.part-2 {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  border: 1px solid #dbdbdb;
+  border-radius: 0px 10px 10px 10px;
+  height: max-content;
+  margin: 10px 16px;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #707070;
+}
+
+tr:hover {
+  cursor: pointer;
+}
+
+td {
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #707070;
+}
+
+.table {
+  position: relative;
+  table-layout: auto;
+  width: 100% !important;
+}
+
+.contain {
+  width: 100%;
+  min-height: max-content;
+  max-height: 550px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.or {
+  margin-top: 25px;
+}
+
 .content {
   padding-top: 80px !important;
   margin-left: 300px;
@@ -147,23 +153,6 @@
 
 .no-margin {
   margin-left: 0px !important;
-}
-
-.import {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  color: #ffffff;
-  font-size: calc(3px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.import:focus {
-  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
-    no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
 }
 
 @media screen and (max-width: 800px) {
