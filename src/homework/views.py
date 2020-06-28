@@ -146,48 +146,58 @@ def vid(request, id):
 
 def video_watched(request):
     if request.user.is_authenticated:
-        vid = Video.objects.get(id=request.POST['id'])
-        if vid.homework.Deadline < datetime.datetime.now(datetime.timezone.utc):
-            data = {
-                'message': 'Cannot submit after deadline',
-                'success': False,
-            }
-        else:
-            progress, created = user_progress_video.objects.get_or_create(
-                User=request.user, Video=vid)
-            if created:
+        if request.user.user_type == 'Student':
+            vid = Video.objects.get(id=request.POST['id'])
+            if vid.homework.Deadline < datetime.datetime.now(datetime.timezone.utc):
                 data = {
-                    'message': 'Video marked as watched successfully!',
+                    'message': 'Cannot submit after deadline',
+                    'success': False,
                 }
             else:
-                data = {
-                    'message': 'Vido already watched',
-                }
-            data['success'] = True
+                progress, created = user_progress_video.objects.get_or_create(
+                    User=request.user, Video=vid)
+                if created:
+                    data = {
+                        'message': 'Video marked as watched successfully!',
+                    }
+                else:
+                    data = {
+                        'message': 'Vido already watched',
+                    }
+                data['success'] = True
+        else:
+            data = {
+                'message': 'Only for students'
+            }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
 
 
 def pdf_read(request):
     if request.user.is_authenticated:
-        pd = Pdf.objects.get(id=request.POST['id'])
-        if pd.homework.Deadline < datetime.datetime.now(datetime.timezone.utc):
-            data = {
-                'message': 'Cannot submit after deadline',
-                'success': False
-            }
-        else:
-            progress, created = user_progress_pdf.objects.get_or_create(
-                User=request.user, Pdf=pd)
-            if created:
+        if request.user.user_type == 'Student':
+            pd = Pdf.objects.get(id=request.POST['id'])
+            if pd.homework.Deadline < datetime.datetime.now(datetime.timezone.utc):
                 data = {
-                    'message': 'Pdf marked as read successfully!'
+                    'message': 'Cannot submit after deadline',
+                    'success': False
                 }
             else:
-                data = {
-                    'message': 'Pdf already read'
-                }
-            data['success'] = True
+                progress, created = user_progress_pdf.objects.get_or_create(
+                    User=request.user, Pdf=pd)
+                if created:
+                    data = {
+                        'message': 'Pdf marked as read successfully!'
+                    }
+                else:
+                    data = {
+                        'message': 'Pdf already read'
+                    }
+                data['success'] = True
+        else:
+            data = {
+                'message': 'Only for students'
+            }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
 

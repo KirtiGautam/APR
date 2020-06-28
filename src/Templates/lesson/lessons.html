@@ -52,7 +52,7 @@
                         </span>
                         <span class="row lessons-row-head pl-3 pr-3 pt-1">
                             <span class="text-left col-6 pt-2">Video</span>
-                            <span class="time col-4 pt-2">2 min</span>
+                            <span class="time col-4 pt-2" id="dura{{video.id}}">2 min</span>
                             {% if not admin %}
                             <input type="checkbox" onclick="return false;" readonly="readonly"
                                 {% for watched in watched_videos %}{% if watched.id == video.id %} checked
@@ -110,6 +110,7 @@
     {% for video in lesson.lesson_videos.all %}
     thumbr.push({
         id: "#thumb{{video.id}}",
+        duration: "#dura{{video.id}}",
         link: "{% if video.video.Local %}{{prefix}}{% endif %}{{video.video.file}}",
     })
     {% endfor %}

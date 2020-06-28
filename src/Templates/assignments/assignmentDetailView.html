@@ -105,7 +105,7 @@
                             </span>
                             <span class="row assign-row-head pl-3 pr-3 pt-1">
                                 <span class="text-left col-6 pt-2">VIDEO</span>
-                                <span class="time col-4 pt-2">2 min</span>
+                                <span class="time col-4 pt-2" id="dura{{key.id}}">2 min</span>
                                 {% if not user.admin %}
                                 <input type="checkbox" onclick="return false;" readonly="readonly"
                                     {% for watched in user.watched_assignment_video.all %}{% if watched.Video.id == key.id %}
@@ -198,6 +198,7 @@
     {% for video in assign.video.all %}
     thumbArr.push({
         id: "#thumb{{video.id}}",
+        duration: "#dura{{video.id}}",
         link: "{% if video.video.Local %}{% get_media_prefix %}{% endif %}{{video.video.file}}",
     })
     {% endfor %}

@@ -229,7 +229,7 @@ const getMedia = type => {
       if (type == "video") {
         for (let x = 0; x < response.video.length; x++) {
           const data = response.video[x];
-          thumbArray.push({ id: `#thumbM${data.id}`, link: `${data.Local ? response.prefix : ""}${data.file}` });
+          thumbArray.push({ id: `#thumbM${data.id}`, duration: `#duram${data.id}`, link: `${data.Local ? response.prefix : ""}${data.file}` });
           html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="col-11"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" id="thumbM${data.id}" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">Video</span><input type="checkbox" class="video_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12">${data.Name} </span><span class="description">${data.Description}</span></span></div></div></div>`;
         }
       }

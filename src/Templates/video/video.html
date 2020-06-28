@@ -26,7 +26,8 @@
                                 <span class="row">
                                     <span class="col-12">
                                         {% if not video.video.Local %}
-                                        <iframe class="video col-12" src="{{video.video.file}}" frameborder="0"
+                                        <iframe id="video_player" class="video col-12" src="{{video.video.file}}"
+                                            frameborder="0"
                                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                             allowfullscreen></iframe>
                                         {% else %}
@@ -48,8 +49,8 @@
                                             {% endif %}
                                             {% if not user.admin %}
                                             <span class="float-right"><button
-                                                    class="btn blue-buttons pl-3 pr-3 pt-2 pb-2"
-                                                    onclick="MAS('{{watched}}', {{video.id}});">Mark as
+                                                    class="btn blue-buttons pl-3 pr-3 pt-2 pb-2" onclick="MAS();">Mark
+                                                    as
                                                     complete</button></span>
                                             {% endif %}
                                         </span>
@@ -57,7 +58,7 @@
                                     <span class="col-12">
                                         <span class="col-12 video-duration">
                                             <span class="p-1">Time Duration:</span>
-                                            <span class="p-1">123</span>
+                                            <span class="p-1" id="main_vid_dura">123</span>
                                         </span>
                                         <br>
                                         <span class="col-12">
@@ -100,6 +101,7 @@
 </div>
 
 <script>
+    const url = '{{watched}}', id = {{ video.id }};
     (function ($) {
         "use strict";
 

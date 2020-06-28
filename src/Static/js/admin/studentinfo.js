@@ -217,7 +217,8 @@ $(document).ready(function () {
                 'State': $('#State').val(),
                 'Pincode': $('#Pincode').val(),
                 'Contact': $('#Contact').val(),
-                'Class': $('.Class').val()
+                'Class': $('.Class').val(),
+                'send_mail': $("#mail_send").is(":checked"),
             },
             dataType: 'json',
             success: function (data) {
@@ -239,6 +240,7 @@ $(document).ready(function () {
         }
         getStudent(users[0]);
         $('#US').removeClass('d-none');
+        $('#ask_mail').removeClass('d-none');
         $('#ANS').addClass('d-none');
         $('#UID').val(users[0]);
         $('#add').modal('show')

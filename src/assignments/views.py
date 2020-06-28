@@ -104,6 +104,7 @@ def getAssignments(request):
                     Pdf__in=x.pdf.all()).count()
                 total_pdf = x.pdf.all().count()
                 total_video = x.video.all().count()
+                x.Deadline = x.Deadline.date()
                 deads.append({
                     'assi': x,
                     'progress': math.floor((sum([user_read, user_watched])/sum([total_pdf, total_video]) if sum([total_pdf, total_video]) > 0 else 1)*100),
@@ -193,48 +194,58 @@ def addresource(request):
 
 def video_watched(request):
     if request.user.is_authenticated:
-        vid = Video.objects.get(id=request.POST['id'])
-        if vid.assignment.Deadline < datetime.datetime.now(datetime.timezone.utc):
-            data = {
-                'message': 'Cannot submit after deadline',
-                'success': False,
-            }
-        else:
-            progress, created = user_progress_video.objects.get_or_create(
-                User=request.user, Video=vid)
-            if created:
+        if request.user.user_type == "Student":
+            vid = Video.objects.get(id=request.POST['id'])
+            if vid.assignment.Deadline < datetime.datetime.now(datetime.timezone.utc):
                 data = {
-                    'message': 'Video marked as watched successfully!',
+                    'message': 'Cannot submit after deadline',
+                    'success': False,
                 }
             else:
-                data = {
-                    'message': 'Vido already watched',
-                }
-            data['success'] = True
+                progress, created = user_progress_video.objects.get_or_create(
+                    User=request.user, Video=vid)
+                if created:
+                    data = {
+                        'message': 'Video marked as watched successfully!',
+                    }
+                else:
+                    data = {
+                        'message': 'Vido already watched',
+                    }
+                data['success'] = True
+        else:
+            data = {
+                'message': 'Only for students'
+            }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
 
 
 def pdf_read(request):
     if request.user.is_authenticated:
-        pd = Pdf.objects.get(id=request.POST['id'])
-        if pd.assignment.Deadline < datetime.datetime.now(datetime.timezone.utc):
-            data = {
-                'message': 'Cannot submit after deadline',
-                'success': False
-            }
-        else:
-            progress, created = user_progress_pdf.objects.get_or_create(
-                User=request.user, Pdf=pd)
-            if created:
+        if request.user.user_type == 'Student':
+            pd = Pdf.objects.get(id=request.POST['id'])
+            if pd.assignment.Deadline < datetime.datetime.now(datetime.timezone.utc):
                 data = {
-                    'message': 'Pdf marked as read successfully!'
+                    'message': 'Cannot submit after deadline',
+                    'success': False
                 }
             else:
-                data = {
-                    'message': 'Pdf already read'
-                }
-            data['success'] = True
+                progress, created = user_progress_pdf.objects.get_or_create(
+                    User=request.user, Pdf=pd)
+                if created:
+                    data = {
+                        'message': 'Pdf marked as read successfully!'
+                    }
+                else:
+                    data = {
+                        'message': 'Pdf already read'
+                    }
+                data['success'] = True
+        else:
+            data = {
+                'message': 'Only for students'
+            }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
 

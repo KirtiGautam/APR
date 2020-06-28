@@ -54,6 +54,7 @@ const generateThumbs = arr => {
                 jsonp: 'callback',
                 dataType: 'jsonp',
                 success: function (response) {
+                    $(arr[x].duration).html(duration(response.duration));
                     $(arr[x].id).attr("src", `${response.thumbnail_url}`);
                 }
             });
@@ -71,4 +72,16 @@ const youtube_parser = url => {
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
     var match = url.match(regExp);
     return (match && match[7].length == 11) ? match[7] : false;
+}
+
+
+const duration = given_seconds => {
+    dateObj = new Date(given_seconds * 1000);
+    hours = dateObj.getUTCHours();
+    minutes = dateObj.getUTCMinutes();
+    seconds = dateObj.getSeconds();
+
+    return (hours.toString().padStart(2, '0') + ':' +
+        minutes.toString().padStart(2, '0') + ':' +
+        seconds.toString().padStart(2, '0') + ' hr');
 }

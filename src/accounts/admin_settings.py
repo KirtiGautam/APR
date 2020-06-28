@@ -59,7 +59,7 @@ def uploadStudents(request):
             inDays = int(ordinal)
             frac = ordinal - inDays
             inSecs = int(round(frac * 86400.0))
-            password_characters = string.ascii_letters + string.digits + string.punctuation
+            password_characters = string.ascii_letters + string.digits
             password = ''.join(random.choice(password_characters)
                                for i in range(random.randint(8, 12)))
             user = User.objects.create_user(
@@ -299,7 +299,7 @@ def getStaff(request):
 def newStudent(request):
     if request.user.is_authenticated and request.user.admin:
         host = request.build_absolute_uri('/login')
-        password_characters = string.ascii_letters + string.digits + string.punctuation
+        password_characters = string.ascii_letters + string.digits
         password = ''.join(random.choice(password_characters)
                            for i in range(random.randint(8, 12)))
         user = User.objects.create_user(
@@ -401,6 +401,21 @@ def updateStudent(request):
         student.Pincode = request.POST['Pincode']
         student.Class = Class.objects.get(id=request.POST['Class'])
         student.save()
+        print(request.POST['send_mail'])
+        if request.POST['send_mail'] == 'true':
+            password_characters = string.ascii_letters + string.digits
+            password = ''.join(random.choice(password_characters)
+                               for i in range(random.randint(8, 12)))
+            user.set_password(password)
+            host = request.build_absolute_uri('/login')
+            html_message = render_to_string(
+                'mails/new-Student.html', context={'student': student, 'password': password, 'host': host}, request=request)
+            student.user.email_user(
+                subject=' Welcome to the Digital Classes - Akshara International School',
+                from_email='Akshara <noreply@akshara.ubiqe.in>',
+                message=strip_tags(html_message),
+                html_message=html_message,
+                fail_silently=True)
         data = {
             'message': 'Selected User is updated'
         }

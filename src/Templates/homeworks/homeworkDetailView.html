@@ -44,7 +44,8 @@
             </div>
             {% if user.admin %}
             <div class="col-2 mb-3 mt-3">
-                <button class="btn edit-add float-right" title="Delete" id="delete_btn"><i class="fas fa-trash"></i></button>
+                <button class="btn edit-add float-right" title="Delete" id="delete_btn"><i
+                        class="fas fa-trash"></i></button>
                 <button class="btn edit-add float-right" data-toggle="modal" data-backdrop="static" data-target="#add"
                     title="Add More Data"><i class="fas fa-plus-circle"></i></button>
                 <button class="btn edit-add float-right" title="Student Stats"><a
@@ -96,7 +97,7 @@
                             </span>
                             <span class="row homework-row-head pl-3 pr-3 pt-1">
                                 <span class="text-left col-6 pt-2">VIDEO</span>
-                                <span class="time col-4 pt-2">2 min</span>
+                                <span class="time col-4 pt-2" id="dura{{key.id}}">2 min</span>
                                 {% if not user.admin %}
                                 <input type="checkbox" onclick="return false;" readonly="readonly"
                                     {% for watched in user.watched_homework_video.all %}{% if watched.Video.id == key.id %}
@@ -186,6 +187,7 @@
     {% for video in homework.video.all %}
     thumbArr.push({
         id: "#thumb{{video.id}}",
+        duration: "#dura{{video.id}}",
         link: "{% if video.video.Local %}{{prefix}}{% endif %}{{video.video.file}}",
     })
     {% endfor %}

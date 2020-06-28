@@ -134,15 +134,20 @@ def addResource(request):
 
 def video_watched(request):
     if request.user.is_authenticated:
-        progress, created = user_progress_video.objects.get_or_create(
-            User=request.user, Video=Video.objects.get(id=request.POST['id']))
-        if created:
-            data = {
-                'message': 'Video marked as watched successfully!'
-            }
+        if request.user.user_type == 'Student':
+            progress, created = user_progress_video.objects.get_or_create(
+                User=request.user, Video=Video.objects.get(id=request.POST['id']))
+            if created:
+                data = {
+                    'message': 'Video marked as watched successfully!'
+                }
+            else:
+                data = {
+                    'message': 'Video already watched'
+                }
         else:
             data = {
-                'message': 'Video already watched'
+                'message': 'Only for students'
             }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
@@ -150,15 +155,20 @@ def video_watched(request):
 
 def pdf_read(request):
     if request.user.is_authenticated:
-        progress, created = user_progress_pdf.objects.get_or_create(
-            User=request.user, Pdf=Pdf.objects.get(id=request.POST['id']))
-        if created:
-            data = {
-                'message': 'Pdf marked as read successfully!'
-            }
+        if request.user.user_type == 'Student':
+            progress, created = user_progress_pdf.objects.get_or_create(
+                User=request.user, Pdf=Pdf.objects.get(id=request.POST['id']))
+            if created:
+                data = {
+                    'message': 'Pdf marked as read successfully!'
+                }
+            else:
+                data = {
+                    'message': 'Pdf already read'
+                }
         else:
             data = {
-                'message': 'Pdf already read'
+                'message': 'Only for students'
             }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Not authorized'})
@@ -185,10 +195,13 @@ def studentStats(request):
         datac = []
         lesson = Lesson.objects.get(id=request.GET['id'])
         dat = []
-        Total = sum([lesson.lesson_pdfs.all().count(), lesson.lesson_videos.all().count()])
+        Total = sum([lesson.lesson_pdfs.all().count(),
+                     lesson.lesson_videos.all().count()])
         for x in lesson.Subject.Class.Students.all():
-            watched = x.user.watched_lesson_video.filter(Video__lesson=lesson).all().count()
-            read = x.user.read_lesson_pdf.filter(Pdf__lesson=lesson).all().count()
+            watched = x.user.watched_lesson_video.filter(
+                Video__lesson=lesson).all().count()
+            read = x.user.read_lesson_pdf.filter(
+                Pdf__lesson=lesson).all().count()
             total = watched+read
             labels.append(x.user.get_full_name())
             datac.append(math.floor((total/Total if Total > 0 else 1)*100))
