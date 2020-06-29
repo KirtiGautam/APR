@@ -31,7 +31,7 @@
                             {% endif %}
                         </span>
                         <span class="row lessons-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12">{{vid.video.Name}}</span>
+                            <span class="col-12 text-truncate">{{vid.video.Name}}</span>
                         </span>
                     </div>
                 </a>
@@ -56,7 +56,7 @@
                             {% endif %}
                         </span>
                         <span class="row lessons-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12">{{pdf.pdf.Name}}</span>
+                            <span class="col-12 text-truncate">{{pdf.pdf.Name}}</span>
                         </span>
                     </div>
                 </a>
@@ -72,13 +72,13 @@
                             <img src="/static/Images/lesson/test.png" class="col-12 img">
                         </span>
                         <span class="row lessons-row-head pl-3 pr-3 pt-1">
-                            <span class="test-text-left col-7">{{key.question.all.count}} Questions</span>
+                            <span class="test-text-left col-7 text-truncate">{{key.question.all.count}} Questions</span>
                             <!-- <span class="checkbox round col-2">
                         <input type="checkbox" name="" id="">
                     </span> -->
                         </span>
                         <span class="row lessons-row-foot text-right pl-3 pr-3 pb-3">
-                            <span class="col-12">{% if test.final %}Final
+                            <span class="col-12 text-truncate">{% if test.final %}Final
                                 Test{% else %}Practice
                                 Test{% endif %}</span>
                         </span>

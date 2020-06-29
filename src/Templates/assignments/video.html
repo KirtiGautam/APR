@@ -31,7 +31,7 @@
                             {% endif %}
                         </span>
                         <span class="row lessons-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12">{{vid.video.Name}}</span>
+                            <span class="col-12 text-truncate">{{vid.video.Name}}</span>
                         </span>
                     </div>
                 </a>
@@ -56,7 +56,7 @@
                             {% endif %}
                         </span>
                         <span class="row lessons-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12">{{pdf.pdf.Name}}</span>
+                            <span class="col-12 text-truncate">{{pdf.pdf.Name}}</span>
                         </span>
                     </div>
                 </a>
@@ -78,7 +78,7 @@
                     </span> -->
                         </span>
                         <span class="row lessons-row-foot text-right pl-3 pr-3 pb-3">
-                            <span class="col-12">{% if test.final %}Final
+                            <span class="col-12 text-truncate">{% if test.final %}Final
                                 Test{% else %}Practice
                                 Test{% endif %}</span>
                         </span>

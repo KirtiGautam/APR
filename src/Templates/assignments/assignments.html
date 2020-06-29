@@ -4,8 +4,8 @@
         <div
             class="assignment-cards p-3 {% if key.progress == 100 or request.user.admin or request.user.is_staff %}complete{% elif key.progress == 0 %} deadline {% else %} prime {% endif %}">
             <span class="row assignment-row-head">
-                <span class="title col-12">{{key.assi.Subject.Name}}</span>
-                <span class="summary col-12">{{key.assi.video.all.count}} Videos + {{key.assi.pdf.all.count}}
+                <span class="title col-12 text-truncate">{{key.assi.Subject.Name}}</span>
+                <span class="summary col-12 text-truncate">{{key.assi.video.all.count}} Videos + {{key.assi.pdf.all.count}}
                     Reading</span>
             </span>
             {% if request.user.user_type == 'Student' %}
