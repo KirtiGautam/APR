@@ -3,8 +3,8 @@
     <a href="{% url 'homework:homeworkDetails' key.0.id %}">
         <div class="homework-cards p-4">
             <span class="row homework-row-head">
-                <span class="title col-12">{{key.0.Subject.Name}}</span>
-                <span class="summary col-12">{{key.0.video.all.count}} Videos + {{key.0.pdf.all.count}} Reading</span>
+                <span class="title col-12 text-truncate">{{key.0.Subject.Name}}</span>
+                <span class="summary col-12 text-truncate">{{key.0.video.all.count}} Videos + {{key.0.pdf.all.count}} Reading</span>
             </span>
             {% if not user.admin %}
             <span class="row">

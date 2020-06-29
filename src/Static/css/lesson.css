@@ -132,7 +132,7 @@ a:hover {
 .test {
   background: transparent linear-gradient(56deg, #f792ab 0%, #fce584 100%) 0% 0%
     no-repeat padding-box;
-    height: 100%;
+    height: 100% !important;
 }
 
 .test-text-left {

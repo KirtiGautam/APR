@@ -40,8 +40,8 @@
                                 <div class="past-cards p-3">
                                     <span class="row assignment-row-head">
                                         <span
-                                            class="title-{% if assignment.progress == 100 or request.user.admin %}complete {% elif assignment.progress == 0 %}deadline {% else %}prime {% endif %}col-12 mt-1 mb-1">{{assignment.assi.Subject.Name}}</span>
-                                        <span class="summary col-12 mt-1 mb-1">{{assignment.assi.video.all.count}}
+                                            class="title-{% if assignment.progress == 100 or request.user.admin %}complete {% elif assignment.progress == 0 %}deadline {% else %}prime {% endif %}col-12 mt-1 mb-1 text-truncate">{{assignment.assi.Subject.Name}}</span>
+                                        <span class="summary col-12 mt-1 mb-1 text-truncate">{{assignment.assi.video.all.count}}
                                             Videos +
                                             {{assignment.assi.pdf.all.count}}
                                             Reading</span>
