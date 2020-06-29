@@ -23,15 +23,23 @@
                 <br>
                 <div class="col-12">
                     <div class="row row-1-2 mb-3">
-                        {% if user.admin %}
+                        {% if user.user_type != 'Student' %}
                         <div class="col-6">
                             <select id="Class" class="form-control drop">
                                 <option value="" selected disabled>Select Class</option>
+                                {% if user.admin %}
                                 {% for key in Class %}
                                 <option value="{{key.id}}">{{key.name}}</option>
                                 {% endfor %}
+                                {% else %}
+                                {% regroup class by Class as class_list %}
+                                {% for key in class_list %}
+                                <option value="{{key.grouper.id}}">{{key.grouper.name}}</option>
+                                {% endfor %}
+                                {% endif %}
                             </select>
                         </div>
+                        {% if user.admin %}
                         <div class="col-6 d-none" id="widgets">
                             <button onclick="prenew();" title="Add New Stream" class="btn edit-add float-right"><i
                                     class="fas fa-plus-circle"></i></button>
@@ -40,6 +48,7 @@
                             <button id="edit_btn" class="btn edit-add float-right" title="Edit"><i
                                     class="fas fa-pen-square"></i></button>
                         </div>
+                        {% endif %}
                         {% else %}
                         <input type="hidden" id="Class" value="{{Class}}">
                         {% endif %}
@@ -106,6 +115,8 @@
     $(document).ready(function () {
         {% if user.admin %}
         getTeachers();
+        $('#Class').val('');
+        {% elif user.is_staff %}
         $('#Class').val('');
         {% else %}
         getLivestreams();

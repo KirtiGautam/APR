@@ -24,7 +24,7 @@
                             <span class="col-4 d-flex justify-content-end">
                                 <span class="time pt-2" id="dura{{vid.id}}">2 min</span>
                             </span>
-                            {% if not user.admin %}
+                            {% if user.user_type == 'Student' %}
                             <input type="checkbox" onclick="return false;" readonly="readonly"
                                 {% for watched in user.watched_lesson_video.all %}{% if watched.Video.id == vid.id %}
                                 checked {% endif %}{% endfor %} class="col-1 form-control">
@@ -49,7 +49,7 @@
                         <span class="row lessons-row-head pl-3 pr-3 pt-1">
                             <span class="text-left col-6 pt-2">PDF</span>
                             <span class="time col-4 pt-2">2 min</span>
-                            {% if not user.admin %}
+                            {% if user.user_type == 'Student' %}
                             <input type="checkbox" onclick="return false;" readonly="readonly"
                                 {% for read in user.read_lesson_pdf.all %}{% if read.Pdf.id == pdf.id %} checked
                                 {% endif %}{% endfor %} class="col-1 form-control">

@@ -32,7 +32,7 @@
                         {{assign.Name}}
                     </div>
                     <div class="col-3 col-sm-3 col-md-2 col-lg-1">
-                        {% if user.admin %}
+                        {% if user.admin or user.is_staff %}
                         <button class="btn edit-add" title="Edit Details" id="edit_btn"><i
                                 class="fas fa-pen-square"></i></button>
                         {% endif %}
@@ -52,7 +52,7 @@
                 <span class="due-date">{% if present %}{{assign.Deadline}}{% else %}Time up{% endif %}</span>
             </div>
             <div class="col-4">
-                {% if user.admin %}
+                {% if user.admin or user.is_staff  %}
                 <button class="btn edit-add float-right" data-toggle="modal" data-backdrop="static" data-target="#add"
                     title="Add More Data"><i class="fas fa-plus-circle"></i></button>
                 <button class="btn edit-add float-right" id="delete_btn" title="Delete"><i
@@ -75,7 +75,7 @@
                             <span class="row assign-row-head pl-3 pr-3 pt-1">
                                 <span class="text-left col-6 pt-2">PDF</span>
                                 <span class="time col-4 pt-2">2 min</span>
-                                {% if not user.admin %}
+                                {% if user.user_type == 'Student' %}
                                 <input type="checkbox" onclick="return MARP({{key.id}}, this);"
                                     {% for read in user.read_assignment_pdf.all %}{% if read.Pdf.id == key.id %}
                                     onclick="return false;" readonly="readonly" checked {% endif %}{% endfor %}
@@ -106,7 +106,7 @@
                             <span class="row assign-row-head pl-3 pr-3 pt-1">
                                 <span class="text-left col-6 pt-2">VIDEO</span>
                                 <span class="time col-4 pt-2" id="dura{{key.id}}">2 min</span>
-                                {% if not user.admin %}
+                                {% if user.user_type == 'Student' %}
                                 <input type="checkbox" onclick="return false;" readonly="readonly"
                                     {% for watched in user.watched_assignment_video.all %}{% if watched.Video.id == key.id %}
                                     checked {% endif %}{% endfor %} class="col-1 form-control">
@@ -182,11 +182,7 @@
             </div>
         </div>
 
-        {% if user.admin %}
-        <!-- <div class="row forth mb-5">
-            <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>
-            <button class="btn ass-save col-5 col-sm-5 col-md-3 col-lg-2 p-2">Save</button>
-        </div> -->
+        {% if user.admin or user.is_staff %}
         {% include 'assignments/addresource.html' %}
         {% endif %}
     </div>

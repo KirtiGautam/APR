@@ -2,13 +2,13 @@
 <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-3">
     <a href="{% url 'assignment:assignmentDetails' key.assi.id %}">
         <div
-            class="assignment-cards p-3 {% if key.progress == 100 or request.user.admin %}complete{% elif key.progress == 0 %} deadline {% else %} prime {% endif %}">
+            class="assignment-cards p-3 {% if key.progress == 100 or request.user.admin or request.user.is_staff %}complete{% elif key.progress == 0 %} deadline {% else %} prime {% endif %}">
             <span class="row assignment-row-head">
                 <span class="title col-12">{{key.assi.Subject.Name}}</span>
                 <span class="summary col-12">{{key.assi.video.all.count}} Videos + {{key.assi.pdf.all.count}}
                     Reading</span>
             </span>
-            {% if not request.user.admin %}
+            {% if request.user.user_type == 'Student' %}
             <div class="row">
                 <div class="col-9">
                     <div class="progress">
@@ -22,7 +22,7 @@
             </div>
             {% endif %}
             <span class="row assignment-row-foot">
-                {% if not request.user.admin %}
+                {% if request.user.user_type == 'Student' %}
                 <span class="moti col-12">
                     {% if key.progress == 100 %}Great Job!{% elif key.progress == 0 %} TIME TO WORK!
                     {% else %}Looks
@@ -30,7 +30,7 @@
                 </span>
                 {% endif %}
                 <span class="time-left">
-                    {% if key.progress == 100 and not request.user.admin %}
+                    {% if key.progress == 100 and request.user.user_type == 'Student' %}
                     <span class="note col-4">
                         Assignment Done
                     </span>

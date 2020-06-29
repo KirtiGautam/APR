@@ -19,13 +19,20 @@
                 <span class="col-12 pl-3">ASSIGNMENTS</span>
             </div>
             <div class="col-6 col-sm-6 col-md-6 col-lg-4 first-class-plus">
-                {% if request.user.admin %}
+                {% if user.user_type != 'Student' %}
                 <div class="col-12 row d-flex justify-content-around">
                     <select id="class" class="col-8 form-control drop m-2">
                         <option value="" disabled selected>Class</option>
+                        {% if user.admin %}
                         {% for key in classes %}
                         <option value="{{key.id}}">{{key.name}}</option>
                         {% endfor %}
+                        {% else %}
+                        {% regroup classes by Class as class_list %}
+                        {% for key in class_list %}
+                        <option value="{{key.grouper.id}}">{{key.grouper.name}}</option>
+                        {% endfor %}
+                        {% endif %}
                     </select>
                     <span><button class="btn edit-add add-assign d-none" title="Add New Assignment" data-toggle="modal"
                             data-backdrop="static" data-target="#add"><i class="fas fa-plus-circle"></i></button></span>
@@ -40,12 +47,12 @@
             </div>
         </div>
         <div class="row second col-12 mt-5" id="body"></div>
-        {% if request.user.admin %}
+        {% if user.admin or user.is_staff %}
         {% include 'assignments/newAssignment.html' %}
         {% endif %}
         <div class="container-fluid">
             <div class="row third mt-5 p-3">
-                {% if user.admin %}
+                {% if user.admin or user.is_staff %}
                 <form action="{% url 'assignment:get_assignments' %}" method="GET">
                     <input type="hidden" name="id">
                     <input type="hidden" name="time" value="past">
@@ -72,7 +79,7 @@
 <script src="{% static 'js/thumb.js' %}"></script>
 <script>
     $(document).ready(function () {
-        {% if request.user.admin %}
+        {% if user.admin or user.is_staff %}
         $('#class').val('');
         {% else %}
         getAssignments();

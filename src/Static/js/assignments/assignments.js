@@ -52,7 +52,7 @@ const getAssignments = () => {
     },
     dataType: "json",
     success: function (data) {
-      // pastAssignments();
+      getSubjects()
       if (!data.body.replace(/(\r\n|\n|\r)/gm, "")) {
         $("#body").html("<h5 class='m-5 text-center'>No assignments</h5>");
       } else {

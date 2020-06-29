@@ -200,7 +200,7 @@ def upload(request):
 
 
 def getMedia(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         if request.POST['type'] == 'video':
             data = {
                 'video': list(video.objects.all().values('id', 'Name', 'Description', 'Local', 'file'))

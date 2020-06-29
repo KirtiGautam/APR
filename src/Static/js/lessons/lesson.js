@@ -70,7 +70,7 @@ $(document).ready(function () {
 let thumbr = [];
 function getlessons(id = "") {
   $.ajax({
-    type: "POST",
+    type: "GET",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
     url: "/get-lessons",
     data: {

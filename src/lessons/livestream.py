@@ -12,6 +12,10 @@ def index(request):
             data = {
                 'Class': Class.objects.all()
             }
+        elif request.user.is_staff:
+            data = {
+                'class': request.user.teacher.all()
+            }
         else:
             data = {
                 'Class': request.user.Student.Class.id
@@ -23,8 +27,14 @@ def index(request):
 
 def livestreams(request):
     if request.user.is_authenticated:
+        if request.user.is_staff:
+            ls = request.user.livestream_duty.filter(Subject__Class=Class.objects.get(
+                id=request.GET['class']), Time__gt=timezone.now())
+        else:
+            ls = liveStream.objects.filter(Subject__Class=Class.objects.get(
+                id=request.GET['class']), Time__gt=timezone.now())
         client = {
-            'livestream': liveStream.objects.filter(Subject__Class=Class.objects.get(id=request.GET['class']), Time__gt=timezone.now())
+            'livestream': ls
         }
         data = {
             'body': render_to_string('livestream/livestreams.html', context=client, request=request)

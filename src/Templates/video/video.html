@@ -47,7 +47,7 @@
                                                         class="btn blue-buttons pl-3 pr-3 pt-2 pb-2">Next</button>
                                                 </a></span>
                                             {% endif %}
-                                            {% if not user.admin %}
+                                            {% if user.user_type == 'Student' %}
                                             <span class="float-right"><button
                                                     class="btn blue-buttons pl-3 pr-3 pt-2 pb-2" onclick="MAS();">Mark
                                                     as

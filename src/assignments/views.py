@@ -39,15 +39,20 @@ def getTest(request, id):
 
 
 def getSubjects(request):
-    if request.user.is_authenticated and request.user.admin:
-        return http.JsonResponse({
-            'subjects': list(Subject.objects.filter(Class=request.POST['id']).values('id', 'Name')),
-        })
+    if request.user.is_authenticated:
+        if request.user.admin:
+            return http.JsonResponse({
+                'subjects': list(Subject.objects.filter(Class=request.POST['id']).values('id', 'Name')),
+            })
+        if request.user.is_staff:
+            return http.JsonResponse({
+                'subjects': list(request.user.teacher.filter(Class=request.POST['id']).values('id', 'Name')),
+            })
     return http.HttpResponseForbidden({'message': 'Unauthorized'})
 
 
 def getLessons(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         return http.JsonResponse({
             'lessons': list(Lesson.objects.filter(Subject=request.POST['id']).values('id', 'Name', 'Number')),
         })
@@ -62,7 +67,7 @@ def assignments(request):
             }
         elif request.user.is_staff:
             data = {
-                'Classes'
+                'classes': request.user.teacher.all()
             }
         else:
             data = {
@@ -77,9 +82,13 @@ def getAssignments(request):
     if request.user.is_authenticated:
         deads = []
         if request.GET['time'] == 'present':
-            present = True
-            for x in assignment.objects.filter(
-                    Subject__Class=request.GET['id'], Deadline__gt=timezone.localtime()):
+            if request.user.is_staff:
+                rest = request.user.teacher.filter(Class=request.GET['id'])
+            else:
+                rest = Subject.objects.filter(Class=request.GET['id'])
+                # assignment.objects.filter(
+                #     Subject__Class=request.GET['id'], Deadline__gt=timezone.localtime())
+            for x in assignment.objects.filter(Subject__in=rest, Deadline__gt=timezone.localtime()):
                 diff = x.Deadline-timezone.localtime()
                 user_watched = request.user.watched_assignment_video.filter(
                     Video__in=x.video.all()).count()
@@ -102,9 +111,12 @@ def getAssignments(request):
             }
             return http.JsonResponse(client)
         else:
-            present = False
+            if request.user.is_staff:
+                rest = request.user.teacher.filter(Class=request.GET['id'])
+            else:
+                rest = Subject.objects.filter(Class=request.GET['id'])
             for x in assignment.objects.filter(
-                    Subject__Class=request.GET['id'], Deadline__lt=timezone.localtime()):
+                    Subject__in=rest, Deadline__lt=timezone.localtime()):
                 user_watched = request.user.watched_assignment_video.filter(
                     Video__in=x.video.all()).count()
                 user_read = request.user.read_assignment_pdf.filter(
@@ -158,7 +170,7 @@ def vid(request, id):
 
 
 def newAssignment(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         dead = timezone.make_aware(
             dateparse.parse_datetime(request.POST['deadline']))
         assignment.objects.create(
@@ -171,7 +183,7 @@ def newAssignment(request):
 
 
 def addresource(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         data = request.POST.getlist('data[]')
         if request.POST['type'] == 'pdf':
             for x in data:
@@ -251,7 +263,7 @@ def pdf_read(request):
 
 
 def deleteMedia(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         for x in request.POST.getlist('data[]'):
             dat = json.loads(x)
             if dat['type'] == 'pdf':
@@ -266,7 +278,7 @@ def deleteMedia(request):
 
 
 def AssignDetails(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         assign = assignment.objects.values(
             'id', 'Name', 'Instructions', 'Deadline').get(id=request.GET['id'])
         data = assign
@@ -275,7 +287,7 @@ def AssignDetails(request):
 
 
 def updateDetails(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         assign = assignment.objects.get(id=request.POST['id'])
         assign.Name = request.POST['Name']
         assign.Instructions = request.POST['Instructions']
@@ -289,7 +301,7 @@ def updateDetails(request):
 
 
 def studentStats(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         labels = []
         datac = []
         assign = assignment.objects.get(id=request.GET['id'])

@@ -9,7 +9,7 @@ from lessons.models import Subject, question, Pdf, Video, Lesson, Test, Test_que
 
 
 def getQuestions(request):
-    if request.user.admin and request.user.is_authenticated:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         questions = question.objects.filter(
             Lesson=request.POST['lesson'])
         data = {
@@ -55,6 +55,10 @@ def lessons(request):
             data = {
                 'classes': Class.objects.all().values('id', 'name')
             }
+        elif request.user.is_staff:
+            data = {
+                'classes': request.user.teacher.all()
+            }
         else:
             data = {
                 'class': request.user.Student.Class.id
@@ -66,23 +70,28 @@ def lessons(request):
 
 def getLessons(request):
     if request.user.is_authenticated:
-        if request.POST['subject'] == '':
-            subject = Subject.objects.filter(Class=request.POST['id'])
+        if request.GET['subject'] == '':
+            if request.user.is_staff:
+                subject = request.user.teacher.filter(Class=request.GET['id'])
+            else:
+                subject = Subject.objects.filter(Class=request.GET['id'])
         else:
-            subject = Subject.objects.filter(id=request.POST['subject'])
+            subject = Subject.objects.filter(id=request.GET['subject'])
         if subject:
             data = {
                 'lessons': subject[0].Lesson.all(),
                 'prefix': settings.MEDIA_URL,
-                'admin': request.user.admin,
+                'admin': request.user.admin or request.user.is_staff,
                 'watched_videos': request.user.watched_lesson_video.all(),
                 'read_pdfs': request.user.read_lesson_pdf.all(),
             }
         else:
             data = {}
+        send = request.user.teacher.filter(Class=request.GET['id']).values(
+            'id', 'Name') if request.user.is_staff else Subject.objects.filter(Class=request.GET['id']).values('id', 'Name')
         client = {
             'body': render_to_string('lesson/lessons.html', data),
-            'subjects': list(Subject.objects.filter(Class=request.POST['id']).values('id', 'Name'))
+            'subjects': list(send)
         }
         return http.JsonResponse(client, safe=False)
     else:
@@ -108,7 +117,7 @@ def vid(request, id):
 
 
 def addResource(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         data = request.POST.getlist('data[]')
         if request.POST['type'] == 'pdf':
             for x in data:
@@ -175,7 +184,7 @@ def pdf_read(request):
 
 
 def deleteMedia(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         for x in request.POST.getlist('data[]'):
             dat = json.loads(x)
             if dat['type'] == 'pdf':
@@ -190,7 +199,7 @@ def deleteMedia(request):
 
 
 def studentStats(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         labels = []
         datac = []
         lesson = Lesson.objects.get(id=request.GET['id'])
