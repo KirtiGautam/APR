@@ -14,7 +14,7 @@
         {% for vid in video.homework.video.all %}
         <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-4">
             <div class="col-11">
-                <a href="{% url 'lessons:video' vid.id %}">
+                <a href="{% url 'homework:video' vid.id %}">
                     <div class="lessons-cards">
                         <span class="row">
                             <img src="/static/Images/lesson/video.png" id="thumb{{vid.id}}" class="col-12 img">

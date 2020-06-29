@@ -70,11 +70,9 @@ def lessons(request):
 
 def getLessons(request):
     if request.user.is_authenticated:
-        if request.GET['subject'] == '':
-            if request.user.is_staff:
-                subject = request.user.teacher.filter(Class=request.GET['id'])
-            else:
-                subject = Subject.objects.filter(Class=request.GET['id'])
+        if not request.GET['subject']:
+            subject = request.user.teacher.filter(
+                Class=request.GET['id']) if request.user.is_staff else Subject.objects.filter(Class=request.GET['id'])
         else:
             subject = Subject.objects.filter(id=request.GET['subject'])
         if subject:

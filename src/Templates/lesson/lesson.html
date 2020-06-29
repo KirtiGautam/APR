@@ -18,23 +18,20 @@
                 <div class="col-6 col-sm-6 col-md-6 col-lg-2 pt-1">
                     <span class="selection">Select Subjects</span>
                 </div>
-                {% if user.admin %}
+                {% if user.user_type != 'Student'  %}
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3 text-center">
                     <select id="class" class="drop mb-1 form-control">
                         <option value="" disabled selected>Class</option>
+                        {% if user.admin %}
                         {% for key in classes %}
                         <option value="{{key.id}}">{{key.name}}</option>
                         {% endfor %}
-                    </select>
-                </div>
-                {% elif user.is_staff %}
-                <div class="col-6 col-sm-6 col-md-6 col-lg-3 text-center">
-                    <select id="class" class="drop mb-1 form-control">
-                        <option value="" disabled selected>Class</option>
+                        {% else %}
                         {% regroup classes by Class as class_list %}
                         {% for key in class_list %}
                         <option value="{{key.grouper.id}}">{{key.grouper.name}}</option>
                         {% endfor %}
+                        {% endif %}
                     </select>
                 </div>
                 {% else %}

@@ -159,7 +159,10 @@ def vid(request, id):
             next = reverse('assignment:video', args=[next[0].id])
         else:
             next = None
+        done = True if request.user.watched_assignment_video.filter(
+            Video=videos) else False
         data = {
+            'done': done,
             'video': videos,
             'next': next,
             'watched': reverse('assignment:mark_watched'),
