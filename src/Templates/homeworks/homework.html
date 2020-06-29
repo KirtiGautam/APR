@@ -18,19 +18,24 @@
                 <span class="col-12 pl-3">HOMEWORKS</span>
             </span>
             <div class="col-6 col-sm-6 col-md-6 col-lg-4 first-class-plus">
-                {% if request.user.admin %}
+                {% if user.user_type != 'Student' %}
                 <div class="col-12 row d-flex justify-content-around">
                     <select id="class" class="col-8 form-control drop m-2">
                         <option value="" disabled selected>Class</option>
+                        {% if user.admin %}
                         {% for key in classes %}
                         <option value="{{key.id}}">{{key.name}}</option>
                         {% endfor %}
+                        {% else %}
+                        {% regroup classes by Class as class_list %}
+                        {% for key in class_list %}
+                        <option value="{{key.grouper.id}}">{{key.grouper.name}}</option>
+                        {% endfor %}
+                        {% endif%}
                     </select>
                     <span><button class="btn edit-add add-home d-none" data-toggle="modal" data-backdrop="static"
                             data-target="#add" title="Add New Homework"><i
                                 class="fas fa-plus-circle"></i></button></span>
-                    <!-- <span><button class="btn edit-add" title="Delete Homework"><i
-                                class="fas fa-trash"></i></button></span> -->
                 </div>
                 {% else %}
                 <input type="hidden" id="class" value="{{class}}">
@@ -51,7 +56,7 @@
         <div class="row second col-12 mt-5" id="body">
 
         </div>
-        {% if user.admin %}
+        {% if user.admin or user.is_staff %}
         {% include 'homeworks/newHomework.html' %}
         {% endif %}
     </div>
@@ -61,7 +66,7 @@
 <script src="{% static 'js/thumb.js' %}"></script>
 <script>
     $(document).ready(function () {
-        {% if request.user.admin %}
+        {% if user.admin or user.is_staff %}
         $('#class').val('');
         {% else %}
         getHomeworks();

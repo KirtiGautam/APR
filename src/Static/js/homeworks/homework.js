@@ -6,7 +6,7 @@ function getHomeworks() {
     return;
   }
   $.ajax({
-    type: "POST",
+    type: "GET",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
     url: "/get-homeworks",
     data: {

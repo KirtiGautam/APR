@@ -16,6 +16,10 @@ def homeworks(request):
             data = {
                 'classes': Class.objects.all().values('id', 'name')
             }
+        elif request.user.is_staff:
+            data = {
+                'classes': request.user.teacher.all()
+            }
         else:
             data = {
                 'class': request.user.Student.Class.id
@@ -27,8 +31,12 @@ def homeworks(request):
 
 def getHomeworks(request):
     if request.user.is_authenticated:
+        if request.user.is_staff:
+            subject = request.user.teacher.filter(Class=request.GET['id'])
+        else:
+            subject = Subject.objects.filter(Class=request.GET['id'])
         home = homework.objects.filter(
-            Subject__Class=request.POST['id'], date=request.POST['date'])
+            Subject__in=subject, date=request.GET['date'])
         data = {
             'homeworks': zip(home, [sum([request.user.watched_homework_video.filter(Video__in=x.video.all()).count(), request.user.read_homework_pdf.filter(Pdf__in=x.pdf.all()).count()]) for x in home]),
         }
@@ -203,7 +211,7 @@ def pdf_read(request):
 
 
 def deleteMedia(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         for x in request.POST.getlist('data[]'):
             dat = json.loads(x)
             if dat['type'] == 'pdf':
@@ -218,7 +226,7 @@ def deleteMedia(request):
 
 
 def HomeDetails(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         home = homework.objects.values(
             'id', 'Name', 'Instructions').get(id=request.GET['id'])
         data = home
@@ -227,7 +235,7 @@ def HomeDetails(request):
 
 
 def updateDetails(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         home = homework.objects.get(id=request.POST['id'])
         home.Name = request.POST['Name']
         home.Instructions = request.POST['Instructions']
@@ -240,7 +248,7 @@ def updateDetails(request):
 
 
 def studentStats(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         home = homework.objects.get(id=request.GET['id'])
         labels = []
         datac = []
