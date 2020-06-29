@@ -49,7 +49,8 @@
                                             {% endif %}
                                             {% if user.user_type == 'Student' %}
                                             <span class="float-right"><button
-                                                    class="btn blue-buttons pl-3 pr-3 pt-2 pb-2 mark" onclick="MAS();"></button></span>
+                                                    class="btn blue-buttons pl-3 pr-3 pt-2 pb-2 {% if done %}marked{% else %}mark{% endif %}"
+                                                    onclick="MAS();" id="mark_complete_btn"></button></span>
                                             {% endif %}
                                         </span>
                                     </span>
@@ -100,6 +101,7 @@
 
 <script>
     const url = '{{watched}}', id = {{ video.id }};
+    let marked = {{ done|yesno:"true,false" }};
     (function ($) {
         "use strict";
 

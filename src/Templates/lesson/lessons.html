@@ -55,7 +55,7 @@
                             <span class="time col-4 pt-2" id="dura{{video.id}}">2 min</span>
                             {% if not admin %}
                             <input type="checkbox" onclick="return false;" readonly="readonly"
-                                {% for watched in watched_videos %}{% if watched.id == video.id %} checked
+                                {% for watched in watched_videos %}{% if watched.Video.id == video.id %} checked
                                 {% endif %}{% endfor %} class="col-1 form-control">
                             {% else %}
                             <input type="checkbox" class="video_checks col-1 form-control" value="{{video.id}}">

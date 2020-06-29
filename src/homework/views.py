@@ -156,7 +156,7 @@ def video_watched(request):
     if request.user.is_authenticated:
         if request.user.user_type == 'Student':
             vid = Video.objects.get(id=request.POST['id'])
-            if vid.homework.Deadline < datetime.datetime.now(datetime.timezone.utc):
+            if vid.homework.date < datetime.date.today():
                 data = {
                     'message': 'Cannot submit after deadline',
                     'success': False,
@@ -185,7 +185,7 @@ def pdf_read(request):
     if request.user.is_authenticated:
         if request.user.user_type == 'Student':
             pd = Pdf.objects.get(id=request.POST['id'])
-            if pd.homework.Deadline < datetime.datetime.now(datetime.timezone.utc):
+            if pd.homework.date < datetime.date.today():
                 data = {
                     'message': 'Cannot submit after deadline',
                     'success': False

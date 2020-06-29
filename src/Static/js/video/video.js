@@ -10,7 +10,7 @@ if ($('#video_player').attr('src').includes('vimeo')) {
 
 }
 
-let thumbarr = [], marked = false;
+let thumbarr = [];
 
 const MAS = () => {
   $.ajax({
@@ -22,8 +22,8 @@ const MAS = () => {
     },
     dataType: "json",
     success: function (response) {
-      location.reload()
       alert(response.message);
+      location.reload()
     }, error: function (error) {
       alert(error.responseText);
     }
@@ -43,6 +43,7 @@ const loadplayer = () => {
     setInterval(() => {
       player.getCurrentTime().then(function (seconds) {
         if (cue_mark < seconds && !marked) {
+          marked = true;
           $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
@@ -52,9 +53,11 @@ const loadplayer = () => {
             },
             dataType: "json",
             success: function (response) {
-              marked = true;
+              $('#mark_complete_btn').removeClass('mark');
+              $('#mark_complete_btn').addClass('marked');
               console.log(response.message);
             }, error: function (error) {
+              marked = false;
               alert(error.responseText);
             }
           });
