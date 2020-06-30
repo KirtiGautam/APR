@@ -9,18 +9,18 @@
 
 <body>
     {% include "common/header.html" %}
-    <div class="col-10 col-sm-4 col-md-3 col-lg-2 float-left left">
+    <div class="col float-left left">
         {% include "home/leftside.html" %}
     </div>
     <div class="content">
         <div class="container-fluid">
             <div class="row row-1 pt-2">
                 <div class="col-6 col-sm-6 col-md-6 col-lg-2 pt-1">
-                    <span class="selection">Select Subjects</span>
+                    <span class="heading-1">Select Subjects</span>
                 </div>
                 {% if user.user_type != 'Student'  %}
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3 text-center">
-                    <select id="class" class="drop mb-1 form-control">
+                    <select id="class" class="text-1 mb-1 form-control">
                         <option value="" disabled selected>Class</option>
                         {% if user.admin %}
                         {% for key in classes %}

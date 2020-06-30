@@ -12,17 +12,17 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+            <div class="col-12">
                 <div class="row pt-2">
                     {% block back %}
                     {% endblock %}
-                    <span class="heading-1 pl-3 mt-1">{{video.lesson.Name}}</span>
+                    <div class="col-9 col-sm-9 col-md-6 col-lg-7 heading-1">{{video.lesson.Name}}</div>
                     <span class="col-12">
                         <div class="dropdown-divider mb-4"></div>
                     </span>
                     <span class="col-12">
                         <span class="row">
-                            <span class="col-12 col-sm-12 col-md-12 col-lg-9">
+                            <span class="col-12 col-sm-12 col-md-12 col-lg-7">
                                 <span class="row">
                                     <span class="col-12">
                                         {% if not video.video.Local %}
@@ -39,7 +39,7 @@
                                     </span>
                                     <span class="col-12">
                                         <span class="col-12 col-sm-12 col-md-6 col-lg-6 text-truncate">
-                                            <span class="heading-2 p-1">{{video.video.Name}}</span>
+                                            <span class="heading-2 p-1 text-truncate">{{video.video.Name}}</span>
                                         </span>
                                         <span class="col-12 col-sm-12 col-md-6 col-lg-6">
                                             {% if next %}
@@ -61,12 +61,12 @@
                                         </span>
                                         <br>
                                         <span class="col-12">
-                                            <span class="video-description p-1">{{video.video.Description}}</span>
+                                            <span class="video-description p-1 text-justify">{{video.video.Description}}</span>
                                         </span>
                                     </span>
                                 </span>
                             </span>
-                            <span class="col-12 col-sm-12 col-md-12 col-lg-3">
+                            <span class="col-12 col-sm-12 col-md-12 col-lg-5">
                                 <div class="card dis-row">
                                     <div class="card-header bg-transparent">
                                         <span class="video-discuss">Discussions</span>
@@ -87,14 +87,14 @@
                     </span>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-4 col-lg-3">
+            <!-- <div class="col-12 col-sm-12 col-md-4 col-lg-3">
                 <script src="{% static 'js/video/video.js' %}"></script>
                 <script src="{% static 'js/thumb.js' %}"></script>
                 <div class="row video-all ml-1">
                     {% block other %}
                     {% endblock %}
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

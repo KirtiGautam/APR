@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="modal" role="dialog" id="add">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -10,8 +10,8 @@
             </div>
             <div class="modal-body">
                 <div class="row other_div">
-                    <span class="selection col-12 col-sm-6 col-md-4 col-lg-3 p-2">Data Type</span>
-                    <select id="dataType" class="form-control drop col-12 col-sm-6 col-md-8 col-lg-8 p-2">
+                    <span class="heading-2 text-center col-12 col-sm-6 col-md-4 col-lg-3 p-2">Data Type</span>
+                    <select id="dataType" class="form-control text-2 col-12 col-sm-6 col-md-8 col-lg-8 p-2">
                         <option value="pdf">PDF</option>
                         <option value="video">Video</option>
                         <option value="test">Test</option>
@@ -20,23 +20,23 @@
                 <div id="data_display" class="row mt-3"></div>
                 <div class="question_div d-none row">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                        <span class="selection">Test Name</span>
+                        <span class="heading-2">Test Name</span>
                         <br>
-                        <span><input type="text" id="test_name" class="form-control drop"></span>
+                        <span><input type="text" id="test_name" class="form-control text-2"></span>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                        <span class="selection">Test duration(minutes)</span>
+                        <span class="heading-2">Test duration(minutes)</span>
                         <br>
-                        <span><input type="number" id="test_duration" class="form-control drop"></span>
+                        <span><input type="number" id="test_duration" class="form-control text-2"></span>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 p-2">
-                        <span class="selection">Final</span>
+                        <span class="heading-2">Final</span>
                         <input type="checkbox" id="final_flag">
                     </div>
                 </div>
                 <div class="col-12 p-2">
-                    <button id="upload_btn" class="btn import float-right">Save</button>
-                    <button id="next_btn" class="d-none btn buttons float-right">Next</button>
+                    <button id="upload_btn" class="btn button-2 float-right">Save</button>
+                    <button id="next_btn" class="d-none btn button-1 float-right">Next</button>
                 </div>
             </div>
         </div>
