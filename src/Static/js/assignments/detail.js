@@ -1,9 +1,20 @@
-let thumbArr = [], today = new Date();
+let thumbArr = [],
+  today = new Date();
 
 $(document).ready(function () {
-  const now = today.getFullYear() + '-' + (today.getMonth() + 1 < 10 ? '0' : '') + (today.getMonth() + 1) + '-' + today.getDate() + 'T' + today.getHours() + ":" + today.getMinutes();
+  const now =
+    today.getFullYear() +
+    "-" +
+    (today.getMonth() + 1 < 10 ? "0" : "") +
+    (today.getMonth() + 1) +
+    "-" +
+    today.getDate() +
+    "T" +
+    today.getHours() +
+    ":" +
+    today.getMinutes();
 
-  $('#ed_Deadline').attr("min", now);
+  $("#ed_Deadline").attr("min", now);
 
   $("#dataType").change(function () {
     if (!$("#lessons").val()) {
@@ -67,51 +78,59 @@ $(document).ready(function () {
       data: data,
       dataType: "json",
       success: function (response) {
-        location.reload()
+        location.reload();
         alert(response.message);
-      }, error: function (error) {
+      },
+      error: function (error) {
         alert(error.responseText);
-      }
+      },
     });
   });
 
-  $('#edit_btn').click(function () {
+  $("#edit_btn").click(function () {
     $.ajax({
       type: "GET",
       headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
       url: "/get-assignment-details",
       data: {
-        id: $('#hidden_assign_id').val(),
+        id: $("#hidden_assign_id").val(),
       },
       dataType: "json",
       success: function (response) {
         for (let x in response) {
-          $(`#ed_${x}`).val(response[x])
+          $(`#ed_${x}`).val(response[x]);
         }
-        $('#ed_Deadline').val(response['Deadline'].substring(0, response['Deadline'].length - 4));
-        $('#edit_modal').modal('show');
-      }, error: function (error) {
+        $("#ed_Deadline").val(
+          response["Deadline"].substring(0, response["Deadline"].length - 4)
+        );
+        $("#edit_modal").modal("show");
+      },
+      error: function (error) {
         alert(error.responseText);
-      }
+      },
     });
-  })
+  });
 
-  $('#delete_btn').click(function () {
+  $("#delete_btn").click(function () {
     let data = [];
     $(`input.pdf_checks:checkbox:checked`).each(function () {
-      data.push(JSON.stringify({
-        type: 'pdf',
-        value: $(this).val()
-      }));
+      data.push(
+        JSON.stringify({
+          type: "pdf",
+          value: $(this).val(),
+        })
+      );
     });
     $(`input.video_checks:checkbox:checked`).each(function () {
-      data.push(JSON.stringify({
-        type: 'video',
-        value: $(this).val()
-      }));
+      data.push(
+        JSON.stringify({
+          type: "video",
+          value: $(this).val(),
+        })
+      );
     });
     if (data.length < 1) {
-      alert('Please select some data to delete')
+      alert("Please select some data to delete");
       return;
     }
     $.ajax({
@@ -125,19 +144,20 @@ $(document).ready(function () {
       success: function (response) {
         alert(response.message);
         location.reload(true);
-      }, error: function (error) {
+      },
+      error: function (error) {
         alert(error.responseText);
-      }
+      },
     });
-  })
+  });
 
-  $('#update_assign_details').click(function () {
+  $("#update_assign_details").click(function () {
     if (
-      !$('#ed_Name').val() ||
-      !$('#ed_Instructions').val() ||
-      !$('#ed_Deadline').val()
+      !$("#ed_Name").val() ||
+      !$("#ed_Instructions").val() ||
+      !$("#ed_Deadline").val()
     ) {
-      alert('Please fill all the details');
+      alert("Please fill all the details");
       return;
     }
     $.ajax({
@@ -145,20 +165,21 @@ $(document).ready(function () {
       headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
       url: "/update-assignment-details",
       data: {
-        id: $('#hidden_assign_id').val(),
-        Name: $('#ed_Name').val(),
-        Instructions: $('#ed_Instructions').val(),
-        Deadline: $('#ed_Deadline').val(),
+        id: $("#hidden_assign_id").val(),
+        Name: $("#ed_Name").val(),
+        Instructions: $("#ed_Instructions").val(),
+        Deadline: $("#ed_Deadline").val(),
       },
       dataType: "json",
       success: function (response) {
         alert(response.message);
         location.reload(true);
-      }, error: function (error) {
+      },
+      error: function (error) {
         alert(error.responseText);
-      }
+      },
     });
-  })
+  });
 });
 
 const getQuestions = () => {
@@ -179,9 +200,10 @@ const getQuestions = () => {
       }
       html += "</tbody></table>";
       $("#data_display").html(html);
-    }, error: function (error) {
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 };
 
@@ -204,21 +226,22 @@ const getMedia = (type) => {
             id: `#thumbM${data.id}`,
             duration: `#duram${data.id}`,
             link: `${data.Local ? response.prefix : ""}${data.file}`,
-          })
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="col-11"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" id="thumbM${data.id}" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">Video</span><input type="checkbox" class="video_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name} </span><span class="description">${data.Description}</span></span></div></div></div>`;
+          });
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" id="thumbM${data.id}" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">Video</span><input type="checkbox" class="video_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name} </span><span class="description">${data.Description}</span></span></div></div>`;
         }
       }
       if (type == "pdf") {
         for (let x = 0; x < response.pdf.length; x++) {
           const data = response.pdf[x];
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="col-11"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">PDF</span><input type="checkbox" class="pdf_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name}</span><span class="description">${data.Description}</span></span></div></div></div>`;
+          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">PDF</span><input type="checkbox" class="pdf_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name}</span><span class="description">${data.Description}</span></span></div></div>`;
         }
       }
       $("#data_display").html(html);
       generateThumbs(thumbarr);
-    }, error: function (error) {
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 };
 
@@ -253,12 +276,13 @@ const MARP = (id, check) => {
     dataType: "json",
     success: function (response) {
       if (!response.success) {
-        $(check).prop("checked", false)
+        $(check).prop("checked", false);
       }
-      alert(response.message)
-    }, error: function (error) {
+      alert(response.message);
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
   return true;
-}
+};
