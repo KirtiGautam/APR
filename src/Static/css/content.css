@@ -1,14 +1,8 @@
 .content {
-  padding-top: 6.7vmin !important;
+  padding-top: 52px;
   margin-left: 250px;
 }
 
 .no-margin{
   margin-left: 0px !important;
-}
-
-@media screen and (max-width: 800px) {
-  .content {
-    padding-top: 8vmin !important;
-  }
 }

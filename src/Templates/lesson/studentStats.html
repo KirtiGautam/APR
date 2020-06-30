@@ -19,23 +19,25 @@
                 <a href="{% url 'lessons:lessons' %}"><button class="btn back" title="Back"><i
                             class="fas fa-arrow-alt-circle-left"></i></button></a>
             </div>
-            <div class="col-9 col-sm-9 col-md-6 col-lg-7 subject-name">
+            <div class="col-9 col-sm-9 col-md-6 col-lg-7 lesson-name">
                 {{lesson.Name}}
             </div>
         </div>
-        <div class="row mb-5">
-            <span class="col-12 mb-3"><button class="btn buttons float-right" id="btnExpo"> Export as Excel
+        <div class="row mb-2">
+            <span class="col-12 mb-2"><button class="btn button-1 float-right" id="btnExpo"> Export Excel
                 </button></span>
-            <span class="col-12 mb-3">
-                <span class="btn btn-primary m-1 p-1 float-right btn-sm">Total <span
-                        class="badge badge-light">{{Total}}</span>
-                </span>
-                <span class="btn btn-primary m-1 p-1 float-right btn-sm"> Number of PDFs <span
+            <span class="col-12 mb-2">
+                <span class="btn btn-secondary p-1 m-1 btn-sm">Assets</span>
+                <span class="btn btn-primary m-1 p-1 btn-sm">Number of Videos <span
+                        class="badge badge-light">{{Video}}</span></span>
+                <span class="btn btn-primary m-1 p-1 btn-sm"> Number of PDFs <span
                         class="badge badge-light">{{Pdf}}</span>
                 </span>
-                <span class="btn btn-primary m-1 p-1 float-right btn-sm">Number of Videos <span
-                        class="badge badge-light">{{Video}}</span></span>
-                <span class="btn btn-secondary p-1 m-1 float-right btn-sm">Assets</span>
+                <span class="btn btn-primary m-1 p-1 btn-sm">Total <span class="badge badge-light">{{Total}}</span>
+                </span>
+
+
+
             </span>
         </div>
         <div class="table-responsive contain">

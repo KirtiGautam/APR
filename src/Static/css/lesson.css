@@ -3,17 +3,32 @@
   padding: 0;
 }
 
-.selection {
-  font-size: calc(7px + 2vmin);
+.heading-1 {
+  font-size: 22px;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
 
-.drop {
+.text-1 {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #b3b6b8;
   border-radius: 5px;
-  font-size: calc(5px + 2vmin);
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.heading-2 {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.text-2 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
 }
@@ -23,7 +38,7 @@
   border: 1px solid #e6ecf0;
   border-radius: 10px;
   color: #626262;
-  font-size: calc(2px + 2vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   cursor: pointer;
@@ -34,7 +49,7 @@
   background: #f05e23 0% 0% no-repeat padding-box;
   border: 1px solid #e6ecf0;
   border-radius: 10px;
-  font-size: calc(2px + 2vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
   text-align: center;
@@ -48,7 +63,7 @@
 }
 
 .back-text {
-  font-size: calc(4px + 4vmin);
+  font-size: 35px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: #fd7f2c;
@@ -61,13 +76,13 @@
 }
 
 .chapter {
-  font-size: calc(5px + 2vmin);
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
   color: #5484ed;
 }
 
 .edit-add {
-  font-size: calc(4px + 2vmin);
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -84,9 +99,7 @@
 .edit-add:focus {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  font-weight: 100;
   color: #929ead;
-  font-size: calc(4px + 2vmin);
   border-radius: 50%;
   outline: none;
 }
@@ -107,35 +120,35 @@ a:hover {
 }
 
 .text-left {
-  font-size: calc(8px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
+  font-weight: bold;
   color: #376baa;
 }
 
 .time {
-  font-size: calc(6px + 1vmin);
+  font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
   color: #606060;
 }
 
 .lessons-row-foot {
-  font-size: calc(7px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #000000;
   background: transparent;
   border: none;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .test {
   background: transparent linear-gradient(56deg, #f792ab 0%, #fce584 100%) 0% 0%
     no-repeat padding-box;
-    height: 100% !important;
+  height: 100%;
 }
 
 .test-text-left {
-  font-size: calc(8px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
   color: #ffffff;
@@ -147,6 +160,7 @@ a:hover {
 
 .test .lessons-row-foot {
   color: #343434;
+
 }
 
 .lessons-cards-empty {
@@ -154,17 +168,12 @@ a:hover {
   box-shadow: 0px 3px 6px #0000003b;
   border-radius: 0px;
   min-height: 190px;
-  margin-left: -15px !important;
 }
 
 .row-body-text {
-  font-size: calc(6px + 2vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #f05e23;
-}
-
-.hide {
-  display: none;
 }
 
 .cards {
@@ -189,14 +198,11 @@ a:hover {
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
-  font-size: calc(4px + 2vmin);
   font-family: Arial, Helvetica, sans-serif;
   position: absolute;
   z-index: 1;
-  width: 120px;
+  width: 100%;
   top: 100%;
-  left: 50%;
-  margin-left: -60px;
 }
 
 .cards .description::after {
@@ -215,51 +221,36 @@ a:hover {
 }
 
 .row-head {
-  font-size: calc(8px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
+  font-weight: bold;
   color: #376baa;
 }
 
 .row-foot {
-  font-size: calc(7px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #000000;
   background: transparent;
   border: none;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .ques-name {
-  font-size: calc(3px + 1vmax);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #112234;
 }
 
-.import {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  font-family: "Poppins", sans-serif;
-  font-size: calc(11px + 1vmin);
-  color: #ffffff;
-}
-
-.import:focus {
-  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
-    no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
-a{
+a {
   color: inherit;
 }
 
-a:hover{
+a:hover {
   color: inherit;
 }
 
-a:focus{
+a:focus {
   color: inherit;
 }
 
@@ -280,6 +271,39 @@ a:focus{
 
 .img {
   height: 140px !important;
+}
+
+.button-1 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #626262;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
+}
+
+.button-1:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.button-2 {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button-2:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
 }
 
 @media screen and (max-width: 600px) {

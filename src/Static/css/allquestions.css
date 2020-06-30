@@ -90,26 +90,26 @@ a:hover{
 }
 
 .ques-num {
-  font-size: calc(4px + 1vmax);
+  font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
 }
 
 .ques-name {
-  font-size: calc(3px + 1vmax);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #112234;
 }
 
 .ques-choice {
-  font-size: calc(2px + 1vmax);
+  font-size: 12px;
   text-transform: capitalize;
   font-family: Arial, Helvetica, sans-serif;
   color: #112234;
 }
 
 .ques-opt {
-  font-size: calc(2px + 1vmax);
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   color: #112234;
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -118,7 +118,7 @@ a:hover{
 }
 
 .ques-ans {
-  font-size: calc(2px + 1vmax);
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   color: #34a853;
   background: #ffffff 0% 0% no-repeat padding-box;
