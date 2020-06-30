@@ -17,87 +17,80 @@
     <div class="row row-3-2 mt-3 pl-3">
         {% for pdf in lesson.lesson_pdfs.all %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-4">
-            <div class="col-11">
-                <a href="{{ prefix }}{{pdf.pdf.file}}" target="_blank">
-                    <div class="lessons-cards">
-                        <span class="row">
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
-                        </span>
-                        <span class="row lessons-row-head pl-3 pr-2 pt-1">
-                            <span class="text-left col-6 pt-2">PDF</span>
-                            <span class="time col-4 pt-2">2 min</span>
-                            {% if not admin %}
-                            <input type="checkbox" onclick="return MARP({{pdf.id}}, this);"
-                                {% for read in read_pdfs %}{% if read.Pdf.id == pdf.id %} onclick="return false;"
-                                readonly="readonly" checked {% endif %}{% endfor %} class="form-control col-1">
-                            {% else %}
-                            <input type="checkbox" class="pdf_checks form-control col-1" value="{{pdf.id}}">
-                            {% endif %}
-                        </span>
-                        <span class="row lessons-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12 text-truncate">{{pdf.pdf.Name}}</span>
-                        </span>
-                    </div>
-                </a>
-            </div>
+            <a href="{{ prefix }}{{pdf.pdf.file}}" target="_blank">
+                <div class="lessons-cards">
+                    <span class="row">
+                        <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
+                    </span>
+                    <span class="row lessons-row-head pl-3 pr-2 pt-1">
+                        <span class="text-left col-6 pt-2">PDF</span>
+                        <span class="time col-4 pt-2">2 min</span>
+                        {% if not admin %}
+                        <input type="checkbox" onclick="return MARP({{pdf.id}}, this);"
+                            {% for read in read_pdfs %}{% if read.Pdf.id == pdf.id %} onclick="return false;"
+                            readonly="readonly" checked {% endif %}{% endfor %} class="form-control col-1">
+                        {% else %}
+                        <input type="checkbox" class="pdf_checks form-control col-1" value="{{pdf.id}}">
+                        {% endif %}
+                    </span>
+                    <span class="row lessons-row-foot pl-3 pr-3 pb-3">
+                        <span class="col-12 text-truncate">{{pdf.pdf.Name}}</span>
+                    </span>
+                </div>
+            </a>
         </div>
         {% endfor %}
         {% for video in lesson.lesson_videos.all %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-4">
-            <div class="col-11">
-                <a href="{% url 'lessons:video' video.id %}">
-                    <div class="lessons-cards">
-                        <span class="row">
-                            <img src="/static/Images/lesson/video.png" id="thumb{{video.id}}" class="col-12 img">
-                        </span>
-                        <span class="row lessons-row-head pl-3 pr-3 pt-1">
-                            <span class="text-left col-6 pt-2">Video</span>
-                            <span class="time col-4 pt-2" id="dura{{video.id}}">2 min</span>
-                            {% if not admin %}
-                            <input type="checkbox" onclick="return false;" readonly="readonly"
-                                {% for watched in watched_videos %}{% if watched.Video.id == video.id %} checked
-                                {% endif %}{% endfor %} class="col-1 form-control">
-                            {% else %}
-                            <input type="checkbox" class="video_checks col-1 form-control" value="{{video.id}}">
-                            {% endif %}
-                        </span>
-                        <span class="row lessons-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12 text-truncate">{{video.video.Name}}</span>
-                        </span>
-                    </div>
-                </a>
-            </div>
+            <a href="{% url 'lessons:video' video.id %}">
+                <div class="lessons-cards">
+                    <span class="row">
+                        <img src="/static/Images/lesson/video.png" id="thumb{{video.id}}" class="col-12 img">
+                    </span>
+                    <span class="row lessons-row-head pl-3 pr-3 pt-1">
+                        <span class="text-left col-6 pt-2">Video</span>
+                        <span class="time col-4 pt-2" id="dura{{video.id}}">2 min</span>
+                        {% if not admin %}
+                        <input type="checkbox" onclick="return false;" readonly="readonly"
+                            {% for watched in watched_videos %}{% if watched.Video.id == video.id %} checked
+                            {% endif %}{% endfor %} class="col-1 form-control">
+                        {% else %}
+                        <input type="checkbox" class="video_checks col-1 form-control" value="{{video.id}}">
+                        {% endif %}
+                    </span>
+                    <span class="row lessons-row-foot pl-3 pr-3 pb-3">
+                        <span class="col-12 text-truncate">{{video.video.Name}}</span>
+                    </span>
+                </div>
+            </a>
         </div>
         {% endfor %}
         {% for key in lesson.lesson_Test.all %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-4">
-            <div class="col-11">
-                <a href="{% url 'lessons:Test' key.id %}">
-                    <div class="lessons-cards test">
-                        <span class="row">
-                            <img src="/static/Images/lesson/test.png" class="col-12 img">
-                        </span>
-                        <span class="row lessons-row-head pl-3 pr-3 pt-1">
-                            <span class="test-text-left col-7 text-truncate">{{key.question.all.count}} Questions</span>
-                            <!-- <span class="checkbox round col-2">
+            <a href="{% url 'lessons:Test' key.id %}">
+                <div class="lessons-cards test">
+                    <span class="row">
+                        <img src="/static/Images/lesson/test.png" class="col-12 img">
+                    </span>
+                    <span class="row lessons-row-head pl-3 pr-3 pt-1">
+                        <span class="test-text-left col-7 text-truncate">{{key.question.all.count}} Questions</span>
+                        <!-- <span class="checkbox round col-2">
                                 <input type="checkbox" name="" id="">
                             </span> -->
-                        </span>
-                        <span class="row lessons-row-foot text-right pl-3 pr-3 pb-3">
-                            <span class="col-12 text-truncate">{% if key.final %}Final Test{% else %}Practice Test{% endif %}</span>
-                        </span>
-                    </div>
-                </a>
-            </div>
+                    </span>
+                    <span class="row lessons-row-foot text-right pl-3 pr-3 pb-3">
+                        <span class="col-12 text-truncate">{% if key.final %}Final Test{% else %}Practice
+                            Test{% endif %}</span>
+                    </span>
+                </div>
+            </a>
         </div>
         {% endfor %}
         {% if lesson.lesson_Test.all.count == 0 and  lesson.lesson_videos.all.count == 0 and  lesson.lesson_pdfs.all.count == 0 %}
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-4">
-            <div class="col-11">
-                <div class="lessons-cards-empty p-2 d-flex align-items-center justify-content-center">
-                    <div class="row">
-                        <div class="col-12 row-body-text">Content to be added</div>
-                    </div>
+            <div class="lessons-cards-empty p-2 d-flex align-items-center justify-content-center">
+                <div class="row">
+                    <div class="col-12 row-body-text">Content to be added</div>
                 </div>
             </div>
         </div>
