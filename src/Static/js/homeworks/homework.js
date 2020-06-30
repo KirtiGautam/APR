@@ -1,8 +1,12 @@
 let today = new Date();
 
 function getHomeworks() {
-  if ($("#class").val() == "" || $("#class").val() == null) {
+  if (!$("#class").val()) {
     alert("Please select Class");
+    return;
+  }
+  if (!$("#date").val()) {
+    alert("Invalid date");
     return;
   }
   $.ajax({
