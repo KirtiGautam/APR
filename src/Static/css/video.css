@@ -1,21 +1,61 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-
-* {
-  margin: 0;
-  padding: 0;
+body {
+  background-color: #1f1f1f;
+  overflow: hidden;
 }
 
-a:hover {
-  text-decoration: none;
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.video {
-  height: 450px;
-  border-radius: 3%;
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #eeeeee;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  background-color: #1f1f1f !important;
+  border-bottom: 1px solid #fcfcfc;
+}
+
+.header-icon {
+  color: #fcfcfc !important;
+}
+
+.header-icon:hover {
+  color: #cfcfcf !important;
+}
+
+.header-name {
+  color: #fcfcfc !important;
+}
+
+.content {
+  margin-left: 0px !important;
+}
+
+.back {
+  font-size: 26px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fcfcfc;
+}
+
+.back:hover {
+  color: #cfcfcf;
+}
+
+.back:focus {
+  box-shadow: 0px 0px 0px #00000029;
+  outline: none;
 }
 
 .heading-1 {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #fd7f2c;
@@ -23,154 +63,39 @@ a:hover {
 }
 
 .heading-2 {
-  font-size: 26px;
+  color: #fcfcfc;
+  font-size: 23px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  color: #112234;
 }
 
 .heading-3 {
-  font-size: calc(6px + 2vmin);
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
+  color: #fcfcfc;
 }
 
-.row-vids {
-  padding-left: 2vmax;
-  padding-right: 2vmax;
+.heading-4 {
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fcfcfc;
 }
 
 .blue-buttons {
-  background: #5890ff 0% 0% no-repeat padding-box;
-  border-radius: 0px !important;
-  font-size: 11px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #ffffff;
-}
-
-.video-duration {
-  font-size: 12px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #828282;
-}
-
-.video-description {
-  font-size: 14px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #112234;
-}
-
-.dis-row {
-  border: 0.5px solid #707070;
+  background-color: #00acf1;
   border-radius: 5px;
-  height: 600px;
-}
-
-.video-discuss {
-  font-size: 19px;
+  font-size: 14px;
+  color: #fcfcfc;
+  display: inline-block;
   font-family: Arial, Helvetica, sans-serif;
-  color: #112234;
-}
-
-.discussion-reply {
-  font-size: 12px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #c8c8c8;
-}
-
-.video-all {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
-  overflow-y: scroll;
-}
-
-.lessons-cards {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  height: 100%;
-}
-
-.lessons-row-head {
-  color: #606060;
-  background: transparent;
-  border: none;
-}
-
-.text-left {
-  font-size: calc(8px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  color: #376baa;
-}
-
-.time {
-  font-size: calc(6px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #606060;
-}
-
-.lessons-row-foot {
-  font-size: calc(7px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #000000;
-  background: transparent;
-  border: none;
-  font-weight: 600;
-}
-
-.test {
-  background: transparent linear-gradient(56deg, #f792ab 0%, #fce584 100%) 0% 0%
-    no-repeat padding-box;
-}
-
-.test-text-left {
-  font-size: calc(8px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-.test .lessons-row-head {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #ffffff;
-}
-
-.test .lessons-row-foot {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #343434;
-  text-align: right;
-}
-
-.back {
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #15202b;
-  width: fit-content;
-}
-
-.back:hover {
-  color: #65717e;
-}
-
-.back:focus {
-  box-shadow: 0px 0px 0px #00000029;
-  color: #929ead;
-  outline: none;
-}
-
-.content {
-  margin-left: 0 !important;
-}
-
-.img {
-  height: 100px;
 }
 
 .mark {
-  background: #5890ff 0% 0% no-repeat padding-box;
-  border-radius: 0px !important;
-  font-size: 11px;
+  background-color: #00acf1;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #fcfcfc;
+  display: inline-block;
   font-family: Arial, Helvetica, sans-serif;
-  color: #ffffff;
 }
 
 .mark::before {
@@ -178,19 +103,88 @@ a:hover {
 }
 
 .marked {
-  background: #06a710 0% 0% no-repeat padding-box;
-  border-radius: 0px !important;
-  font-size: 11px;
+  background-color: #00acf1;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #fcfcfc;
+  display: inline-block;
   font-family: Arial, Helvetica, sans-serif;
-  color: #ffffff;
 }
 
 .marked::before {
   content: "Marked as complete";
 }
 
-@media screen and (max-width: 900px) {
-  .dis-row {
-    display: none;
+.part-1 {
+  border-right: 2px solid #000000;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.part-2 {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.row-6 {
+  border-bottom: 2px solid #000000;
+}
+
+textarea {
+  resize: none;
+  background-color: #3a3b3c !important;
+  border-radius: 20px !important;
+  border: none !important;
+  color: #fcfcfc !important;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+textarea::placeholder {
+  color: #9ea1a6 !important;
+}
+
+.area-1 {
+  background-color: #3a3b3c !important;
+  border-radius: 20px !important;
+  border: none !important;
+  color: #fcfcfc;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button-1 {
+  color: #cfcfcf;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button-1:hover {
+  color: #eeeeee;
+}
+
+.box-2 {
+  margin-left: 30px;
+}
+
+.box-3 {
+  margin-left: 50px;
+}
+
+.box-4 {
+  margin-left: 70px;
+}
+
+@media screen and (max-width: 991px) {
+  body {
+    overflow-y: auto;
+  }
+  .part-1 {
+    border-bottom: 2px solid #000000;
+    border-right: none;
+    height: max-content;
+  }
+  .part-2 {
+    height: max-content;
   }
 }
