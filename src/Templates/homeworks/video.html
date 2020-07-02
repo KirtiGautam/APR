@@ -7,96 +7,48 @@
 {% endblock %}
 
 {% block other %}
-<span class="col-12 text-center pt-2"><span class="heading-3">Other content in this
-        chapter</span></span>
-<span class="col-12">
-    <span class="row p-1 m-1">
-        {% for vid in video.homework.video.all %}
-        <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-4">
-            <div class="col-11">
-                <a href="{% url 'homework:video' vid.id %}">
-                    <div class="lessons-cards">
-                        <span class="row">
-                            <img src="/static/Images/lesson/video.png" id="thumb{{vid.id}}" class="col-12 img">
-                        </span>
-                        <span class="row lessons-row-head pl-3 pr-3 pt-1">
-                            <span class="text-left col-6 pt-2">Video</span>
-                            <span class="col-4 d-flex justify-content-end">
-                                <span class="time pt-2" id="dura{{vid.id}}">2 min</span>
-                            </span>
-                            {% if not user.admin %}
-                            <input type="checkbox" onclick="return false;" readonly="readonly"
-                                {% for watched in user.watched_lesson_video.all %}{% if watched.Video.id == vid.id %}
-                                checked {% endif %}{% endfor %} class="col-1 form-control">
-                            {% endif %}
-                        </span>
-                        <span class="row lessons-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12 text-truncate">{{vid.video.Name}}</span>
-                        </span>
+{% if next_video %}
+<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="row video-all ml-1">
+        <span class="col-12 text-center pt-2"><span class="heading-3">Next Video</span></span>
+        <span class="col-12">
+            <span class="row row-vids pt-4">
+                <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-4">
+                    <div class="col-11">
+                        <a href="{% url 'homework:video' next_video.id %}">
+                            <div class="lessons-cards">
+                                <span class="row">
+                                    <img src="/static/Images/lesson/video.png" id="thumb{{next_video.id}}"
+                                        class="col-12 img">
+                                </span>
+                                <span class="row lessons-row-head pl-3 pr-3 pt-1">
+                                    <span class="text-left col-6 pt-2">Video</span>
+                                    <span class="col-4 d-flex justify-content-end">
+                                        <span class="time pt-2" id="dura{{next_video.id}}">2 min</span>
+                                    </span>
+                                    {% if user.user_type == 'Student' %}
+                                    <input type="checkbox" onclick="return false;" readonly="readonly"
+                                        {% for watched in user.watched_homework_video.all %}{% if watched.Video.id == next_video.id %}
+                                        checked {% endif %}{% endfor %} class="col-1 form-control">
+                                    {% endif %}
+                                </span>
+                                <span class="row lessons-row-foot pl-3 pr-3 pb-3">
+                                    <span class="col-12 text-truncate">{{next_video.video.Name}}</span>
+                                </span>
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
-        </div>
-        {% endfor %}
-        {% for pdf in video.homework.pdf.all %}
-        <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-4">
-            <div class="col-11">
-                <a href="{% get_media_prefix %}{{ pdf.pdf.file }}" target="_blank">
-                    <div class="lessons-cards">
-                        <span class="row text-center">
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
-                        </span>
-                        <span class="row lessons-row-head pl-3 pr-3 pt-1">
-                            <span class="text-left col-6 pt-2">PDF</span>
-                            <span class="time col-4 pt-2">2 min</span>
-                            {% if not user.admin %}
-                            <input type="checkbox" onclick="return false;" readonly="readonly"
-                                {% for read in user.read_lesson_pdf.all %}{% if read.Pdf.id == pdf.id %} checked
-                                {% endif %}{% endfor %} class="col-1 form-control">
-                            {% endif %}
-                        </span>
-                        <span class="row lessons-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12 text-truncate">{{pdf.pdf.Name}}</span>
-                        </span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        {% endfor %}
-        {% for test in video.homework.homework_Test.all %}
-        <div class="col-12 col-sm-6 col-md-12 col-lg-12 mb-2">
-            <div class="col-11">
-                <a href="#">
-                    <div class="lessons-cards test">
-                        <span class="row">
-                            <img src="/static/Images/lesson/test.png" class="col-12 img">
-                        </span>
-                        <span class="row lessons-row-head pl-3 pr-3 pt-1">
-                            <span class="test-text-left col-7 text-truncate">{{key.question.all.count}} Questions</span>
-                            <!-- <span class="checkbox round col-2">
-                        <input type="checkbox" name="" id="">
-                    </span> -->
-                        </span>
-                        <span class="row lessons-row-foot text-right pl-3 pr-3 pb-3">
-                            <span class="col-12 text-truncate">{% if test.final %}Final
-                                Test{% else %}Practice
-                                Test{% endif %}</span>
-                        </span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        {% endfor %}
-    </span>
-</span>
+                </div>
+            </span>
+        </span>
+    </div>
+</div>
 <script>
-    {% for vid in video.homework.video.all %}
     thumbarr.push({
-        id: "#thumb{{vid.id}}",
-        duration: "#dura{{vid.id}}",
-        link: "{% if vid.video.Local %}{{prefix}}{% endif %}{{vid.video.file}}",
+        id: "#thumb{{next_video.id}}",
+        duration: "#dura{{next_video.id}}",
+        link: "{% if next_video.video.Local %}{{prefix}}{% endif %}{{next_video.video.file}}",
     })
-    {% endfor %}
-    generateThumbs(thumbarr);
 </script>
+{% endif %}
 {% endblock %}

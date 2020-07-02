@@ -154,14 +154,17 @@ def assignmentDetail(request, id):
 def vid(request, id):
     if request.user.is_authenticated:
         videos = Video.objects.get(id=id)
-        next = videos.assignment.video.filter(id__gt=videos.id)
-        if len(next) > 0:
-            next = reverse('assignment:video', args=[next[0].id])
+        next_video = videos.assignment.video.filter(id__gt=videos.id)
+        if len(next_video) > 0:
+            next_video = next_video[0]
+            next = reverse('assignment:video', args=[next_video.id])
         else:
+            next_video = None
             next = None
         done = True if request.user.watched_assignment_video.filter(
             Video=videos) else False
         data = {
+            'next_video': next_video,
             'done': done,
             'video': videos,
             'next': next,
