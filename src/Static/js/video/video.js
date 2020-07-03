@@ -1,35 +1,3 @@
-if ($('#video_player').attr('src').includes('vimeo')) {
-  var head = document.getElementsByTagName('head')[0];
-  var js = document.createElement("script");
-
-  js.type = "text/javascript";
-
-  js.src = "https://player.vimeo.com/api/player.js"
-
-  head.appendChild(js);
-
-}
-
-let thumbarr = [];
-
-const MAS = () => {
-  $.ajax({
-    type: "POST",
-    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-    url: url,
-    data: {
-      id: id,
-    },
-    dataType: "json",
-    success: function (response) {
-      alert(response.message);
-      location.reload()
-    }, error: function (error) {
-      alert(error.responseText);
-    }
-  });
-}
-
 const loadplayer = () => {
   let cue_mark;
   var iframe = $('#video_player');
@@ -68,6 +36,38 @@ const loadplayer = () => {
 
 }
 
-$(function () {
-  setTimeout(loadplayer, 1000)
-})
+
+if ($('#video_player').attr('src').includes('vimeo')) {
+  var head = document.getElementsByTagName('head')[0];
+  var js = document.createElement("script");
+
+  js.type = "text/javascript";
+
+  js.src = "https://player.vimeo.com/api/player.js"
+
+  head.appendChild(js);
+
+  setTimeout(loadplayer, 1050)
+
+}
+
+let thumbarr = [];
+
+const MAS = () => {
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: url,
+    data: {
+      id: id,
+    },
+    dataType: "json",
+    success: function (response) {
+      alert(response.message);
+      location.reload()
+    }, error: function (error) {
+      alert(error.responseText);
+    }
+  });
+}
+

@@ -19,11 +19,12 @@
                 </div>
             </div>
             <div class="row row-7-2 ml-1">
-                <button class="btn button-1 like_btn"
+                <button class="btn button-1 like_btn" onclick="like_comment(this);"
                     value="{{comment.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if comment|liked:request.user %}d{% endif %}</button>
                 <span class="text-primary mt-1">{{comment.likes.all.count}}</span>
-                <button class="btn button-1">Reply</button>
+                <button class="btn button-1 reply_btn" value="{{comment.id}}">Reply</button>
                 <span class="text-primary mt-1">{{comment.replies.all.count}}</span>
+                <span class="text-secondary m-1">{{comment.created}}</span>
             </div>
         </span>
         <span class="col-2">
@@ -32,27 +33,27 @@
                     <i class="fas fa-ellipsis-h"></i>
                 </a>
                 <div class="dropdown-menu p-2">
-                    <a class="dropdown-item p-2" href="">Edit</a>
-                    <a class="dropdown-item p-2" href="">Delete</a>
+                    <button class="dropdown-item p-2">Edit</button>
+                    <button class="dropdown-item p-2" onclick="delete_comment({{comment.id}})">Delete</button>
                 </div>
             </div>
         </span>
     </span>
 </div>
-{% for reply in replies %}
-<div class="box-2">
+<div class="box-2 d-none reply_div{{comment.id}}">
     <div class="col-12">
         <div class="row">
-            <div class="col"><textarea id="comment_body" rows="2" class="form-control"
+            <div class="col"><textarea id="{{comment.id}}" rows="2" class="form-control reply_body"
                     placeholder="Write a reply..."></textarea></div>
-            <div class="col-2 mt-2 d-none"><button class="btn send" id="comment_send_btn" disabled><i
-                        class="fas fa-paper-plane"></i></button></i>
+            <div class="col-2 mt-2"><button class="btn send reply_send_btn" disabled id="reply_send_btn{{comment.id}}"
+                    value="{{comment.id}}"><i class="fas fa-paper-plane"></i></button></i>
             </div>
         </div>
-        <div class="row row-7 mt-2 p-3" id="discussions"></div>
     </div>
 </div>
-<div class="col-12">
+
+{% for reply in comment.replies.all %}
+<div class="col-12 d-none replies_list{{comment.id}}">
     <span class="box-2 row">
         <div class="col-10">
             <div class="area-1 p-2">
@@ -70,9 +71,10 @@
                 </div>
             </div>
             <div class="row row-7-2 ml-1">
-                <button class="btn button-1 like_btn"
-                    value="{{comment.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if reply|liked:request.user %}d{% endif %}</button>
-                <span class="text-primary mt-1">{{comment.likes.all.count}}</span>
+                <button class="btn button-1 like_btn" onclick="like_comment(this);"
+                    value="{{reply.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if reply|liked:request.user %}d{% endif %}</button>
+                <span class="text-primary mt-1">{{reply.likes.all.count}}</span>
+                <span class="text-secondary m-1">{{reply.created|timesince}}</span>
             </div>
         </div>
         <div class="col-2">
@@ -81,8 +83,8 @@
                     <i class="fas fa-ellipsis-h"></i>
                 </a>
                 <div class="dropdown-menu p-2">
-                    <a class="dropdown-item p-2" href="">Edit</a>
-                    <a class="dropdown-item p-2" href="">Delete</a>
+                    <button class="dropdown-item p-2">Edit</button>
+                    <button class="dropdown-item p-2" onclick="delete_comment({{reply.id}})">Delete</button>
                 </div>
             </div>
         </div>

@@ -59,12 +59,9 @@ def uploadStudents(request):
             inDays = int(ordinal)
             frac = ordinal - inDays
             inSecs = int(round(frac * 86400.0))
-            password_characters = string.ascii_letters + string.digits
-            password = ''.join(random.choice(password_characters)
-                               for i in range(random.randint(8, 12)))
             user = User.objects.create_user(
                 email=x['email'],
-                password=password,
+                password=x['Contact'].strip(),
                 first_name=x['First Name'],
                 last_name=x['Last Name'],
                 user_type='Student'
@@ -82,8 +79,7 @@ def uploadStudents(request):
                 Class=cla
             )
             html_message = render_to_string(
-                'mails/new-Student.html', context={'student': student, 'password': password, 'host': host}, request=request)
-            print(html_message)
+                'mails/new-Student.html', context={'student': student, 'password': 'Your registered phone number', 'host': host}, request=request)
         student.user.email_user(
             subject=' Welcome to the Digital Classes - Akshara International School',
             from_email='Akshara <noreply@akshara.ubiqe.in>',
@@ -299,12 +295,9 @@ def getStaff(request):
 def newStudent(request):
     if request.user.is_authenticated and request.user.admin:
         host = request.build_absolute_uri('/login')
-        password_characters = string.ascii_letters + string.digits
-        password = ''.join(random.choice(password_characters)
-                           for i in range(random.randint(8, 12)))
         user = User.objects.create_user(
             email=request.POST['email'],
-            password=password,
+            password=(request.POST['Contact']).strip(),
             first_name=request.POST['first_name'],
             last_name=request.POST['last_name'],
             user_type='Student'
@@ -322,7 +315,7 @@ def newStudent(request):
             Class=Class.objects.get(id=request.POST['Class'])
         )
         html_message = render_to_string(
-            'mails/new-Student.html', context={'student': student, 'password': password, 'host': host}, request=request)
+            'mails/new-Student.html', context={'student': student, 'password': 'Your registered mobile number', 'host': host}, request=request)
         student.user.email_user(
             subject=' Welcome to the Digital Classes - Akshara International School',
             from_email='Akshara <noreply@akshara.ubiqe.in>',

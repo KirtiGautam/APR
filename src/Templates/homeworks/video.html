@@ -4,6 +4,7 @@
 {% block back %}
 <span class="p-1 icon-1"> <a href="{% url 'homework:homeworkDetails' video.homework.id %}"><button class="btn back"
             title="Back"> <i class="fas fa-arrow-alt-circle-left"></i></button></a></span>
+<script src="{% static 'js/homeworks/video.js' %}"></script>
 {% endblock %}
 
 {% block other %}

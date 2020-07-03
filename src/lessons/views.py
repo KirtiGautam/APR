@@ -297,4 +297,26 @@ def likeComment(request):
                     'message': 'Liked'
                 }
         return http.JsonResponse(data)
-    return http.HttpResponseBadRequest({'message': 'Unauthorized'})
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
+
+def deleteComment(request):
+    if request.user.is_authenticated:
+        comment = Comment.objects.filter(id=request.POST['id'])
+        if comment.exists():
+            data = {
+                'parent_id': comment.parent,
+                'body': render_to_string('video/discussions.html', {'comments': Comment.objects.filter(
+                    Video=comment[0].Video, parent__isnull=True)}, request=request)
+            }
+        if request.user.user_type == "Student":
+            if comment.Author != request.user:
+                data['message'] = "Cannot delete other user's comment"
+            else:
+                comment.delete()
+                data['message'] = "Comment deleted"
+        else:
+            comment.delete()
+            data['message'] = "Comment deleted"
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})

@@ -21,7 +21,8 @@ from lessons.views import (
     deleteMedia,
     studentStats,
     lessonComments,
-    likeComment
+    likeComment,
+    deleteComment,
 )
 
 app_name = 'lessons'
@@ -37,6 +38,7 @@ urlpatterns = [
 
     # Lessons path
     re_path(r'^lesson-comments$', lessonComments, name='comments'),
+    path('delete-lesson-comment', deleteComment, name='deleteComment'),
     path('like-lesson-comment', likeComment, name='like'),
     path('delete-lesson-media', deleteMedia, name='delete-media'),
     path('lessons', lessons, name='lessons'),

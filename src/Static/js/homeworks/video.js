@@ -7,7 +7,7 @@ const getComments = (parent_id = null) => {
     $.ajax({
         type: "GET",
         headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-        url: "/lesson-comments",
+        url: "/homework-comments",
         data: {
             'id': findGetParameter()
         },
@@ -26,7 +26,7 @@ const like_comment = el => {
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-        url: "/like-lesson-comment",
+        url: "/like-homework-comment",
         data: {
             'id': el.value,
         },
@@ -45,7 +45,7 @@ const comment = (parent_id, body) => {
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-        url: "/lesson-comments",
+        url: "/homework-comments",
         data: {
             'id': findGetParameter(),
             'parent_id': parent_id,
@@ -69,7 +69,7 @@ const delete_comment = id => {
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-        url: "/delete-lesson-comment",
+        url: "/delete-homework-comment",
         data: {
             'id': id,
         },

@@ -6,7 +6,7 @@ import datetime
 import json
 import math
 from accounts.models import Class, pdf, video
-from homework.models import homework, Pdf, Video, Test_question, Test, user_progress_video, user_progress_pdf
+from homework.models import homework, Pdf, Video, Test_question, Test, user_progress_video, user_progress_pdf, HComment
 from lessons.models import Lesson, Subject, question
 
 
@@ -285,3 +285,87 @@ def studentStats(request):
         }
         return render(request, 'homeworks/studentStats.html', data)
     return redirect('accounts:login')
+
+
+def homeworkComments(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            # get post object
+            Videos = Video.objects.get(id=request.POST['id'])
+            # comment has been added
+            parent_obj = None
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+            except:
+                parent_id = None
+            # if parent_id has been submitted get parent_obj id
+            if parent_id:
+                parent_obj = HComment.objects.get(id=parent_id)
+            HComment.objects.create(
+                Video=Videos, Author=request.user, body=request.POST['body'], parent=parent_obj)
+        else:
+            # get post object
+            Videos = Video.objects.get(id=request.GET['id'])
+        # list of active parent comments
+        comments = Videos.comments.filter(parent__isnull=True)
+        # for x in comments:
+        #     if x.likes.filter(id=request.user.id).exists():
+        #         x['liked'] = True
+        client = {
+            'comments': comments
+        }
+        data = {
+            'body': render_to_string('video/discussions.html', client, request=request)
+        }
+        return http.JsonResponse(data)
+
+
+def likeComment(request):
+    if request.user.is_authenticated:
+        comment = HComment.objects.get(id=request.POST.get('id'))
+        if comment.likes.filter(id=request.user.id).exists():
+            comment.likes.remove(request.user)
+            if request.user.admin or request.user.is_staff:
+                data = {
+                    'message': 'Appreciate'
+                }
+            else:
+                data = {
+                    'message': 'Like'
+                }
+        else:
+            comment.likes.add(request.user)
+            if request.user.admin or request.user.is_staff:
+                data = {
+                    'message': 'Appreciated'
+                }
+            else:
+                data = {
+                    'message': 'Liked'
+                }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
+
+def deleteComment(request):
+    if request.user.is_authenticated:
+        comment = HComment.objects.filter(id=request.POST['id'])
+        if comment.exists():
+            data = {
+                'parent_id': comment.parent,
+                'body': render_to_string('video/discussions.html', {'comments': Comment.objects.filter(
+                    Video=comment[0].Video, parent__isnull=True)}, request=request)
+            }
+        if request.user.user_type == "Student":
+            if comment.Author != request.user:
+                data['message'] = "Cannot delete other user's comment"
+            else:
+                comment.delete()
+                data['message'] = "Comment deleted"
+        else:
+            comment.delete()
+            data['message'] = "Comment deleted"
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})

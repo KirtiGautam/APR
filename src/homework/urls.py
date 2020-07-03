@@ -13,12 +13,18 @@ from .views import (
     deleteMedia,
     HomeDetails,
     updateDetails,
-    studentStats
+    studentStats,
+    homeworkComments,
+    deleteComment,
+    likeComment
 )
 
 app_name = 'homework'
 
 urlpatterns = [
+    re_path(r'^homework-comments$', homeworkComments, name='comments'),
+    path('delete-homework-comment', deleteComment, name='deleteComment'),
+    path('like-homework-comment', likeComment, name='like'),
     path('homework-video-mark-watched', video_watched, name='mark_watched'),
     path('homework', homeworks, name='homework'),
     path('get-homeworks', getHomeworks, name='get_homeworks'),

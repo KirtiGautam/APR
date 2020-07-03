@@ -57,3 +57,30 @@ class user_progress_video(models.Model):
         User, on_delete=models.CASCADE, related_name='watched_assignment_video')
     Video = models.ForeignKey(
         Video, on_delete=models.CASCADE, related_name='user_video')
+
+
+class AComment(models.Model):
+    Video = models.ForeignKey(
+        Video, related_name='comments', on_delete=models.CASCADE)
+    Author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='assignment_video_comments')
+    body = models.TextField()
+    likes = models.ManyToManyField(User, through='assignment_video_likes')
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    parent = models.ForeignKey(
+        'self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
+
+    def is_liked(self, user):
+        return True if self.likes.filter(id=user.id).exists() else False
+
+    def __str__(self):
+        return self.Author.get_full_name()
+
+
+class assignment_video_likes(models.Model):
+    User = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='assignment_video_likes')
+    AComment = models.ForeignKey(AComment, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)

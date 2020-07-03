@@ -15,12 +15,18 @@ from .views import (
     deleteMedia,
     AssignDetails,
     updateDetails,
-    studentStats
+    studentStats,
+    assignmentComments,
+    deleteComment,
+    likeComment,
 )
 
 app_name = 'assignment'
 
 urlpatterns = [
+    re_path(r'^assignment-comments$', assignmentComments, name='comments'),
+    path('delete-assignment-comment', deleteComment, name='deleteComment'),
+    path('like-assignment-comment', likeComment, name='like'),
     path('assignment-video-mark-watched', video_watched, name='mark_watched'),
     path('assignments', assignments, name='assignments'),
     re_path(r'^get-assignments$', getAssignments, name='get_assignments'),
@@ -34,6 +40,7 @@ urlpatterns = [
     path('mark-assignment-pdf-read', pdf_read, name='pdf-read'),
     path('delete-assignment-media', deleteMedia, name='media-delete'),
     path('get-assignment-details', AssignDetails, name='assign-details'),
-    path('update-assignment-details', updateDetails, name='update-assign-details'),
+    path('update-assignment-details', updateDetails,
+         name='update-assign-details'),
     re_path(r'^assignment-student-stats$', studentStats, name='student-stats'),
 ]
