@@ -25,6 +25,7 @@ body {
 
 .header-icon {
   color: #fcfcfc !important;
+  font-size: 22px !important;
 }
 
 .header-icon:hover {
@@ -33,6 +34,7 @@ body {
 
 .header-name {
   color: #fcfcfc !important;
+  font-size: 22px !important;
 }
 
 .content {
@@ -40,7 +42,7 @@ body {
 }
 
 .back {
-  font-size: 26px;
+  font-size: 22px;
   font-family: Arial, Helvetica, sans-serif;
   color: #fcfcfc;
 }
@@ -54,8 +56,28 @@ body {
   outline: none;
 }
 
+.send {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fcfcfc 0% 0% no-repeat padding-box;
+  box-shadow: 0px 2px 4px #c4c4c4;
+  border-radius: 50%;
+  color: #5d5d5d;
+}
+
+.send:hover {
+  color: #65717e;
+  background: #effbff;
+}
+
+.send:focus {
+  box-shadow: 0px 0px 0px #c4c4c4;
+  color: #929ead;
+  outline: none;
+}
+
 .heading-1 {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #fd7f2c;
@@ -64,18 +86,18 @@ body {
 
 .heading-2 {
   color: #fcfcfc;
-  font-size: 23px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .heading-3 {
-  font-size: 20px;
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   color: #fcfcfc;
 }
 
 .heading-4 {
-  font-size: 17px;
+  font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   color: #fcfcfc;
 }
@@ -121,8 +143,8 @@ body {
   overflow-y: auto;
 }
 
-.part-2 {
-  height: 100vh;
+.row-7 {
+  height: 80vh;
   overflow-y: auto;
 }
 
@@ -140,6 +162,11 @@ textarea {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+textarea:focus {
+  box-shadow: 0px 0px 0px white !important;
+  outline: none !important;
+}
+
 textarea::placeholder {
   color: #9ea1a6 !important;
 }
@@ -149,13 +176,26 @@ textarea::placeholder {
   border-radius: 20px !important;
   border: none !important;
   color: #fcfcfc;
-  font-size: 14px;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
+}
+
+.text-1 {
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.text-3 {
+  color: #cfcfcf !important;
+  font-size: 10px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .button-1 {
   color: #cfcfcf;
-  font-size: 14px;
+  font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -163,16 +203,22 @@ textarea::placeholder {
   color: #eeeeee;
 }
 
+.button-1:focus {
+  box-shadow: 0px 0px 0px wheat;
+  outline: none;
+}
+
 .box-2 {
   margin-left: 30px;
 }
 
-.box-3 {
-  margin-left: 50px;
+a {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
-.box-4 {
-  margin-left: 70px;
+.badge {
+  color: #1f1f1f;
 }
 
 @media screen and (max-width: 991px) {
@@ -184,7 +230,7 @@ textarea::placeholder {
     border-right: none;
     height: max-content;
   }
-  .part-2 {
+  .row-7 {
     height: max-content;
   }
 }
