@@ -97,3 +97,30 @@ class liveStream(models.Model):
     Stream_link = models.URLField(max_length=2000)
     Time = models.DateTimeField()
     Duration = models.DecimalField(max_digits=4, decimal_places=2)
+
+
+class Comment(models.Model):
+    Video = models.ForeignKey(
+        Video, related_name='comments', on_delete=models.CASCADE)
+    Author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='lesson_video_comments')
+    body = models.TextField()
+    likes = models.ManyToManyField(User, through='lesson_video_likes')
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    parent = models.ForeignKey(
+        'self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
+
+    def is_liked(self, user):
+        return True if self.likes.filter(id=user.id).exists() else False
+
+    def __str__(self):
+        return self.Author.get_full_name()
+
+
+class lesson_video_likes(models.Model):
+    User = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='lesson_video_likes')
+    Comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)

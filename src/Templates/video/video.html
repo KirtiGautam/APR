@@ -42,9 +42,11 @@
                                 <button class="btn {% if done %}marked{% else %}mark{% endif %}" onclick="MAS();"
                                     id="mark_complete_btn"></button>
                             </div>
+                            {% if next %}
                             <div class="float-right">
                                 <a href="{{next}}"><button class="btn blue-buttons mr-1">Next</button></a>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-12">
@@ -62,12 +64,12 @@
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 mt-2 part-2 pb-5">
                 <div class="row row-6 pb-3">
-                    <div class="col-10"><textarea name="" id="" cols="" rows="2" class="form-control"
+                    <div class="col-10"><textarea id="comment_body" rows="2" class="form-control"
                             placeholder="Write a comment..."></textarea></div>
-                    <div class="col-2 mt-2"><button class="btn back"><i class="fas fa-paper-plane"></i></button></i>
+                    <div class="col-2 mt-2"><button class="btn back" id="comment_send_btn" disabled><i class="fas fa-paper-plane"></i></button></i>
                     </div>
                 </div>
-                <div class="row row-7 mt-2 p-3">
+                <div class="row row-7 mt-2 p-3" id="discussions">
                     <span class="box-1 mt-2 row">
                         <span class="col-10">
                             <div class="area-1">

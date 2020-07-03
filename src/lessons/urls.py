@@ -19,7 +19,9 @@ from lessons.views import (
     getTest,
     pdf_read,
     deleteMedia,
-    studentStats
+    studentStats,
+    lessonComments,
+    likeComment
 )
 
 app_name = 'lessons'
@@ -34,6 +36,8 @@ urlpatterns = [
     path('update-stream', editStream, name='edit-stream'),
 
     # Lessons path
+    re_path(r'^lesson-comments$', lessonComments, name='comments'),
+    path('like-lesson-comment', likeComment, name='like'),
     path('delete-lesson-media', deleteMedia, name='delete-media'),
     path('lessons', lessons, name='lessons'),
     path('get-lessons', getLessons, name='get_lessons'),

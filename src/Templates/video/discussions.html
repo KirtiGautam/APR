@@ -1,0 +1,58 @@
+{% load video_tags %}
+
+{% for comment in comments %}
+<span class="box-1 mt-2 row">
+    <span class="col-10">
+        <div class="area-1">
+            <div class="row row-7-1 p-2">
+                <div class="col-6 text-truncate">{{comment}}</div>
+                <div class="col-6">
+                    <span class="float-right">
+                        <div
+                            class="badge badge-pill badge-{% if comment.Author.admin %}danger{% elif comment.Author.is_staff %}warning{% else %}primary{% endif %}">
+                            {% if comment.Author.admin %}Admin{% elif comment.Author.is_staff %}Teacher{% else %}Student{% endif %}
+                        </div>
+                    </span>
+                </div>
+                <div class="col-12">{{comment.body}}</div>
+            </div>
+        </div>
+        <div class="row row-7-2 ml-1">
+            <button class="btn button-1 like_btn"
+                value="{{comment.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if comment|liked:request.user %}d{% endif %}</button>
+            <span class="text-primary">{{comment.likes.all.count}}</span>
+            <button class="btn button-1">Reply</button>
+            <span class="text-primary">{{comment.replies.all.count}}</span>
+        </div>
+    </span>
+    <span class="col-2"><button class="btn button-1"><i class="fas fa-ellipsis-h"></i></button></span>
+</span>
+{% for reply in replies %}
+<span class="box-2 row">
+    <div class="col-10">
+        <div class="area-1">
+            <div class="row row-7-1 p-2">
+                <div class="col-6 text-truncate">{{reply}}</div>
+                <div class="col-6">
+                    <span class="float-right">
+                        <div
+                            class="badge badge-pill badge-{% if reply.Author.admin %}danger{% elif reply.Author.is_staff %}warning{% else %}primary{% endif %}">
+                            {% if reply.Author.admin %}Admin{% elif reply.Author.is_staff %}Teacher{% else %}Student{% endif %}
+                        </div>
+                    </span>
+                </div>
+                <div class="col-12">{{reply.body}}</div>
+            </div>
+        </div>
+        <div class="row row-7-2 ml-1">
+            <button class="btn button-1 like_btn"
+                value="{{comment.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if reply|liked:request.user %}d{% endif %}</button>
+            <span class="text-primary">{{comment.likes.all.count}}</span>
+        </div>
+    </div>
+    <div class="col-2">
+        <button class="btn button-1"><i class="fas fa-ellipsis-h"></i></button>
+    </div>
+</span>]
+{% endfor %}
+{% endfor %}
