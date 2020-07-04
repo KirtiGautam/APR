@@ -3,7 +3,7 @@ function findGetParameter() {
     return urlarray[urlarray.length - 1]
 }
 
-const getComments = (parent_id = null) => {
+const getComments = () => {
     $.ajax({
         type: "GET",
         headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
@@ -22,6 +22,27 @@ const getComments = (parent_id = null) => {
 }
 getComments();
 
+const editComment = id => {
+    $.ajax({
+        type: "GET",
+        headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+        url: "/get-lesson-comment",
+        data: {
+            'id': id,
+        },
+        dataType: "json",
+        success: function (response) {
+            $('#edit_comment_modal').modal('show', { backdrop: 'static', keyboard: false });
+            $('#hidden_edit_comment_id').val(response.id);
+            $('#edit_comment_textarea').val(response.body);
+
+        },
+        error: function (error) {
+            alert(error.responseText);
+        },
+    });
+}
+
 const like_comment = el => {
     $.ajax({
         type: "POST",
@@ -32,8 +53,8 @@ const like_comment = el => {
         },
         dataType: "json",
         success: function (response) {
-            console.log(response);
             getComments();
+            alert(`Comment ${response.message}`);
         },
         error: function (error) {
             alert(error.responseText);
@@ -56,8 +77,11 @@ const comment = (parent_id, body) => {
             $('#discussions').html(response.body);
             if (parent_id) {
                 $(`.reply_div${this.value}`).toggleClass('d-none');
+                alert('Reply added');
+            } else {
+                alert('Comment added');
+                $('#comment_body').val('')
             }
-            $('#comment_body').val('')
         },
         error: function (error) {
             alert(error.responseText);
@@ -78,6 +102,9 @@ const delete_comment = id => {
             $('#discussions').html(response.body);
             if (response.parent_id) {
                 $(`.reply_div${this.value}`).toggleClass('d-none');
+                alert('Reply deleted');
+            } else {
+                alert('Comment deleted')
             }
         },
         error: function (error) {
@@ -87,6 +114,30 @@ const delete_comment = id => {
 }
 
 $(function () {
+    $('#edit_comment_btn').click(function () {
+        if (!$('#edit_comment_textarea').val()) {
+            alert('Comment cannot be empty')
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+            url: "/update-lesson-comment",
+            data: {
+                'id': $('#hidden_edit_comment_id').val(),
+                'body': $('#edit_comment_textarea').val()
+            },
+            dataType: "json",
+            success: function (response) {
+                getComments()
+                alert(response.message)
+            },
+            error: function (error) {
+                alert(error.responseText);
+            },
+        });
+    });
+
     $('#comment_body').keyup(function () {
         if (!this.value) {
             $('#comment_send_btn').prop("disabled", true);

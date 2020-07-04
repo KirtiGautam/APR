@@ -329,11 +329,11 @@ def likeComment(request):
             comment.likes.remove(request.user)
             if request.user.admin or request.user.is_staff:
                 data = {
-                    'message': 'Appreciate'
+                    'message': 'Unappreciated'
                 }
             else:
                 data = {
-                    'message': 'Like'
+                    'message': 'Unliked'
                 }
         else:
             comment.likes.add(request.user)
@@ -352,20 +352,44 @@ def likeComment(request):
 def deleteComment(request):
     if request.user.is_authenticated:
         comment = HComment.objects.filter(id=request.POST['id'])
-        if comment.exists():
-            data = {
-                'parent_id': comment.parent,
-                'body': render_to_string('video/discussions.html', {'comments': Comment.objects.filter(
-                    Video=comment[0].Video, parent__isnull=True)}, request=request)
-            }
+        id = comment[0].id
+        vid = comment[0].Video
         if request.user.user_type == "Student":
             if comment.Author != request.user:
-                data['message'] = "Cannot delete other user's comment"
+                data = {
+                    'message': "Cannot delete other user's comment"
+                }
             else:
                 comment.delete()
-                data['message'] = "Comment deleted"
+                data = {
+                    'message': "Comment deleted"
+                }
         else:
             comment.delete()
-            data['message'] = "Comment deleted"
+            data = {
+                'message': "Comment deleted"
+            }
+        data['parent_id'] = id
+        data['body'] = render_to_string('video/discussions.html', {'comments': Comment.objects.filter(
+            Video=vid, parent__isnull=True)}, request=request)
         return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
+def updateComment(request):
+    if request.user.is_authenticated:
+        comment = HComment.objects.get(id=request.POST['id'])
+        comment.body = request.POST['body']
+        comment.save()
+        return http.JsonResponse({
+            'message': 'Comment Updated'
+        })
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
+
+def getComment(request):
+    if request.user.is_authenticated:
+        return http.JsonResponse(
+            HComment.objects.values(
+                'body', 'id').get(id=request.GET['id'])
+        )
     return http.HttpResponseForbidden({'message': 'Unauthorized'})

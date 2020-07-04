@@ -22,3 +22,9 @@ def changePassword(request):
         else:
             return render(request, 'settings/user/passwordChange.html')
     return http.HttpResponseForbidden({'message': 'Not authorized'})
+
+
+def leaderboard(request):
+    if request.user.is_authenticated:
+        return render(request, 'leaderboard/leaderboard.html')
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})

@@ -16,12 +16,16 @@ from .views import (
     studentStats,
     homeworkComments,
     deleteComment,
-    likeComment
+    likeComment,
+    getComment,
+    updateComment,
 )
 
 app_name = 'homework'
 
 urlpatterns = [
+    path('get-homework-comment', getComment, name='getComment'),
+    path('update-homework-comment', updateComment, name='updateComment'),
     re_path(r'^homework-comments$', homeworkComments, name='comments'),
     path('delete-homework-comment', deleteComment, name='deleteComment'),
     path('like-homework-comment', likeComment, name='like'),

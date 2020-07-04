@@ -21,7 +21,7 @@
             <div class="row row-7-2 ml-1">
                 <button class="btn button-1 like_btn" onclick="like_comment(this);"
                     value="{{comment.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if comment|liked:request.user %}d{% endif %}</button>
-                <span class="text-primary mt-1">{{comment.likes.all.count}}</span>
+                <span class="text-primary mt-1">{{comment.getlikes}}</span>
                 <button class="btn button-1 reply_btn" value="{{comment.id}}">Reply</button>
                 <span class="text-primary mt-1">{{comment.replies.all.count}}</span>
                 <span class="text-secondary m-1">{{comment.created}}</span>
@@ -33,8 +33,11 @@
                     <i class="fas fa-ellipsis-h"></i>
                 </a>
                 <div class="dropdown-menu p-2">
-                    <button class="dropdown-item p-2">Edit</button>
-                    <button class="dropdown-item p-2" onclick="delete_comment({{comment.id}})">Delete</button>
+                    {% if comment.Author == request.user %} <button class="dropdown-item p-2"
+                        onclick="editComment({{comment.id}})">Edit</button>{% endif %}
+                    {% if request.user.user_type == 'Staff' and comment.Author.user_type == 'Student' or comment.Author == request.user %}
+                    <button class="dropdown-item p-2"
+                        onclick="delete_comment({{comment.id}})">Delete</button>{% endif %}
                 </div>
             </div>
         </span>
@@ -73,8 +76,8 @@
             <div class="row row-7-2 ml-1">
                 <button class="btn button-1 like_btn" onclick="like_comment(this);"
                     value="{{reply.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if reply|liked:request.user %}d{% endif %}</button>
-                <span class="text-primary mt-1">{{reply.likes.all.count}}</span>
-                <span class="text-secondary m-1">{{reply.created|timesince}}</span>
+                <span class="text-primary mt-1">{{reply.getlikes}}</span>
+                <span class="text-secondary m-1">{{reply.created}}</span>
             </div>
         </div>
         <div class="col-2">
@@ -83,8 +86,10 @@
                     <i class="fas fa-ellipsis-h"></i>
                 </a>
                 <div class="dropdown-menu p-2">
-                    <button class="dropdown-item p-2">Edit</button>
-                    <button class="dropdown-item p-2" onclick="delete_comment({{reply.id}})">Delete</button>
+                    {% if reply.Author == request.user %} <button class="dropdown-item p-2"
+                        onclick="editComment({{reply.id}})">Edit</button>{% endif %}
+                    {% if reply.Author == request.user or request.user.user_type == 'Staff' %} <button
+                        class="dropdown-item p-2" onclick="delete_comment({{reply.id}})">Delete</button>{% endif %}
                 </div>
             </div>
         </div>

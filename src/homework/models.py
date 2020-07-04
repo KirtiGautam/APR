@@ -73,6 +73,12 @@ class HComment(models.Model):
     def is_liked(self, user):
         return True if self.likes.filter(id=user.id).exists() else False
 
+    def getlikes(self):
+        all = self.likes.all().count()
+        appreciates = self.likes.filter(
+            homework_video_likes__User__user_type='Staff').count()
+        return "{} Appreciates {} Likes".format(appreciates, all-appreciates)
+
     def __str__(self):
         return self.Author.get_full_name()
 

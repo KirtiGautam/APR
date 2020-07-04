@@ -19,11 +19,15 @@ from .views import (
     assignmentComments,
     deleteComment,
     likeComment,
+    getComment,
+    updateComment,
 )
 
 app_name = 'assignment'
 
 urlpatterns = [
+    path('get-assignment-comment', getComment, name='getComment'),
+    path('update-assignment-comment', updateComment, name='updateComment'),
     re_path(r'^assignment-comments$', assignmentComments, name='comments'),
     path('delete-assignment-comment', deleteComment, name='deleteComment'),
     path('like-assignment-comment', likeComment, name='like'),
