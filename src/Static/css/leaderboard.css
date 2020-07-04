@@ -1,0 +1,26 @@
+.content {
+  margin-left: 0px !important;
+}
+
+.content {
+  background: url("/static/Images/leaderboard/leader.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.text-1{
+  text-transform: uppercase;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #376BAA;
+}
+
+.text-2{
+  text-transform: uppercase;
+  font-size: 45px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #FD7F2C;
+}
