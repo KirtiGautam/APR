@@ -89,6 +89,9 @@ def leaderboard(request):
         total_homework_appreciates = homework_video_likes.objects.filter(
             HComment__in=total_homework_Comments, User__user_type='Safft')
 
+        mydata = None
+        maxdata = None
+
         for x in students:
             # Category 4
             student_watched_lesson_video = x.user.watched_lesson_video.filter(
@@ -165,6 +168,31 @@ def leaderboard(request):
             final_points = round(category1+(category2*2) +
                                  (category3*3)+(category4*0.5), 1)
 
+            if request.user == x.user:
+                mydata = {
+                    'category_1': category1,
+                    'category_2': category2,
+                    'category_3': category3,
+                    'category_4': category4,
+                    'finalpoints': final_points,
+                }
+            if maxdata is None:
+                maxdata = {
+                    'category_1': category1,
+                    'category_2': category2,
+                    'category_3': category3,
+                    'category_4': category4,
+                }
+            else:
+                if maxdata['category_1'] < category1:
+                    maxdata['category_1'] = category1
+                if maxdata['category_2'] < category2:
+                    maxdata['category_2'] = category2
+                if maxdata['category_3'] < category3:
+                    maxdata['category_3'] = category3
+                if maxdata['category_4'] < category4:
+                    maxdata['category_4'] = category4
+
             data.append({
                 'Student': x,
                 'category_1': category1,
@@ -175,7 +203,9 @@ def leaderboard(request):
             })
 
         data = {
-            'data': sorted(data, key=lambda i: i['finalpoints'], reverse=True)
+            'data': sorted(data, key=lambda i: i['finalpoints'], reverse=True),
+            'mydata': mydata,
+            'maxdata':maxdata,
         }
         return render(request, 'leaderboard/leaderboard.html', data)
     return redirect('accounts:login')
