@@ -24,7 +24,7 @@
                     </span>
                     <span class="row lessons-row-head pl-3 pr-2 pt-1">
                         <span class="text-left text-truncate col-5 pt-2">PDF</span>
-                        <span class="time col-5 text-truncate pt-2">2 min</span>
+                        <span class="time col-5 text-truncate pt-2"></span>
                         {% if not admin %}
                         <input type="checkbox" onclick="return MARP({{pdf.id}}, this);"
                             {% for read in read_pdfs %}{% if read.Pdf.id == pdf.id %} onclick="return false;"
@@ -49,7 +49,7 @@
                     </span>
                     <span class="row lessons-row-head pl-3 pr-3 pt-1">
                         <span class="text-left col-5 pt-2">Video</span>
-                        <span class="time col-5 text-truncate pt-2" id="dura{{video.id}}">2 min</span>
+                        <span class="time col-5 text-truncate pt-2" id="dura{{video.id}}"></span>
                         {% if not admin %}
                         <input type="checkbox" onclick="return false;" readonly="readonly"
                             {% for watched in watched_videos %}{% if watched.Video.id == video.id %} checked

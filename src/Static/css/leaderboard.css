@@ -9,18 +9,73 @@
   height: 100vh;
 }
 
-.text-1{
+.text-1 {
   text-transform: uppercase;
   font-size: 25px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  color: #376BAA;
+  color: #376baa;
 }
 
-.text-2{
+.text-2 {
   text-transform: uppercase;
   font-size: 45px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  color: #FD7F2C;
+  color: #fd7f2c;
+}
+
+.progress {
+  margin-top: 100px;
+  -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+  height: 33px;
+  width: 168px;
+  background: #f4f4f4 0% 0% no-repeat padding-box;
+  border-radius: 0px;
+}
+
+.progress-bar {
+  background: transparent linear-gradient(90deg, #41d5dd 0%, #5484ed 100%) 0% 0%
+    no-repeat padding-box;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+}
+
+tr:hover {
+  cursor: pointer;
+}
+
+.table {
+  position: relative;
+  table-layout: auto;
+  width: 100% !important;
+  background-color: #FFFFFF;
+  /* border: 1px solid #707070; */
+  box-shadow: 2px 3px 6px #00000029;
+}
+
+.contain {
+  width: 100%;
+  min-height: max-content;
+  max-height: 550px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.thead {
+  border-bottom: 1px solid #376baa !important;
+  border-radius: 0%;
+  color: #376baa;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+td {
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
 }
