@@ -1,7 +1,7 @@
 {% load video_tags %}
 
 {% for comment in comments %}
-<div class="col-12">
+<div class="">
     <span class="box-1 mt-2 row">
         <span class="col-10">
             <div class="area-1 p-2">
@@ -18,33 +18,34 @@
                     <div class="col-12">{{comment.body}}</div>
                 </div>
             </div>
-            <div class="row row-7-2 ml-1">
-                <button class="btn button-1 like_btn" onclick="like_comment(this);"
-                    value="{{comment.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if comment|liked:request.user %}d{% endif %}</button>
-                <span class="text-primary mt-1">{{comment.getlikes}}</span>
-                <button class="btn button-1 reply_btn" value="{{comment.id}}">Reply</button>
-                <span class="text-primary mt-1">{{comment.replies.all.count}}</span>
-                <span class="text-secondary m-1">{{comment.created}}</span>
-            </div>
         </span>
         <span class="col-2">
             <div class="dropdown">
-                <a class="button-1 btn" href="#" data-toggle="dropdown">
+                <a class="button-1 btn mt-3" href="#" data-toggle="dropdown">
                     <i class="fas fa-ellipsis-h"></i>
                 </a>
-                <div class="dropdown-menu p-2">
-                    {% if comment.Author == request.user %} <button class="dropdown-item p-2"
+                <div class="dropdown-menu">
+                    {% if comment.Author == request.user %} <button class="dropdown-item edit"
                         onclick="editComment({{comment.id}})">Edit</button>{% endif %}
                     {% if request.user.user_type == 'Staff' and comment.Author.user_type == 'Student' or comment.Author == request.user %}
-                    <button class="dropdown-item p-2"
-                        onclick="delete_comment({{comment.id}})">Delete</button>{% endif %}
+                    <button class="dropdown-item" onclick="delete_comment({{comment.id}})">Delete</button>{% endif %}
                 </div>
             </div>
         </span>
+        <div class="row">
+            <div class="col-12">
+                <button class="btn button-1 like_btn" onclick="like_comment(this);"
+                    value="{{comment.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if comment|liked:request.user %}d{% endif %}</button>
+                <button class="btn button-1 reply_btn" value="{{comment.id}}">Reply</button>
+                <span class="text-3 btn">{{comment.getlikes}}</span>
+                <span class="text-3 btn">{{comment.replies.all.count}} replies</span>
+                <span class="text-3 btn">{{comment.created}}</span>
+            </div>
+        </div>
     </span>
 </div>
-<div class="box-2 d-none reply_div{{comment.id}}">
-    <div class="col-12">
+<div class="col-12">
+    <div class="box-2 d-none reply_div{{comment.id}}">
         <div class="row">
             <div class="col"><textarea id="{{comment.id}}" rows="2" class="form-control reply_body"
                     placeholder="Write a reply..."></textarea></div>
@@ -56,8 +57,8 @@
 </div>
 
 {% for reply in comment.replies.all %}
-<div class="col-12 d-none replies_list{{comment.id}}">
-    <span class="box-2 row">
+<div class="d-none replies_list{{comment.id}}">
+    <span class="box-2 row mt-2">
         <div class="col-10">
             <div class="area-1 p-2">
                 <div class="row row-7-1">
@@ -73,24 +74,26 @@
                     <div class="col-12">{{reply.body}}</div>
                 </div>
             </div>
-            <div class="row row-7-2 ml-1">
-                <button class="btn button-1 like_btn" onclick="like_comment(this);"
-                    value="{{reply.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if reply|liked:request.user %}d{% endif %}</button>
-                <span class="text-primary mt-1">{{reply.getlikes}}</span>
-                <span class="text-secondary m-1">{{reply.created}}</span>
-            </div>
         </div>
         <div class="col-2">
             <div class="dropdown">
-                <a class="button-1 btn" href="#" data-toggle="dropdown">
+                <a class="button-1 btn mt-3" href="#" data-toggle="dropdown">
                     <i class="fas fa-ellipsis-h"></i>
                 </a>
-                <div class="dropdown-menu p-2">
-                    {% if reply.Author == request.user %} <button class="dropdown-item p-2"
+                <div class="dropdown-menu">
+                    {% if reply.Author == request.user %} <button class="dropdown-item edit"
                         onclick="editComment({{reply.id}})">Edit</button>{% endif %}
                     {% if reply.Author == request.user or request.user.user_type == 'Staff' %} <button
-                        class="dropdown-item p-2" onclick="delete_comment({{reply.id}})">Delete</button>{% endif %}
+                        class="dropdown-item" onclick="delete_comment({{reply.id}})">Delete</button>{% endif %}
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button class="btn button-1 like_btn" onclick="like_comment(this);"
+                    value="{{reply.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if reply|liked:request.user %}d{% endif %}</button>
+                <span class="text-3 btn">{{reply.getlikes}}</span>
+                <span class="text-3 btn">{{reply.created}}</span>
             </div>
         </div>
     </span>

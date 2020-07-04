@@ -1,0 +1,58 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+</head>
+
+<div class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <span class="col-6">
+                    <span class="header-name pl-2 pr-2 btn">Akshara International School</span>
+                </span>
+                <span class="col-6">
+                    <span class="float-right pl-3 pr-3">
+                        <div class="dropdown">
+                            <a class="header-icon btn" href="#" data-toggle="dropdown">
+                                <i class="fas fa-cog"></i>
+                            </a>
+                            <div class="dropdown-menu p-2">
+                                {% if user.admin %}
+                                <a class="dropdown-item p-2" href="{% url 'accounts:student_information' %}">
+                                    <i class="fas fa-user-cog dropdown-icon"></i>
+                                    Admin Settings
+                                    <br>
+                                    <small>Get admin access upon clicking here</small>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                {% endif %}
+                                <a class="dropdown-item p-2" href="{% url 'accounts:logout' %}">
+                                    <i class="fas fa-sign-out-alt dropdown-icon"></i>
+                                    Logout of the device
+                                </a>
+                                {% if user.admin %}
+                                <a class="dropdown-item p-2" href="#">
+                                    <i class="fas fa-users dropdown-icon"></i>
+                                    Manage all users
+                                </a>
+                                {% endif %}
+                                <div class="dropdown-divider"></div>
+                                <a href="{% url 'accounts:change-password' %}" class="dropdown-item p-2">
+                                    <i class="fas fa-toolbox dropdown-icon"></i>
+                                    Change Password
+                                    <br>
+                                    <small>You can change your password here</small>
+                                </a>
+                            </div>
+                        </div>
+                    </span>
+                    <span class="float-right pl-3 pr-3">
+                        <a href="{% url 'accounts:dashboard' %}" class="header-icon btn"><i class="fas fa-home"></i></a>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/header.js' %}"></script>
