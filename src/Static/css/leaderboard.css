@@ -107,7 +107,6 @@ tr:hover {
   width: 100% !important;
   background-color: #ffffff;
   /* border:1px solid #707070; */
-  box-shadow: 0px 3px 6px #00000029;
 }
 
 .row-1-1 {
@@ -115,12 +114,15 @@ tr:hover {
 }
 
 .contain {
+  background-color: #ffffff;
   margin-top: 40px;
   width: 85%;
   min-height: max-content;
-  max-height: 550px;
+  max-height: 50vh;
   overflow-x: auto;
   overflow-y: auto;
+  -webkit-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.5);
 }
 
 .thead {
@@ -141,18 +143,50 @@ td {
   color: #f05e23;
 }
 
+.text-3 {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.text-4 {
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.text-5 {
+  color: #626262;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 19px;
+}
+
 @media screen and (max-width: 1000px) {
   .row-1-7 {
     display: none;
   }
 
-  .contain{
+  .contain {
     width: 100%;
   }
 }
 
-@media screen and (max-width: 600px){
-  .row-1-5{
-    padding-left: 20px ;
+@media screen and (max-width: 600px) {
+  .row-1-5 {
+    padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .row-1-5 {
+    padding-left: 0px;
+  }
+
+  .text-1 {
+    font-size: 20px;
+  }
+
+  .text-2 {
+    font-size: 40px;
   }
 }
