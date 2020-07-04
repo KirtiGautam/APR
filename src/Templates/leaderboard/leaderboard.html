@@ -63,7 +63,19 @@
                             <th class="final">Final Pts</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        {% for key in data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{key.Student.user.get_full_name}}</td>
+                            <td>{{key.category_1}}</td>
+                            <td>{{key.category_2}}</td>
+                            <td>{{key.category_3}}</td>
+                            <td>{{key.category_4}}</td>
+                            <td>{{key.finalpoints}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </center>

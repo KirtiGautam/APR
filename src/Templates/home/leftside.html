@@ -59,14 +59,16 @@
           <span class="leftside-menu-text p-2">Homeworks</span>
         </a>
       </li>
+      {% if user.user_type == 'Student' %}
       <li class="mt-3">
-        <a href="{% url 'accounts:leaderboard' %}">
+        <a href="{% url 'accounts:leaderboard' %}?time=all">
           <span class="leftside-menu-icon p-2">
             <i class="fas fa-trophy"></i>
           </span>
           <span class="leftside-menu-text p-2">Leaderboard</span>
         </a>
       </li>
+      {% endif %}
       <!-- <li class="mt-3">
         <a href="#">
           <span class="leftside-menu-icon p-2">

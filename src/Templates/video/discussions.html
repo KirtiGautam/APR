@@ -32,26 +32,23 @@
         </div>
     </span>
     <div class="ml-4">
-        <!-- <div class="col-12">
-                <button class="btn button-1 like_btn {% if comment|liked:request.user %}liked{% endif %}"
-                    onclick="like_comment(this);"
-                    value="{{comment.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if comment|liked:request.user %}d{% endif %}</button>
-                <button class="btn button-1 reply_btn" value="{{comment.id}}">Reply</button>
-                <span class="text-3 btn">{{comment.getlikes}}</span>
-                <span class="text-3 btn">{{comment.replies.all.count}} replies</span>
-                <span class="text-3 btn">{{comment.created}}</span>
-            </div> -->
-        <span class="text-4">1</span>
-        <button class="button-4" title="Like">
+        <span class="text-4">{{comment.getlikes}}</span>
+        <button
+            class="button-4 {% if request.user.user_type == 'Student' and comment|liked:request.user %}liked{% endif %}"
+            title="Like" {% if request.user.user_type == 'Student' %} onclick="like_comment(this);"
+            value="{{comment.id}}" {% endif %}>
             <i class="fas fa-thumbs-up"></i>
         </button>
-        <span class="text-4">1</span>
-        <button class="button-4" title="Appreciation">
+        <span class="text-4">{{comment.getappreciates}}</span>
+        <button
+            class="button-4 {% if request.user.user_type == 'Staff' and comment|liked:request.user %}liked{% endif %}"
+            title="Appreciation" {% if request.user.user_type == 'Staff' %} onclick="like_comment(this);"
+            value="{{comment.id}}" {% endif %}>
             <i class="fas fa-star"></i>
         </button>
         <button class="button-4 reply_btn" value="{{comment.id}}">Reply</button>
         <span class="text-4 num_rep">{{comment.replies.all.count}} replies</span>
-        <span class="text-3 ml-1">1 hour ago </span>
+        <span class="text-3 ml-1">{{comment.when}} </span>
     </div>
 </span>
 <div class="col-12">
@@ -99,23 +96,22 @@
             </div>
         </div>
         <div class="row">
-            <!-- <div class="col-12">
-                <button class="btn button-1 like_btn {% if reply|liked:request.user %}liked{% endif %}"
-                    onclick="like_comment(this);"
-                    value="{{reply.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if reply|liked:request.user %}d{% endif %}</button>
-                <span class="text-3 btn">{{reply.getlikes}}</span>
-                <span class="text-3 btn">{{reply.created}}</span>
-            </div> -->
             <div class="col-12 ml-4">
-                <span class="text-4">1</span>
-                <button class="button-4" title="Like">
+                <span class="text-4">{{comment.getlikes}}</span>
+                <button
+                    class="button-4 {% if request.user.user_type == 'Student' and reply|liked:request.user %}liked{% endif %}"
+                    title="Like" {% if request.user.user_type == 'Student' %} onclick="like_comment(this);"
+                    value="{{reply.id}}" {% endif %}>
                     <i class="fas fa-thumbs-up"></i>
                 </button>
-                <span class="text-4">1</span>
-                <button class="button-4" title="Appreciation">
+                <span class="text-4">{{comment.getappreciates}}</span>
+                <button
+                    class="button-4 {% if request.user.user_type == 'Staff' and reply|liked:request.user %}liked{% endif %}"
+                    title="Appreciation" {% if request.user.user_type == 'Staff' %} onclick="like_comment(this);"
+                    value="{{reply.id}}" {% endif %}>
                     <i class="fas fa-star"></i>
                 </button>
-                <span class="text-3 num_dur">1 hour ago </span>
+                <span class="text-3 num_dur">{{reply.when}} </span>
             </div>
         </div>
     </span>
