@@ -50,6 +50,7 @@ class user_progress_pdf(models.Model):
         User, on_delete=models.CASCADE, related_name='read_assignment_pdf')
     Pdf = models.ForeignKey(
         Pdf, on_delete=models.CASCADE, related_name='user_pdf')
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class user_progress_video(models.Model):
@@ -57,6 +58,7 @@ class user_progress_video(models.Model):
         User, on_delete=models.CASCADE, related_name='watched_assignment_video')
     Video = models.ForeignKey(
         Video, on_delete=models.CASCADE, related_name='user_video')
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class AComment(models.Model):

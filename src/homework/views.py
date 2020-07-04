@@ -309,7 +309,7 @@ def homeworkComments(request):
             # get post object
             Videos = Video.objects.get(id=request.GET['id'])
         # list of active parent comments
-        comments = Videos.comments.filter(parent__isnull=True)
+        comments = Videos.comments.filter(parent__isnull=True).order_by('-created')
         # for x in comments:
         #     if x.likes.filter(id=request.user.id).exists():
         #         x['liked'] = True

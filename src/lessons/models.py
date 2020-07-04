@@ -79,6 +79,7 @@ class user_progress_pdf(models.Model):
         User, on_delete=models.CASCADE, related_name='read_lesson_pdf')
     Pdf = models.ForeignKey(
         Pdf, on_delete=models.CASCADE, related_name='user_pdf')
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class user_progress_video(models.Model):
@@ -86,6 +87,7 @@ class user_progress_video(models.Model):
         User, on_delete=models.CASCADE, related_name='watched_lesson_video')
     Video = models.ForeignKey(
         Video, on_delete=models.CASCADE, related_name='user_video')
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class liveStream(models.Model):
@@ -116,7 +118,8 @@ class Comment(models.Model):
 
     def getlikes(self):
         all = self.likes.all().count()
-        appreciates = self.likes.filter(lesson_video_likes__User__user_type='Staff').count()
+        appreciates = self.likes.filter(
+            lesson_video_likes__User__user_type='Staff').count()
         return "{} Appreciates {} Likes".format(appreciates, all-appreciates)
 
     def __str__(self):

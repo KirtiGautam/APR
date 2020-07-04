@@ -80,8 +80,13 @@ const duration = given_seconds => {
     hours = dateObj.getUTCHours();
     minutes = dateObj.getUTCMinutes();
     seconds = dateObj.getSeconds();
+    console.log([hours, minutes, seconds])
 
-    return (hours.toString().padStart(2, '0') + ':' +
-        minutes.toString().padStart(2, '0') + ':' +
-        seconds.toString().padStart(2, '0') + ' hr');
+    if (hours == 0 && minutes == 0) {
+        return seconds.toString() + ' s';
+    } else if (hours != 0) {
+        return hours.toString() + ' hr';
+    } else {
+        return minutes.toString() + ' mins';
+    }
 }

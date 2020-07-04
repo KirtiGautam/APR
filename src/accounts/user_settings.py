@@ -26,5 +26,22 @@ def changePassword(request):
 
 def leaderboard(request):
     if request.user.is_authenticated:
+        from lessons.models import (
+            user_progress_pdf as lesson_video_progress,
+            user_progress_video as lesson_pdf_progress,
+            Comment
+        )
+        from homework.models import (
+            user_progress_pdf as homework_video_progress,
+            user_progress_video as homework_pdf_progress,
+            HComment
+        )
+        from assignments.models import (
+            user_progress_pdf as assignment_video_progress,
+            user_progress_video as assignment_pdf_progress,
+            AComment
+        )
+        likes
+
         return render(request, 'leaderboard/leaderboard.html')
     return http.HttpResponseForbidden({'message': 'Unauthorized'})

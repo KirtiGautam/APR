@@ -34,7 +34,8 @@
         </span>
         <div class="row">
             <div class="col-12">
-                <button class="btn button-1 like_btn" onclick="like_comment(this);"
+                <button class="btn button-1 like_btn {% if comment|liked:request.user %}liked{% endif %}"
+                    onclick="like_comment(this);"
                     value="{{comment.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if comment|liked:request.user %}d{% endif %}</button>
                 <button class="btn button-1 reply_btn" value="{{comment.id}}">Reply</button>
                 <span class="text-3 btn">{{comment.getlikes}}</span>
@@ -90,7 +91,8 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <button class="btn button-1 like_btn" onclick="like_comment(this);"
+                <button class="btn button-1 like_btn {% if reply|liked:request.user %}liked{% endif %}"
+                    onclick="like_comment(this);"
                     value="{{reply.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if reply|liked:request.user %}d{% endif %}</button>
                 <span class="text-3 btn">{{reply.getlikes}}</span>
                 <span class="text-3 btn">{{reply.created}}</span>
