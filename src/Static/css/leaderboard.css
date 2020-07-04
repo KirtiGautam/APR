@@ -9,6 +9,11 @@
   height: 100vh;
 }
 
+.row-1-5 {
+  margin-top: 70px;
+  padding-left: 100px;
+}
+
 .text-1 {
   text-transform: uppercase;
   font-size: 25px;
@@ -32,6 +37,7 @@
   width: 168px;
   background: #f4f4f4 0% 0% no-repeat padding-box;
   border-radius: 0px;
+  box-shadow: 0px 3px 6px #00000029;
 }
 
 .progress-bar {
@@ -39,10 +45,56 @@
     no-repeat padding-box;
 }
 
+.progress-text {
+  transform: rotate(90deg);
+  color: #376baa;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.role-1 {
+  color: #376baa;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 66px;
+  margin-top: 70px;
+}
+
+.role-2 {
+  color: #376baa;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 56px;
+  margin-top: 70px;
+}
+
+.role-3 {
+  color: #376baa;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 66px;
+  margin-top: 70px;
+}
+
+.role-4 {
+  color: #376baa;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 59px;
+  margin-top: 70px;
+}
+
+.row-1-2,
+.row-1-3,
+.row-1-4 {
+  margin-left: -80px;
+}
+
 th {
   position: sticky;
   top: 0;
   background-color: #ffffff;
+  border-bottom: 1px solid #376baa !important;
 }
 
 tr:hover {
@@ -53,13 +105,18 @@ tr:hover {
   position: relative;
   table-layout: auto;
   width: 100% !important;
-  background-color: #FFFFFF;
-  /* border: 1px solid #707070; */
-  box-shadow: 2px 3px 6px #00000029;
+  background-color: #ffffff;
+  /* border:1px solid #707070; */
+  box-shadow: 0px 3px 6px #00000029;
+}
+
+.row-1-1 {
+  margin-left: 50px;
 }
 
 .contain {
-  width: 100%;
+  margin-top: 40px;
+  width: 85%;
   min-height: max-content;
   max-height: 550px;
   overflow-x: auto;
@@ -67,7 +124,6 @@ tr:hover {
 }
 
 .thead {
-  border-bottom: 1px solid #376baa !important;
   border-radius: 0%;
   color: #376baa;
   font-family: Arial, Helvetica, sans-serif;
@@ -78,4 +134,25 @@ td {
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
+}
+
+.final {
+  border: none !important;
+  color: #f05e23;
+}
+
+@media screen and (max-width: 1000px) {
+  .row-1-7 {
+    display: none;
+  }
+
+  .contain{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .row-1-5{
+    padding-left: 20px ;
+  }
 }
