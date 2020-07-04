@@ -62,9 +62,12 @@
             </div>
             <div class="col-12">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn button-2 button-2-active">All Time</button>
-                    <button type="button" class="btn button-2">Monthly</button>
-                    <button type="button" class="btn button-2">Weekly</button>
+                    <a href="{% url 'accounts:leaderboard' %}?time=all"
+                        class="btn button-2 {% if request.GET.time == 'all' %}button-2-active{% endif %}">All Time</a>
+                    <a href="{% url 'accounts:leaderboard' %}?time=monthly"
+                        class="btn button-2 {% if request.GET.time == 'monthly' %}button-2-active{% endif %}">Monthly</a>
+                    <a href="{% url 'accounts:leaderboard' %}?time=weekly"
+                        class="btn button-2 {% if request.GET.time == 'weekly' %}button-2-active{% endif %}">Weekly</a>
                 </div>
             </div>
         </div>
