@@ -88,18 +88,21 @@ body {
   color: #fcfcfc;
   font-size: 21px;
   font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
 }
 
 .heading-3 {
   font-size: 19px;
   font-family: Arial, Helvetica, sans-serif;
   color: #fcfcfc;
+  text-transform: capitalize;
 }
 
 .heading-4 {
   font-size: 17px;
   font-family: Arial, Helvetica, sans-serif;
   color: #fcfcfc;
+  text-transform: capitalize;
 }
 
 .blue-buttons {
@@ -125,7 +128,7 @@ body {
 }
 
 .marked {
-  background-color: #3fc08d;
+  background-color: #008A5A;
   border-radius: 5px;
   font-size: 15px;
   color: #fcfcfc;

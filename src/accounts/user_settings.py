@@ -41,7 +41,5 @@ def leaderboard(request):
             user_progress_video as assignment_pdf_progress,
             AComment
         )
-        likes
-
         return render(request, 'leaderboard/leaderboard.html')
     return http.HttpResponseForbidden({'message': 'Unauthorized'})

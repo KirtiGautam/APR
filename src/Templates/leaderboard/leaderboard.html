@@ -2,6 +2,22 @@
 {% load static %}
 {% block content %}
 
-<h1>Leaderboard Page</h1>
+<head>
+    <link rel="stylesheet" href="{% static 'css/leaderboard.css' %}">
+</head>
+{% include 'common/video-header.html' %}
+
+<div class="content no-margin">
+    <div class="container-fluid">
+        <div class="row row-1">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="text-1 col-12">Akshara</div>
+                <div class="text-2 col-12">
+                    Leaderboard
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
