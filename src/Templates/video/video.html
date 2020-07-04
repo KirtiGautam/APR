@@ -6,7 +6,7 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/video.css' %}">
 </head>
-{% include 'common/header.html' %}
+{% include 'common/video-header.html' %}
 <div class="content">
     <div class="container-fluid">
         <div class="row mt-1">
@@ -70,14 +70,16 @@
                                 class="fas fa-paper-plane"></i></button></i>
                     </div>
                 </div>
-                <div class="row row-7 mt-2 p-3" id="discussions"></div>
+                <div class="row row-7 mt-2 p-3">
+                    <div class="col-12" id="discussions"></div>
+                </div>
                 <div class="modal" tabindex="-1" role="dialog" id='edit_comment_modal'>
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Edit Comment</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                <div class="modal-title heading-2">Edit Comment</div>
+                                <button type="button btn button-2" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="button-2">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
@@ -85,7 +87,7 @@
                                 <textarea id="edit_comment_textarea" rows="2" class="form-control"></textarea>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="edit_comment_btn">Save
+                                <button type="button" class="btn button-3" id="edit_comment_btn">Save
                                     changes</button>
                             </div>
                         </div>
