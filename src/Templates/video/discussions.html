@@ -1,39 +1,38 @@
 {% load video_tags %}
 
 {% for comment in comments %}
-<div class="">
-    <span class="box-1 mt-2 row">
-        <span class="col-10">
-            <div class="area-1 p-2">
-                <div class="row row-7-1">
-                    <div class="col-6 text-truncate">{{comment}}</div>
-                    <div class="col-6">
-                        <span class="float-right">
-                            <div
-                                class="badge badge-pill badge-{% if comment.Author.admin %}danger{% elif comment.Author.is_staff %}warning{% else %}primary{% endif %}">
-                                {% if comment.Author.admin %}Admin{% elif comment.Author.is_staff %}Teacher{% else %}Student{% endif %}
-                            </div>
-                        </span>
-                    </div>
-                    <div class="col-12">{{comment.body}}</div>
+<span class="mt-2 row box-1">
+    <span class="col-11 col-sm-11 col-md-11 col-lg-10">
+        <div class="area-1 p-2">
+            <div class="row row-7-1">
+                <div class="col-6 text-truncate">{{comment}}</div>
+                <div class="col-6">
+                    <span class="float-right">
+                        <div
+                            class="badge badge-pill badge-{% if comment.Author.admin %}danger{% elif comment.Author.is_staff %}warning{% else %}primary{% endif %}">
+                            {% if comment.Author.admin %}Admin{% elif comment.Author.is_staff %}Teacher{% else %}Student{% endif %}
+                        </div>
+                    </span>
                 </div>
+                <div class="col-12">{{comment.body}}</div>
             </div>
-        </span>
-        <span class="col-2">
-            <div class="dropdown">
-                <a class="button-1 btn mt-3" href="#" data-toggle="dropdown">
-                    <i class="fas fa-ellipsis-h"></i>
-                </a>
-                <div class="dropdown-menu">
-                    {% if comment.Author == request.user %} <button class="dropdown-item edit"
-                        onclick="editComment({{comment.id}})">Edit</button>{% endif %}
-                    {% if request.user.user_type == 'Staff' and comment.Author.user_type == 'Student' or comment.Author == request.user %}
-                    <button class="dropdown-item" onclick="delete_comment({{comment.id}})">Delete</button>{% endif %}
-                </div>
+        </div>
+    </span>
+    <span class="col-1 col-sm-1 col-md-1 col-lg-2">
+        <div class="dropdown">
+            <a class="button-1 btn mt-3" href="#" data-toggle="dropdown">
+                <i class="fas fa-ellipsis-h"></i>
+            </a>
+            <div class="dropdown-menu">
+                {% if comment.Author == request.user %} <button class="dropdown-item edit"
+                    onclick="editComment({{comment.id}})">Edit</button>{% endif %}
+                {% if request.user.user_type == 'Staff' and comment.Author.user_type == 'Student' or comment.Author == request.user %}
+                <button class="dropdown-item" onclick="delete_comment({{comment.id}})">Delete</button>{% endif %}
             </div>
-        </span>
-        <div class="row">
-            <div class="col-12">
+        </div>
+    </span>
+    <div class="ml-4">
+        <!-- <div class="col-12">
                 <button class="btn button-1 like_btn {% if comment|liked:request.user %}liked{% endif %}"
                     onclick="like_comment(this);"
                     value="{{comment.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if comment|liked:request.user %}d{% endif %}</button>
@@ -41,10 +40,20 @@
                 <span class="text-3 btn">{{comment.getlikes}}</span>
                 <span class="text-3 btn">{{comment.replies.all.count}} replies</span>
                 <span class="text-3 btn">{{comment.created}}</span>
-            </div>
-        </div>
-    </span>
-</div>
+            </div> -->
+        <span class="text-4">1</span>
+        <button class="button-4" title="Like">
+            <i class="fas fa-thumbs-up"></i>
+        </button>
+        <span class="text-4">1</span>
+        <button class="button-4" title="Appreciation">
+            <i class="fas fa-star"></i>
+        </button>
+        <button class="button-4 reply_btn" value="{{comment.id}}">Reply</button>
+        <span class="text-4 num_rep">{{comment.replies.all.count}} replies</span>
+        <span class="text-3 ml-1">1 hour ago </span>
+    </div>
+</span>
 <div class="col-12">
     <div class="box-2 d-none reply_div{{comment.id}}">
         <div class="row">
@@ -60,7 +69,7 @@
 {% for reply in comment.replies.all %}
 <div class="d-none replies_list{{comment.id}}">
     <span class="box-2 row mt-2">
-        <div class="col-10">
+        <div class="col-11 col-sm-11 col-md-11 col-lg-10">
             <div class="area-1 p-2">
                 <div class="row row-7-1">
                     <div class="col-6 text-truncate">{{reply}}</div>
@@ -76,7 +85,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-1 col-sm-1 col-md-1 col-lg-2">
             <div class="dropdown">
                 <a class="button-1 btn mt-3" href="#" data-toggle="dropdown">
                     <i class="fas fa-ellipsis-h"></i>
@@ -90,12 +99,23 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <button class="btn button-1 like_btn {% if reply|liked:request.user %}liked{% endif %}"
                     onclick="like_comment(this);"
                     value="{{reply.id}}">{% if request.user.admin or request.user.is_staff %}Appreciate{% else %}Like{% endif %}{% if reply|liked:request.user %}d{% endif %}</button>
                 <span class="text-3 btn">{{reply.getlikes}}</span>
                 <span class="text-3 btn">{{reply.created}}</span>
+            </div> -->
+            <div class="col-12 ml-4">
+                <span class="text-4">1</span>
+                <button class="button-4" title="Like">
+                    <i class="fas fa-thumbs-up"></i>
+                </button>
+                <span class="text-4">1</span>
+                <button class="button-4" title="Appreciation">
+                    <i class="fas fa-star"></i>
+                </button>
+                <span class="text-3 num_dur">1 hour ago </span>
             </div>
         </div>
     </span>
