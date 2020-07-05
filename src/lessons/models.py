@@ -102,6 +102,18 @@ class liveStream(models.Model):
     Time = models.DateTimeField()
     Duration = models.DecimalField(max_digits=4, decimal_places=2)
 
+    def getduration(self):
+        dura_string = str(self.Duration)
+        dura_string = dura_string.split('.')
+        if int(dura_string[0]) != 0:
+            dura_string[0] += ' hrs'
+            if int(dura_string[1]) != 0:
+                dura_string[1] += ' mins'
+            dura_string = ' '.join(dura_string)
+        else:
+            dura_string = dura_string[1] + ' mins'
+        return dura_string
+
 
 class Comment(models.Model):
     Video = models.ForeignKey(

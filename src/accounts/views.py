@@ -113,7 +113,7 @@ def signupForm(request):
                 Class=Class.objects.get(id=request.POST['Class'])
             )
             del request.session['temp_user']
-            return redirect('accounts:thanks')
+            return render(request, 'Thanks.html', {'student': student})
     return redirect('accounts:signup')
 
 
@@ -127,10 +127,5 @@ def signup(request):
         result = request.POST['sign_up']
         if password == result:
             request.session['temp_user'] = '@uthenticated'
-            print('authenticated')
         return redirect('accounts:signup_form')
     return render(request, 'signup.html')
-
-
-def thanks(request):
-    return render(request, 'Thanks.html')

@@ -14,7 +14,7 @@
                 to the registration form for Akshara Digital classes</span>
         </div>
         <div class="col-12 text-center row-1-5">
-            <form action="{% url 'accounts:signup' %}" method="POST">
+            <form action="{% url 'accounts:signup' %}" method="POST" onsubmit="return check();">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-0 col-sm-0 col-md-4 col-lg-4"></div>
@@ -34,11 +34,14 @@
     <span>&#169;</span> 2020 | Akshara International School | All
     rights reserved
 </div>
-<!-- <form action="{% url 'accounts:signup' %}" method="POST">
-    {% csrf_token %}
-    <label for="sign_up">Enter your shared password</label>
-    <input type="text" name="sign_up" id="sign_up">
-    <input type="submit" value="Enter">
-</form> -->
+<script>
+    const check = () => {
+        if (!$('#sign_up').val()) {
+            alert('Please fill the school code');
+            return false;
+        }
+        return true;
+    }
+</script>
 
 {% endblock %}

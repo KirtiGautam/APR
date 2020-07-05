@@ -17,46 +17,53 @@
                     </div>
                     <div class="col-1 col-sm-1 col-md-2 col-lg-2"></div>
                     <div class="col-10 col-sm-10 col-md-8 col-lg-8">
-                        <form action="{% url 'accounts:signup_form' %}" method="post" class="row">
+                        <form action="{% url 'accounts:signup_form' %}" method="post" class="row"
+                            onsubmit="return check();">
                             {% csrf_token %}
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="text" name="first_name" class="form-control" placeholder="First Name">
+                                <input type="text" name="first_name" class="form-control" placeholder="First Name"
+                                    id="first_name">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="text" name="last_name" class="form-control" placeholder="Last Name">
+                                <input type="text" name="last_name" class="form-control" placeholder="Last Name"
+                                    id="last_name">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="date" name="dob" class="form-control" placeholder="Date of Birth">
+                                <input type="date" name="dob" class="form-control" placeholder="Date of Birth" id="dob">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <select name="gender" class="form-control">
+                                <select name="gender" class="form-control" id="gender">
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
                                 </select>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="email" name="email" class="form-control" placeholder="Email-ID">
+                                <input type="email" name="email" class="form-control" placeholder="Email-ID" id="email">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="tel" name="Contact" class="form-control" placeholder="Contact Number">
+                                <input type="tel" name="Contact" class="form-control" placeholder="Contact Number"
+                                    id="Contact">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="text" name="Address" class="form-control" placeholder="Address">
+                                <input type="text" name="Address" class="form-control" placeholder="Address"
+                                    id="Address">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="text" name="District" class="form-control" placeholder="District">
+                                <input type="text" name="District" class="form-control" placeholder="District"
+                                    id="District">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="text" name="City" class="form-control" placeholder="City">
+                                <input type="text" name="City" class="form-control" placeholder="City" id="City">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="text" name="Pincode" class="form-control" placeholder="Pincode">
+                                <input type="text" name="Pincode" class="form-control" placeholder="Pincode"
+                                    id="Pincode">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="text" name="State" class="form-control" placeholder="State">
+                                <input type="text" name="State" class="form-control" placeholder="State" id="State">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <select class="form-control" name="Class">
+                                <select class="form-control" name="Class" id="Class">
                                     <option value="" selected disabled>Select Class</option>
                                     {% for key in Classes %}
                                     <option value="{{key.id}}">{{key.name}}</option>
@@ -77,5 +84,39 @@
         rights reserved
     </div>
 </body>
+<script>
+    const check = () => {
+        if (!$('#first_name').val() ||
+            !$('#last_name').val() ||
+            !$('#dob').val() ||
+            !$('#gender').val() ||
+            !$('#email').val() ||
+            !$('#Contact').val() ||
+            !$('#Address').val() ||
+            !$('#District').val() ||
+            !$('#City').val() ||
+            !$('#Pincode').val() ||
+            !$('#State').val() ||
+            !$('#Class').val()
+        ) {
+            alert('Please fill all the details');
+            return false;
+        }
+        if ($('#Contact').val().length != 10) {
+            alert('Mobile number must be 10 digits');
+            return false;
+        }
+        return ValidateEmail($('#email').val())
+    }
+    function ValidateEmail(mail) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+            return (true)
+        }
+        alert("You have entered an invalid email address!")
+        return (false)
+    }
+
+</script>
+
 
 {% endblock %}
