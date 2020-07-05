@@ -6,26 +6,19 @@
     <link rel="stylesheet" href="{% static 'css/signup.css' %}">
 </head>
 <div class="container-fluid">
-    <div class="row row-1">
+    <div class="row row-1 text-center">
+        <div class="col-12"> <img src="{% static 'Images/login/logo.png' %}" class="col-12 image" /></div>
         <div class="col-12 text-center row-1-1">
-            <span class="text-1">Akshara International School</span>
-        </div>
-        <div class="col-12 text-center row-1-2">
-            <span class="text-2">Welcome</span>
-        </div>
-        <div class="col-12 text-center row-1-3">
-            <span class="text-3">Fill the Registration form to gain access to digital classes of the school.</span>
-        </div>
-        <div class="col-12 text-center row-1-4">
-            <span class="text-3">Fill the school key code to go to the Registration form.</span>
-            <span class="text-new"></span>
+            <span class="text-1">Please enter School Key code to get access
+                <br>
+                to the registration form for Akshara Digital classes</span>
         </div>
         <div class="col-12 text-center row-1-5">
             <form action="{% url 'accounts:signup' %}" method="POST">
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-0 col-sm-1 col-md-3 col-lg-3"></div>
-                    <div class="col-8 col-sm-8 col-md-5 col-lg-5">
+                    <div class="col-0 col-sm-0 col-md-4 col-lg-4"></div>
+                    <div class="col-8 col-sm-8 col-md-3 col-lg-3">
                         <input type="text" name="sign_up" id="sign_up" class="text-4 float-right"
                             placeholder="Enter School Key Code">
                     </div>

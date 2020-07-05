@@ -1,11 +1,14 @@
 .container-fluid {
-  background: rgb(56, 50, 176);
-  background: linear-gradient(
-    90deg,
-    rgba(56, 50, 176, 0.8) 0%,
-    rgba(2, 199, 252, 0.8) 100%
-  );
+  background: url("/static/Images/login/hexagon.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100vh;
+}
+
+.image {
+  margin-top: 50px;
+  width: 279px;
+  height: 194px;
 }
 
 .bottom {
@@ -14,35 +17,23 @@
   position: fixed;
   z-index: 100;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 18px;
-  color: #ffffff;
+  font-size: 16px;
+  color: #626262;
   padding: 0 !important;
+  margin-bottom: 10px;
 }
 
 .text-1 {
-  font-size: 27px;
-  color: #ffffff;
+  font-size: 30px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: bolder;
-  text-transform: uppercase;
+  color: #376baa;
+  font-weight: bold;
 }
 
 .row-1-1 {
-  margin-top: 110px;
+  padding-top: 10px;
+  padding-bottom: 50px;
 }
-
-.row-1-2 {
-  margin-top: 95px;
-}
-
-.row-1-4 {
-  margin-top: 80px;
-}
-
-.row-1-5 {
-  margin-top: 40px;
-}
-
 .text-2 {
   font-size: 24px;
   color: #ffffff;
@@ -59,13 +50,14 @@
 }
 
 .text-4 {
-  background: transparent;
+  background-color: #ffffff;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   width: 100%;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  color: #626262;
+  border: 1px solid #b3b6b8;
   padding: 2px;
+  height: 100%;
 }
 
 .text-4:focus {
@@ -73,29 +65,31 @@
   outline: none;
 }
 
-.text-4.text-4::placeholder {
-  color: #ffffff !important;
-}
-
 .button-1 {
-  background: #ffffff 0% 0% no-repeat padding-box;
+  background: #8b82b6 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  color: #626262;
-  font-size: 17px;
+  border-radius: 0px;
+  color: #ffffff;
+  font-size: 22px;
   font-family: Arial, Helvetica, sans-serif;
   display: inline-block;
+  /* margin-top: 30px; */
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .button-1:focus {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   outline: none;
 }
 
 @media screen and (max-width: 700px) {
+  .image {
+    width: 140px;
+    height: 85px;
+  }
   .row-1-1 {
-    margin-top: 70px;
+    margin-top: 20px;
   }
 
   .row-1-2 {
@@ -111,37 +105,34 @@
   }
 
   .text-1 {
-    font-size: 25px;
+    font-size: 15px;
   }
 
-  .text-2 {
+
+  .text-4 {
+    font-size: 14px;
+  }
+
+  .text-3 {
     display: none;
   }
 
-  .text-4{
-      font-size: 14px;
-  }
-
-  .text-3{
-    display: none;
-  }
-
-  .text-new{
+  .text-new {
     font-size: 21px;
     color: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
   }
 
-  .text-new::before{
+  .text-new::before {
     content: "Fill the school keycode to go to the registration form and gain access to digital clases of the school.";
   }
 
-  .button-1{
-      font-size: 14px;
+  .button-1 {
+    font-size: 14px;
   }
 
-  .bottom{
+  .bottom {
     font-size: 12px;
   }
 }
