@@ -8,7 +8,8 @@ from accounts.views import (
     classes,
     chapters,
     signup,
-    signupForm    
+    signupForm,
+    thanks    
 )
 from accounts.admin_settings import (
     getStudents,
@@ -50,6 +51,7 @@ urlpatterns = [
     path('login', log, name='login'),
     path('signup', signup, name='signup'),
     path('sign-form', signupForm, name='signup_form'),
+    path('thank-you', thanks, name='thanks'),
     path('logout', logo, name='logout'),
     path('settings/allmedia', allmedia, name='allmedia'),   
     path('settings/allquestions', allquestions, name='allquestions'),

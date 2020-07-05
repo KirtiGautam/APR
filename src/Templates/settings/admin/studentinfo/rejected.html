@@ -32,7 +32,6 @@
                     <table id='Students' class="table table-hover table-sm">
                         <thead>
                             <tr>
-                                <th></th>
                                 <th>S.No.</th>
                                 <th>Class</th>
                                 <th>Name</th>
@@ -49,23 +48,32 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for key in Students %}
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="btn button-2">Approve</td>
-                                <td class="btn button-2">Delete</td>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{key.Class.name}}</td>
+                                <td>{{key.user.get_full_name}}</td>
+                                <td>{{key.get_gender_display}}</td>
+                                <td>{{key.dob}}</td>
+                                <td>{{key.user.email}}</td>
+                                <td>{{key.Contact}}</td>
+                                <td>{{key.Address}}</td>
+                                <td>{{key.Pincode}}</td>
+                                <td>{{key.City}}</td>
+                                <td>{{key.District}}</td>
+                                <td>{{key.State}}</td>
+                                <td>
+                                    <form action="{% url 'accounts:rejected' %}" method="post">{% csrf_token %}<button
+                                            class="btn button-2" type="submit" name="accept"
+                                            value="{{key.user.id}}">Accept</button></form>
+                                </td>
+                                <td>
+                                    <form action="{% url 'accounts:rejected' %}" method="post">{% csrf_token %}<button
+                                            class="btn button-2" type="submit" name="delete"
+                                            value="{{key.user.id}}">Delete</button></form>
+                                </td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

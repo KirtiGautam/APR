@@ -15,19 +15,62 @@ from datetime import datetime, timedelta
 
 def pending(request):
     if request.user.is_authenticated and request.user.admin:
-        data = {
-            'Students': Student.objects.filter(user__status='P')
-        }
-        return render(request, 'settings/admin/studentinfo/pending.html', data)
+        if request.method == 'POST':
+            if 'accept' in request.POST:
+                student = Student.objects.get(
+                    user__id=request.POST['accept']).user
+                student.status = 'A'
+                student.save()
+                host = request.build_absolute_uri('/login')
+                html_message = render_to_string(
+                    'mails/new-Student.html', context={'student': student, 'password': 'Your registered mobile number', 'host': host}, request=request)
+                student.user.email_user(
+                    subject=' Welcome to the Digital Classes - Akshara International School',
+                    from_email='Akshara <noreply@akshara.ubiqe.in>',
+                    message=strip_tags(html_message),
+                    html_message=html_message,
+                    fail_silently=True)
+            if 'reject' in request.POST:
+                student = Student.objects.get(
+                    user__id=request.POST['reject']).user
+                student.status = 'R'
+                student.save()
+            return redirect('accounts:pending-users')
+        else:
+            data = {
+                'Students': Student.objects.filter(user__status='P')
+            }
+            return render(request, 'settings/admin/studentinfo/pending.html', data)
     return redirect('accounts:login')
 
 
 def rejected(request):
     if request.user.is_authenticated and request.user.admin:
-        data = {
-            'Students': Student.objects.filter(user__status='R')
-        }
-        return render(request, 'settings/admin/studentinfo/rejected.html', data)
+        if request.method == 'POST':
+            if 'accept' in request.POST:
+                student = Student.objects.get(
+                    user__id=request.POST['accept']).user
+                student.status = 'A'
+                student.save()
+                host = request.build_absolute_uri('/login')
+                html_message = render_to_string(
+                    'mails/new-Student.html', context={'student': student, 'password': 'Your registered mobile number', 'host': host}, request=request)
+                student.user.email_user(
+                    subject=' Welcome to the Digital Classes - Akshara International School',
+                    from_email='Akshara <noreply@akshara.ubiqe.in>',
+                    message=strip_tags(html_message),
+                    html_message=html_message,
+                    fail_silently=True)
+            if 'delete' in request.POST:
+                student = Student.objects.get(
+                    user__id=request.POST['delete']).user
+                student.delete()
+            return redirect('accounts:rejected')
+        else:
+            data = {
+                'Students': Student.objects.filter(user__status='R')
+            }
+            return render(request, 'settings/admin/studentinfo/rejected.html', data)
     return redirect('accounts:login')
 
 

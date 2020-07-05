@@ -81,6 +81,8 @@ def index(request):
 
 
 def signupForm(request):
+    if request.user.is_authenticated:
+        return redirect('accounts:login')
     if request.session.get('temp_user', None) == '@uthenticated':
         classes = Class.objects.all()
         data = {
@@ -110,12 +112,14 @@ def signupForm(request):
                 Pincode=request.POST['Pincode'],
                 Class=Class.objects.get(id=request.POST['Class'])
             )
-            print(request.POST)
             del request.session['temp_user']
+            return redirect('acounts:thanks')
     return redirect('accounts:signup')
 
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('accounts:login')
     if request.session.get('temp_user', None) == '@uthenticated':
         return redirect('accounts:signup_form')
     if request.method == 'POST':
@@ -126,3 +130,7 @@ def signup(request):
             print('authenticated')
         return redirect('accounts:signup_form')
     return render(request, 'signup.html')
+
+
+def thanks(request):
+    return render(request, 'Thanks.html')
