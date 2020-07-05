@@ -113,7 +113,7 @@ def signupForm(request):
                 Class=Class.objects.get(id=request.POST['Class'])
             )
             del request.session['temp_user']
-            return redirect('acounts:thanks')
+            return redirect('accounts:thanks')
     return redirect('accounts:signup')
 
 

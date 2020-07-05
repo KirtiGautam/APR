@@ -2,6 +2,34 @@
 {% load static %}
 {% block content %}
 
-<a href="{% url 'accounts:login' %}">Click here to go to login page</a>
-Thank you !
+<head>
+    <link rel="stylesheet" href="{% static 'css/Thanks.css' %}">
+</head>
+
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col-12"> <img src="{% static 'Images/login/logo.png' %}" class="col-12 image" /></div>
+        <div class="col-12 text-1">
+            Thank you for registering with <br> Akshara International School Digital Classes
+        </div>
+        <div class="col-12 text-2">
+            <span class="row">
+                <span class="col-12 pb-4">Username <input type="text" readonly> </span>
+                <span class="col-12">Password <input type="text" readonly></span>
+            </span>
+        </div>
+        <div class="col-12 text-3">Note</div>
+        <div class="col-12 text-4"> - You will receive a email to the above mentioned Email ID once your application
+            gets approved
+        </div>
+        <div class="col-12 text-4">
+            - Then you can login with the user name and password at <a href="akshara.ubique.in">akshara.ubique.in</a>. Happy Learning !
+        </div>
+        <div class="col-12"><a href="{% url 'accounts:login' %}" class="btn button-1">Go to school login page</a></div>
+    </div>
+</div>
+<div class="bottom col-12 text-center">
+    <span>&#169;</span> 2020 | Akshara International School | All
+    rights reserved
+</div>
 {% endblock %}
