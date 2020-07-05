@@ -16,12 +16,12 @@
 <div class="content">
     <div class="container-fluid pl-4 pr-4">
         <div class="row row-1">
-            <span class="col-12 col-sm-6 col-md-6 col-lg-8 heading-1">
+            <span class="col-12 col-sm-6 col-md-6 col-lg-6 heading-1">
                 Student Details
             </span>
-            <span class="col-12 col-sm-6 col-md-6 col-lg-4">
-                <a href="{% url 'accounts:pending-users' %}" class="btn button-1 float-right m-1">Pending:
-                    {{pending}}</a>
+            <span class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <a href="{% url 'accounts:pending-users' %}" class="btn button-1 float-right m-1">Application Requests
+                    <span class="badge badge-secondary">{{pending}}</span></a>
                 <button id="newStudent" class="btn button-1 float-right m-1">Add New</button>
                 <button id="" class="btn button-1 float-right m-1" data-toggle="modal" data-backdrop="static"
                     data-target="#student_data_upload">Import Data</button>
@@ -61,21 +61,21 @@
             </span>
             <span class="col-12">
                 <div class="table-responsive contain">
-                    <table id='Students' class="table table-hover table-sm text-center">
+                    <table id='Students' class="table table-hover table-sm">
                         <thead class="thead-light">
                             <tr>
                                 <th></th>
-                                <th>S.No.<br><i class="fas fa-sort"></i></th>
-                                <th>Name<br><i class="fas fa-sort"></i></th>
-                                <th>Gender<br><i class="fas fa-sort"></i></th>
-                                <th>D.O.B.<br><i class="fas fa-sort"></i></th>
-                                <th>Email ID<br><i class="fas fa-sort"></i></th>
-                                <th>Contact<br><i class="fas fa-sort"></i></th>
-                                <th>Address<br><i class="fas fa-sort"></i></th>
-                                <th>Pincode<br><i class="fas fa-sort"></i></th>
-                                <th>City<br><i class="fas fa-sort"></i></th>
-                                <th>District<br><i class="fas fa-sort"></i></th>
-                                <th>State<br><i class="fas fa-sort"></i></th>
+                                <th>S.No.</th>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>D.O.B.</th>
+                                <th>Email ID</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>Pincode</th>
+                                <th>City</th>
+                                <th>District</th>
+                                <th>State</th>
                             </tr>
                         </thead>
                         <tbody id="students"></tbody>

@@ -2,9 +2,77 @@
 {% load static %}
 {% block content %}
 
-<a href="{% url 'accounts:pending-users' %}">Pending</a>
-<a href="{% url 'accounts:rejected' %}">Rejected</a>
+<head>
+    <link rel="stylesheet" href="{% static 'css/pending.css' %}">
+</head>
 
-<h1>Pending users</h1>
+{% include "common/header.html" %}
+<div class="col float-left">
+    {% include "settings/admin/adminSidebar.html" %}
+</div>
+
+<div class="content">
+    <div class="container-fluid pl-4 pr-4">
+        <div class="row row-1">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 heading-1">Application forms</div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="btn-group float-right" role="group">
+                    <a href="{% url 'accounts:pending-users' %}" class="btn button-1 button-1-active">Pending</a>
+                    <a href="{% url 'accounts:rejected' %}" class="btn button-1">Declined</a>
+                </div>
+            </div>
+        </div>
+        <div class="row row-2">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 row-2-1">
+                <input type="search" name="" id="" class="form-control search-bar text-1" placeholder="Search Students List">
+            </div>
+            <span class="col-12">
+                <div class="table-responsive contain">
+                    <table id='Students' class="table table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>S.No.</th>
+                                <th>Class</th>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>D.O.B.</th>
+                                <th>Email ID</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>Pincode</th>
+                                <th>City</th>
+                                <th>District</th>
+                                <th>State</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="btn button-2">Approve</td>
+                                <td class="btn button-2">Reject</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </span>
+        </div>
+
+
+    </div>
+</div>
 
 {% endblock %}
