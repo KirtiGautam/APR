@@ -23,8 +23,8 @@ def pending(request):
                 student.save()
                 host = request.build_absolute_uri('/login')
                 html_message = render_to_string(
-                    'mails/new-Student.html', context={'student': student, 'password': 'Your registered mobile number', 'host': host}, request=request)
-                student.user.email_user(
+                    'mails/new-Student.html', context={'student':student.Student, 'password': 'Your registered mobile number', 'host': host}, request=request)
+                student.email_user(
                     subject=' Welcome to the Digital Classes - Akshara International School',
                     from_email='Akshara <noreply@akshara.ubiqe.in>',
                     message=strip_tags(html_message),
@@ -54,8 +54,8 @@ def rejected(request):
                 student.save()
                 host = request.build_absolute_uri('/login')
                 html_message = render_to_string(
-                    'mails/new-Student.html', context={'student': student, 'password': 'Your registered mobile number', 'host': host}, request=request)
-                student.user.email_user(
+                    'mails/new-Student.html', context={'student':student.Student, 'password': 'Your registered mobile number', 'host': host}, request=request)
+                student.email_user(
                     subject=' Welcome to the Digital Classes - Akshara International School',
                     from_email='Akshara <noreply@akshara.ubiqe.in>',
                     message=strip_tags(html_message),

@@ -3,7 +3,7 @@
 {% block content %}
 
 <head>
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/signupform.css' %}">
 </head>
 
 <body>
@@ -19,8 +19,8 @@
                         Apply as a Student
                     </div>
                     <div class="col-1"></div>
-                    <div class="col-10 row">
-                        <form action="{% url 'accounts:signup_form' %}" method="post">
+                    <div class="col-10">
+                        <form action="{% url 'accounts:signup_form' %}" method="post" class="row">
                             {% csrf_token %}
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
                                 <input type="text" name="first_name" class="form-control" placeholder="First Name">
@@ -29,7 +29,7 @@
                                 <input type="text" name="last_name" class="form-control" placeholder="Last Name">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="text" name="dob" class="form-control" placeholder="Date of Birth">
+                                <input type="date" name="dob" class="form-control" placeholder="Date of Birth">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
                                 <select name="gender" class="form-control">
@@ -38,10 +38,10 @@
                                 </select>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="text" name="email" class="form-control" placeholder="Email-ID">
+                                <input type="email" name="email" class="form-control" placeholder="Email-ID">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                                <input type="text" name="Contact" class="form-control" placeholder="Contact Number">
+                                <input type="tel" name="Contact" class="form-control" placeholder="Contact Number">
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
                                 <input type="text" name="Address" class="form-control" placeholder="Address">
