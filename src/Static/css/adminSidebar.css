@@ -8,7 +8,7 @@
   background: #ffffff 0% 0% no-repeat padding-box;
   padding-top: 65px !important;
   position: fixed;
-  width: 300px;
+  width: 250px;
   z-index: 10;
 }
 
@@ -20,13 +20,13 @@
 }
 
 .sidebar-text {
-  font-size: 18px;
+  font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   color: #15202b;
 }
 
 .sidebar-icon {
-  font-size: 18px;
+  font-size: 16px;
   color: #15202b;
 }
 

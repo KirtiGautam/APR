@@ -1,0 +1,114 @@
+.content {
+    padding-top: 80px !important;
+    margin-left: 250px;
+  }
+  
+  .no-margin {
+    margin-left: 0px !important;
+  }
+  
+  .row-1 {
+    margin-bottom: 20px;
+  }
+  
+  .heading-1 {
+    color: #707070;
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+  }
+  
+  .button-1 {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #b3b6b8;
+    border-radius: 10px;
+    color: #626262;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .button-1-active {
+    background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+      0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    color: #ffffff;
+    display: inline-block;
+  }
+  
+  .button-1:focus {
+    box-shadow: 0px 0px 0px #00000029;
+    outline: none;
+  }
+  
+  .row-2 {
+    background: #f5f8fa 0% 0% no-repeat padding-box;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .search-bar {
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75) inset;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75) inset;
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75) inset;
+  }
+  
+  .text-1 {
+    color: #376baa;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .button-2 {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 3px 3px 10px #6c6c6c29;
+    border-radius: 10px;
+    color: #626262;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 2px;
+    display: inline-block;
+  }
+  
+  .row-2-1 {
+    margin-bottom: 30px;
+  }
+  
+  th {
+    position: sticky;
+    top: 0;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #707070;
+  }
+  
+  tr:hover {
+    cursor: pointer;
+  }
+  
+  td {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #707070;
+    white-space: nowrap;
+  }
+  
+  .table {
+    position: relative;
+    table-layout: auto;
+    width: 100% !important;
+  }
+  
+  .contain {
+    width: 100%;
+    min-height: max-content;
+    max-height: 60vh;
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+  

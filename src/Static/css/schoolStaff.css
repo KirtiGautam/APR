@@ -74,7 +74,7 @@
 th {
   position: sticky;
   top: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   color: #707070;
 }
@@ -84,9 +84,10 @@ tr:hover {
 }
 
 td {
-  font-size: 16px;
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #707070;
+  white-space: nowrap;
 }
 
 .table {
@@ -109,7 +110,7 @@ td {
 
 .content {
   padding-top: 80px !important;
-  margin-left: 300px;
+  margin-left: 250px;
 }
 
 .no-margin {
