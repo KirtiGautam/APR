@@ -7,7 +7,7 @@ def classes(request):
     if request.user.is_authenticated and request.user.admin:
         data = {
             'classes': Class.objects.all(),
-            'teachers':User.objects.filter(is_staff=True)
+            'teachers': User.objects.filter(is_staff=True)
         }
         return render(request, 'settings/admin/classes/classes.html', data)
     return redirect('accounts:dashboard')
@@ -42,14 +42,20 @@ def log(request):
         user = authenticate(
             username=request.POST['username'],
             password=request.POST['password'])
-        if user is not None:
+        if user is not None and user.status == 'A':
             login(request, user)
             return redirect('accounts:dashboard')
+        elif user is not None and user.status == 'P':
+            context = {
+                'failed': True,
+                'message': 'Your account is pending confirmation from Admin'
+            }
         else:
             context = {
                 'failed': True,
+                'message': 'Invalid Credentials'
             }
-            return render(request, 'login.html', context)
+        return render(request, 'login.html', context)
     else:
         if request.user.is_authenticated:
             return redirect('accounts:dashboard')
@@ -71,3 +77,27 @@ def index(request):
         # return render(request, 'home/dashboard.html')
     else:
         return redirect('accounts:login')
+
+
+def signupForm(request):
+    if request.session.get('temp_user', None) == '@uthenticated':
+        if request.method == 'GET':
+            classes = Class.objects.all()
+            data = {
+                'Classes': classes
+            }
+            return render(request, 'signupform.html', data)
+        else:
+            pass
+    return redirect('accounts:signup')
+
+
+def signup(request):
+    if request.method == 'POST':
+        password = "20vij001akshara"
+        result = request.POST['sign_up']
+        if password == result:
+            request.session['temp_user'] = '@uthenticated'
+            print('authenticated')
+        return redirect('accounts:signup_form')
+    return render(request, 'signup.html')

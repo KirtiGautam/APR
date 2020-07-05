@@ -6,7 +6,9 @@ from accounts.views import (
     logo,
     school_staff,
     classes,
-    chapters
+    chapters,
+    signup,
+    signupForm    
 )
 from accounts.admin_settings import (
     getStudents,
@@ -41,19 +43,22 @@ from accounts.media import (allmedia, upload, getMedia, allquestions, questions,
 app_name = 'accounts'
 
 urlpatterns = [
-    path('', include('accounts.user_urls')),
     # Views
-    path('settings/allmedia', allmedia, name='allmedia'),
-    path('settings/allquestions', allquestions, name='allquestions'),
     path('', index, name='dashboard'),
     path('login', log, name='login'),
+    path('signup', signup, name='signup'),
+    path('sign-form', signupForm, name='signup_form'),
     path('logout', logo, name='logout'),
+    path('settings/allmedia', allmedia, name='allmedia'),   
+    path('settings/allquestions', allquestions, name='allquestions'),
     path('settings/chapters', chapters, name='chapters'),
     path('settings/classes', classes, name='classes'),
     path('settings/student-information',
          student_information, name='student_information'),
     path('settings/school-staff', school_staff, name='staff'),
     re_path(r'^settings/allquestion/$', questions, name='get-allquestions'),
+    path('', include('accounts.user_urls')),
+
     # Requests
     path('delete-questions', delete_question, name='question-delete'),
     path('edit-question', edit_question, name='question-edit'),

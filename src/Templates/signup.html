@@ -1,0 +1,14 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+
+<form action="{% url 'accounts:signup' %}" method="POST">
+    {% csrf_token %}
+    <label for="sign_up">Enter your shared password</label>
+    <input type="text" name="sign_up" id="sign_up">
+    <input type="submit" value="Enter">
+</form>
+
+
+{% endblock %}

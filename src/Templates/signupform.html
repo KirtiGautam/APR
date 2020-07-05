@@ -1,0 +1,75 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row row-1">
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 part-1 text-center">
+                <div class="col-12 text-2">Welcome</div>
+                <div class="col-12 text-3">You're 30 seconds away from accessing rollercoaster of education!</div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8 part-2">
+                <div class="row">
+                    <div class="col-12 text-center text-1">
+                        Apply as a Student
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-10 row">
+                        <form action="{% url 'accounts:signup_form' %}" method="post">
+                            {% csrf_token %}
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="first_name" class="form-control" placeholder="First Name">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="last_name" class="form-control" placeholder="Last Name">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="dob" class="form-control" placeholder="Date of Birth">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="" class="form-control" placeholder="Gender">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="" class="form-control" placeholder="Email-ID">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="" class="form-control" placeholder="Contact Number">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="" class="form-control" placeholder="Address">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="" class="form-control" placeholder="District">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="" class="form-control" placeholder="City">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="" class="form-control" placeholder="Pincode">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="" class="form-control" placeholder="State">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                                <input type="text" name="" class="form-control" placeholder="Class">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2 text-right">
+                                <button class="btn button-1">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+{% endblock %}
