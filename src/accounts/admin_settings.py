@@ -13,6 +13,24 @@ import string
 from datetime import datetime, timedelta
 
 
+def pending(request):
+    if request.user.is_authenticated and request.user.admin:
+        data = {
+            'Students': Student.objects.filter(user__status='P')
+        }
+        return render(request, 'settings/admin/studentinfo/pending.html', data)
+    return redirect('accounts:login')
+
+
+def rejected(request):
+    if request.user.is_authenticated and request.user.admin:
+        data = {
+            'Students': Student.objects.filter(user__status='R')
+        }
+        return render(request, 'settings/admin/studentinfo/rejected.html', data)
+    return redirect('accounts:login')
+
+
 def deleteChapters(request):
     if request.user.is_authenticated and request.user.admin:
         Lesson.objects.filter(id__in=request.POST.getlist('data[]')).delete()
@@ -357,7 +375,7 @@ def getStudents(request):
         else:
             Classes = Class.objects.filter(id=request.GET['class'])
         students = Student.objects.filter(Q(user__first_name__contains=request.GET['term']) | Q(
-            user__last_name__contains=request.GET['term']), Class__in=Classes)
+            user__last_name__contains=request.GET['term']), Class__in=Classes, user__status='A')
         data = {
             'students': [{
                 'id': stu.user.id,

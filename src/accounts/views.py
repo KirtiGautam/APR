@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from accounts.models import User, Class
+from accounts.models import User, Class, Student
 
 
 def classes(request):
@@ -25,7 +25,8 @@ def chapters(request):
 def student_information(request):
     if request.user.is_authenticated and request.user.admin:
         data = {
-            'classes': Class.objects.all()
+            'classes': Class.objects.all(),
+            'pending': Student.objects.filter(user__status='P').count()
         }
         return render(request, 'settings/admin/studentinfo/studentInfo.html', data)
     return redirect('accounts:dashboard')
@@ -81,18 +82,42 @@ def index(request):
 
 def signupForm(request):
     if request.session.get('temp_user', None) == '@uthenticated':
+        classes = Class.objects.all()
+        data = {
+            'Classes': classes
+        }
         if request.method == 'GET':
-            classes = Class.objects.all()
-            data = {
-                'Classes': classes
-            }
             return render(request, 'signupform.html', data)
         else:
-            pass
+            user = User.objects.create_user(
+                email=request.POST['email'],
+                password=(request.POST['Contact']).strip(),
+                first_name=request.POST['first_name'],
+                last_name=request.POST['last_name'],
+                status='P',
+                user_type='Student'
+            )
+
+            student = Student.objects.create(
+                user=user,
+                gender=request.POST['gender'],
+                Contact=request.POST['Contact'],
+                dob=request.POST['dob'],
+                Address=request.POST['Address'],
+                City=request.POST['City'],
+                District=request.POST['District'],
+                State=request.POST['State'],
+                Pincode=request.POST['Pincode'],
+                Class=Class.objects.get(id=request.POST['Class'])
+            )
+            print(request.POST)
+            del request.session['temp_user']
     return redirect('accounts:signup')
 
 
 def signup(request):
+    if request.session.get('temp_user', None) == '@uthenticated':
+        return redirect('accounts:signup_form')
     if request.method == 'POST':
         password = "20vij001akshara"
         result = request.POST['sign_up']

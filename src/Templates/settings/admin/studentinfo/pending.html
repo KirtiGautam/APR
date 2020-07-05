@@ -1,0 +1,10 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<a href="{% url 'accounts:pending-users' %}">Pending</a>
+<a href="{% url 'accounts:rejected' %}">Rejected</a>
+
+<h1>Pending users</h1>
+
+{% endblock %}

@@ -20,6 +20,8 @@
                 Student Details
             </span>
             <span class="col-12 col-sm-6 col-md-6 col-lg-4">
+                <a href="{% url 'accounts:pending-users' %}" class="btn button-1 float-right m-1">Pending:
+                    {{pending}}</a>
                 <button id="newStudent" class="btn button-1 float-right m-1">Add New</button>
                 <button id="" class="btn button-1 float-right m-1" data-toggle="modal" data-backdrop="static"
                     data-target="#student_data_upload">Import Data</button>
@@ -182,7 +184,8 @@
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4 d-none" id="ask_mail">
                         <div class="row pl-3">
                             <span class="heading-2 p-1 col-7">Send mail?</span>
-                            <span class="col-5"><input type="checkbox" id="mail_send" class="form-control text-1 p-2 col-3"></span>
+                            <span class="col-5"><input type="checkbox" id="mail_send"
+                                    class="form-control text-1 p-2 col-3"></span>
                         </div>
                     </div>
                 </div>

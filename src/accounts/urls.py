@@ -34,7 +34,9 @@ from accounts.admin_settings import (
     uploadStudents,
     chapterDetail,
     updateChapterDetails,
-    deleteChapters
+    deleteChapters,
+    pending,
+    rejected,
 )
 
 from accounts.media import (allmedia, upload, getMedia, allquestions, questions, uploadQuestions,
@@ -53,6 +55,8 @@ urlpatterns = [
     path('settings/allquestions', allquestions, name='allquestions'),
     path('settings/chapters', chapters, name='chapters'),
     path('settings/classes', classes, name='classes'),
+    path('settings/pending-requests', pending, name='pending-users'),
+    path('settings/rejected', rejected, name='rejected'),
     path('settings/student-information',
          student_information, name='student_information'),
     path('settings/school-staff', school_staff, name='staff'),
