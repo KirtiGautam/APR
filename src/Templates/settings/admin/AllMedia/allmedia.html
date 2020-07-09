@@ -13,26 +13,30 @@
 <div class="content">
     <div class="container-fluid pl-4 pr-4">
         <div class="row row-1">
-            <span class="col-12 col-sm-8 col-md-8 col-lg-10 heading-1">
+            <span class="col-12 col-sm-6 heading-1">
                 All media
             </span>
-            <span class="col-12 col-sm-4 col-md-4 col-lg-2">
-                <button class="btn button-1 float-right" data-toggle="modal" data-backdrop="static" data-target="#add">Upload
+            <span class="col-12 col-sm-6">
+                <button class="btn button-1 float-right" data-toggle="modal" data-backdrop="static"
+                    data-target="#add">Upload
                     Media</button>
             </span>
         </div>
         <div class="dropdown-divider"></div>
         <div class="row row-2">
-            <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                 <span class="heading-2">Select Category</span>
-                <br>
                 <select id="mediaType" class="form-control text-1">
                     <option value="" selected>ALL</option>
                     <option value="pdf">PDF</option>
                     <option value="video">Videos</option>
                 </select>
             </div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                <input type="text" id="search" class="form-control text-1 or "
+                    placeholder="Search using media name here ...">
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                 <button class="btn button-2 or col-12">Search</button>
             </div>
         </div>

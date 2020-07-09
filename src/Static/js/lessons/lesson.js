@@ -1,3 +1,9 @@
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+$(".cards").tooltip({ boundary: "window" });
+
 $(document).ready(function () {
   $("#class").change(function () {
     getlessons();
@@ -135,7 +141,7 @@ const getQuestions = () => {
   });
 };
 
-const getMedia = type => {
+const getMedia = (type) => {
   $.ajax({
     type: "POST",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
@@ -155,13 +161,13 @@ const getMedia = type => {
             duration: `#duram${data.id}`,
             link: `${data.Local ? response.prefix : ""}${data.file}`,
           });
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" id="thumbM${data.id}" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">Video</span><input type="checkbox" class="video_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name} </span><span class="description">${data.Description}</span></span></div></div>`;
+          html += `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3"><div class="cards" data-toggle="tooltip" data-placement="top" title="${data.Description}"><span class="row"><img src="/static/Images/lesson/video.png" id="thumbM${data.id}" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">Video</span><input type="checkbox" class="video_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name} </span></span></div></div>`;
         }
       }
       if (type == "pdf") {
         for (let x = 0; x < response.pdf.length; x++) {
           const data = response.pdf[x];
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">PDF</span><input type="checkbox" class="pdf_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name}</span><span class="description">${data.Description}</span></span></div></div>`;
+          html += `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3"><div class="cards" data-toggle="tooltip" data-placement="top" title="${data.Description}"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">PDF</span><input type="checkbox" class="pdf_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name}</span></span></div></div>`;
         }
       }
       $("#data_display").html(html);
@@ -203,7 +209,7 @@ const MARP = (id, check) => {
     },
     dataType: "json",
     success: function (response) {
-      alert(response.message)
+      alert(response.message);
     },
     error: function (error) {
       alert(error.responseText);
