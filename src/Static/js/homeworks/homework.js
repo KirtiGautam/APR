@@ -1,5 +1,11 @@
 let today = new Date();
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+$(".cards").tooltip({ boundary: "window" });
+
 function getHomeworks() {
   if (!$("#class").val()) {
     alert("Please select Class");
@@ -25,9 +31,10 @@ function getHomeworks() {
         $("#body").html(data.body);
       }
       getSubjects();
-    }, error: function (error) {
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 }
 
@@ -46,9 +53,10 @@ function getLessons() {
         html += `<option value="${data.lessons[x].id}" >${data.lessons[x].Name}</option>`;
         $("#lessons").html(html);
       }
-    }, error: function (error) {
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 }
 
@@ -67,9 +75,10 @@ function getSubjects() {
         html += `<option value="${data.subjects[x].id}" >${data.subjects[x].Name}</option>`;
       }
       $("#subjects").html(html);
-    }, error: function (error) {
+    },
+    error: function (error) {
       console.log(error.responseText);
-    }
+    },
   });
 }
 
@@ -142,11 +151,12 @@ $(document).ready(function () {
       data: data,
       dataType: "json",
       success: function (response) {
-        location.reload()
+        location.reload();
         alert(response.message);
-      }, error: function (error) {
+      },
+      error: function (error) {
         alert(error.responseText);
-      }
+      },
     });
   });
 
@@ -172,21 +182,21 @@ $(document).ready(function () {
   $("#date").attr(
     "max",
     today.getFullYear() +
-    "-" +
-    (today.getMonth() + 1 < 10 ? "0" : "") +
-    (today.getMonth() + 1) +
-    "-" +
-    (today.getDate() < 10 ? "0" : "") +
-    today.getDate()
+      "-" +
+      (today.getMonth() + 1 < 10 ? "0" : "") +
+      (today.getMonth() + 1) +
+      "-" +
+      (today.getDate() < 10 ? "0" : "") +
+      today.getDate()
   );
   $("#date, #hold").val(
     today.getFullYear() +
-    "-" +
-    (today.getMonth() + 1 < 10 ? "0" : "") +
-    (today.getMonth() + 1) +
-    "-" +
-    (today.getDate() < 10 ? "0" : "") +
-    today.getDate()
+      "-" +
+      (today.getMonth() + 1 < 10 ? "0" : "") +
+      (today.getMonth() + 1) +
+      "-" +
+      (today.getDate() < 10 ? "0" : "") +
+      today.getDate()
   );
 
   $("#subjects").change(function () {
@@ -212,13 +222,14 @@ const getQuestions = () => {
       }
       html += "</tbody></table>";
       $("#data_display").html(html);
-    }, error: function (error) {
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 };
 
-const getMedia = type => {
+const getMedia = (type) => {
   $.ajax({
     type: "POST",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
@@ -233,21 +244,26 @@ const getMedia = type => {
       if (type == "video") {
         for (let x = 0; x < response.video.length; x++) {
           const data = response.video[x];
-          thumbArray.push({ id: `#thumbM${data.id}`, duration: `#duram${data.id}`, link: `${data.Local ? response.prefix : ""}${data.file}` });
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" id="thumbM${data.id}" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">Video</span><input type="checkbox" class="video_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name} </span><span class="description">${data.Description}</span></span></div></div>`;
+          thumbArray.push({
+            id: `#thumbM${data.id}`,
+            duration: `#duram${data.id}`,
+            link: `${data.Local ? response.prefix : ""}${data.file}`,
+          });
+          html += `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3"><div class="cards" data-toggle="tooltip" data-placement="top" title="${data.Description}"><span class="row"><img src="/static/Images/lesson/video.png" id="thumbM${data.id}" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">Video</span><input type="checkbox" class="video_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name} </span></span></div></div>`;
         }
       }
       if (type == "pdf") {
         for (let x = 0; x < response.pdf.length; x++) {
           const data = response.pdf[x];
-          html += `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3"><div class="cards"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">PDF</span><input type="checkbox" class="pdf_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name}</span><span class="description">${data.Description}</span></span></div></div>`;
+          html += `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3"><div class="cards" data-toggle="tooltip" data-placement="top" title="${data.Description}"><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10">PDF</span><input type="checkbox" class="pdf_checkbox form-control col-1" value="${data.id}"></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name}</span></span></div></div>`;
         }
       }
       $("#data_display").html(html);
       generateThumbs(thumbArray);
-    }, error: function (error) {
+    },
+    error: function (error) {
       alert(error.responseText);
-    }
+    },
   });
 };
 

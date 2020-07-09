@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  if ($(window).width() <= 800) {
+  if ($(window).width() <= 850) {
     $(".leftside").addClass("d-none");
     $(".content").addClass("no-margin");
     $(".second-side").addClass("d-none");
@@ -8,7 +8,7 @@ $(document).ready(function () {
   $("#sidebarCollapse").click(function () {
     $(".leftside").toggleClass("d-none");
     $(".content").toggleClass("no-margin");
-    if ($(window).width() <= 800) {
+    if ($(window).width() <= 500) {
       $(".second-side").addClass("d-none");
       $(".content").addClass("no-margin");
     }
@@ -16,14 +16,14 @@ $(document).ready(function () {
 
   $("#right-nav").click(function () {
     $(".second-side").toggleClass("d-none");
-    if ($(window).width() <= 800) {
+    if ($(window).width() <= 850) {
       $(".leftside").addClass("d-none");
       $(".content").addClass("no-margin");
     }
   });
 
   $(window).resize(function () {
-    if ($(window).width() <= 800) {
+    if ($(window).width() <= 850) {
       $(".leftside").addClass("d-none");
       $(".second-side").addClass("d-none");
       $(".content").addClass("no-margin");

@@ -56,7 +56,7 @@
 
         <div class="row mb-5 col-12">
             {% for key in homework.pdf.all %}
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-5">
                 <a href="{{ prefix }}{{key.pdf.file}}" target="_blank">
                     <div class="homework-cards">
                         <span class="row">
@@ -86,7 +86,7 @@
             {% endfor %}
 
             {% for key in homework.video.all %}
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-3">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
                 <a href="{% url 'homework:video' key.id %}">
                     <div class="homework-cards">
                         <span class="row">
@@ -115,7 +115,7 @@
             <!-- <a href="{% url 'homework:video' key.id %}">{{key.Name}}</a> -->
             {% endfor %}
             {% for key in homework.homework_Test.all %}
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 mb-5">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-5">
                     <a href="{% url 'homework:Test' key.id %}">
                         <div class="homework-cards test">
                             <span class="row">
