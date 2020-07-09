@@ -13,7 +13,7 @@ $(document).ready(function () {
     }
     if (this.value == "pdf") {
       getMedia("pdf");
-      $("#upload_btn, #data_display").removeClass("d-none");
+      $("#media_search_term, #upload_btn, #data_display").removeClass("d-none");
       $("#next_btn, .question_div").addClass("d-none");
     } else if (this.value == "test") {
       getQuestions();
@@ -21,7 +21,7 @@ $(document).ready(function () {
       $("#next_btn, .question_div").removeClass("d-none");
     } else {
       getMedia("video");
-      $("#upload_btn, #data_display").removeClass("d-none");
+      $("#media_search_term, #upload_btn, #data_display").removeClass("d-none");
       $("#next_btn, .question_div").addClass("d-none");
     }
   });
@@ -33,6 +33,9 @@ $(document).ready(function () {
     $("#upload_btn, #data_display").removeClass("d-none");
     $("#next_btn, .question_div, .other_div").addClass("d-none");
   });
+  $('#media_search_term').keyup(delay(function (e) {
+    getMedia($('#dataType').val());
+  }, 500));
   $("#upload_btn").click(function () {
     const Sdata = getSelecteddata();
     if (Sdata.length < 1) {
@@ -160,6 +163,17 @@ $(document).ready(function () {
   });
 });
 
+const delay = (callback, ms) => {
+  var timer = 0;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      callback.apply(context, args);
+    }, ms || 0);
+  };
+}
+
 const getQuestions = () => {
   $.ajax({
     type: "POST",
@@ -187,11 +201,12 @@ const getQuestions = () => {
 
 const getMedia = (type) => {
   $.ajax({
-    type: "POST",
+    type: "GET",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
     url: "/get-media",
     data: {
       type: type,
+      term: $('#media_search_term').val(),
     },
     dataType: "json",
     success: function (response) {

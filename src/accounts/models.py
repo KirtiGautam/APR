@@ -128,6 +128,7 @@ class video(models.Model):
     Description = models.CharField(max_length=500)
     Local = models.BooleanField(default=True)
     file = models.FileField(upload_to='videos/', default=None, null=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.Name
@@ -137,6 +138,7 @@ class pdf(models.Model):
     Name = models.CharField(max_length=100)
     Description = models.CharField(max_length=500)
     file = models.FileField(upload_to='pdfs/')
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.Name

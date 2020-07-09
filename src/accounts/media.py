@@ -3,6 +3,7 @@ from accounts.models import pdf, video, Class
 from lessons.models import Subject, Lesson, question, choice, answer
 from django import http
 from django.core.files.storage import FileSystemStorage
+from django.db.models import Q
 from django.conf import settings
 import json
 
@@ -201,18 +202,26 @@ def upload(request):
 
 def getMedia(request):
     if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
-        if request.POST['type'] == 'video':
+        if request.GET['type'] == 'video':
+            vids = video.objects.filter(Name__contains=request.GET['term']).values('id', 'Name', 'Description',
+                                                                                   'Local', 'file').order_by('-created')
             data = {
-                'video': list(video.objects.all().values('id', 'Name', 'Description', 'Local', 'file'))
+                'video': list(vids)
             }
-        elif request.POST['type'] == 'pdf':
+        elif request.GET['type'] == 'pdf':
+            pds = pdf.objects.filter(Name__contains=request.GET['term']).values(
+                'id', 'Name', 'Description', 'file').order_by('-created')
             data = {
-                'pdf': list(pdf.objects.all().values('id', 'Name', 'Description', 'file'))
+                'pdf': list(pds)
             }
         else:
+            vids = video.objects.filter(Name__contains=request.GET['term']).values('id', 'Name', 'Description',
+                                                                                   'Local', 'file').order_by('-created')
+            pds = pdf.objects.filter(Name__contains=request.GET['term']).values(
+                'id', 'Name', 'Description', 'file').order_by('-created')
             data = {
-                'video': list(video.objects.all().values('id', 'Name', 'Description', 'Local', 'file')),
-                'pdf': list(pdf.objects.all().values('id', 'Name', 'Description', 'file'))
+                'video': list(vids),
+                'pdf': list(pds)
             }
         data['prefix'] = settings.MEDIA_URL
         return http.JsonResponse(data)

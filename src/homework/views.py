@@ -61,7 +61,7 @@ def newHomework(request):
             for x in data:
                 Video.objects.create(video=video.objects.get(id=x), lesson=Lesson.objects.get(
                     id=request.POST['lesson']), homework=home)
-        else:
+        elif request.POST['type'] == 'test':
             final = True if request.POST['final'] == '1' else False
             tes = Test.objects.create(Name=request.POST['TN'], Duration=request.POST['duration'],
                                       final=final, Homework=home)
@@ -309,7 +309,8 @@ def homeworkComments(request):
             # get post object
             Videos = Video.objects.get(id=request.GET['id'])
         # list of active parent comments
-        comments = Videos.comments.filter(parent__isnull=True).order_by('-created')
+        comments = Videos.comments.filter(
+            parent__isnull=True).order_by('-created')
         # for x in comments:
         #     if x.likes.filter(id=request.user.id).exists():
         #         x['liked'] = True
@@ -374,6 +375,7 @@ def deleteComment(request):
             Video=vid, parent__isnull=True)}, request=request)
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
 
 def updateComment(request):
     if request.user.is_authenticated:

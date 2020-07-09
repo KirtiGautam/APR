@@ -120,16 +120,22 @@ $(document).ready(function () {
       },
     });
   });
+
+  $('#search_btn').click(function () {
+    getMedia();
+  });
+
 });
 
 const getMedia = () => {
   const type = $("#mediaType").val();
   $.ajax({
-    type: "POST",
+    type: "GET",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
     url: "/get-media",
     data: {
       type: type,
+      term: $('#term').val()
     },
     dataType: "json",
     success: function (response) {
@@ -149,9 +155,9 @@ const getMedia = () => {
             data.Description
           }"><span class="row"><img src="/static/Images/lesson/video.png" id="thumb${
             data.id
-          }" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10 pt-1">Video</span><input type="checkbox" class="form-control video_checks col-1" value="${
+            }" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10 pt-1">Video</span><input type="checkbox" class="form-control video_checks col-1" value="${
             data.id
-          }" ></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${
+            }" ></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${
             data.Name
           } </span></span></div></a></div>`;
         }
