@@ -182,42 +182,10 @@ a:hover {
   border-radius: 5px;
   height: 100%;
   width: 100%;
-  position: relative;
-  display: inline-block;
 }
 
 .cards:hover {
   cursor: pointer;
-}
-
-.cards .description {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  font-family: Arial, Helvetica, sans-serif;
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  top: 100%;
-}
-
-.cards .description::after {
-  content: " ";
-  position: absolute;
-  bottom: 100%; /* At the top of the tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent black transparent;
-}
-
-.cards:hover .description {
-  visibility: visible;
 }
 
 .row-head {
@@ -255,7 +223,7 @@ a:focus {
 }
 
 .img {
-  height: 140px !important;
+  height: 140px;
 }
 
 .button-1 {

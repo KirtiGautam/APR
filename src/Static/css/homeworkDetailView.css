@@ -3,64 +3,61 @@
   padding: 0;
 }
 
-.subject-name {
-  font-size: calc(12px + 2vmin);
+.row-1 {
+  border-bottom: 1px solid #e3e0f3;
+}
+
+.heading-1 {
+  font-size: 30px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #fd7f2c;
   text-transform: uppercase;
 }
 
-.img {
-  height: 140px;
-}
-
-.back {
-  font-size: calc(6px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #15202b;
-  width: fit-content;
-}
-
-.back:hover {
-  color: #65717e;
-}
-
-.back:focus {
-  box-shadow: 0px 0px 0px #00000029;
-  color: #929ead;
-  font-size: calc(7px + 2vmin);
-  outline: none;
-}
-
-.homework-title {
+.heading-2 {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size: calc(12px + 1vmin);
+  font-size: 20px;
   color: #15202b;
-  text-transform: capitalize;
 }
 
-.first {
-  border-bottom: 2px solid #e3e0f3;
-}
-
-.instruction {
-  font-size: calc(10px + 1vmin);
-  font-weight: bold;
+.heading-3 {
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
 
-.instruct {
-  font-size: calc(10px + 1vmin);
+.heading-4 {
+  font-size: 22px;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
-  text-transform: capitalize;
 }
 
-.edit-add {
-  font-size: calc(6px + 2vmin);
+.text-1 {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.text-2 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.text-3 {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
+  color: #626262;
+}
+
+.button-3 {
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -69,23 +66,38 @@
   width: fit-content;
 }
 
-.edit-add:hover {
+.button-3:hover {
   color: #65717e;
   background: #effbff;
 }
 
-.edit-add:focus {
+.button-3:focus {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  font-weight: 100;
   color: #929ead;
-  font-size: calc(7px + 2vmin);
   border-radius: 50%;
   outline: none;
 }
 
-.checkbox {
-  float: right;
+.button-4 {
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #15202b;
+  width: fit-content;
+}
+
+.button-4:hover {
+  color: #65717e;
+}
+
+.button-4:focus {
+  box-shadow: 0px 0px 0px #00000029;
+  color: #929ead;
+  outline: none;
+}
+
+.img {
+  height: 140px;
 }
 
 .homework-cards {
@@ -100,23 +112,22 @@
 }
 
 .homework-row-foot {
-  font-size: calc(7px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #000000;
   background: transparent;
   border: none;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .text-left {
-  font-size: calc(8px + 1vmin);
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
   color: #376baa;
 }
 
 .time {
-  font-size: calc(6px + 1vmin);
+  font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
   color: #606060;
 }
@@ -127,9 +138,9 @@
 }
 
 .test-text-left {
-  font-size: calc(8px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
+  font-weight: bold;
   color: #ffffff;
 }
 
@@ -152,62 +163,15 @@ a:hover {
 }
 
 .chapter {
-  font-size: calc(4px + 2vmin);
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   color: #5484ed;
-}
-
-.drop {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  border: 1px solid #b3b6b8;
-  border-radius: 5px;
-  font-size: calc(5px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
-
-.selection {
-  font-size: calc(7px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.import {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  font-family: "Poppins", sans-serif;
-  font-size: calc(11px + 1vmin);
-  color: #ffffff;
-}
-
-.import:focus {
-  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
-    no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
-.buttons {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  color: #626262;
-  font-size: calc(7px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.buttons:focus {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
 }
 
 .cards {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #0000003b;
   border-radius: 5px;
-  position: relative;
-  display: inline-block;
   height: 100%;
   width: 100%;
 }
@@ -217,71 +181,72 @@ a:hover {
 }
 
 .row-head {
-  font-size: calc(8px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
+  font-weight: bold;
   color: #376baa;
 }
 
 .row-foot {
-  font-size: calc(7px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #000000;
   background: transparent;
   border: none;
-  font-weight: 600;
-}
-
-.ques-num {
-  font-size: calc(4px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
+  font-weight: bold;
 }
 
 .ques-name {
-  font-size: calc(3px + 1vmax);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #112234;
 }
 
-.cards .description {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  font-size: calc(4px + 2vmin);
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: inherit;
+}
+
+a:focus {
+  color: inherit;
+}
+
+.img {
+  height: 140px;
+}
+
+.button-1 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #626262;
+  font-size: 17px;
   font-family: Arial, Helvetica, sans-serif;
-  position: absolute;
-  z-index: 1;
-  width: 120px;
-  top: 100%;
-  left: 50%;
-  margin-left: -60px;
+  display: inline-block;
 }
 
-.cards .description::after {
-  content: " ";
-  position: absolute;
-  bottom: 100%; /* At the top of the tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent black transparent;
+.button-1:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
 }
 
-.cards:hover .description {
-  visibility: visible;
+.button-2 {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-@media screen and (max-width: 800px) {
-  .img {
-    float: left;
-  }
-  .img1 {
-    float: left;
-  }
+.button-2:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
 }

@@ -8,57 +8,59 @@
                 </button>
             </div>
             <div class="modal-body mb-5">
-                <input type="hidden" id="assignid" value="{{assign.id}}">
-                <div class="row other_div">
-                    <span class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                        <span class="heading-2">Lesson</span>
-                        <span>
-                            <select id="lessons" class="form-control text-2">
-                                <option value="" selected disabled>Select lesson</option>
-                                {% for key in assign.Subject.Lesson.all %}
-                                <option value="{{key.id}}">{{key.Name}}</option>
-                                {% endfor %}
-                            </select>
+                <div class="container-fluid">
+                    <input type="hidden" id="assignid" value="{{assign.id}}">
+                    <div class="row other_div">
+                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                            <span class="heading-3">Lesson</span>
+                            <span>
+                                <select id="lessons" class="form-control text-2">
+                                    <option value="" selected disabled>Select lesson</option>
+                                    {% for key in assign.Subject.Lesson.all %}
+                                    <option value="{{key.id}}">{{key.Name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </span>
                         </span>
-                    </span>
-                    <span class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                        <span class="heading-2">Data Type</span>
-                        <span>
-                            <select id="dataType" class="form-control text-2">
-                                <option value="" selected disabled>Select Lesson first</option>
-                                <option value="pdf">PDF</option>
-                                <option value="video">Video</option>
-                                <option value="test">Test</option>
-                            </select>
+                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                            <span class="heading-3">Data Type</span>
+                            <span>
+                                <select id="dataType" class="form-control text-2">
+                                    <option value="" selected disabled>Select Lesson first</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="video">Video</option>
+                                    <option value="test">Test</option>
+                                </select>
+                            </span>
                         </span>
-                    </span>
-                    <span class="col-12 col-sm-8 col-md-8 col-lg-8">
-                        <input type="text" id="media_search_term" class="form-control text-2"
-                            placeholder="Search using media name here ...">
-                    </span>
-                    <span class="col-12 col-sm-4 col-md-4 col-lg-4"><button id="upload_btn"
-                            class="btn import float-right col-12">Save</button></span>
-                </div>
-                <div id="data_display" class="row mt-3"></div>
-                <div class="question_div d-none row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                        <span class="heading-2">Test Name</span>
-                        <br>
-                        <span><input type="text" id="test_name" class="form-control text-2"></span>
+                        <span class="col-12 col-sm-8 col-md-8 col-lg-8">
+                            <input type="text" id="media_search_term" class="form-control text-2"
+                                placeholder="Search using media name here ...">
+                        </span>
+                        <span class="col-12 col-sm-4 col-md-4 col-lg-4"><button id="upload_btn"
+                                class="btn button-2 float-right col-12">Save</button></span>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                        <span class="heading-2">Test duration(minutes)</span>
-                        <br>
-                        <span><input type="number" id="test_duration" class="form-control text-2"></span>
+                    <div id="data_display" class="row mt-3"></div>
+                    <div class="question_div d-none row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                            <span class="heading-3">Test Name</span>
+                            <br>
+                            <span><input type="text" id="test_name" class="form-control text-2"></span>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                            <span class="heading-3">Test duration(minutes)</span>
+                            <br>
+                            <span><input type="number" id="test_duration" class="form-control text-2"></span>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 p-2">
+                            <span class="heading-3">Final</span>
+                            <input type="checkbox" id="final_flag">
+                        </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 p-2">
-                        <span class="heading-2">Final</span>
-                        <input type="checkbox" id="final_flag">
+                    <div class="col-12 p-2">
+                        <!-- <button id="upload_btn" class="btn button-2 float-right">Save</button> -->
+                        <button id="next_btn" class="d-none btn button-1 float-right">Next</button>
                     </div>
-                </div>
-                <div class="col-12 p-2">
-                    <!-- <button id="upload_btn" class="btn import float-right">Save</button> -->
-                    <button id="next_btn" class="d-none btn buttons float-right">Next</button>
                 </div>
             </div>
         </div>
