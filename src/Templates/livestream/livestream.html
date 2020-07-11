@@ -9,101 +9,107 @@
 </head>
 
 {% include "common/header.html" %}
-<div class="col-10 col-sm-4 col-md-3 col-lg-2 float-left left">
+<div class="col float-left left">
     {% include "home/leftside.html" %}
 </div>
 
 <div class="content">
     <div class="container-fluid">
-        <div class="row row-1 pb-2">
-            <span class="col-12 col-sm-8 col-md-12 col-lg-7 back-text">
-                <span class="col-12 pl-3">SCHEDULED</span>
-                <br>
-                <span class="col-12 pl-3">LIVE STREAMING SESSIONS</span>
-                <br>
-                <div class="col-12">
-                    <div class="row row-1-2 mb-3">
-                        {% if user.user_type != 'Student' %}
-                        <div class="col-6">
-                            <select id="Class" class="form-control drop">
-                                <option value="" selected disabled>Select Class</option>
-                                {% if user.admin %}
-                                {% for key in Class %}
-                                <option value="{{key.id}}">{{key.name}}</option>
-                                {% endfor %}
-                                {% else %}
-                                {% regroup class by Class as class_list %}
-                                {% for key in class_list %}
-                                <option value="{{key.grouper.id}}">{{key.grouper.name}}</option>
-                                {% endfor %}
-                                {% endif %}
-                            </select>
+        <div class="row row-1">
+            <div class="col-12">
+                <div class="row row-1-1">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                        <div class="row row-1-1-1">
+                            <div class="row row-1-1-1-1 back-text">
+                                <div class="col-12">SCHEDULED</div>
+                                <div class="col-12">LIVE STREAMING SESSIONS</div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row row-1-2">
+                                    {% if user.user_type != 'Student' %}
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                                        <select id="Class" class="form-control text-2">
+                                            <option value="" selected disabled>Select Class</option>
+                                            {% if user.admin %}
+                                            {% for key in Class %}
+                                            <option value="{{key.id}}">{{key.name}}</option>
+                                            {% endfor %}
+                                            {% else %}
+                                            {% regroup class by Class as class_list %}
+                                            {% for key in class_list %}
+                                            <option value="{{key.grouper.id}}">{{key.grouper.name}}</option>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                    {% if user.admin %}
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 d-none" id="widgets">
+                                        <button onclick="prenew();" title="Add New Stream"
+                                            class="btn edit-add float-right"><i class="fas fa-plus-circle"></i></button>
+                                        <button id="delete_btn" class="btn edit-add float-right" title="Delete"><i
+                                                class="fas fa-trash"></i></button>
+                                        <button id="edit_btn" class="btn edit-add float-right" title="Edit"><i
+                                                class="fas fa-pen-square"></i></button>
+                                    </div>
+                                    {% endif %}
+                                    {% else %}
+                                    <input type="hidden" id="Class" value="{{Class}}">
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
-                        {% if user.admin %}
-                        <div class="col-6 d-none" id="widgets">
-                            <button onclick="prenew();" title="Add New Stream" class="btn edit-add float-right"><i
-                                    class="fas fa-plus-circle"></i></button>
-                            <button id="delete_btn" class="btn edit-add float-right" title="Delete"><i
-                                    class="fas fa-trash"></i></button>
-                            <button id="edit_btn" class="btn edit-add float-right" title="Edit"><i
-                                    class="fas fa-pen-square"></i></button>
-                        </div>
-                        {% endif %}
-                        {% else %}
-                        <input type="hidden" id="Class" value="{{Class}}">
-                        {% endif %}
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo mr-5">
                     </div>
                 </div>
-            </span>
-            <div class="col-5 pt-2">
-                <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo mr-5">
+            </div>
+            <div class="col-12">
+                <div class="row row-1-2 mt-5" id="body"></div>
             </div>
         </div>
-        <div class="row second col-12 mt-5" id="body"></div>
 
         <div class="modal" tabindex="-1" role="dialog" id="add">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Add New Stream</h5>
+                        <div class="modal-title heading-1">Add New Stream</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <div aria-hidden="true">&times;</div>
                         </button>
                     </div>
                     <div class="modal-body row">
                         <input type="hidden" id="hidden_ls_id">
-                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                            <span class="selection">Select Teacher</span>
-                            <br>
-                            <span><select id="teacher" class="form-control drop"></select></span>
-                        </span>
-                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                            <span class="selection">Select Subject</span>
-                            <br>
-                            <span><select id="Subject" class="form-control drop"></select></span>
-                        </span>
-                        <span class="col-12 col-sm-12 col-md-12 col-lg-12 mb-2">
-                            <span class="selection">Streaming Link</span>
-                            <span><input type="text" id="Stream_link" class="form-control drop"></span>
-                        </span>
-                        <span class="col-12 mb-2">
-                            <span class="selection">Description</span>
-                            <span><textarea name="" id="Name" class="form-control drop" cols="10"
-                                    rows="2"></textarea></span>
-                        </span>
-                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                            <span class="selection">Time</span>
-                            <span><input type="datetime-local" id="Time" class="form-control drop"></span>
-                        </span>
-                        <span class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                            <span class="selection">Duration (hours.minutes/1.30 hrs)</span>
-                            <span><input type="number" min="1.00" max="12.00" step="0.01" id="Duration"
-                                    class="form-control drop"></span>
-                        </span>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                            <div class="heading-2">Select Teacher</div>
+                            <div><select id="teacher" class="form-control text-2"></select></div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                            <div class="heading-2">Select Subject</div>
+                            <div><select id="Subject" class="form-control text-2"></select></div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-2">
+                            <div class="heading-2">Streaming Link</div>
+                            <div><input type="text" id="Stream_link" class="form-control text-2"></div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="heading-2">Description</div>
+                            <div><textarea name="" id="Name" class="form-control text-2" cols="10" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                            <div class="heading-2">Time</div>
+                            <div><input type="datetime-local" id="Time" class="form-control text-2"></div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                            <div class="heading-2">Duration (hours.minutes/1.30 hrs)</div>
+                            <div><input type="number" min="1.00" max="12.00" step="0.01" id="Duration"
+                                    class="form-control text-2"></div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn import" id="newLS">Save</button>
-                        <button type="button" class="btn import" id="updateLS">Update</button>
+                        <button type="button" class="btn button-2" id="newLS">Save</button>
+                        <button type="button" class="btn button-2" id="updateLS">Update</button>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,21 @@
   padding: 0;
 }
 
+.heading-2 {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.text-2 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
 .first {
   border-bottom: 1px solid #e3e0f3;
 }

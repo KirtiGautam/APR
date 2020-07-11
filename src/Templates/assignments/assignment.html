@@ -12,41 +12,49 @@
 </div>
 <div class="content">
     <div class="container-fluid">
-        <div class="row first pb-2">
-            <div class="col-6 col-sm-6 col-md-6 col-lg-3 first-text">
-                <span class="col-12 pl-3">ALL</span>
-                <br>
-                <span class="col-12 pl-3">ASSIGNMENTS</span>
-            </div>
-            <div class="col-6 col-sm-6 col-md-6 col-lg-4 first-class-plus">
-                {% if user.user_type != 'Student' %}
-                <div class="col-12 row d-flex justify-content-around">
-                    <select id="class" class="col-8 form-control drop m-2">
-                        <option value="" disabled selected>Class</option>
-                        {% if user.admin %}
-                        {% for key in classes %}
-                        <option value="{{key.id}}">{{key.name}}</option>
-                        {% endfor %}
+        <div class="row row-1">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8 ">
+                <div class="row row-1-1">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 row-1-1-text">
+                        <div class="row">
+                            <span class="col-12">ALL</span>
+                            <span class="col-12">ASSIGNMENTS</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 row-1-2">
+                        {% if user.user_type != 'Student' %}
+                        <div class="col-12 row">
+                            <select id="class" class="col-8 form-control text-1">
+                                <option value="" disabled selected>Class</option>
+                                {% if user.admin %}
+                                {% for key in classes %}
+                                <option value="{{key.id}}">{{key.name}}</option>
+                                {% endfor %}
+                                {% else %}
+                                {% regroup classes by Class as class_list %}
+                                {% for key in class_list %}
+                                <option value="{{key.grouper.id}}">{{key.grouper.name}}</option>
+                                {% endfor %}
+                                {% endif %}
+                            </select>
+                            <span class="col-4">
+                                <button class="btn button-3 add-assign d-none float-right" title="Add New Assignment"
+                                    data-toggle="modal" data-backdrop="static" data-target="#add"><i
+                                        class="fas fa-plus-circle"></i></button>
+                            </span>
+                            <!-- <span><button class="btn edit-add" title="Delete Assignment"><i class="fas fa-trash"></i></button></span> -->
+                        </div>
                         {% else %}
-                        {% regroup classes by Class as class_list %}
-                        {% for key in class_list %}
-                        <option value="{{key.grouper.id}}">{{key.grouper.name}}</option>
-                        {% endfor %}
+                        <input type="hidden" id="class" value="{{ class }}">
                         {% endif %}
-                    </select>
-                    <span><button class="btn edit-add add-assign d-none" title="Add New Assignment" data-toggle="modal"
-                            data-backdrop="static" data-target="#add"><i class="fas fa-plus-circle"></i></button></span>
-                    <!-- <span><button class="btn edit-add" title="Delete Assignment"><i class="fas fa-trash"></i></button></span> -->
+                    </div>
                 </div>
-                {% else %}
-                <input type="hidden" id="class" value="{{ class }}">
-                {% endif %}
             </div>
-            <div class="col-5 pt-2">
-                <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo mr-5">
+            <div class="col-lg-4">
+                <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo">
             </div>
         </div>
-        <div class="row second col-12 mt-5" id="body"></div>
+        <div class="row row-2 col-12" id="body"></div>
         {% if user.admin or user.is_staff %}
         {% include 'assignments/newAssignment.html' %}
         {% endif %}

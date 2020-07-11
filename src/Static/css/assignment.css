@@ -1,15 +1,72 @@
-.first {
+.row-1 {
   background: transparent
     linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
     no-repeat padding-box;
+  padding: 30px;
 }
 
-.first-text {
-  font-size: calc(4px + 4vmin);
+.row-1-1-text {
+  font-size: 35px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: #fd7f2c;
   margin-top: 40px;
+}
+
+.row-1-2 {
+  margin-top: 90px;
+}
+
+.text-1 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.heading-2 {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.text-2 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.button-3 {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 50%;
+  color: #15202b;
+  width: fit-content;
+}
+
+.button-3:hover {
+  color: #65717e;
+  background: #effbff;
+}
+
+.button-3:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  color: #929ead;
+  border-radius: 50%;
+  outline: none;
+}
+
+.row-2 {
+  margin-top: 20px;
+  margin-bottom: 90px;
 }
 
 .third {
@@ -17,10 +74,10 @@
   width: 100%;
   bottom: 0;
   position: fixed;
-  z-index: 100;
+  z-index: 5;
 }
 
-.row-second{
+.row-second {
   margin-bottom: 100px;
 }
 
@@ -31,47 +88,9 @@
   font-weight: bold;
 }
 
-.first-class-plus {
-  margin-top: 75px;
-}
-
 .back-photo {
   width: 210px;
   height: 180px;
-}
-
-.drop {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  border: 1px solid #b3b6b8;
-  border-radius: 5px;
-  font-size: calc(5px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
-
-.edit-add {
-  font-size: calc(6px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f5f8fa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 50%;
-  color: #15202b;
-  width: fit-content;
-}
-
-.edit-add:hover {
-  color: #65717e;
-  background: #effbff;
-}
-
-.edit-add:focus {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  font-weight: 100;
-  color: #929ead;
-  font-size: calc(7px + 2vmin);
-  border-radius: 50%;
-  outline: none;
 }
 
 .past {
@@ -123,7 +142,7 @@ a:hover {
 
 .title {
   text-align: left;
-  font-size: calc(14px + 1vmin);
+  font-size: 18px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
@@ -132,14 +151,16 @@ a:hover {
 
 .summary {
   text-align: left;
-  font-size: calc(8px + 1vmin);
+  font-size: 9px;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
 
 .deadline .progress {
+  margin-top: 5px;
   background: #f84f4c 0% 0% no-repeat padding-box;
   border-radius: 0px;
+  height: 10px;
 }
 
 .deadline .progress-bar {
@@ -147,8 +168,10 @@ a:hover {
 }
 
 .prime .progress {
+  margin-top: 5px;
   background: #56a2f9 0% 0% no-repeat padding-box;
   border-radius: 0px;
+  height: 10px;
 }
 
 .prime .progress-bar {
@@ -156,8 +179,10 @@ a:hover {
 }
 
 .complete .progress {
+  margin-top: 5px;
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 0px;
+  height: 10px;
 }
 
 .complete .progress-bar {
@@ -166,41 +191,45 @@ a:hover {
 
 .moti {
   text-align: left;
-  font-size: calc(7px + 1vmin);
-  font-weight: 600;
+  font-size: 9px;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
 
 .time-left-value {
   text-align: left;
-  font-size: calc(12px + 1vmin);
-  font-family: "Poppins", sans-serif;
+  font-size: 26px;
+  font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
 
 .time-left-unit {
   text-align: left;
-  font-size: calc(4px + 1vmin);
+  font-size: 6px;
+  color: #ffffff;
+}
+
+.time-left-value-1 {
+  text-align: left;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+}
+
+.time-left-unit-1 {
+  text-align: left;
+  font-size: 6px;
   color: #ffffff;
 }
 
 .note {
   text-align: left;
-  font-size: calc(9px + 1vmin);
-  font-weight: 100;
-  color: #ffffff;
-}
-
-.complete .time-left-unit {
-  text-align: left;
-  font-size: calc(1px + 1vmin);
+  font-size: 17px;
   color: #ffffff;
 }
 
 .progress-text {
-  font-size: calc(9px + 1vmin);
-  font-weight: 700;
+  font-size: 15px;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
   text-transform: uppercase;
@@ -339,10 +368,12 @@ a:hover {
   .back-photo {
     display: none;
   }
-  .first-text {
-    margin-top: 10px !important;
+
+  .row-1-1-text {
+    margin-top: 20px;
   }
-  .first-class-plus {
-    margin-top: 30px;
+
+  .row-1-2 {
+    margin-top: 20px;
   }
 }
