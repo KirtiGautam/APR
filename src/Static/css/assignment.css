@@ -69,16 +69,12 @@
   margin-bottom: 90px;
 }
 
-.third {
+.row-3 {
   background-color: #ffffff;
   width: 100%;
   bottom: 0;
   position: fixed;
   z-index: 5;
-}
-
-.row-second {
-  margin-bottom: 100px;
 }
 
 .heading-3 {
@@ -93,25 +89,25 @@
   height: 180px;
 }
 
-.past {
+.row-3-heading {
   text-align: left;
-  font-size: calc(15px + 1vmin);
+  font-size: 25px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
 
-.click-link {
-  font-size: calc(13px + 1vmin);
+.row-3-text {
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
 
-.click-link:hover {
+.row-3-text:hover {
   color: #7f7f7f;
 }
 
-.click-link:active {
+.row-3-text:active {
   color: #9e9e9e;
 }
 
@@ -124,6 +120,7 @@ a:hover {
     0% no-repeat padding-box;
   border-radius: 10px;
   height: 100%;
+  padding: 15px;
 }
 
 .prime {
@@ -131,6 +128,7 @@ a:hover {
     0% no-repeat padding-box;
   border-radius: 10px;
   height: 100%;
+  padding: 15px;
 }
 
 .complete {
@@ -138,6 +136,7 @@ a:hover {
     0% no-repeat padding-box;
   border-radius: 10px;
   height: 100%;
+  padding: 15px;
 }
 
 .title {
@@ -197,35 +196,36 @@ a:hover {
 }
 
 .time-left-value {
-  text-align: left;
+  text-align: center;
   font-size: 26px;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
 
 .time-left-unit {
-  text-align: left;
+  text-align: center;
   font-size: 6px;
   color: #ffffff;
 }
 
 .time-left-value-1 {
-  text-align: left;
-  font-size: 16px;
+  text-align: center;
+  font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
 
 .time-left-unit-1 {
-  text-align: left;
+  text-align: center;
   font-size: 6px;
   color: #ffffff;
 }
 
 .note {
   text-align: left;
-  font-size: 17px;
+  font-size: 15px;
   color: #ffffff;
+  margin-right: 40px;
 }
 
 .progress-text {
@@ -245,7 +245,7 @@ a:hover {
 
 .past-cards .title-complete {
   text-align: left;
-  font-size: calc(14px + 1vmin);
+  font-size: 18px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   text-transform: uppercase;
@@ -254,7 +254,7 @@ a:hover {
 
 .past-cards .title-prime {
   text-align: left;
-  font-size: calc(14px + 1vmin);
+  font-size: 18px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   text-transform: uppercase;
@@ -263,7 +263,7 @@ a:hover {
 
 .past-cards .title-deadline {
   text-align: left;
-  font-size: calc(14px + 1vmin);
+  font-size: 18px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   text-transform: uppercase;
@@ -292,74 +292,19 @@ a:hover {
   border-radius: 2px;
 }
 
-.selection {
-  font-size: calc(8px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.img {
-  height: 140px !important;
-}
-
-.cards {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #0000003b;
-  border-radius: 5px;
-  height: 100%;
-  width: 100%;
-}
-
-.row-head {
-  font-size: calc(5px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #c0c0c0;
-  background: transparent;
-  border: none;
-}
-
-.row-foot {
-  font-size: calc(4px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #343434;
-  background: transparent;
-  border: none;
-}
-
-.ques-name {
-  font-size: calc(3px + 1vmax);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #112234;
-}
-
-.import {
+.button-2 {
   background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
     0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 10px;
   color: #ffffff;
-  font-size: calc(3px + 1vmax);
+  font-size: 17px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.import:focus {
+.button-2:focus {
   background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
     no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
-.buttons {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  color: #626262;
-  font-size: calc(7px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.buttons:focus {
-  background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   outline: none;
 }

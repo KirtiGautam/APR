@@ -59,12 +59,12 @@
         {% include 'assignments/newAssignment.html' %}
         {% endif %}
         <div class="container-fluid">
-            <div class="row third mt-5 p-3">
+            <div class="row row-3">
                 {% if user.admin or user.is_staff %}
                 <form action="{% url 'assignment:get_assignments' %}" method="GET">
                     <input type="hidden" name="id">
                     <input type="hidden" name="time" value="past">
-                    <button type="submit" class="btn click-link ml-3 d-none" id="past_btn"><span class="past">Past
+                    <button type="submit" class="btn row-3-text d-none" id="past_btn"><span class="row-3-heading">Past
                             Assignments
                             -
                         </span>Click to
@@ -72,7 +72,7 @@
                 </form>
                 {% else %}
                 <a href="{% url 'assignment:get_assignments' %}?time=past&id={{class}}"><button type="submit"
-                        class="btn click-link ml-3"><span class="past">Past
+                        class="btn row-3-text"><span class="row-3-heading">Past
                             Assignments
                             -
                         </span>Click to
