@@ -3,30 +3,15 @@
   padding: 0;
 }
 
-.selection {
-  font-size: calc(7px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.drop {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  border: 1px solid #b3b6b8;
-  border-radius: 5px;
-  font-size: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
-
-.back-photo {
-  width: 210px;
-  height: 180px;
-}
-
-.row-1 {
+.row-1-1 {
   background: transparent
     linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
     no-repeat padding-box;
+  padding-bottom: 20px;
+}
+
+.row-1-1-1 {
+  padding-left: 20px;
 }
 
 .back-text {
@@ -35,6 +20,36 @@
   font-weight: bold;
   color: #fd7f2c;
   margin-top: 40px;
+}
+
+.back-photo {
+  width: 210px;
+  height: 180px;
+}
+.row-1-1-1-1 {
+  padding-bottom: 20px;
+}
+
+.heading-1 {
+  font-size: 22px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+  font-weight: bold;
+}
+
+.heading-2 {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.text-2 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
 }
 
 .edit-add {
@@ -64,15 +79,33 @@ a:hover {
   text-decoration: none;
 }
 
-.import {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  font-family: "Poppins", sans-serif;
-  font-size: calc(11px + 1vmin);
-  color: #ffffff;
+.button-1 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #626262;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
 }
 
-.import:focus {
+.button-1:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.button-2 {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button-2:focus {
   background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
     no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -110,7 +143,7 @@ a:hover {
 }
 
 .stream-time {
-  font-size: 19;
+  font-size: 19px;
   font-weight: 200;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
@@ -119,13 +152,13 @@ a:hover {
 }
 
 .stream-duration {
-  font-size: 17;
+  font-size: 17px;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
 
 .stream-subject {
-  font-size: 16;
+  font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   color: #fff700;
   text-transform: capitalize;

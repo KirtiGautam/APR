@@ -11,9 +11,9 @@
                 <input type="hidden" id="assignid" value="{{assign.id}}">
                 <div class="row other_div">
                     <span class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                        <span class="selection">Lesson</span>
+                        <span class="heading-2">Lesson</span>
                         <span>
-                            <select id="lessons" class="form-control drop">
+                            <select id="lessons" class="form-control text-2">
                                 <option value="" selected disabled>Select lesson</option>
                                 {% for key in assign.Subject.Lesson.all %}
                                 <option value="{{key.id}}">{{key.Name}}</option>
@@ -22,9 +22,9 @@
                         </span>
                     </span>
                     <span class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                        <span class="selection">Data Type</span>
+                        <span class="heading-2">Data Type</span>
                         <span>
-                            <select id="dataType" class="form-control drop">
+                            <select id="dataType" class="form-control text-2">
                                 <option value="" selected disabled>Select Lesson first</option>
                                 <option value="pdf">PDF</option>
                                 <option value="video">Video</option>
@@ -33,7 +33,7 @@
                         </span>
                     </span>
                     <span class="col-12 col-sm-8 col-md-8 col-lg-8">
-                        <input type="text" id="media_search_term" class="form-control drop"
+                        <input type="text" id="media_search_term" class="form-control text-2"
                             placeholder="Search using media name here ...">
                     </span>
                     <span class="col-12 col-sm-4 col-md-4 col-lg-4"><button id="upload_btn"
@@ -42,17 +42,17 @@
                 <div id="data_display" class="row mt-3"></div>
                 <div class="question_div d-none row">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                        <span class="selection">Test Name</span>
+                        <span class="heading-2">Test Name</span>
                         <br>
-                        <span><input type="text" id="test_name" class="form-control drop"></span>
+                        <span><input type="text" id="test_name" class="form-control text-2"></span>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
-                        <span class="selection">Test duration(minutes)</span>
+                        <span class="heading-2">Test duration(minutes)</span>
                         <br>
-                        <span><input type="number" id="test_duration" class="form-control drop"></span>
+                        <span><input type="number" id="test_duration" class="form-control text-2"></span>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 p-2">
-                        <span class="selection">Final</span>
+                        <span class="heading-2">Final</span>
                         <input type="checkbox" id="final_flag">
                     </div>
                 </div>

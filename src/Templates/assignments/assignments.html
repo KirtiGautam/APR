@@ -4,12 +4,13 @@
         <div
             class="assignment-cards p-3 {% if key.progress == 100 or request.user.admin or request.user.is_staff %}complete{% elif key.progress == 0 %} deadline {% else %} prime {% endif %}">
             <span class="row assignment-row-head">
-                <span class="title col-12 text-truncate">{{key.assi.Subject.Name}}</span>
-                <span class="summary col-12 text-truncate">{{key.assi.video.all.count}} Videos + {{key.assi.pdf.all.count}}
+                <span class="title col-12 text-truncate pb-1">{{key.assi.Subject.Name}}</span>
+                <span class="summary col-12 text-truncate pb-3">{{key.assi.video.all.count}} Videos +
+                    {{key.assi.pdf.all.count}}
                     Reading</span>
             </span>
             {% if request.user.user_type == 'Student' %}
-            <div class="row">
+            <div class="row pb-3 pr-1">
                 <div class="col-9">
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: {{key.progress}}%"
@@ -23,47 +24,73 @@
             {% endif %}
             <span class="row assignment-row-foot">
                 {% if request.user.user_type == 'Student' %}
-                <span class="moti col-12">
+                <span class="moti col-12 pb-2">
                     {% if key.progress == 100 %}Great Job!{% elif key.progress == 0 %} TIME TO WORK!
                     {% else %}Looks
                     Good!{% endif %}
                 </span>
                 {% endif %}
-                <span class="time-left">
+                <span class="time-left row col-12">
                     {% if key.progress == 100 and request.user.user_type == 'Student' %}
                     <span class="note col-4">
                         Assignment Done
                     </span>
-                    {% endif %}
-                    <span class="col-12 row">
-                        <span class="col-4">
-                            <span class="time-left-value">
+                    <span class="col row">
+                        <span class="col-12"></span>
+                        <span class="col-1"></span>
+                        <span class="col-3">
+                            <span class="time-left-value-1 col-12">
                                 {{key.days}}
                             </span>
-                            <br>
-                            <span class="time-left-unit">
+                            <span class="time-left-unit-1 col-12">
                                 Days
                             </span>
                         </span>
-                        <span class="col-4">
-                            <span class="time-left-value">
+                        <span class="col-3">
+                            <span class="time-left-value-1 col-12">
                                 {{key.hours}}
                             </span>
-                            <br>
-                            <span class="time-left-unit">
+                            <span class="time-left-unit-1 col-12">
                                 Hours
                             </span>
                         </span>
-                        <span class="col-4">
-                            <span class="time-left-value">
+                        <span class="col-3">
+                            <span class="time-left-value-1 col-12">
                                 {{key.minutes}}
                             </span>
-                            <br>
-                            <span class="time-left-unit">
+                            <span class="time-left-unit-1 col-12">
                                 Min
                             </span>
                         </span>
                     </span>
+                    {% else %}
+                    <span class="col row">
+                        <span class="col-4">
+                            <span class="time-left-value col-12 text-center">
+                                {{key.days}}
+                            </span>
+                            <span class="time-left-unit col-12 text-center">
+                                Days
+                            </span>
+                        </span>
+                        <span class="col-4">
+                            <span class="time-left-value col-12 text-center">
+                                {{key.hours}}
+                            </span>
+                            <span class="time-left-unit col-12 text-center">
+                                Hours
+                            </span>
+                        </span>
+                        <span class="col-4">
+                            <span class="time-left-value col-12 text-center">
+                                {{key.minutes}}
+                            </span>
+                            <span class="time-left-unit col-12 text-center">
+                                Min
+                            </span>
+                        </span>
+                    </span>
+                    {% endif %}
                 </span>
             </span>
         </div>

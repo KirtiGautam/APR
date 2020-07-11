@@ -51,8 +51,8 @@ function getLessons() {
       html = '<option value="" selected disabled>Lessons</option>';
       for (x in data.lessons) {
         html += `<option value="${data.lessons[x].id}" >${data.lessons[x].Name}</option>`;
-        $("#lessons").html(html);
       }
+      $("#lessons").html(html);
     },
     error: function (error) {
       alert(error.responseText);
@@ -108,19 +108,23 @@ $(document).ready(function () {
       getQuestions();
       $("#media_search_term, #upload_btn, #data_display").addClass("d-none");
       $("#next_next_btn, .question_div").removeClass("d-none");
-    } else if (this.value == 'video') {
+    } else if (this.value == "video") {
       getMedia("video");
       $("#media_search_term, #upload_btn, #data_display").removeClass("d-none");
       $("#next_next_btn, .question_div").addClass("d-none");
     } else {
-      $('#data_display, #media_search_term, .question_div, #next_next_btn').addClass('d-none');
-      $('#upload_btn').removeClass('d-none')
+      $(
+        "#data_display, #media_search_term, .question_div, #next_next_btn"
+      ).addClass("d-none");
+      $("#upload_btn").removeClass("d-none");
     }
   });
 
-  $('#media_search_term').keyup(delay(function (e) {
-    getMedia($('#dataType').val());
-  }, 500));
+  $("#media_search_term").keyup(
+    delay(function (e) {
+      getMedia($("#dataType").val());
+    }, 500)
+  );
 
   $("#upload_btn").click(function () {
     if ($("#dataType").val() != "skip") {
@@ -198,21 +202,21 @@ $(document).ready(function () {
   $("#date").attr(
     "max",
     today.getFullYear() +
-    "-" +
-    (today.getMonth() + 1 < 10 ? "0" : "") +
-    (today.getMonth() + 1) +
-    "-" +
-    (today.getDate() < 10 ? "0" : "") +
-    today.getDate()
+      "-" +
+      (today.getMonth() + 1 < 10 ? "0" : "") +
+      (today.getMonth() + 1) +
+      "-" +
+      (today.getDate() < 10 ? "0" : "") +
+      today.getDate()
   );
   $("#date, #hold").val(
     today.getFullYear() +
-    "-" +
-    (today.getMonth() + 1 < 10 ? "0" : "") +
-    (today.getMonth() + 1) +
-    "-" +
-    (today.getDate() < 10 ? "0" : "") +
-    today.getDate()
+      "-" +
+      (today.getMonth() + 1 < 10 ? "0" : "") +
+      (today.getMonth() + 1) +
+      "-" +
+      (today.getDate() < 10 ? "0" : "") +
+      today.getDate()
   );
 
   $("#subjects").change(function () {
@@ -223,14 +227,14 @@ $(document).ready(function () {
 const delay = (callback, ms) => {
   var timer = 0;
   return function () {
-    var context = this, args = arguments;
+    var context = this,
+      args = arguments;
     clearTimeout(timer);
     timer = setTimeout(function () {
       callback.apply(context, args);
     }, ms || 0);
   };
-}
-
+};
 
 const getQuestions = () => {
   $.ajax({
@@ -264,7 +268,7 @@ const getMedia = (type) => {
     url: "/get-media",
     data: {
       type: type,
-      term: $('#media_search_term').val(),
+      term: $("#media_search_term").val(),
     },
     dataType: "json",
     success: function (response) {
