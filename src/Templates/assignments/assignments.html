@@ -2,7 +2,7 @@
 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
     <a href="{% url 'assignment:assignmentDetails' key.assi.id %}">
         <div
-            class="assignment-cards p-3 {% if key.progress == 100 or request.user.admin or request.user.is_staff %}complete{% elif key.progress == 0 %} deadline {% else %} prime {% endif %}">
+            class="assignment-cards {% if key.progress == 100 or request.user.admin or request.user.is_staff %}complete{% elif key.progress == 0 %} deadline {% else %} prime {% endif %}">
             <span class="row assignment-row-head">
                 <span class="title col-12 text-truncate pb-1">{{key.assi.Subject.Name}}</span>
                 <span class="summary col-12 text-truncate pb-3">{{key.assi.video.all.count}} Videos +
@@ -32,60 +32,64 @@
                 {% endif %}
                 <span class="time-left row col-12">
                     {% if key.progress == 100 and request.user.user_type == 'Student' %}
-                    <span class="note col-4">
+                    <span class="note col-3">
                         Assignment Done
                     </span>
-                    <span class="col row">
-                        <span class="col-12"></span>
-                        <span class="col-1"></span>
+                    <span class="col row text-center">
                         <span class="col-3">
-                            <span class="time-left-value-1 col-12">
+                            <span class="time-left-value-1 text-center">
                                 {{key.days}}
                             </span>
-                            <span class="time-left-unit-1 col-12">
+                            <br>
+                            <span class="time-left-unit-1 text-center">
                                 Days
                             </span>
                         </span>
                         <span class="col-3">
-                            <span class="time-left-value-1 col-12">
+                            <span class="time-left-value-1 text-center">
                                 {{key.hours}}
                             </span>
-                            <span class="time-left-unit-1 col-12">
+                            <br>
+                            <span class="time-left-unit-1 text-center">
                                 Hours
                             </span>
                         </span>
                         <span class="col-3">
-                            <span class="time-left-value-1 col-12">
+                            <span class="time-left-value-1 text-center">
                                 {{key.minutes}}
                             </span>
-                            <span class="time-left-unit-1 col-12">
+                            <br>
+                            <span class="time-left-unit-1 text-center">
                                 Min
                             </span>
                         </span>
                     </span>
                     {% else %}
-                    <span class="col row">
+                    <span class="col row text-center">
                         <span class="col-4">
-                            <span class="time-left-value col-12 text-center">
+                            <span class="time-left-value text-center">
                                 {{key.days}}
                             </span>
-                            <span class="time-left-unit col-12 text-center">
+                            <br>
+                            <span class="time-left-unit text-center">
                                 Days
                             </span>
                         </span>
                         <span class="col-4">
-                            <span class="time-left-value col-12 text-center">
+                            <span class="time-left-value text-center">
                                 {{key.hours}}
                             </span>
-                            <span class="time-left-unit col-12 text-center">
+                            <br>
+                            <span class="time-left-unit text-center">
                                 Hours
                             </span>
                         </span>
                         <span class="col-4">
-                            <span class="time-left-value col-12 text-center">
+                            <span class="time-left-value text-center">
                                 {{key.minutes}}
                             </span>
-                            <span class="time-left-unit col-12 text-center">
+                            <br>
+                            <span class="time-left-unit text-center">
                                 Min
                             </span>
                         </span>
