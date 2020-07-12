@@ -24,7 +24,7 @@ $(document).ready(function () {
   });
 
   $("#video_type").change(function () {
-    if (this.value == "local") {
+    if (this.value == "local" || this.value == 'vimeo') {
       $(".link-div").addClass("d-none");
       $(".custom-file").removeClass("d-none");
     }
@@ -151,15 +151,15 @@ const getMedia = () => {
           html += `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
           <a href="${data.Local ? response.prefix : ""}${
             data.file
-          }"><div class="cards" data-toggle="tooltip" data-placement="top" title="${
+            }"><div class="cards" data-toggle="tooltip" data-placement="top" title="${
             data.Description
-          }"><span class="row"><img src="/static/Images/lesson/video.png" id="thumb${
+            }"><span class="row"><img src="/static/Images/lesson/video.png" id="thumb${
             data.id
             }" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10 pt-1">Video</span><input type="checkbox" class="form-control video_checks col-1" value="${
             data.id
             }" ></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${
             data.Name
-          } </span></span></div></a></div>`;
+            } </span></span></div></a></div>`;
         }
       }
       if (type == "pdf" || type == "" || type == null) {
@@ -167,7 +167,7 @@ const getMedia = () => {
           const data = response.pdf[x];
           html += `<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3"><a href="${response.prefix}${data.file}"><div class="cards" data-toggle="tooltip" data-placement="top" title="${
             data.Description
-          }><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10 pt-1">PDF</span><input type="checkbox" class="form-control pdf_checks col-1" value="${data.id}" ></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name}</span></span></div></a></div>`;
+            }><span class="row"><img src="/static/Images/lesson/video.png" alt="" class="col-12 img"></span><span class="row row-head pl-3 pr-3 pt-1"><span class="text-left col-10 pt-1">PDF</span><input type="checkbox" class="form-control pdf_checks col-1" value="${data.id}" ></span><span class="row row-foot pl-3 pr-3 pb-3"><span class="col-12 text-truncate">${data.Name}</span></span></div></a></div>`;
         }
       }
       $("#body").html(html);
@@ -273,3 +273,118 @@ const getSelectedData = () => {
 
   return data;
 };
+
+
+const commit_video_to_db = (name, description, link) => {
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/upload-allmedia",
+    data: {
+      Name: name,
+      description: description,
+      dataType: "video",
+      videoType: "youtube",
+      file: link,
+    },
+    success: function (response) {
+      show_alert('<strong>Upload Successful!</strong>', 'success')
+    },
+    error: function (error) {
+      alert(error.responseText);
+    },
+  });
+}
+
+const checkStatus = video_id => {
+  $.ajax({
+    type: 'GET',
+    headers: { 'Authorization': 'Bearer 6c21103f46f31555ecd9a9a69ac77f7b' },
+    url: `https://api.vimeo.com/videos/${video_id}`,
+    success: function (result) {
+      if (result.transcode.status == 'complete') {
+        var url = 'https://player.vimeo.com/video/' + video_id;
+        commit_video_to_db(result.name, result.description, url);
+        // showMessage('<strong>Upload Successful</strong>: check uploaded video @ <a href="' + url + '">' + url + '</a>. Open the Console for the response details.')
+      } else if (result.transcode.status == 'error') {
+        show_alert('Error in processing the video', 'danger')
+      } else {
+        show_alert('Please Wait, Your video is being processed <div class="spinner-border text-info" role="status"><span class= "sr-only"> Loading...</span> ', 'warning')
+        setTimeout(function () {
+          checkStatus(video_id)
+        }, 6000)
+      }
+    }
+  });
+}
+
+
+const upload_to_vimeo = () => {
+  if (!$('#file_input').val()) {
+    alert('Please select a video to be uploaded');
+    return;
+  }
+  if (!$('#FName').val()) {
+    alert('Please enter Video Name');
+    return;
+  }
+  if (!$('#description').val()) {
+    alert('Please enter Video Description');
+    return;
+  }
+
+  alert_wrapper.innerHTML = "";
+
+  // Disable the input during upload
+  input.disabled = true;
+
+  // Hide the upload button
+  upload_btn.classList.add("d-none");
+
+  // Show the loading button
+  loading_btn.classList.remove("d-none");
+
+  // Show the cancel button
+  cancel_btn.classList.remove("d-none");
+
+  let uploader = new VimeoUpload({
+    name: $('#FName').val(),
+    description: $('#description').val(),
+    private: false,
+    file: document.getElementById("file_input").files[0],
+    token: '6c21103f46f31555ecd9a9a69ac77f7b',
+    upgrade_to_1080: false,
+    onError: function (data) {
+      show_alert(JSON.parse(data).error, danger)
+      reset();
+      // showMessage('<strong>Error</strong>: ' + JSON.parse(data).error, 'danger')
+    },
+    onProgress: function (data) {
+
+      // Show the progress bar
+      progress_wrapper.classList.remove("d-none");
+      progress.setAttribute("style", `width: ${Math.floor((data.loaded / data.total) * 100)}%`);
+      progress_status.innerText = `${Math.floor((data.loaded / data.total) * 100)}% uploaded`;
+      // updateProgress(data.loaded / data.total)
+    },
+    onComplete: function (videoId, index) {
+      var url = 'https://vimeo.com/' + videoId
+      console.log(url);
+
+      if (index > -1) {
+        /* The metadata contains all of the uploaded video(s) details see: https://developer.vimeo.com/api/endpoints/videos#/{video_id} */
+        url = this.metadata[index].link //
+
+        /* add stringify the json object for displaying in a text area */
+        var pretty = JSON.stringify(this.metadata[index], null, 2)
+
+        console.log(pretty) /* echo server data */
+      }
+      checkStatus(videoId);
+
+      reset();
+      // showMessage('<strong>Upload Successful</strong>: check uploaded video @ <a href="' + url + '">' + url + '</a>. Open the Console for the response details.')
+    }
+  });
+  uploader.upload()
+}

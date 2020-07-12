@@ -33,11 +33,13 @@
                     <select id="video_type" class="text-1 p-1 form-control">
                         <option value="" disabled selected>Video Type</option>
                         <option value="local">Local</option>
+                        <option value="vimeo">Vimeo</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg">
                     <div class="custom-file d-none">
+                        <label for="file_input" id="file_input_label"></label>
                         <input type="file" class="form-control-file mt-4" name="file_input" id="file_input"
                             oninput="input_filename();">
                     </div>
@@ -71,5 +73,5 @@
         </div>
     </div>
 
-
+    <script src="{% static 'js/admin/vimeo-upload.js' %}"></script>
     <script src="{% static 'js/admin/upload.js' %}"></script>
