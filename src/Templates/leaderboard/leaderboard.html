@@ -22,9 +22,11 @@
                         </div>
                     </div>
                     <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        {% if user.admin %}
                         <select id="class" class="form-control text-3">
                             <option value="" disabled selected>Class</option>
                         </select>
+                        {% endif %}
                     </div>
                 </div>
             </div>
