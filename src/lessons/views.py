@@ -306,7 +306,7 @@ def deleteComment(request):
         id = comment[0].id
         vid = comment[0].Video
         if request.user.user_type == "Student":
-            if comment.Author != request.user:
+            if comment[0].Author != request.user:
                 data = {
                     'message': "Cannot delete other user's comment"
                 }
