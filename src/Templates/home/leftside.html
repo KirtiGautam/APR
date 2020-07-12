@@ -8,7 +8,7 @@
   <div class="row leftside js-fullheight">
     <ul class="list-unstyled">
       <li class="text-center">
-        <img src="{% static 'Images/leftnav/avatar.png' %}" alt="" class="col-8 col-sm-8 col-md-8 col-lg-8" />
+        <img src="{% static 'Images/leftnav/avatar.png' %}" alt="" class="col-6 col-sm-8 col-md-8 col-lg-8" />
       </li>
       <li class="text-center">
         <div class="name col-12">{{user.get_full_name}}</div>
@@ -21,76 +21,76 @@
       </li>
       <li class="mt-3">
         <a href="{% url 'lessons:lessons' %}">
-          <span class="leftside-menu-icon p-2">
+          <span class="leftside-menu-icon">
             <i class="fas fa-chalkboard-teacher"></i>
           </span>
-          <span class="leftside-menu-text p-2">Lessons</span>
+          <span class="leftside-menu-text">Lessons</span>
         </a>
       </li>
       <li class="mt-3">
         <a href="{% url 'lessons:livestream' %}">
-          <span class="leftside-menu-icon p-2">
+          <span class="leftside-menu-icon">
             <i class="fas fa-signal"></i>
           </span>
-          <span class="leftside-menu-text p-2">Live sessions</span>
+          <span class="leftside-menu-text">Live sessions</span>
         </a>
       </li>
       <!-- <li class="mt-3">
         <a href="#">
-          <span class="leftside-menu-icon p-2">
+          <span class="leftside-menu-icon">
             <i class="fas fa-stream"></i>
           </span>
-          <span class="leftside-menu-text p-2">Scheduled Exams</span>
+          <span class="leftside-menu-text">Scheduled Exams</span>
         </a>
       </li> -->
       <li class="mt-3">
         <a href="{% url 'assignment:assignments' %}">
-          <span class="leftside-menu-icon p-2 mr-1">
+          <span class="leftside-menu-icon mr-1">
             <i class="fas fa-tasks"></i>
           </span>
-          <span class="leftside-menu-text p-2">Assignments</span>
+          <span class="leftside-menu-text">Assignments</span>
         </a>
       </li>
       <li class="mt-3">
         <a href="{% url 'homework:homework' %}">
-          <span class="leftside-menu-icon p-2">
+          <span class="leftside-menu-icon">
             <i class="fas fa-house-user"></i>
           </span>
-          <span class="leftside-menu-text p-2">Homeworks</span>
+          <span class="leftside-menu-text">Homeworks</span>
         </a>
       </li>
       {% if user.user_type == 'Student' %}
       <li class="mt-3">
         <a href="{% url 'accounts:leaderboard' %}?time=all">
-          <span class="leftside-menu-icon p-2">
+          <span class="leftside-menu-icon">
             <i class="fas fa-trophy"></i>
           </span>
-          <span class="leftside-menu-text p-2">Leaderboard</span>
+          <span class="leftside-menu-text">Leaderboard</span>
         </a>
       </li>
       {% endif %}
       <!-- <li class="mt-3">
         <a href="#">
-          <span class="leftside-menu-icon p-2">
+          <span class="leftside-menu-icon">
             <i class="fas fa-chart-bar"></i>
           </span>
-          <span class="leftside-menu-text p-2">Analysis</span>
+          <span class="leftside-menu-text">Analysis</span>
         </a>
       </li>--->
       <!-- <li class="mt-3">
         <a href="#">
-          <span class="leftside-menu-icon p-2">
+          <span class="leftside-menu-icon">
             <i class="fas fa-id-badge"></i>
           </span>
-          <span class="leftside-menu-text p-2">All Profiles</span>
+          <span class="leftside-menu-text">All Profiles</span>
         </a>
       </li> -->
       <!-- <li class="mt-3">
         <a href="#">
-          <span class="leftside-menu-icon p-2">
+          <span class="leftside-menu-icon">
             <i class="fas fa-file-contract"></i>
           </span>
-          <span class="leftside-menu-text p-2">Courses | Talent Tests</span>
+          <span class="leftside-menu-text">Courses | Talent Tests</span>
         </a>
       </li> -->
     </ul>
