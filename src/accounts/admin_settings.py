@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
-from accounts.models import User, Class, Student
+from accounts.models import User, Class, Student, Teacher
 from lessons.models import Lesson, Subject
 from django import http
 from django.utils.html import strip_tags
 from django.db.models import Q
+from django.db import IntegrityError
 from django.core import mail
 import json
-import random
 import string
 from datetime import datetime, timedelta
 
@@ -23,7 +23,7 @@ def pending(request):
                 student.save()
                 host = request.build_absolute_uri('/login')
                 html_message = render_to_string(
-                    'mails/new-Student.html', context={'student':student.Student, 'password': 'Your registered mobile number', 'host': host}, request=request)
+                    'mails/new-Student.html', context={'student': student.Student, 'password': 'Your registered mobile number', 'host': host}, request=request)
                 student.email_user(
                     subject=' Welcome to the Digital Classes - Akshara International School',
                     from_email='Akshara <noreply@akshara.ubiqe.in>',
@@ -54,7 +54,7 @@ def rejected(request):
                 student.save()
                 host = request.build_absolute_uri('/login')
                 html_message = render_to_string(
-                    'mails/new-Student.html', context={'student':student.Student, 'password': 'Your registered mobile number', 'host': host}, request=request)
+                    'mails/new-Student.html', context={'student': student.Student, 'password': 'Your registered mobile number', 'host': host}, request=request)
                 student.email_user(
                     subject=' Welcome to the Digital Classes - Akshara International School',
                     from_email='Akshara <noreply@akshara.ubiqe.in>',
@@ -120,13 +120,16 @@ def uploadStudents(request):
             inDays = int(ordinal)
             frac = ordinal - inDays
             inSecs = int(round(frac * 86400.0))
-            user = User.objects.create_user(
-                email=x['email'],
-                password=x['Contact'].strip(),
-                first_name=x['First Name'],
-                last_name=x['Last Name'],
-                user_type='Student'
-            )
+            try:
+                user = User.objects.create_user(
+                    email=x['email'],
+                    password=x['Contact'].strip(),
+                    first_name=x['First Name'],
+                    last_name=x['Last Name'],
+                    user_type='Student'
+                )
+            except IntegrityError as e:
+                return http.JsonResponse({'message': e.args})
             student = Student.objects.create(
                 user=user,
                 gender=x['gender'],
@@ -278,6 +281,17 @@ def updateStaff(request):
         user.last_name = request.POST['last_name']
         user.email = request.POST['email']
         user.save()
+        teacher = user.Teacher
+        teacher.role = request.POST['role']
+        teacher.dob = request.POST['dob']
+        teacher.gender = request.POST['gender']
+        teacher.Address = request.POST['Address']
+        teacher.City = request.POST['City']
+        teacher.State = request.POST['State']
+        teacher.District = request.POST['District']
+        teacher.Pincode = request.POST['Pincode']
+        teacher.Contact = request.POST['Contact']
+        teacher.save()
         data = {
             'message': 'Selected User is updated'
         }
@@ -302,6 +316,15 @@ def getUser(request):
             'first_name': user.first_name,
             'last_name': user.last_name,
             'email': user.email,
+            'role': user.Teacher.role,
+            'dob': user.Teacher.dob,
+            'gender': user.Teacher.gender,
+            'Address': user.Teacher.Address,
+            'City': user.Teacher.City,
+            'State': user.Teacher.State,
+            'District': user.Teacher.District,
+            'Pincode': user.Teacher.Pincode,
+            'Contact': user.Teacher.Contact,
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': "You're not authorized"})
@@ -318,12 +341,27 @@ def newStaff(request):
         #         user_type='Staff'
         #     )
         # else:
-        user = User.objects.create_staff(
-            email=request.POST['email'],
-            password=request.POST['email'],
-            first_name=request.POST['first_name'],
-            last_name=request.POST['last_name'],
-            user_type='Staff'
+        try:
+            user = User.objects.create_staff(
+                email=request.POST['email'],
+                password=request.POST['email'],
+                first_name=request.POST['first_name'],
+                last_name=request.POST['last_name'],
+                user_type='Staff'
+            )
+        except IntegrityError as e:
+            return http.JsonResponse({'message': e.args})
+        teacher = Teacher.objects.create(
+            user=user,
+            role=request.POST['role'],
+            gender=request.POST['gender'],
+            dob=request.POST['dob'],
+            Address=request.POST['Address'],
+            City=request.POST['City'],
+            State=request.POST['State'],
+            District=request.POST['District'],
+            Pincode=request.POST['Pincode'],
+            Contact=request.POST['Contact'],
         )
         data = {
             'message': 'User added'
@@ -342,12 +380,47 @@ def getStaff(request):
             staff = User.objects.filter(Q(admin=True) | Q(is_staff=True))
         staff = staff.filter(Q(first_name__contains=request.GET['term']) | Q(
             last_name__contains=request.GET['term']))
+        dat = []
+        for x in staff:
+            if x.is_staff:
+                dat.append({
+                    'id': x.id,
+                    'Name': x.get_full_name(),
+                    'Email': x.email,
+                    'gender': x.Teacher.get_gender_display(),
+                    'Contact': x.Teacher.Contact,
+                    'dob': x.Teacher.dob,
+                    'role': x.Teacher.get_role_display(),
+                    'Address': x.Teacher.Address,
+                    'City': x.Teacher.City,
+                    'District': x.Teacher.District,
+                    'State': x.Teacher.State,
+                    'Pincode': x.Teacher.Pincode,
+                    'staff': x.is_staff,
+                })
+            else:
+                dat.append({
+                    'id': x.id,
+                    'Name': x.get_full_name(),
+                    'Email': x.email,
+                    'staff': x.is_staff,
+                })
         data = {
-            'staff': [{
-                'id': x.id,
-                'Name': x.get_full_name(),
-                'Email': x.email,
-            }for x in staff]
+            'staff': dat
+            # [{
+            #     'id': x.id,
+            #     'Name': x.get_full_name(),
+            #     'Email': x.email,
+            # 'gender': x.Teacher.get_gender_display(),
+            # 'Contact': x.Teacher.Contact,
+            # 'dob': x.Teacher.dob,
+            # 'role': x.Teacher.get_role_display(),
+            # 'Address': x.Teacher.Address,
+            # 'City': x.Teacher.City,
+            # 'District': x.Teacher.District,
+            # 'State': x.Teacher.State,
+            # 'Pincode': x.Teacher.Pincode
+            # }for x in staff]
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': "You're not authorized"})
@@ -356,13 +429,16 @@ def getStaff(request):
 def newStudent(request):
     if request.user.is_authenticated and request.user.admin:
         host = request.build_absolute_uri('/login')
-        user = User.objects.create_user(
-            email=request.POST['email'],
-            password=(request.POST['Contact']).strip(),
-            first_name=request.POST['first_name'],
-            last_name=request.POST['last_name'],
-            user_type='Student'
-        )
+        try:
+            user = User.objects.create_user(
+                email=request.POST['email'],
+                password=(request.POST['Contact']).strip(),
+                first_name=request.POST['first_name'],
+                last_name=request.POST['last_name'],
+                user_type='Student'
+            )
+        except IntegrityError as e:
+            return http.JsonResponse({'message': e.args})
         student = Student.objects.create(
             user=user,
             gender=request.POST['gender'],
@@ -457,13 +533,10 @@ def updateStudent(request):
         student.save()
         print(request.POST['send_mail'])
         if request.POST['send_mail'] == 'true':
-            password_characters = string.ascii_letters + string.digits
-            password = ''.join(random.choice(password_characters)
-                               for i in range(random.randint(8, 12)))
-            user.set_password(password)
+            user.set_password(request.POST['email'])
             host = request.build_absolute_uri('/login')
             html_message = render_to_string(
-                'mails/new-Student.html', context={'student': student, 'password': password, 'host': host}, request=request)
+                'mails/new-Student.html', context={'student': student, 'password': 'Your registered mobile number', 'host': host}, request=request)
             student.user.email_user(
                 subject=' Welcome to the Digital Classes - Akshara International School',
                 from_email='Akshara <noreply@akshara.ubiqe.in>',

@@ -123,6 +123,34 @@ class Student(models.Model):
         return self.user.__str__
 
 
+class Teacher(models.Model):
+    user = models.OneToOneField(
+        User, primary_key=True, on_delete=models.CASCADE, related_name='Teacher')
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    ROLE_CHOICES = (
+        ('C', 'Class Teacher'),
+        ('S', 'Subject Teacher'),
+        ('P', 'Principal'),
+        ('I', 'Incharge'),
+        ('N', 'Non-Academic Staff'),
+    )
+    role = models.CharField(max_length=1, choices=ROLE_CHOICES)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    dob = models.DateField()
+    Address = models.CharField(max_length=255)
+    City = models.CharField(max_length=255)
+    State = models.CharField(max_length=255)
+    District = models.CharField(max_length=255)
+    Pincode = models.PositiveIntegerField()
+    Contact = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.user.__str__
+
+
 class video(models.Model):
     Name = models.CharField(max_length=100)
     Description = models.CharField(max_length=500)

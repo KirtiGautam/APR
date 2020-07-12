@@ -58,6 +58,11 @@ function show_alert(message, alert) {
 // Function to upload file
 function upload(url) {
 
+    if ($('#video_type').val() == 'vimeo') {
+        upload_to_vimeo();
+        return;
+    }
+
     // Reject if the file input is empty & throw alert
     if (!Validate(input.value)) {
         return;

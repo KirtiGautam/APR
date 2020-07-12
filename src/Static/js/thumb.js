@@ -80,7 +80,6 @@ const duration = given_seconds => {
     hours = dateObj.getUTCHours();
     minutes = dateObj.getUTCMinutes();
     seconds = dateObj.getSeconds();
-    console.log([hours, minutes, seconds])
 
     if (hours == 0 && minutes == 0) {
         return seconds.toString() + ' s';

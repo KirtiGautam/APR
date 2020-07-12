@@ -13,6 +13,8 @@ const getStaff = () => {
             for (let x = 0; x < data.staff.length; x++) {
                 let staff = data.staff[x];
                 html += `<tr><td><input type="checkbox" class="users" value="${staff['id']}"></td><td>${x + 1}</td><td>${staff['Name']}</td><td>${staff['Email']}</td>`;
+
+                html += (staff.staff) ? `<td>${staff['role']}</td><td>${staff['gender']}</td><td>${staff['dob']}</td><td>${staff['Contact']}</td><td>${staff['Address']}</td><td>${staff['Pincode']}</td><td>${staff['City']}</td><td>${staff['District']}</td><td>${staff['State']}</td>` : '<td>N.A.</td>'.repeat(9);
             }
             $('#Staff').html(html);
         }, error: function (error) {
@@ -103,14 +105,31 @@ $(document).ready(function () {
         $('#first_name').val('')
         $('#last_name').val('')
         $('#email').val('')
+        $('#gender').val('')
+        $('#Contact').val('')
+        $('#dob').val('')
+        $('#role').val('')
+        $('#Address').val('')
+        $('#City').val('')
+        $('#District').val('')
+        $('#State').val('')
+        $('#Pincode').val('')
         $('#add').modal('show');
     });
 
     $('#ANS').click(function () {
-        if (
-            $('#first_name').val() == '' ||
-            $('#last_name').val() == '' ||
-            $('#email').val() == ''
+        if (!$('#first_name').val() ||
+            !$('#last_name').val() ||
+            !$('#email').val() ||
+            !$('#gender').val() ||
+            !$('#Contact').val() ||
+            !$('#dob').val() ||
+            !$('#role').val() ||
+            !$('#Address').val() ||
+            !$('#City').val() ||
+            !$('#District').val() ||
+            !$('#State').val() ||
+            !$('#Pincode').val()
         ) {
             alert('Please fill all necessary values');
             return;
@@ -123,6 +142,15 @@ $(document).ready(function () {
                 'first_name': $('#first_name').val(),
                 'last_name': $('#last_name').val(),
                 'email': $('#email').val(),
+                'gender': $('#gender').val(),
+                'Contact': $('#Contact').val(),
+                dob: $('#dob').val(),
+                role: $('#role').val(),
+                Address: $('#Address').val(),
+                City: $('#City').val(),
+                District: $('#District').val(),
+                State: $('#State').val(),
+                Pincode: $('#Pincode').val()
             },
             dataType: 'json',
             success: function (data) {
@@ -136,9 +164,18 @@ $(document).ready(function () {
 
     $('#US').click(function () {
         if (
-            $('#first_name').val() == '' ||
-            $('#last_name').val() == '' ||
-            $('#email').val() == ''
+            !$('#first_name').val() ||
+            !$('#last_name').val() ||
+            !$('#email').val() ||
+            !$('#gender').val() ||
+            !$('#Contact').val() ||
+            !$('#dob').val() ||
+            !$('#role').val() ||
+            !$('#Address').val() ||
+            !$('#City').val() ||
+            !$('#District').val() ||
+            !$('#State').val() ||
+            !$('#Pincode').val()
         ) {
             alert('Please fill all necessary values');
             return;
@@ -152,6 +189,15 @@ $(document).ready(function () {
                 'first_name': $('#first_name').val(),
                 'last_name': $('#last_name').val(),
                 'email': $('#email').val(),
+                'gender': $('#gender').val(),
+                'Contact': $('#Contact').val(),
+                dob: $('#dob').val(),
+                role: $('#role').val(),
+                Address: $('#Address').val(),
+                City: $('#City').val(),
+                District: $('#District').val(),
+                State: $('#State').val(),
+                Pincode: $('#Pincode').val()
             },
             dataType: 'json',
             success: function (data) {
