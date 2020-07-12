@@ -1,7 +1,7 @@
 {% for key in homeworks %}
 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
     <a href="{% url 'homework:homeworkDetails' key.0.id %}">
-        <div class="homework-cards p-4">
+        <div class="homework-cards p-3">
             <span class="row homework-row-head">
                 <span class="title col-12 text-truncate">{{key.0.Subject.Name}}</span>
                 <span class="summary col-12 text-truncate">{{key.0.video.all.count}} Videos + {{key.0.pdf.all.count}} Reading</span>

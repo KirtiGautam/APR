@@ -14,34 +14,36 @@
     </div>
     <div class="content">
         <div class="container-fluid">
-            <div class="row row-2 first pb-2">
-                <span class="col-12 col-sm-8 col-md-8 col-lg-8 first-text">
-                    <span class="col-12 pl-3">PAST</span>
-                    <br>
-                    <span class="col-12 pl-3">ASSIGNMENTS</span>
+            <div class="row row-1">
+                <span class="col-12 col-sm-8 col-md-8 col-lg-8 heading-1">
+                    <span class="row">
+                        <span class="col-12">PAST</span>
+                        <span class="col-12">ASSIGNMENTS</span>
+                    </span>
                 </span>
-                <span class="col-4 pt-2">
+                <span class="col-4">
                     <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo mr-5">
                 </span>
             </div>
-            <div class="row row-three">
+            <div class="row row-2">
                 <div id="body" class="col-12">
                     {% regroup assignments by assi.Deadline as assignment_list %}
                     {% for assign in assignment_list %}
                     <div class="row">
                         <div class="col-12 mt-3">
-                            <span class="heading-3 p-1 col-12">{{assign.grouper}}</span>
+                            <span class="heading-2 col-12">{{assign.grouper}}</span>
                         </div>
                     </div>
                     <div class="row">
                         {% for assignment in assign.list %}
                         <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-3 mt-2">
                             <a href="{% url 'assignment:assignmentDetails' assignment.assi.id %}">
-                                <div class="past-cards p-3">
+                                <div class="past-cards">
                                     <span class="row assignment-row-head">
                                         <span
                                             class="title-{% if assignment.progress == 100 or request.user.admin %}complete {% elif assignment.progress == 0 %}deadline {% else %}prime {% endif %}col-12 mt-1 mb-1 text-truncate">{{assignment.assi.Subject.Name}}</span>
-                                        <span class="summary col-12 mt-1 mb-1 text-truncate">{{assignment.assi.video.all.count}}
+                                        <span
+                                            class="summary col-12 mt-1 mb-1 text-truncate">{{assignment.assi.video.all.count}}
                                             Videos +
                                             {{assignment.assi.pdf.all.count}}
                                             Reading</span>
@@ -64,7 +66,7 @@
                                     {% endif %}
                                     <span class="row assignment-row-foot mt-1 mb-1">
                                         <span class="moti col-12">
-                                            TIME IS OVER
+                                            TIME IS OVER!
                                         </span>
                                     </span>
                                 </div>

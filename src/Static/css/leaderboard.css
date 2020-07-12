@@ -1,13 +1,21 @@
-.content {
+.cont {
   background: url("/static/Images/leaderboard/leader.png");
   background-repeat: no-repeat;
   background-size: auto;
   height: 100vh;
 }
 
-.row-1-5 {
-  margin-top: 70px;
-  padding-left: 100px;
+.row-1{
+ padding: 10px;
+}
+
+.row-1-1{
+  padding-left: 20px;
+  padding-top: 70px;
+}
+
+.row-1-2-2,.row-1-2-3,.row-1-2-4{
+margin-left: -70px;
 }
 
 .text-1 {
@@ -26,9 +34,43 @@
   color: #fd7f2c;
 }
 
+.text-3 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+  margin-top: 45px;
+}
+
+.text-4{
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.text-5{
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.text-6{
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376BAA;
+}
+
+.text-7{
+  font-size: 19px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
 .progress {
   margin-top: 100px;
-  -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+  -webkit-transform: rotate(-90deg);
   height: 33px;
   width: 168px;
   background: #f4f4f4 0% 0% no-repeat padding-box;
@@ -83,12 +125,6 @@
   margin-top: 70px;
 }
 
-.row-1-2,
-.row-1-3,
-.row-1-4 {
-  margin-left: -80px;
-}
-
 th {
   position: sticky;
   top: 0;
@@ -106,10 +142,6 @@ tr:hover {
   width: 100% !important;
   background-color: #ffffff;
   /* border:1px solid #707070; */
-}
-
-.row-1-1 {
-  margin-left: 50px;
 }
 
 .contain {
@@ -137,24 +169,6 @@ td {
 
 .final {
   color: #f05e23;
-}
-
-.text-3 {
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.text-4 {
-  font-size: 17px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #376baa;
-}
-
-.text-5 {
-  color: #626262;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 19px;
 }
 
 .contain::-webkit-scrollbar {
@@ -207,14 +221,10 @@ td {
 }
 
 .btn-group {
-  margin-left: 110px;
+  margin-left: 70px;
 }
 
 @media screen and (max-width: 1000px) {
-  .row-1-7 {
-    display: none;
-  }
-
   .contain {
     width: 100%;
     max-height: 65vh;
@@ -225,17 +235,9 @@ td {
     padding: 0 !important;
   }
 
-  .content {
-    padding-top: 50px !important;
-  }
-
   .button-2 {
     padding: 5px !important;
     margin-bottom: 15px !important;
-  }
-
-  .row-1-5 {
-    padding-left: 30px !important;
   }
 
   th,
@@ -245,45 +247,16 @@ td {
 }
 
 @media screen and (max-width: 1250px) {
-  .row-1-5 {
-    margin-top: 70px;
-    padding-left: 50px;
-  }
-  .row-1-1 {
-    margin-left: 0px;
-  }
-  .row-1-2,
-  .row-1-3,
-  .row-1-4 {
-    margin-left: -100px;
-  }
 }
 
 @media screen and (max-width: 600px) {
-  .row-1-5 {
-    margin-top: 30px !important;
-    padding-left: 20px !important;
-  }
   .btn-group {
     margin-left: 40px !important;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .row-1-5 {
-    margin-top: 10px !important;
-    padding-left: 10px !important;
-  }
-
   .btn-group {
     margin-left: 10px !important;
-  }
-
-  .text-1 {
-    font-size: 20px;
-  }
-
-  .text-2 {
-    font-size: 40px;
   }
 }

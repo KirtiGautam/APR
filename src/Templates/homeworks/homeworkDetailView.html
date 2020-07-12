@@ -15,107 +15,108 @@
 </div>
 <div class="content">
     <div class="container-fluid">
-        <div class="row first mb-5 mt-3">
+        <div class="row row-1 mb-5 mt-3">
             <div class="col-3 col-sm-3 col-md-2 col-lg-1">
-                <a href="{% url 'homework:homework' %}"><button class="btn back" title="Back"><i
+                <a href="{% url 'homework:homework' %}"><button class="btn button-4" title="Back"><i
                             class="fas fa-arrow-alt-circle-left"></i></button></a>
             </div>
-            <div class="col-9 col-sm-9 col-md-6 col-lg-7 subject-name">
+            <div class="col-9 col-sm-9 col-md-10 col-lg-11 heading-1">
                 {{homework.Subject.Name}}
             </div>
         </div>
-        <div class="row second mb-5">
+        <div class="row row-2 mb-5">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-9 col-sm-9 col-md-10 col-lg-11 homework-title mb-3">
+                    <div class="col-9 col-sm-9 col-md-10 col-lg-11 heading-2 mb-3">
                         {{homework.Name}}
                     </div>
                     <div class="col-3 col-sm-3 col-md-2 col-lg-1">
                         {% if user.admin %}
-                        <button class="btn edit-add" title="Edit Details" id="edit_btn"><i
+                        <button class="btn button-3" title="Edit Details" id="edit_btn"><i
                                 class="fas fa-pen-square"></i></button>
                         {% endif %}
                     </div>
                 </div>
             </div>
-            <div class="col-10 mb-3 mt-3 text-justify">
-                <span class="instruction">Instructions related to homework: </span>
-                <span class="instruct">{{homework.Instructions}}</span>
+            <div class="col-12 col-sm-8 col-md-10 col-lg-10 mb-3 mt-3 text-justify">
+                <span class="heading-3">Instructions related to homework: </span>
+                <span class="text-3">{{homework.Instructions}}</span>
             </div>
             {% if user.admin %}
-            <div class="col-2 mb-3 mt-3">
-                <button class="btn edit-add float-right" title="Delete" id="delete_btn"><i
+            <div class="col-12 col-sm-4 col-md-2 col-lg-2 mb-3 mt-3">
+                <button class="btn button-3 float-right" title="Delete" id="delete_btn"><i
                         class="fas fa-trash"></i></button>
-                <button class="btn edit-add float-right" data-toggle="modal" data-backdrop="static" data-target="#add"
+                <button class="btn button-3 float-right" data-toggle="modal" data-backdrop="static" data-target="#add"
                     title="Add More Data"><i class="fas fa-plus-circle"></i></button>
-                <button class="btn edit-add float-right" title="Student Stats"><a
+                <button class="btn button-3 float-right" title="Student Stats"><a
                         href="{% url 'homework:student-stats' %}?id={{homework.id}}"> <i class="fa fa-eye"></i></a>
             </div>
             {% endif %}
         </div>
 
-        <div class="row mb-5 col-12">
-            {% for key in homework.pdf.all %}
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-5">
-                <a href="{{ prefix }}{{key.pdf.file}}" target="_blank">
-                    <div class="homework-cards">
-                        <span class="row">
-                            <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
-                        </span>
-                        <span class="row homework-row-head pl-3 pr-3 pt-1">
-                            <span class="text-left col-6 pt-2">PDF</span>
-                            <span class="time col-4 pt-2">2 min</span>
-                            {% if not user.admin %}
-                            <input type="checkbox" onclick="return MARP({{key.id}}, this);"
-                                {% for read in user.read_homework_pdf.all %}{% if read.Pdf.id == key.id %}
-                                onclick="return false;" readonly="readonly" checked {% endif %}{% endfor %}
-                                class="col-1 form-control">
-                            {% else %}
-                            <input type="checkbox" class="pdf_checks col-1 form-control" value="{{key.id}}">
-                            {% endif %}
-                        </span>
-                        <span class="row homework-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12 text-truncate">{{key.pdf.Name}}</span>
-                        </span>
+        <div class="col-11">
+            <div class="row row-3">
+                {% for key in homework.pdf.all %}
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-5">
+                    <a href="{{ prefix }}{{key.pdf.file}}" target="_blank">
+                        <div class="homework-cards">
+                            <span class="row">
+                                <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
+                            </span>
+                            <span class="row homework-row-head pl-3 pr-3 pt-1">
+                                <span class="text-left text-truncate col-5 pt-2">PDF</span>
+                                <span class="time text-truncate col-5 pt-2">2 min</span>
+                                {% if not user.admin %}
+                                <input type="checkbox" onclick="return MARP({{key.id}}, this);"
+                                    {% for read in user.read_homework_pdf.all %}{% if read.Pdf.id == key.id %}
+                                    onclick="return false;" readonly="readonly" checked {% endif %}{% endfor %}
+                                    class="col-1 form-control">
+                                {% else %}
+                                <input type="checkbox" class="pdf_checks col-1 form-control" value="{{key.id}}">
+                                {% endif %}
+                            </span>
+                            <span class="row homework-row-foot pl-3 pr-3">
+                                <span class="col-12 text-truncate">{{key.pdf.Name}}</span>
+                            </span>
+                        </div>
+                    </a>
+                    <div class="text-center">
+                        <span class="chapter">{{key.lesson.Name}}</span>
                     </div>
-                </a>
-                <div class="text-center">
-                    <span class="chapter">{{key.lesson.Name}}</span>
                 </div>
-            </div>
-            {% endfor %}
+                {% endfor %}
 
-            {% for key in homework.video.all %}
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
-                <a href="{% url 'homework:video' key.id %}">
-                    <div class="homework-cards">
-                        <span class="row">
-                            <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-12 img">
-                        </span>
-                        <span class="row homework-row-head pl-3 pr-3 pt-1">
-                            <span class="text-left col-6 pt-2">VIDEO</span>
-                            <span class="time col-4 pt-2" id="dura{{key.id}}">2 min</span>
-                            {% if not user.admin %}
-                            <input type="checkbox" onclick="return false;" readonly="readonly"
-                                {% for watched in user.watched_homework_video.all %}{% if watched.Video.id == key.id %}
-                                checked {% endif %}{% endfor %} class="col-1 form-control">
-                            {% else %}
-                            <input type="checkbox" class="video_checks col-1 form-control" value="{{key.id}}">
-                            {% endif %}
-                        </span>
-                        <span class="row homework-row-foot pl-3 pr-3 pb-3">
-                            <span class="col-12 text-truncate">{{key.video.Name}}</span>
-                        </span>
+                {% for key in homework.video.all %}
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-5">
+                    <a href="{% url 'homework:video' key.id %}">
+                        <div class="homework-cards">
+                            <span class="row">
+                                <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-12 img">
+                            </span>
+                            <span class="row homework-row-head pl-3 pr-3 pt-1">
+                                <span class="text-left text-truncate col-5 pt-2">VIDEO</span>
+                                <span class="time text-truncate col-5 pt-2" id="dura{{key.id}}">2 min</span>
+                                {% if not user.admin %}
+                                <input type="checkbox" onclick="return false;" readonly="readonly"
+                                    {% for watched in user.watched_homework_video.all %}{% if watched.Video.id == key.id %}
+                                    checked {% endif %}{% endfor %} class="col-1 form-control">
+                                {% else %}
+                                <input type="checkbox" class="video_checks col-1 form-control" value="{{key.id}}">
+                                {% endif %}
+                            </span>
+                            <span class="row homework-row-foot pl-3 pr-3">
+                                <span class="col-12 text-truncate">{{key.video.Name}}</span>
+                            </span>
+                        </div>
+                    </a>
+                    <div class="text-center">
+                        <span class="chapter">{{key.lesson.Name}}</span>
                     </div>
-                </a>
-                <div class="text-center">
-                    <span class="chapter">{{key.lesson.Name}}</span>
                 </div>
-            </div>
-            <!-- <a href="{% url 'homework:video' key.id %}">{{key.Name}}</a> -->
-            {% endfor %}
-            {% for key in homework.homework_Test.all %}
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-5">
+                <!-- <a href="{% url 'homework:video' key.id %}">{{key.Name}}</a> -->
+                {% endfor %}
+                {% for key in homework.homework_Test.all %}
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-5">
                     <a href="{% url 'homework:Test' key.id %}">
                         <div class="homework-cards test">
                             <span class="row">
@@ -125,10 +126,10 @@
                                 <span class="test-text-left col-10 text-truncate">{{key.question.all.count}}
                                     Questions</span>
                                 <!-- <span class="checkbox round col-2">
-                                <input type="checkbox" name="" id="">
-                            </span> -->
+                                    <input type="checkbox" name="" id="">
+                                </span> -->
                             </span>
-                            <span class="row homework-row-foot pl-3 pr-3 pb-3">
+                            <span class="row homework-row-foot pl-3 pr-3">
                                 <span class="col-12 text-truncate">{% if key.final %}Final Test{% else %}Practice
                                     Test{% endif %}</span>
                             </span>
@@ -137,31 +138,39 @@
                             <span class="chapter">{{key.Lesson.Name}}</span>
                         </div>
                     </a>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
         <div class="modal" tabindex="-1" role="dialog" id="edit_modal">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Homework Details</h5>
+                        <div class="modal-title heading-4">Edit Homework Details</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="hidden_home_id" value="{{homework.id}}">
-                        <span class="col-12">
-                            <span class="selection">Name</span>
-                            <input type="text" id="ed_Name" class="form-control drop">
-                        </span>
-                        <span class="col-12">
-                            <span class="selection">Description</span>
-                            <textarea id="ed_Instructions" cols="10" rows="2" class="form-control drop"></textarea>
-                        </span>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <input type="hidden" id="hidden_home_id" value="{{homework.id}}">
+                                <span class="col-12 p-2">
+                                    <span class="heading-3">Name</span>
+                                    <br>
+                                    <input type="text" id="ed_Name" class="form-control text-2">
+                                </span>
+                                <span class="col-12 p-2">
+                                    <span class="heading-3">Description</span>
+                                    <br>
+                                    <textarea id="ed_Instructions" cols="10" rows="2"
+                                        class="form-control text-2"></textarea>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn import" id="update_home_details">Save</button>
+                        <button type="button" class="btn button-2" id="update_home_details">Save</button>
                     </div>
                 </div>
             </div>

@@ -1,24 +1,20 @@
-.first {
+.row-1 {
   background: transparent
     linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 38%, #ffffff 100%) 0% 0%
     no-repeat padding-box;
-  margin-bottom: 5%;
+  padding: 15px;
 }
 
-.img {
-  height: 140px;
-}
-
-.first-text {
-  font-size: calc(4px + 4vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  color: #fd7f2c;
+.row-1-1-1 {
   margin-top: 40px;
 }
 
-.first-class-plus {
-  margin-top: 75px;
+.row-1-1-2 {
+  margin-top: 90px;
+}
+
+.row-1-2 {
+  margin-left: 20px;
 }
 
 .back-photo {
@@ -26,17 +22,39 @@
   height: 180px;
 }
 
-.drop {
+.heading-1 {
+  font-size: 35px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #fd7f2c;
+}
+
+.heading-2 {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+}
+
+.text-1 {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #b3b6b8;
   border-radius: 5px;
-  font-size: calc(5px + 2vmin);
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
 }
 
-.edit-add {
-  font-size: calc(6px + 2vmin);
+.text-2 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #b3b6b8;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #376baa;
+}
+
+.button-1 {
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -45,28 +63,52 @@
   width: fit-content;
 }
 
-.edit-add:hover {
+.button-1:hover {
   color: #65717e;
   background: #effbff;
 }
 
-.edit-add:focus {
+.button-1:focus {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  font-weight: 100;
   color: #929ead;
-  font-size: calc(7px + 2vmin);
-  border-radius: 50%;
   outline: none;
 }
 
-.date {
+.button-2 {
   background: #ffffff 0% 0% no-repeat padding-box;
-  border: 2px solid #e6ecf0;
-  border-radius: 5px;
-  font-size: calc(7px + 1vmin);
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #626262;
+  font-size: 17px;
   font-family: Arial, Helvetica, sans-serif;
-  color: #b3b6b8;
+}
+
+.button-2:focus {
+  background: #f5f8fa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.button-3 {
+  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
+    0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button-3:focus {
+  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+}
+
+.img {
+  height: 140px;
 }
 
 a:hover {
@@ -81,22 +123,27 @@ a:hover {
 }
 
 .title {
-  font-size: calc(10px + 1vmin);
+  font-size: 18px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
   text-transform: uppercase;
+  margin-bottom: 5px;
 }
 
 .summary {
-  font-size: calc(8px + 1vmin);
+  font-size: 10px;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
+  margin-bottom: 10px;
 }
 
 .progress {
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 0%;
+  height: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .progress-bar {
@@ -104,27 +151,14 @@ a:hover {
 }
 
 .progress-text {
-  font-size: calc(6px + 1vmin);
-  font-weight: 600;
+  font-size: 15px;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
   text-transform: uppercase;
 }
 
 .moti {
-  font-size: calc(7px + 1vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.selection {
-  font-size: calc(7px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #626262;
-}
-
-.selection {
-  font-size: calc(8px + 2vmin);
+  font-size: 10px;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
 }
@@ -133,8 +167,6 @@ a:hover {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #0000003b;
   border-radius: 5px;
-  position: relative;
-  display: inline-block;
   height: 100%;
   width: 100%;
 }
@@ -144,104 +176,74 @@ a:hover {
 }
 
 .row-head {
-  font-size: calc(8px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
+  font-weight: bold;
   color: #376baa;
 }
 
 .row-foot {
-  font-size: calc(7px + 1vmin);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #000000;
   background: transparent;
   border: none;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .ques-name {
-  font-size: calc(3px + 1vmax);
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #112234;
 }
 
-.cards .description {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  font-size: calc(4px + 2vmin);
-  font-family: Arial, Helvetica, sans-serif;
-  position: absolute;
-  z-index: 1;
-  width: 120px;
-  top: 100%;
-  left: 50%;
-  margin-left: -60px;
+a {
+  color: inherit;
 }
 
-.cards .description::after {
-  content: " ";
-  position: absolute;
-  bottom: 100%; /* At the top of the tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent black transparent;
+a:hover {
+  color: inherit;
 }
 
-.cards:hover .description {
-  visibility: visible;
+a:focus {
+  color: inherit;
 }
 
-.import {
-  background: transparent linear-gradient(180deg, #e76b9f 0%, #7439b8 100%) 0%
-    0% no-repeat padding-box;
-  font-family: "Poppins", sans-serif;
-  font-size: calc(11px + 1vmin);
-  color: #ffffff;
+.img {
+  height: 140px;
 }
 
-.import:focus {
-  background: transparent linear-gradient(0deg, #e76b9f 0%, #7439b8 100%) 0% 0%
-    no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  outline: none;
-}
-
-.buttons {
+.button-4 {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 10px;
   color: #626262;
-  font-size: calc(7px + 2vmin);
+  font-size: 17px;
   font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
 }
 
-.buttons:focus {
+.button-4:focus {
   background: #f5f8fa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   outline: none;
 }
 
+
 @media screen and (max-width: 1000px) {
   .back-photo {
     display: none;
   }
-  .first-text {
-    margin-top: 10px !important;
-  }
-  .first-class-plus {
-    margin-top: 30px;
-  }
-}
 
-@media screen and (min-width: 800px) {
-  .one {
-    margin-top: 70px;
+  .row-1-1-1 {
+    margin-top: 20px;
+  }
+
+  .row-1-1-2 {
+    margin-top: 20px;
+  }
+
+  .row-1-2 {
+    margin-left: 5px;
   }
 }

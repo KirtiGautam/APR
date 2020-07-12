@@ -132,7 +132,7 @@ a:hover {
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
-  font-weight: 600;
+  font-weight: bold;
   text-transform: capitalize;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -143,8 +143,7 @@ a:hover {
 }
 
 .stream-time {
-  font-size: 19px;
-  font-weight: 200;
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
   text-transform: capitalize;
@@ -152,13 +151,13 @@ a:hover {
 }
 
 .stream-duration {
-  font-size: 17px;
+  font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
 
 .stream-subject {
-  font-size: 16px;
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   color: #fff700;
   text-transform: capitalize;
