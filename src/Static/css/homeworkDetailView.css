@@ -32,6 +32,7 @@
   font-size: 22px;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
+  font-weight: bold;
 }
 
 .text-1 {
@@ -54,6 +55,10 @@
   font-family: Arial, Helvetica, sans-serif;
   text-transform: capitalize;
   color: #626262;
+}
+
+.mar{
+  margin-top: 27px;
 }
 
 .button-3 {
