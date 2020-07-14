@@ -11,15 +11,15 @@ $(document).ready(function () {
   $("#dataType").change(function () {
     if (this.value == "pdf") {
       getMedia("pdf");
-      $("#media_search_term, #upload_btn, #data_display").removeClass("d-none");
+      $(".test-d-none, #data_display").removeClass("d-none");
       $("#next_btn, .question_div").addClass("d-none");
     } else if (this.value == "test") {
       getQuestions();
-      $("#media_search_term, #upload_btn, #data_display").addClass("d-none");
+      $(".test-d-none, #data_display").addClass("d-none");
       $("#next_btn, .question_div").removeClass("d-none");
     } else {
       getMedia("video");
-      $("#media_search_term, #upload_btn, #data_display").removeClass("d-none");
+      $(".test-d-none, #data_display").removeClass("d-none");
       $("#next_btn, .question_div").addClass("d-none");
     }
   });

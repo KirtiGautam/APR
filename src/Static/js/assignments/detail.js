@@ -28,22 +28,24 @@ $(document).ready(function () {
     }
     if (this.value == "pdf") {
       getMedia("pdf");
-      $("#media_search_term, #upload_btn, #data_display").removeClass("d-none");
+      $(".test-d-none, #data_display").removeClass("d-none");
       $("#next_btn, .question_div").addClass("d-none");
     } else if (this.value == "test") {
       getQuestions();
-      $("#media_search_term, #upload_btn, #data_display").addClass("d-none");
+      $(".test-d-none, #data_display, .test-d-none").addClass("d-none");
       $("#next_btn, .question_div").removeClass("d-none");
     } else {
       getMedia("video");
-      $("#media_search_term, #upload_btn, #data_display").removeClass("d-none");
+      $(".test-d-none, #data_display").removeClass("d-none");
       $("#next_btn, .question_div").addClass("d-none");
     }
   });
 
-  $('#media_search_term').keyup(delay(function (e) {
-    getMedia($('#dataType').val());
-  }, 500));
+  $("#media_search_term").keyup(
+    delay(function (e) {
+      getMedia($("#dataType").val());
+    }, 500)
+  );
 
   $("#next_btn").click(function () {
     if (!$("#test_name").val() || !$("#test_duration").val()) {
@@ -193,14 +195,14 @@ $(document).ready(function () {
 const delay = (callback, ms) => {
   var timer = 0;
   return function () {
-    var context = this, args = arguments;
+    var context = this,
+      args = arguments;
     clearTimeout(timer);
     timer = setTimeout(function () {
       callback.apply(context, args);
     }, ms || 0);
   };
-}
-
+};
 
 const getQuestions = () => {
   $.ajax({
@@ -234,7 +236,7 @@ const getMedia = (type) => {
     url: "/get-media",
     data: {
       type: type,
-      term: $('#media_search_term').val(),
+      term: $("#media_search_term").val(),
     },
     dataType: "json",
     success: function (response) {

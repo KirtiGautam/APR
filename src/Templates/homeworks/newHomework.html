@@ -1,21 +1,21 @@
 {% load static %}
 <div class="modal" role="dialog" id="add">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body mb-5">
+            <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row" id="homework_details"> 
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+                    <div class="row" id="homework_details">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 p-2">
                             <span class="heading-2">Subjects</span>
                             <br>
                             <select id="subjects" class="text-2 p-1 form-control"></select>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 p-2">
                             <span class="heading-2">Lessons</span>
                             <br>
                             <select id='lessons' class="text-2 p-1 form-control"></select>
@@ -35,41 +35,44 @@
                         </div>
                     </div>
                     <div class="row d-none" id="data_div">
-                        <span class="heading-2 col-12 col-sm-6 col-md-4 col-lg-3 p-2">Data Type</span>
-                        <select id="dataType" class="form-control text-2 col-12 col-sm-6 col-md-8 col-lg-9 p-2">
-                            <option value="pdf">PDF</option>
-                            <option value="video">Video</option>
-                            <option value="test">Test</option>
-                            <option value="skip">Skip for now</option>
-                        </select>
-                        <span class="col-12 col-sm-8 col-md-8 col-lg-8">
+                        <span class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+                            <span class="heading-2">Data Type</span>
+                            <span>
+                                <select id="dataType" class="form-control text-2">
+                                    <option value="pdf">PDF</option>
+                                    <option value="video">Video</option>
+                                    <option value="test">Test</option>
+                                    <option value="skip">Skip for now</option>
+                                </select>
+                            </span>
+                        </span>
+                        <span class="col-12 col-sm-12 col-md-12 col-lg-4 p-2 mar test-d-none">
                             <input type="text" id="media_search_term" class="form-control text-2"
                                 placeholder="Search using media name here ...">
                         </span>
-                        <span class="col-12 col-sm-4 col-md-4 col-lg-4"><button id="upload_btn"
-                                class="btn button-3 float-right col-12">Save</button></span>
-                    </div>
-                    <div class="row mt-3" id="data_display"></div>
-                    <div class="question_div d-none row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                        <span class="col-12 col-sm-12 col-md-12 col-lg-4 p-2 mar test-d-none"><button id="upload_btn"
+                                class="btn button-3 float-right col-12">Save</button>
+                        </span>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2 question_div d-none">
                             <span class="heading-2">Test Name</span>
                             <br>
                             <span><input type="text" id="test_name" class="form-control text-2"></span>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2 question_div d-none">
                             <span class="heading-2">Test duration(minutes)</span>
                             <br>
                             <span><input type="number" id="test_duration" class="form-control text-2"></span>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 p-2">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2 question_div d-none">
                             <span class="heading-2">Final</span>
                             <input type="checkbox" id="final_flag">
                         </div>
+                        <div class="col-12 p-2">
+                            <!-- <button id="upload_btn" class="d-none btn import float-right">Save</button> -->
+                            <button id="next_next_btn" class="d-none btn button-2 float-right">Next</button>
+                        </div>
                     </div>
-                    <div class="col-12 p-2">
-                        <!-- <button id="upload_btn" class="d-none btn import float-right">Save</button> -->
-                        <button id="next_next_btn" class="d-none btn button-2 float-right">Next</button>
-                    </div>
+                    <div class="row mt-3" id="data_display"></div>
                 </div>
             </div>
         </div>

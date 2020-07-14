@@ -95,22 +95,21 @@ $(document).ready(function () {
     }
     getMedia("pdf");
     $("#homework_details").addClass("d-none");
-    $("#media_search_term, #data_div").removeClass("d-none");
-    $("#upload_btn").removeClass("d-none");
+    $(".test-d-none, #data_div").removeClass("d-none");
   });
 
   $("#dataType").change(function () {
     if (this.value == "pdf") {
       getMedia("pdf");
-      $("#media_search_term, #upload_btn, #data_display").removeClass("d-none");
+      $(".test-d-none, #data_display, #media_search_term").removeClass("d-none");
       $("#next_next_btn, .question_div").addClass("d-none");
     } else if (this.value == "test") {
       getQuestions();
-      $("#media_search_term, #upload_btn, #data_display").addClass("d-none");
+      $(".test-d-none, #data_display, #media_search_term").addClass("d-none");
       $("#next_next_btn, .question_div").removeClass("d-none");
     } else if (this.value == "video") {
       getMedia("video");
-      $("#media_search_term, #upload_btn, #data_display").removeClass("d-none");
+      $(".test-d-none, #data_display, #media_search_term").removeClass("d-none");
       $("#next_next_btn, .question_div").addClass("d-none");
     } else {
       $(

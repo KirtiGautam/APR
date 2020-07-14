@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="modal" role="dialog" id="add">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -10,39 +10,42 @@
             </div>
             <div class="modal-body">
                 <div class="row other_div">
-                    <span class="heading-2 text-center col-12 col-sm-6 col-md-4 col-lg-3 p-2">Data Type</span>
-                    <select id="dataType" class="form-control text-2 col-12 col-sm-6 col-md-8 col-lg-8 p-2">
-                        <option value="pdf">PDF</option>
-                        <option value="video">Video</option>
-                        <option value="test">Test</option>
-                    </select>
-                    <span class="col-12 col-sm-8 col-md-8 col-lg-8">
-                        <input type="search" id="media_search_term" class="form-control d-none"
+                    <span class="col-12 col-sm-12 col-md-12 col-lg-4 p-2">
+                        <span class="heading-2">Data Type</span>
+                        <span>
+                            <select id="dataType" class="form-control text-2">
+                                <option value="pdf">PDF</option>
+                                <option value="video">Video</option>
+                                <option value="test">Test</option>
+                            </select>
+                        </span>
+                    </span>
+                    <span class="col-12 col-sm-12 col-md-12 col-lg-4 p-2 mar test-d-none">
+                        <input type="search" id="media_search_term" class="form-control text-2"
                             placeholder="Search Media here...">
                     </span>
-                    <span class="col-12 col-sm-4 col-md-4 col-lg-4"><button id="upload_btn"
-                            class="btn button-2 float-right col-12">Save</button></span>
-                </div>
-                <div id="data_display" class="row mt-3"></div>
-                <div class="question_div d-none row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                    <span class="col-12 col-sm-12 col-md-12 col-lg-4 p-2 mar test-d-none"><button id="upload_btn"
+                            class="btn button-2 float-right col-12">Save</button>
+                    </span>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2 question_div d-none">
                         <span class="heading-2">Test Name</span>
                         <br>
                         <span><input type="text" id="test_name" class="form-control text-2"></span>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-2">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2 question_div d-none">
                         <span class="heading-2">Test duration(minutes)</span>
                         <br>
                         <span><input type="number" id="test_duration" class="form-control text-2"></span>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 p-2">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-2 question_div d-none">
                         <span class="heading-2">Final</span>
                         <input type="checkbox" id="final_flag">
                     </div>
+                    <div class="col-12 p-2">
+                        <button id="next_btn" class="d-none btn button-1 float-right">Next</button>
+                    </div>
                 </div>
-                <div class="col-12 p-2">
-                    <button id="next_btn" class="d-none btn button-1 float-right">Next</button>
-                </div>
+                <div id="data_display" class="row mt-3"></div>
             </div>
         </div>
     </div>
