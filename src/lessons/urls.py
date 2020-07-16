@@ -25,6 +25,7 @@ from lessons.views import (
     deleteComment,
     getComment,
     updateComment,
+    newCount
 )
 
 app_name = 'lessons'
@@ -41,6 +42,7 @@ urlpatterns = [
     # Lessons path
     re_path(r'^lesson-comments$', lessonComments, name='comments'),
     path('get-lesson-comment', getComment, name='getComment'),
+    path('new-lesson-asset', newCount, name='newCount'),
     path('update-lesson-comment', updateComment, name='updateComment'),
     path('delete-lesson-comment', deleteComment, name='deleteComment'),
     path('like-lesson-comment', likeComment, name='like'),

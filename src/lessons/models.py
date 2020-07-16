@@ -50,7 +50,11 @@ class Video(models.Model):
         video, on_delete=models.CASCADE, related_name='lesson_videos')
     lesson = models.ForeignKey(
         Lesson, on_delete=models.CASCADE, related_name='lesson_videos')
+    viewed_by = models.ManyToManyField(User)
     created = models.DateTimeField(auto_now_add=True)
+
+    def is_viewed(self, user):
+        return True if self.viewed_by.filter(id=user.id).exists() else False
 
 
 class Pdf(models.Model):
@@ -58,7 +62,11 @@ class Pdf(models.Model):
                             related_name='lesson_pdfs')
     lesson = models.ForeignKey(
         Lesson, on_delete=models.CASCADE, related_name='lesson_pdfs')
+    viewed_by = models.ManyToManyField(User)
     created = models.DateTimeField(auto_now_add=True)
+
+    def is_viewed(self, user):
+        return True if self.viewed_by.filter(id=user.id).exists() else False
 
 
 class Test(models.Model):

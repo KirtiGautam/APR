@@ -86,8 +86,6 @@ def getAssignments(request):
                 rest = request.user.teacher.filter(Class=request.GET['id'])
             else:
                 rest = Subject.objects.filter(Class=request.GET['id'])
-                # assignment.objects.filter(
-                #     Subject__Class=request.GET['id'], Deadline__gt=timezone.localtime())
             for x in assignment.objects.filter(Subject__in=rest, Deadline__gt=timezone.localtime()):
                 diff = x.Deadline-timezone.localtime()
                 user_watched = request.user.watched_assignment_video.filter(
@@ -139,6 +137,8 @@ def assignmentDetail(request, id):
             assign = assignment.objects.get(id=id)
         except assignment.DoesNotExist:
             return http.HttpResponseNotFound({'message': 'Not found'})
+        if request.user.user_type == 'Student' and not assign.is_viewed(request.user):
+            assign.viewed_by.add(request.user)
         data = {
             'assign': assign,
         }
@@ -154,6 +154,8 @@ def assignmentDetail(request, id):
 def vid(request, id):
     if request.user.is_authenticated:
         videos = Video.objects.get(id=id)
+        if request.user.user_type == 'Student' and not videos.is_viewed(request.user):
+            videos.viewed_by.add(request.user)
         next_video = videos.assignment.video.filter(id__gt=videos.id)
         if len(next_video) > 0:
             next_video = next_video[0]
@@ -363,7 +365,8 @@ def assignmentComments(request):
             # get post object
             Videos = Video.objects.get(id=request.GET['id'])
         # list of active parent comments
-        comments = Videos.comments.filter(parent__isnull=True).order_by('-created')
+        comments = Videos.comments.filter(
+            parent__isnull=True).order_by('-created')
         # for x in comments:
         #     if x.likes.filter(id=request.user.id).exists():
         #         x['liked'] = True
@@ -448,3 +451,15 @@ def getComment(request):
                 'body', 'id').get(id=request.GET['id'])
         )
     return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
+
+def newCount(request):
+    if request.user.is_authenticated and request.user.user_type == 'Student':
+        assign = assignment.objects.filter(Subject__Class=request.user.Student.Class).exclude(
+            viewed_by__id=request.user.id).count()
+        vids = Video.objects.filter(assignment__Subject__Class=request.user.Student.Class).exclude(
+            viewed_by__id=request.user.id).count()
+        pds = Pdf.objects.filter(assignment__Subject__Class=request.user.Student.Class).exclude(
+            viewed_by__id=request.user.id).count()
+        return http.JsonResponse({'new': (assign+vids+pds)})
+    return http.JsonResponse({'message': 'Unauthorized'})

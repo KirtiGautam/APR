@@ -21,11 +21,13 @@ from .views import (
     likeComment,
     getComment,
     updateComment,
+    newCount
 )
 
 app_name = 'assignment'
 
 urlpatterns = [
+    path('new-assignment-asset', newCount, name='newCount'),
     path('get-assignment-comment', getComment, name='getComment'),
     path('update-assignment-comment', updateComment, name='updateComment'),
     re_path(r'^assignment-comments$', assignmentComments, name='comments'),

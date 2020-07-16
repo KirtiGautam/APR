@@ -19,11 +19,13 @@ from .views import (
     likeComment,
     getComment,
     updateComment,
+    newCount,
 )
 
 app_name = 'homework'
 
 urlpatterns = [
+    path('new-homework-asset', newCount, name='newCount'),
     path('get-homework-comment', getComment, name='getComment'),
     path('update-homework-comment', updateComment, name='updateComment'),
     re_path(r'^homework-comments$', homeworkComments, name='comments'),

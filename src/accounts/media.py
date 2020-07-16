@@ -167,7 +167,7 @@ def upload(request):
         if request.POST['dataType'] == 'pdf':
             file = request.FILES['file']
             fs = FileSystemStorage()
-            name = fs.save('pdfs/'+file.name, file)
+            name = fs.save('pdfs/'+file.name.replace(" ", ""), file)
             pdf.objects.create(
                 Name=request.POST['Name'], Description=request.POST['description'], file=name)
             data = {
@@ -178,7 +178,7 @@ def upload(request):
             if request.POST['videoType'] == 'local':
                 file = request.FILES['file']
                 fs = FileSystemStorage()
-                name = fs.save('videos/'+file.name, file)
+                name = fs.save('videos/'+file.name.replace(" ", ""), file)
                 video.objects.create(
                     Name=request.POST['Name'], Description=request.POST['description'], file=name)
                 data = {

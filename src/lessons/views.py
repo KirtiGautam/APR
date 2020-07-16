@@ -5,7 +5,8 @@ from django.conf import settings
 import json
 import math
 from accounts.models import Class, video, pdf
-from lessons.models import Subject, question, Pdf, Video, Lesson, Test, Test_question, user_progress_pdf, user_progress_video, Comment
+from lessons.models import (Subject, question, Pdf, Video, Lesson,
+                            Test, Test_question, user_progress_pdf, user_progress_video, Comment)
 
 
 def getQuestions(request):
@@ -88,7 +89,7 @@ def getLessons(request):
         send = request.user.teacher.filter(Class=request.GET['id']).values(
             'id', 'Name') if request.user.is_staff else Subject.objects.filter(Class=request.GET['id']).values('id', 'Name')
         client = {
-            'body': render_to_string('lesson/lessons.html', data),
+            'body': render_to_string('lesson/lessons.html', data, request=request),
             'subjects': list(send)
         }
         return http.JsonResponse(client, safe=False)
@@ -99,6 +100,8 @@ def getLessons(request):
 def vid(request, id):
     if request.user.is_authenticated:
         videos = Video.objects.get(id=id)
+        if request.user.user_type == 'Student' and not videos.is_viewed(request.user):
+            videos.viewed_by.add(request.user)
         next_video = videos.lesson.lesson_videos.filter(id__gt=videos.id)
         if len(next_video) > 0:
             next_video = next_video[0]
@@ -260,7 +263,8 @@ def lessonComments(request):
             # get post object
             Videos = Video.objects.get(id=request.GET['id'])
         # list of active parent comments
-        comments = Videos.comments.filter(parent__isnull=True).order_by('-created')
+        comments = Videos.comments.filter(
+            parent__isnull=True).order_by('-created')
         # for x in comments:
         #     if x.likes.filter(id=request.user.id).exists():
         #         x['liked'] = True
@@ -344,4 +348,14 @@ def getComment(request):
             Comment.objects.values(
                 'body', 'id').get(id=request.GET['id'])
         )
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
+
+def newCount(request):
+    if request.user.is_authenticated and request.user.user_type == 'Student':
+        vids = Video.objects.filter(lesson__Subject__Class=request.user.Student.Class).exclude(
+            viewed_by__id=request.user.id).count()
+        pds = Pdf.objects.filter(lesson__Subject__Class=request.user.Student.Class).exclude(
+            viewed_by__id=request.user.id).count()
+        return http.JsonResponse({'new': (vids+pds)})
     return http.HttpResponseForbidden({'message': 'Unauthorized'})

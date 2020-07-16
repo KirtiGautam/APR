@@ -125,8 +125,14 @@ def getTest(request, id):
 
 def homeworkDetail(request, id):
     if request.user.is_authenticated:
+        try:
+            homewrk = homework.objects.get(id=id)
+        except homework.DoesNotExist:
+            return http.HttpResponseNotFound({'message': 'Not found'})
+        if request.user.user_type == 'Student' and not homewrk.is_viewed(request.user):
+            homewrk.viewed_by.add(request.user)
         data = {
-            'homework': homework.objects.get(id=id),
+            'homework': homewrk,
             'prefix': settings.MEDIA_URL,
         }
         return render(request, 'homeworks/homeworkDetailView.html', data)
@@ -137,6 +143,8 @@ def homeworkDetail(request, id):
 def vid(request, id):
     if request.user.is_authenticated:
         videos = Video.objects.get(id=id)
+        if request.user.user_type == 'Student' and not videos.is_viewed(request.user):
+            videos.viewed_by.add(request.user)
         next_video = videos.homework.video.filter(id__gt=videos.id)
         if len(next_video) > 0:
             next_video = next_video[0]
@@ -395,3 +403,15 @@ def getComment(request):
                 'body', 'id').get(id=request.GET['id'])
         )
     return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
+
+def newCount(request):
+    if request.user.is_authenticated and request.user.user_type == 'Student':
+        homewrk = homework.objects.filter(Subject__Class=request.user.Student.Class).exclude(
+            viewed_by__id=request.user.id).count()
+        vids = Video.objects.filter(homework__Subject__Class=request.user.Student.Class).exclude(
+            viewed_by__id=request.user.id).count()
+        pds = Pdf.objects.filter(homework__Subject__Class=request.user.Student.Class).exclude(
+            viewed_by__id=request.user.id).count()
+        return http.JsonResponse({'new': (homewrk+vids+pds)})
+    return http.JsonResponse({'message': 'Unauthorized'})

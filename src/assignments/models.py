@@ -10,6 +10,10 @@ class assignment(models.Model):
     Posted = models.DateTimeField(auto_now_add=True)
     Subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name='assignments')
+    viewed_by = models.ManyToManyField(User)
+
+    def is_viewed(self, user):
+        return True if self.viewed_by.filter(id=user.id).exists() else False
 
 
 class Video(models.Model):
@@ -20,6 +24,11 @@ class Video(models.Model):
     assignment = models.ForeignKey(
         assignment, on_delete=models.CASCADE, related_name='video')
     created = models.DateTimeField(auto_now_add=True)
+    viewed_by = models.ManyToManyField(
+        User, related_name='user_viewed_assignment_videos')
+
+    def is_viewed(self, user):
+        return True if self.viewed_by.filter(id=user.id).exists() else False
 
 
 class Pdf(models.Model):
@@ -30,6 +39,11 @@ class Pdf(models.Model):
     assignment = models.ForeignKey(
         assignment, on_delete=models.CASCADE, related_name='pdf')
     created = models.DateTimeField(auto_now_add=True)
+    viewed_by = models.ManyToManyField(
+        User, related_name='user_viewed_assignment_pdfs')
+
+    def is_viewed(self, user):
+        return True if self.viewed_by.filter(id=user.id).exists() else False
 
 
 class Test(models.Model):
