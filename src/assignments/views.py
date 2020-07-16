@@ -6,6 +6,7 @@ from django.core.files.storage import default_storage
 from lessons.models import Subject, Lesson, question
 from accounts.models import Class, pdf, video
 from assignments.models import assignment, Pdf, Video, Test, Test_question, user_progress_video, user_progress_pdf, AComment
+from notifications.models import notifs
 from django.utils import timezone, dateparse
 import datetime
 import json
@@ -181,8 +182,22 @@ def newAssignment(request):
     if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         dead = timezone.make_aware(
             dateparse.parse_datetime(request.POST['deadline']))
-        assignment.objects.create(
-            Name=request.POST['NOA'], Instructions=request.POST['instruction'], Deadline=dead, Subject=Subject.objects.get(id=request.POST['subject']))
+        subject = Subject.objects.get(id=request.POST['subject'])
+        assign = assignment.objects.create(
+            Name=request.POST['NOA'], Instructions=request.POST['instruction'], Deadline=dead, Subject=subject)
+        users = subject.Class.Students.all()
+        link = reverse('assignment:assignmentDetails',
+                       kwargs={'id': assign.id})
+        message = 'New assignment added "'+assign.Name+'" for ' + assign.Subject.Name
+
+        objs = [notifs(recipient=user.user, message=message, link=link)
+                for user in users]
+        notifs.objects.bulk_create(objs)
+        # for user in users:
+        #     notifs(recipient=user.user,
+        #            message=message, link=link)
+        #     notifs.objects.create(recipient=user.user,
+        #                           message=message, link=link)
         data = {
             'message': 'Data added'
         }

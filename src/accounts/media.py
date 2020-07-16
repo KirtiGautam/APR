@@ -9,7 +9,7 @@ import json
 
 
 def delete_question(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         question.objects.filter(id__in=request.POST.getlist('data[]')).delete()
         data = {
             'message': 'Selected questions deleted successfully'
@@ -19,7 +19,7 @@ def delete_question(request):
 
 
 def get_question(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         ques = question.objects.get(id=request.GET['question'])
         data = {
             'Name': ques.Name,
@@ -35,7 +35,7 @@ def get_question(request):
 
 
 def edit_question(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         ques = question.objects.get(id=request.POST['question'])
         ques.Name = request.POST['Name']
         ques.Difficulty = request.POST['Difficulty']
@@ -56,7 +56,7 @@ def edit_question(request):
 
 
 def updateMedia(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         if request.POST['type'] == 'pdf':
             pd = pdf.objects.get(id=request.POST['id'])
             pd.Name = request.POST['Name']
@@ -75,7 +75,7 @@ def updateMedia(request):
 
 
 def mediaDetails(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         if request.POST['type'] == 'pdf':
             pd = pdf.objects.get(id=request.POST['value'])
             data = {
@@ -93,7 +93,7 @@ def mediaDetails(request):
 
 
 def deleteMedia(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         for x in request.POST.getlist('data[]'):
             dat = json.loads(x)
             if dat['type'] == 'pdf':
@@ -113,7 +113,7 @@ def deleteMedia(request):
 
 
 def uploadQuestions(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         lesson = Lesson.objects.get(id=request.POST['lesson'])
         for x in json.loads(request.POST['file']):
             qn = question.objects.create(
@@ -138,7 +138,7 @@ def uploadQuestions(request):
 
 
 def questions(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         data = {
             'class': Class.objects.all(),
             'question': question.objects.filter(Lesson__id=request.GET['lesson']),
@@ -148,7 +148,7 @@ def questions(request):
 
 
 def allquestions(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         data = {
             'class': Class.objects.all()
         }
@@ -157,13 +157,13 @@ def allquestions(request):
 
 
 def allmedia(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         return render(request, 'settings/admin/AllMedia/allmedia.html')
     return redirect('accounts:dashboard')
 
 
 def upload(request):
-    if request.user.is_authenticated and request.user.admin:
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         if request.POST['dataType'] == 'pdf':
             file = request.FILES['file']
             fs = FileSystemStorage()

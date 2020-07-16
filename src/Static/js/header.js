@@ -33,4 +33,22 @@ $(document).ready(function () {
       $(".content").removeClass("no-margin");
     }
   });
+
+  $.ajax({
+    type: "GET",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: '/get-all-notifications',
+    dataType: "json",
+    success: function (response) {
+      let html = '';
+      response.notifications.forEach(notif => {
+        html += `<a class="dropdown-item p-2 ${notif.read ? 'unread' : ''}" href="${notif.link}">${notif.message}</a><div class="dropdown-divider"></div>`
+      });
+      $('#notif-list').html(html);
+      console.log(response)
+    }, error: function (error) {
+      console.log(error.responseText);
+    }
+  });
+
 });
