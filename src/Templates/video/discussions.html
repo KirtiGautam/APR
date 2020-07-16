@@ -28,6 +28,7 @@
                     onclick="editComment({{comment.id}})">Edit</button>{% endif %}
                 {% if request.user.user_type == 'Staff' and comment.Author.user_type == 'Student' or comment.Author == request.user %}
                 <button class="dropdown-item" onclick="delete_comment({{comment.id}})">Delete</button>{% endif %}
+                <button class="dropdown-item">Mark as resolved</button>
             </div>
         </div>
     </span>

@@ -71,6 +71,9 @@
                         <div class="assign-cards">
                             <span class="row">
                                 <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
+                                {% if request.user.user_type == "Student" and not key|viewed:request.user %}
+                                <img src="/static/Images/lesson/ripple.svg" class="new-noti">
+                                {% endif %}
                             </span>
                             <span class="row assign-row-head pl-3 pr-3 pt-1">
                                 <span class="text-left text-truncate col-5 pt-2">PDF</span>
@@ -100,6 +103,9 @@
                         <div class="assign-cards">
                             <span class="row">
                                 <img src="/static/Images/lesson/video.png" id="thumb{{key.id}}" class="col-12 img">
+                                {% if request.user.user_type == "Student" and not key|viewed:request.user %}
+                                <img src="/static/Images/lesson/ripple.svg" class="new-noti">
+                                {% endif %}
                             </span>
                             <span class="row assign-row-head pl-3 pr-3 pt-1">
                                 <span class="text-left col-5 text-truncate pt-2">VIDEO</span>

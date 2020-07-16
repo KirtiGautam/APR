@@ -37,6 +37,10 @@ body {
   font-size: 23px !important;
 }
 
+.mark-as-comment{
+  color: #ffffff;
+}
+
 .content {
   margin-left: 0px !important;
 }

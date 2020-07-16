@@ -23,10 +23,12 @@
                 <div class="lessons-cards">
                     <span class="row">
                         <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">
+                        {% if request.user.user_type == "Student" and not pdf|viewed:request.user %}
+                        <img src="/static/Images/lesson/ripple.svg" class="new-noti">
+                        {% endif %}
                     </span>
                     <span class="row lessons-row-head pl-3 pr-2 pt-1">
-                        <span class="text-left text-truncate col-5 pt-2">PDF
-                            {% if request.user.user_type == "Student" and not pdf|viewed:request.user %}new{% endif %}</span>
+                        <span class="text-left text-truncate col-5 pt-2">PDF</span>
                         <span class="time col-5 text-truncate pt-2"></span>
                         {% if not admin %}
                         <input type="checkbox" onclick="return MARP({{pdf.id}}, this);"
@@ -49,10 +51,12 @@
                 <div class="lessons-cards">
                     <span class="row">
                         <img src="/static/Images/lesson/video.png" id="thumb{{video.id}}" class="col-12 img">
+                        {% if request.user.user_type == "Student" and not video|viewed:request.user %}
+                        <img src="/static/Images/lesson/ripple.svg" class="new-noti">
+                        {% endif %}
                     </span>
                     <span class="row lessons-row-head pl-3 pr-3 pt-1">
-                        <span class="text-left col-5 pt-2">Video
-                            {% if request.user.user_type == "Student" and not video|viewed:request.user %}new{% endif %}</span>
+                        <span class="text-left col-5 pt-2">Video</span>
                         <span class="time col-5 text-truncate pt-2" id="dura{{video.id}}"></span>
                         {% if not admin %}
                         <input type="checkbox" onclick="return false;" readonly="readonly"

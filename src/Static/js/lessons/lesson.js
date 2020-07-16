@@ -24,9 +24,11 @@ $(document).ready(function () {
     }
   });
 
-  $('#media_search_term').keyup(delay(function (e) {
-    getMedia($('#dataType').val());
-  }, 500));
+  $("#media_search_term").keyup(
+    delay(function (e) {
+      getMedia($("#dataType").val());
+    }, 500)
+  );
 
   $("#upload_btn").click(function () {
     const Sdata = getSelecteddata();
@@ -80,13 +82,14 @@ $(document).ready(function () {
 const delay = (callback, ms) => {
   var timer = 0;
   return function () {
-    var context = this, args = arguments;
+    var context = this,
+      args = arguments;
     clearTimeout(timer);
     timer = setTimeout(function () {
       callback.apply(context, args);
     }, ms || 0);
   };
-}
+};
 
 let thumbr = [];
 function getlessons(id = "") {
@@ -116,7 +119,7 @@ function getlessons(id = "") {
           ")' class='subject pl-3 pr-3 pt-1 pb-1 mb-1";
         html +=
           id == subjects[i].id || (id == "" && i == 0) ? " active'>" : "'>";
-        html += subjects[i].Name + "</span>  ";
+        html += subjects[i].Name + "</span>";
       }
       $("#SB").html(html);
     },
@@ -163,7 +166,7 @@ const getMedia = (type) => {
     url: "/get-media",
     data: {
       type: type,
-      term: $('#media_search_term').val(),
+      term: $("#media_search_term").val(),
     },
     dataType: "json",
     success: function (response) {
