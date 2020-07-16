@@ -106,8 +106,9 @@
       url: '/new-lesson-asset',
       dataType: "json",
       success: function (response) {
-        if (response.new > 0) {
-          $('.lesson-asset').html(response.new);
+        console.log(response);
+        if (parseInt(response.new)>0) {
+          $('.lesson-asset').html(response.new).addClass('notification-badge');
         }
       }, error: function (error) {
         console.log(error.responseText);
@@ -119,8 +120,9 @@
       url: '/new-assignment-asset',
       dataType: "json",
       success: function (response) {
-        if (response.new > 0) {
-          $('.assignment-asset').html(response.new);
+        console.log(response);
+        if (parseInt(response.new)>0) {
+          $('.assignment-asset').html(response.new).addClass('notification-badge');
         }
       }, error: function (error) {
         console.log(error.responseText);
@@ -132,8 +134,9 @@
       url: '/new-homework-asset',
       dataType: "json",
       success: function (response) {
-        if (response.new > 0) {
-          $('.homework-asset').html(response.new);
+        console.log(response);
+        if (parseInt(response.new)>0) {
+          $('.homework-asset').html(response.new).addClass('notification-badge');
         }
       }, error: function (error) {
         console.log(error.responseText);
