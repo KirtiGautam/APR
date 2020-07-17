@@ -5,9 +5,10 @@ from django.conf import settings
 import datetime
 import json
 import math
-from accounts.models import Class, pdf, video
+from accounts.models import Class, pdf, video, User
 from homework.models import homework, Pdf, Video, Test_question, Test, user_progress_video, user_progress_pdf, HComment
 from lessons.models import Lesson, Subject, question
+from notifications.models import notifs
 
 
 def homeworks(request):
@@ -68,6 +69,14 @@ def newHomework(request):
             for x in data:
                 Test_question.objects.create(
                     question=question.objects.get(id=x), test=tes)
+
+        # Notify users
+        link = reverse('homework:homeworkDetails',
+                       kwargs={'id': home.id})
+        message = 'New homework added "'+home.Name+'" for ' + home.Subject.Name
+        objs = [notifs(recipient=user.user, message=message, link=link)
+                for user in users]
+        notifs.objects.bulk_create(objs)
         data = {
             'message': 'Data added'
         }
@@ -78,21 +87,31 @@ def newHomework(request):
 def addresource(request):
     if request.user.is_authenticated:
         data = request.POST.getlist('data[]')
+        home = homework.objects.get(id=request.POST['homework'])
         if request.POST['type'] == 'pdf':
             for x in data:
                 Pdf.objects.create(pdf=pdf.objects.get(id=x), lesson=Lesson.objects.get(
-                    id=request.POST['lesson']), homework=homework.objects.get(id=request.POST['homework']))
+                    id=request.POST['lesson']), homework=home)
         elif request.POST['type'] == 'video':
             for x in data:
                 Video.objects.create(video=video.objects.get(id=x), lesson=Lesson.objects.get(
-                    id=request.POST['lesson']), homework=homework.objects.get(id=request.POST['homework']))
+                    id=request.POST['lesson']), homework=home)
         else:
             final = True if request.POST['final'] == '1' else False
             tes = Test.objects.create(Name=request.POST['Name'], Duration=request.POST['duration'],
-                                      final=final, Homework=homework.objects.get(id=request.POST['homework']))
+                                      final=final, Homework=home)
             for x in data:
                 Test_question.objects.create(
                     question=question.objects.get(id=x), test=tes)
+
+        # Notify users
+        link = reverse('homework:homeworkDetails',
+                       kwargs={'id': home.id})
+        message = 'New '+request.POST['type'] + \
+            ' added in "'+home.Name+'" for ' + home.Subject.Name
+        objs = [notifs(recipient=user.user, message=message, link=link)
+                for user in users]
+        notifs.objects.bulk_create(objs)
         return http.JsonResponse({'message': 'File uploaded'})
     return http.HttpResponseForbidden({'message': 'Forbidden'})
 
@@ -184,7 +203,7 @@ def video_watched(request):
                     }
                 else:
                     data = {
-                        'message': 'Vido already watched',
+                        'message': 'Video already watched',
                     }
                 data['success'] = True
         else:
@@ -311,8 +330,26 @@ def homeworkComments(request):
             # if parent_id has been submitted get parent_obj id
             if parent_id:
                 parent_obj = HComment.objects.get(id=parent_id)
+            
+            doubt = True if request.POST['doubt'] == 'true' else False
+
             HComment.objects.create(
                 Video=Videos, Author=request.user, body=request.POST['body'], parent=parent_obj)
+            
+            # Send notifications if doubt
+            if doubt:
+                link = reverse('homework:video', kwargs={'id': Videos.id})
+                messsage = request.user.get_full_name()+' asked a doubt on lecture ' + \
+                    Videos.video.Name
+                admins = User.objects.filter(admin=True)
+                teacher = Videos.homework.Subject.teacher
+                classmates = Videos.homework.Subject.Class.Students.all().exclude(user=request.user)
+                notifs.objects.bulk_create(
+                    [notifs(recipient=user, message=messsage, link=link) for user in admins])
+                notifs.objects.create(
+                    recipient=teacher, message=messsage, link=link)
+                notifs.objects.bulk_create(
+                    [notifs(recipient=user.user, message=messsage, link=link) for user in classmates])
         else:
             # get post object
             Videos = Video.objects.get(id=request.GET['id'])
@@ -388,7 +425,10 @@ def deleteComment(request):
 def updateComment(request):
     if request.user.is_authenticated:
         comment = HComment.objects.get(id=request.POST['id'])
-        comment.body = request.POST['body']
+        if 'resolved' in request.POST:
+            comment.resolved = not comment.resolved
+        else:
+            comment.body = request.POST['body']
         comment.save()
         return http.JsonResponse({
             'message': 'Comment Updated'

@@ -41,11 +41,14 @@ $(document).ready(function () {
     dataType: "json",
     success: function (response) {
       let html = '';
-      response.notifications.forEach(notif => {
-        html += `<a class="dropdown-item p-2 ${notif.read ? 'unread' : ''}" href="${notif.link}">${notif.message}</a><div class="dropdown-divider"></div>`
-      });
+      if (response.notifications.length > 0) {
+        response.notifications.forEach(notif => {
+          html += `<a class="dropdown-item p-2 ${notif.read ? 'unread' : ''}" href="${notif.link}">${notif.message}</a><div class="dropdown-divider"></div>`
+        });
+      } else {
+        html += '<span class="dropdown-item p-2">No notifications</span>';
+      }
       $('#notif-list').html(html);
-      console.log(response)
     }, error: function (error) {
       console.log(error.responseText);
     }

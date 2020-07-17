@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from django.core.files.storage import default_storage
 from lessons.models import Subject, Lesson, question
-from accounts.models import Class, pdf, video
+from accounts.models import Class, pdf, video, User
 from assignments.models import assignment, Pdf, Video, Test, Test_question, user_progress_video, user_progress_pdf, AComment
 from notifications.models import notifs
 from django.utils import timezone, dateparse
@@ -185,19 +185,15 @@ def newAssignment(request):
         subject = Subject.objects.get(id=request.POST['subject'])
         assign = assignment.objects.create(
             Name=request.POST['NOA'], Instructions=request.POST['instruction'], Deadline=dead, Subject=subject)
+
+        # Notify users
         users = subject.Class.Students.all()
         link = reverse('assignment:assignmentDetails',
                        kwargs={'id': assign.id})
         message = 'New assignment added "'+assign.Name+'" for ' + assign.Subject.Name
-
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in users]
         notifs.objects.bulk_create(objs)
-        # for user in users:
-        #     notifs(recipient=user.user,
-        #            message=message, link=link)
-        #     notifs.objects.create(recipient=user.user,
-        #                           message=message, link=link)
         data = {
             'message': 'Data added'
         }
@@ -208,21 +204,30 @@ def newAssignment(request):
 def addresource(request):
     if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         data = request.POST.getlist('data[]')
+        assign = assignment.objects.get(id=request.POST['assignment'])
         if request.POST['type'] == 'pdf':
             for x in data:
                 Pdf.objects.create(pdf=pdf.objects.get(
-                    id=x), lesson=Lesson.objects.get(id=request.POST['lesson']), assignment=assignment.objects.get(id=request.POST['assignment']))
+                    id=x), lesson=Lesson.objects.get(id=request.POST['lesson']), assignment=assign)
         elif request.POST['type'] == 'video':
             for x in data:
                 Video.objects.create(video=video.objects.get(
-                    id=x), lesson=Lesson.objects.get(id=request.POST['lesson']), assignment=assignment.objects.get(id=request.POST['assignment']))
+                    id=x), lesson=Lesson.objects.get(id=request.POST['lesson']), assignment=assign)
         else:
             final = True if request.POST['final'] == '1' else False
             tes = Test.objects.create(Name=request.POST['Name'], Duration=request.POST['duration'],
-                                      final=final, Assignment=assignment.objects.get(id=request.POST['assignment']))
+                                      final=final, Assignment=assign)
             for x in data:
                 Test_question.objects.create(
                     question=question.objects.get(id=x), test=tes)
+        # Notify users
+        link = reverse('assignment:assignmentDetails',
+                       kwargs={'id': assign.id})
+        message = 'New '+request.POST['type']+' added in "' + \
+            assign.Name+'" for ' + assign.Subject.Name
+        objs = [notifs(recipient=user.user, message=message, link=link)
+                for user in assign.Subject.Class.Students.all()]
+        notifs.objects.bulk_create(objs)
         return http.JsonResponse({'message': 'File uploaded'})
     return http.HttpResponseForbidden({'message': 'Forbidden'})
 
@@ -374,8 +379,26 @@ def assignmentComments(request):
             # if parent_id has been submitted get parent_obj id
             if parent_id:
                 parent_obj = AComment.objects.get(id=parent_id)
+            
+            doubt = True if request.POST['doubt'] == 'true' else False
+
             AComment.objects.create(
                 Video=Videos, Author=request.user, body=request.POST['body'], parent=parent_obj)
+
+            # Send notifications if doubt
+            if doubt:
+                link = reverse('assignment:video', kwargs={'id': Videos.id})
+                messsage = request.user.get_full_name()+' asked a doubt on lecture ' + \
+                    Videos.video.Name
+                admins = User.objects.filter(admin=True)
+                teacher = Videos.assignment.Subject.teacher
+                classmates = Videos.assignment.Subject.Class.Students.all().exclude(user=request.user)
+                notifs.objects.bulk_create(
+                    [notifs(recipient=user, message=messsage, link=link) for user in admins])
+                notifs.objects.create(
+                    recipient=teacher, message=messsage, link=link)
+                notifs.objects.bulk_create(
+                    [notifs(recipient=user.user, message=messsage, link=link) for user in classmates])
         else:
             # get post object
             Videos = Video.objects.get(id=request.GET['id'])
@@ -451,7 +474,10 @@ def deleteComment(request):
 def updateComment(request):
     if request.user.is_authenticated:
         comment = AComment.objects.get(id=request.POST['id'])
-        comment.body = request.POST['body']
+        if 'resolved' in request.POST:
+            comment.resolved = not comment.resolved
+        else:
+            comment.body = request.POST['body']
         comment.save()
         return http.JsonResponse({
             'message': 'Comment Updated'

@@ -7,7 +7,7 @@
                 <span class="title col-12 text-truncate">{{key.0.Subject.Name}}</span>
                 <span class="summary col-12 text-truncate">{{key.0.video.all.count}} Videos + {{key.0.pdf.all.count}}
                     Reading</span>
-                {% if request.user.user_type == "Student" and not key|viewed:request.user %}
+                {% if request.user.user_type == "Student" and not key.0|viewed:request.user %}
                 <img src="/static/Images/lesson/ripple.svg" class="new-noti">
                 {% endif %}
             </span>

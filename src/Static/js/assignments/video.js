@@ -71,6 +71,7 @@ const comment = (parent_id, body) => {
             'id': findGetParameter(),
             'parent_id': parent_id,
             'body': body,
+            'doubt': $('#doubt_marker').is(':checked'),
         },
         dataType: "json",
         success: function (response) {
@@ -81,6 +82,7 @@ const comment = (parent_id, body) => {
             } else {
                 alert('Comment added');
                 $('#comment_body').val('')
+                $('#doubt_marker').prop('checked', false),
             }
         },
         error: function (error) {
@@ -106,6 +108,26 @@ const delete_comment = id => {
             } else {
                 alert('Comment deleted')
             }
+        },
+        error: function (error) {
+            alert(error.responseText);
+        },
+    });
+}
+
+const doubt_resolved = id => {
+    $.ajax({
+        type: "POST",
+        headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+        url: "/update-assignment-comment",
+        data: {
+            'id': id,
+            "resolved": true,
+        },
+        dataType: "json",
+        success: function (response) {
+            getComments()
+            alert(response.message)
         },
         error: function (error) {
             alert(error.responseText);

@@ -119,7 +119,7 @@ function getlessons(id = "") {
           ")' class='subject";
         html +=
           id == subjects[i].id || (id == "" && i == 0) ? " active'>" : "'>";
-        html += subjects[i].Name +'<img src="/static/Images/lesson/ripple.svg" class="lesson-noti"></img>'+ "</span>";
+        html += subjects[i].Name + `${subjects[i].count > 0 ? '<img src="/static/Images/lesson/ripple.svg" class="lesson-noti"></img>' : ''}</span>`;
       }
       $("#SB").html(html);
     },

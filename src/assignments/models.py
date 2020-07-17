@@ -84,6 +84,8 @@ class AComment(models.Model):
         User, on_delete=models.CASCADE, related_name='assignment_video_comments')
     body = models.TextField()
     likes = models.ManyToManyField(User, through='assignment_video_likes')
+    doubt = models.BooleanField(default=False)
+    resolved = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     parent = models.ForeignKey(

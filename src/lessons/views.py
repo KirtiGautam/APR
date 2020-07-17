@@ -4,7 +4,8 @@ from django.template.loader import render_to_string
 from django.conf import settings
 import json
 import math
-from accounts.models import Class, video, pdf
+from notifications.models import notifs
+from accounts.models import Class, video, pdf, User
 from lessons.models import (Subject, question, Pdf, Video, Lesson,
                             Test, Test_question, user_progress_pdf, user_progress_video, Comment)
 
@@ -86,8 +87,13 @@ def getLessons(request):
             }
         else:
             data = {}
-        send = request.user.teacher.filter(Class=request.GET['id']).values(
-            'id', 'Name') if request.user.is_staff else Subject.objects.filter(Class=request.GET['id']).values('id', 'Name')
+        send = request.user.teacher.filter(
+            Class=request.GET['id']) if request.user.is_staff else Subject.objects.filter(Class=request.GET['id'])
+        send = [{
+            'id': subj.id,
+            'Name': subj.Name,
+            'count': sum([Video.objects.filter(lesson__Subject=subj).exclude(viewed_by__id=request.user.id).count(), Pdf.objects.filter(lesson__Subject=subj).exclude(viewed_by__id=request.user.id).count()]),
+        } for subj in send]
         client = {
             'body': render_to_string('lesson/lessons.html', data, request=request),
             'subjects': list(send)
@@ -126,21 +132,30 @@ def vid(request, id):
 def addResource(request):
     if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
         data = request.POST.getlist('data[]')
+        lesson = Lesson.objects.get(id=request.POST['lesson'])
         if request.POST['type'] == 'pdf':
             for x in data:
                 Pdf.objects.create(pdf=pdf.objects.get(
-                    id=x), lesson=Lesson.objects.get(id=request.POST['lesson']))
+                    id=x), lesson=lesson)
         elif request.POST['type'] == 'video':
             for x in data:
                 Video.objects.create(video=video.objects.get(
-                    id=x), lesson=Lesson.objects.get(id=request.POST['lesson']))
+                    id=x), lesson=lesson)
         else:
             final = True if request.POST['final'] == '1' else False
             tes = Test.objects.create(Name=request.POST['Name'], Duration=request.POST['duration'],
-                                      final=final, Lesson=Lesson.objects.get(id=request.POST['lesson']))
+                                      final=final, Lesson=lesson)
             for x in data:
                 Test_question.objects.create(
                     question=question.objects.get(id=x), test=tes)
+
+        # Notify users
+        link = reverse('lessons:lessons')
+        message = 'New '+request.POSt['type']+' in "' + \
+            lesson.Name+'" for ' + lesson.Subject.Name
+        objs = [notifs(recipient=user.user, message=message, link=link)
+                for user in lesson.Subject.Students.all()]
+        notifs.objects.bulk_create(objs)
         data = {
             'message': 'Data added'
         }
@@ -257,8 +272,26 @@ def lessonComments(request):
             # if parent_id has been submitted get parent_obj id
             if parent_id:
                 parent_obj = Comment.objects.get(id=parent_id)
+
+            doubt = True if request.POST['doubt'] == 'true' else False
+
             Comment.objects.create(
-                Video=Videos, Author=request.user, body=request.POST['body'], parent=parent_obj)
+                Video=Videos, Author=request.user, body=request.POST['body'], doubt=doubt, parent=parent_obj)
+
+            # Send notifications if doubt
+            if doubt:
+                link = reverse('lessons:video', kwargs={'id': Videos.id})
+                messsage = request.user.get_full_name()+' asked a doubt on lecture ' + \
+                    Videos.video.Name
+                admins = User.objects.filter(admin=True)
+                teacher = Videos.lesson.Subject.teacher
+                classmates = Videos.lesson.Subject.Class.Students.all().exclude(user=request.user)
+                notifs.objects.bulk_create(
+                    [notifs(recipient=user, message=messsage, link=link) for user in admins])
+                notifs.objects.create(
+                    recipient=teacher, message=messsage, link=link)
+                notifs.objects.bulk_create(
+                    [notifs(recipient=user.user, message=messsage, link=link) for user in classmates])
         else:
             # get post object
             Videos = Video.objects.get(id=request.GET['id'])
@@ -334,7 +367,10 @@ def deleteComment(request):
 def updateComment(request):
     if request.user.is_authenticated:
         comment = Comment.objects.get(id=request.POST['id'])
-        comment.body = request.POST['body']
+        if 'resolved' in request.POST:
+            comment.resolved = not comment.resolved
+        else:
+            comment.body = request.POST['body']
         comment.save()
         return http.JsonResponse({
             'message': 'Comment Updated'

@@ -8,6 +8,9 @@
                 <div class="col-6 text-truncate">{{comment}}</div>
                 <div class="col-6">
                     <span class="float-right">
+                        {% if comment.doubt %}<div
+                            class="badge badge-pill badge-{% if comment.resolved %}success{% else %}danger{% endif %}">
+                            {% if comment.resolved %}Resolved{% else %}Doubt{% endif %}</div>{% endif %}
                         <div
                             class="badge badge-pill badge-{% if comment.Author.admin %}danger{% elif comment.Author.is_staff %}warning{% else %}primary{% endif %}">
                             {% if comment.Author.admin %}Admin{% elif comment.Author.is_staff %}Teacher{% else %}Student{% endif %}
@@ -28,7 +31,9 @@
                     onclick="editComment({{comment.id}})">Edit</button>{% endif %}
                 {% if request.user.user_type == 'Staff' and comment.Author.user_type == 'Student' or comment.Author == request.user %}
                 <button class="dropdown-item" onclick="delete_comment({{comment.id}})">Delete</button>{% endif %}
-                <button class="dropdown-item">Mark as resolved</button>
+                {% if comment.doubt and comment.Author == request.user %} <button class="dropdown-item"
+                    onclick="doubt_resolved({{comment.id}})">Mark as
+                    {% if comment.resolved %}un{% endif %}resolved</button>{% endif %}
             </div>
         </div>
     </span>
