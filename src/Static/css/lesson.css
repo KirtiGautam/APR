@@ -47,6 +47,8 @@
   text-align: center;
   cursor: pointer;
   display: inline-block;
+  padding: 5px 10px;
+  margin: 3px;
 }
 
 .subject.active {
@@ -130,8 +132,8 @@ a:hover {
   position: absolute;
   top: -10px;
   right: 0px;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
 
 .lessons-row-head {

@@ -57,7 +57,7 @@
   color: #626262;
 }
 
-.mar{
+.mar {
   margin-top: 26px;
 }
 
@@ -249,4 +249,12 @@ a:focus {
     no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   outline: none;
+}
+
+.new-noti {
+  position: absolute;
+  top: -25px;
+  right: -9px;
+  width: 50px;
+  height: 50px;
 }

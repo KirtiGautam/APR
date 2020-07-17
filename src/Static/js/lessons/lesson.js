@@ -116,10 +116,10 @@ function getlessons(id = "") {
         html +=
           "<span onclick='getlessons(" +
           subjects[i].id +
-          ")' class='subject pl-3 pr-3 pt-1 pb-1 mb-1";
+          ")' class='subject";
         html +=
           id == subjects[i].id || (id == "" && i == 0) ? " active'>" : "'>";
-        html += subjects[i].Name + "</span>";
+        html += subjects[i].Name +'<img src="/static/Images/lesson/ripple.svg" class="lesson-noti"></img>'+ "</span>";
       }
       $("#SB").html(html);
     },

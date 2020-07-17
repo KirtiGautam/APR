@@ -1,3 +1,4 @@
+{% load video_tags %}
 {% for key in assignments %}
 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
     <a href="{% url 'assignment:assignmentDetails' key.assi.id %}">
@@ -8,6 +9,9 @@
                 <span class="summary col-12 text-truncate pb-3">{{key.assi.video.all.count}} Videos +
                     {{key.assi.pdf.all.count}}
                     Reading</span>
+                {% if request.user.user_type == "Student" and not key|viewed:request.user %}
+                <img src="/static/Images/lesson/ripple.svg" class="new-noti">
+                {% endif %}
             </span>
             {% if request.user.user_type == 'Student' %}
             <div class="row pb-3 pr-1">
