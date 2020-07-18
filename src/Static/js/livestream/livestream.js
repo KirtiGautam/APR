@@ -19,7 +19,6 @@ $(document).ready(function () {
     $('#newLS').click(function () {
         if (!$('#teacher').val() ||
             !$('#Name').val() ||
-            !$('#Stream_link').val() ||
             !$('#Time').val() ||
             !$('#Subject').val() ||
             !$('#Duration').val()) {
@@ -37,7 +36,6 @@ $(document).ready(function () {
             data: {
                 teacher: $('#teacher').val(),
                 Name: $('#Name').val(),
-                Stream_link: $('#Stream_link').val(),
                 Time: $('#Time').val(),
                 Subject: $('#Subject').val(),
                 Duration: $('#Duration').val()
@@ -85,7 +83,6 @@ $(document).ready(function () {
     $('#updateLS').click(function () {
         if (!$('#teacher').val() ||
             !$('#Name').val() ||
-            !$('#Stream_link').val() ||
             !$('#Time').val() ||
             !$('#Subject').val() ||
             !$('#Duration').val()) {
@@ -100,7 +97,6 @@ $(document).ready(function () {
                 id: $('#hidden_ls_id').val(),
                 teacher: $('#teacher').val(),
                 Name: $('#Name').val(),
-                Stream_link: $('#Stream_link').val(),
                 Time: $('#Time').val(),
                 Subject: $('#Subject').val(),
                 Duration: $('#Duration').val()
@@ -197,7 +193,6 @@ const prenew = () => {
     $('#newLS').removeClass('d-none');
     $('#teacher').val('')
     $('#Name').val('')
-    $('#Stream_link').val('')
     $('#Time').val('')
     $('#Duration').val('')
     $('#Subject').val('')

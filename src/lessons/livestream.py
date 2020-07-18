@@ -4,6 +4,8 @@ from django import http
 from accounts.models import Class, User
 from lessons.models import liveStream, Subject
 from django.utils import timezone, dateparse
+from lessons.meet_link.calender import calendar_event
+import datetime
 
 
 def index(request):
@@ -22,7 +24,8 @@ def index(request):
                 'Class': request.user.Student.Class.id
             }
         image_data = open("Media/10th.pdf", "rb").read()
-        data['resp'] = http.FileResponse(image_data, content_type="application/pdf")
+        data['resp'] = http.FileResponse(
+            image_data, content_type="application/pdf")
         return render(request, 'livestream/livestream.html', data)
     else:
         return redirect('accounts:login')
@@ -52,8 +55,27 @@ def newLS(request):
             dateparse.parse_datetime(request.POST['Time']))
         subject = Subject.objects.get(id=request.POST['Subject'])
         teacher = User.objects.get(id=request.POST['teacher'])
+
+        attendees = [{'email': user.user.email}
+                     for user in subject.Class.Students.all()]
+        # attendees.append({'email': teacher.email})
+        start_end = request.POST['Duration'].split('.')
+        hours = start_end[0]
+        minutes = start_end[1]
+        diff = datetime.timedelta(hours=int(hours), minutes=int(minutes))
+        end = time+diff
+
+        event_data = {
+            'start': 'T'.join(str(time).split(' ')),
+            'end':  'T'.join(str(end).split(' ')),
+            'title': request.POST['Name'],
+            'subject': subject.Name,
+        }
+
+        event = calendar_event(event_data, attendees)
+
         liveStream.objects.create(
-            Subject=subject, User=teacher, Name=request.POST['Name'], Stream_link=request.POST['Stream_link'], Time=time, Duration=request.POST['Duration'])
+            Subject=subject, User=teacher, Name=request.POST['Name'], Stream_link=event.get('hangoutLink'), Time=time, Duration=request.POST['Duration'])
         data = {
             'message': 'Live Stream added'
         }
