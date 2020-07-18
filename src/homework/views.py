@@ -73,8 +73,8 @@ def newHomework(request):
         # Notify users
         link = reverse('homework:homeworkDetails',
                        kwargs={'id': home.id})
-        message = '<i class="fas fa-house-user"></i> New homework added "' + \
-            home.Name+'" for ' + home.Subject.Name
+        message = '<i class="fas fa-house-user"></i> New homework added <span class="font-weight-bold">"' + \
+            home.Name+'"</span> for ' + home.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in users]
         notifs.objects.bulk_create(objs)
@@ -115,7 +115,7 @@ def addresource(request):
         else:
             message = '<i class="fas fa-file-alt"></i> '
         message += 'New '+request.POST['type'] + \
-            ' added in "'+home.Name+'" for ' + home.Subject.Name
+            ' added in <span class="font-weight-bold">"'+home.Name+'"</span> for ' + home.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in users]
         notifs.objects.bulk_create(objs)

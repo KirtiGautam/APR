@@ -64,17 +64,16 @@ a:hover {
 .notification-badge {
   display: inline-block;
   padding: 0;
-  font-size: 15px;
-  line-height: 30px;
+  font-size: 13px;
+  line-height: 25px;
   color: #fff;
   text-align: center;
   white-space: nowrap;
-  vertical-align: baseline;
   background-color: #f05e23;
   border-radius: 50px;
   position: relative;
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   font-family: Arial, Helvetica, sans-serif;
 }
 

@@ -190,8 +190,8 @@ def newAssignment(request):
         users = subject.Class.Students.all()
         link = reverse('assignment:assignmentDetails',
                        kwargs={'id': assign.id})
-        message = '<i class="fas fa-tasks"></i> New assignment added "' + \
-            assign.Name+'" for ' + assign.Subject.Name
+        message = '<i class="fas fa-tasks"></i> New assignment added <span class="font-weight-bold">"' + \
+            assign.Name+'"</span> for ' + assign.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in users]
         notifs.objects.bulk_create(objs)
@@ -230,8 +230,8 @@ def addresource(request):
             message = '<i class="fas fa-file-pdf"></i> '
         else:
             message = '<i class="fas fa-file-alt"></i> '
-        message += 'New '+request.POST['type']+' added in "' + \
-            assign.Name+'" for ' + assign.Subject.Name
+        message += 'New '+request.POST['type']+' added in <span class="font-weight-bold">"' + \
+            assign.Name+'"</span> for ' + assign.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in assign.Subject.Class.Students.all()]
         notifs.objects.bulk_create(objs)
