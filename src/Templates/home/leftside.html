@@ -62,7 +62,7 @@
             class="homework-asset"></span>{% endif %}
         </a>
       </li>
-      {% if user.user_type == 'Student' %}
+      {% if user.user_type == 'Student' or user.admin %}
       <li class="mt-3">
         <a href="{% url 'accounts:leaderboard' %}?time=all">
           <span class="leftside-menu-icon">
@@ -106,8 +106,7 @@
       url: '/new-lesson-asset',
       dataType: "json",
       success: function (response) {
-        console.log(response);
-        if (parseInt(response.new)>0) {
+        if (response.new) {
           $('.lesson-asset').html(response.new).addClass('notification-badge');
         }
       }, error: function (error) {
@@ -120,8 +119,7 @@
       url: '/new-assignment-asset',
       dataType: "json",
       success: function (response) {
-        console.log(response);
-        if (parseInt(response.new)>0) {
+        if (response.new) {
           $('.assignment-asset').html(response.new).addClass('notification-badge');
         }
       }, error: function (error) {
@@ -134,8 +132,7 @@
       url: '/new-homework-asset',
       dataType: "json",
       success: function (response) {
-        console.log(response);
-        if (parseInt(response.new)>0) {
+        if (response.new) {
           $('.homework-asset').html(response.new).addClass('notification-badge');
         }
       }, error: function (error) {

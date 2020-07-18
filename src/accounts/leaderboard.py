@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django import http
-from accounts.models import Student
+from accounts.models import (Student, Class)
 import math
 from lessons.models import (
     user_progress_pdf as lesson_video_progress,
@@ -31,7 +31,7 @@ from django.utils import timezone
 
 
 def leaderboard(request):
-    if request.user.is_authenticated and request.user.user_type == 'Student':
+    if request.user.is_authenticated and (request.user.user_type == 'Student' or request.user.admin):
         if request.GET['time'] == 'weekly':
             constraint = datetime.datetime.now(
                 datetime.timezone.utc)-datetime.timedelta(days=6)
@@ -43,8 +43,18 @@ def leaderboard(request):
                 datetime.date(1999, 11, 25), datetime.datetime.min.time()))
         data = []
         # Get All Students of same class
-        this_class = request.user.Student.Class
-        students = Student.objects.filter(Class=this_class)
+        if request.user.user_type == 'Student':
+            this_class = request.user.Student.Class
+            students = Student.objects.filter(Class=this_class)
+        if request.user.admin:
+            if 'Class' in request.GET:
+                this_class = Class.objects.get(id=request.GET['Class'])
+                students = Student.objects.filter(
+                    Class=this_class)
+            else:
+                this_class = Class.objects.all().first()
+                students = Student.objects.filter(
+                    Class=this_class)
 
         # Progress Section
         total_lesson_video_count = lesson_vid.objects.filter(
@@ -113,10 +123,10 @@ def leaderboard(request):
                 Pdf__in=total_assignment_pdf_count)  # Get assignment read pdfs
 
             if sum([total_lesson_video_count.count(), total_homework_video_count.count(), total_assignment_video_count.count(), total_assignment_pdf_count.count(), total_homework_pdf_count.count(), total_lesson_pdf_count.count()]) > 0:
-                category4 = round(math.floor((sum([student_watched_lesson_video.count(), student_watched_assignment_video.count(), student_watched_homework_video.count(), student_read_homework_pdf.count(), student_read_assignment_pdf.count(), student_read_lesson_pdf.count()]) /
-                                              sum([total_lesson_video_count.count(), total_homework_video_count.count(), total_assignment_video_count.count(), total_assignment_pdf_count.count(), total_homework_pdf_count.count(), total_lesson_pdf_count.count()]))*100)/5, 1)
+                category4 = math.floor((sum([student_watched_lesson_video.count(), student_watched_assignment_video.count(), student_watched_homework_video.count(), student_read_homework_pdf.count(), student_read_assignment_pdf.count(), student_read_lesson_pdf.count()]) /
+                                        sum([total_lesson_video_count.count(), total_homework_video_count.count(), total_assignment_video_count.count(), total_assignment_pdf_count.count(), total_homework_pdf_count.count(), total_lesson_pdf_count.count()]))*100)
             else:
-                category4 = 20
+                category4 = 0
 
             # Category 1
             student_lesson_comments = total_lesson_Comments.filter(
@@ -129,10 +139,10 @@ def leaderboard(request):
                 Author__id=x.user.id)  # Get Student Homework Comment
 
             if sum([total_lesson_Comments.count(), total_assignment_Comments.count(), total_homework_Comments.count()]) > 0:
-                category1 = round(math.floor((sum([student_lesson_comments.count(), student_homework_comments.count(), student_assignment_comments.count(
-                )])/sum([total_lesson_Comments.count(), total_assignment_Comments.count(), total_homework_Comments.count()])) * 100)/5, 1)
+                category1 = sum([student_lesson_comments.count(
+                ), student_homework_comments.count(), student_assignment_comments.count()])
             else:
-                category1 = 20
+                category1 = 0
 
             # Category 2
             student_lesson_likes = total_lesson_likes.filter(
@@ -145,10 +155,10 @@ def leaderboard(request):
                 HComment__Author__id=x.user.id)  # Get Student homework likes
 
             if sum([total_lesson_likes.count(), total_assignment_likes.count(), total_homework_likes.count()]) > 0:
-                category2 = round(math.floor((sum([student_lesson_likes.count(), student_homework_likes.count(), student_assignment_likes.count(
-                )])/sum([total_lesson_likes.count(), total_assignment_likes.count(), total_homework_likes.count()])) * 100)/5, 1)
+                category2 = sum([student_lesson_likes.count(
+                ), student_homework_likes.count(), student_assignment_likes.count()])
             else:
-                category2 = 20
+                category2 = 0
 
             # Category 3
             student_lesson_appreciates = total_lesson_appreciates.filter(
@@ -160,13 +170,13 @@ def leaderboard(request):
                 HComment__Author__id=x.user.id)  # Get Student homework appreciates
 
             if sum([total_lesson_appreciates.count(), total_assignment_appreciates.count(), total_homework_appreciates.count()]) > 0:
-                category3 = round(math.floor((sum([student_lesson_appreciates.count(), student_homework_appreciates.count(), student_assignment_appreciates.count(
-                )])/sum([total_lesson_appreciates.count(), total_assignment_appreciates.count(), total_homework_appreciates.count()])) * 100)/5, 1)
+                category3 = sum([student_lesson_appreciates.count(
+                ), student_homework_appreciates.count(), student_assignment_appreciates.count()])
             else:
-                category3 = 20
+                category3 = 0
 
-            final_points = round(category1+(category2*2) +
-                                 (category3*3)+(category4*0.5), 1)
+            final_points = round((category1+(category2*3) +
+                                  (category3*5))*(0.5+(category4/100)), 1)
 
             if request.user == x.user:
                 mydata = {
@@ -205,7 +215,11 @@ def leaderboard(request):
         data = {
             'data': sorted(data, key=lambda i: i['finalpoints'], reverse=True),
             'mydata': mydata,
-            'maxdata':maxdata,
+            'maxdata': maxdata,
         }
+        if request.user.admin:
+            data['Classes'] = Class.objects.all()
+            data['class_select'] = Class.objects.first(
+            ).id if 'Class' not in request.GET else request.GET['Class']
         return render(request, 'leaderboard/leaderboard.html', data)
     return redirect('accounts:login')

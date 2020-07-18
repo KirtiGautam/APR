@@ -12,3 +12,15 @@ def notifications(request):
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Forbidden'})
+
+
+def read(request):
+    if request.user.is_authenticated:
+        notifi = notifs.objects.get(id=request.POST['id'])
+        notifi.read = True
+        notifi.save()
+        data = {
+            'message': 'Notification is read'
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Forbidden'})

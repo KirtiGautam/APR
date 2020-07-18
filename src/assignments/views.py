@@ -190,7 +190,8 @@ def newAssignment(request):
         users = subject.Class.Students.all()
         link = reverse('assignment:assignmentDetails',
                        kwargs={'id': assign.id})
-        message = 'New assignment added "'+assign.Name+'" for ' + assign.Subject.Name
+        message = '<i class="fas fa-tasks"></i> New assignment added "' + \
+            assign.Name+'" for ' + assign.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in users]
         notifs.objects.bulk_create(objs)
@@ -223,7 +224,13 @@ def addresource(request):
         # Notify users
         link = reverse('assignment:assignmentDetails',
                        kwargs={'id': assign.id})
-        message = 'New '+request.POST['type']+' added in "' + \
+        if request.POST['type'] == 'video':
+            message = '<i class="fas fa-photo-video"></i> '
+        elif request.POST['type'] == 'pdf':
+            message = '<i class="fas fa-file-pdf"></i> '
+        else:
+            message = '<i class="fas fa-file-alt"></i> '
+        message += 'New '+request.POST['type']+' added in "' + \
             assign.Name+'" for ' + assign.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in assign.Subject.Class.Students.all()]
@@ -379,7 +386,7 @@ def assignmentComments(request):
             # if parent_id has been submitted get parent_obj id
             if parent_id:
                 parent_obj = AComment.objects.get(id=parent_id)
-            
+
             doubt = True if request.POST['doubt'] == 'true' else False
 
             AComment.objects.create(
@@ -388,8 +395,8 @@ def assignmentComments(request):
             # Send notifications if doubt
             if doubt:
                 link = reverse('assignment:video', kwargs={'id': Videos.id})
-                messsage = request.user.get_full_name()+' asked a doubt on lecture ' + \
-                    Videos.video.Name
+                messsage = '<i class="fas fa-question-circle"></i> ' + \
+                    request.user.get_full_name()+' asked a doubt on lecture ' + Videos.video.Name
                 admins = User.objects.filter(admin=True)
                 teacher = Videos.assignment.Subject.teacher
                 classmates = Videos.assignment.Subject.Class.Students.all().exclude(user=request.user)
@@ -405,9 +412,7 @@ def assignmentComments(request):
         # list of active parent comments
         comments = Videos.comments.filter(
             parent__isnull=True).order_by('-created')
-        # for x in comments:
-        #     if x.likes.filter(id=request.user.id).exists():
-        #         x['liked'] = True
+
         client = {
             'comments': comments
         }
@@ -415,6 +420,7 @@ def assignmentComments(request):
             'body': render_to_string('video/discussions.html', client, request=request)
         }
         return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Not allowed'})
 
 
 def likeComment(request):

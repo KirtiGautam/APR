@@ -152,7 +152,7 @@
             'embed.logos.vimeo': false,
             'embed.title.owner': 'hide',
             'embed.title.portrait': 'hide',
-            // 'privacy.view': opts.private ? 'nobody' : 'anybody'
+            'embed.title.name': 'hide',
         }
 
         if (!(this.url = opts.url)) {

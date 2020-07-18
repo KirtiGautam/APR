@@ -73,7 +73,8 @@ def newHomework(request):
         # Notify users
         link = reverse('homework:homeworkDetails',
                        kwargs={'id': home.id})
-        message = 'New homework added "'+home.Name+'" for ' + home.Subject.Name
+        message = '<i class="fas fa-house-user"></i> New homework added "' + \
+            home.Name+'" for ' + home.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in users]
         notifs.objects.bulk_create(objs)
@@ -107,7 +108,13 @@ def addresource(request):
         # Notify users
         link = reverse('homework:homeworkDetails',
                        kwargs={'id': home.id})
-        message = 'New '+request.POST['type'] + \
+        if request.POST['type'] == 'video':
+            message = '<i class="fas fa-photo-video"></i> '
+        elif request.POST['type'] == 'pdf':
+            message = '<i class="fas fa-file-pdf"></i> '
+        else:
+            message = '<i class="fas fa-file-alt"></i> '
+        message += 'New '+request.POST['type'] + \
             ' added in "'+home.Name+'" for ' + home.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in users]
@@ -330,17 +337,17 @@ def homeworkComments(request):
             # if parent_id has been submitted get parent_obj id
             if parent_id:
                 parent_obj = HComment.objects.get(id=parent_id)
-            
+
             doubt = True if request.POST['doubt'] == 'true' else False
 
             HComment.objects.create(
                 Video=Videos, Author=request.user, body=request.POST['body'], parent=parent_obj)
-            
+
             # Send notifications if doubt
             if doubt:
                 link = reverse('homework:video', kwargs={'id': Videos.id})
-                messsage = request.user.get_full_name()+' asked a doubt on lecture ' + \
-                    Videos.video.Name
+                messsage = '<i class="fas fa-question-circle"></i> ' + \
+                    request.user.get_full_name()+' asked a doubt on lecture ' + Videos.video.Name
                 admins = User.objects.filter(admin=True)
                 teacher = Videos.homework.Subject.teacher
                 classmates = Videos.homework.Subject.Class.Students.all().exclude(user=request.user)

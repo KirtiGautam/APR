@@ -151,7 +151,13 @@ def addResource(request):
 
         # Notify users
         link = reverse('lessons:lessons')
-        message = 'New '+request.POSt['type']+' in "' + \
+        if request.POST['type'] == 'video':
+            message = '<i class="fas fa-photo-video"></i> '
+        elif request.POST['type'] == 'pdf':
+            message = '<i class="fas fa-file-pdf"></i> '
+        else:
+            message = '<i class="fas fa-file-alt"></i> '
+        message += 'New '+request.POSt['type']+' in "' + \
             lesson.Name+'" for ' + lesson.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in lesson.Subject.Students.all()]
@@ -281,8 +287,8 @@ def lessonComments(request):
             # Send notifications if doubt
             if doubt:
                 link = reverse('lessons:video', kwargs={'id': Videos.id})
-                messsage = request.user.get_full_name()+' asked a doubt on lecture ' + \
-                    Videos.video.Name
+                messsage = '<i class="fas fa-question-circle"></i> ' + \
+                    request.user.get_full_name()+' asked a doubt on lecture ' + Videos.video.Name
                 admins = User.objects.filter(admin=True)
                 teacher = Videos.lesson.Subject.teacher
                 classmates = Videos.lesson.Subject.Class.Students.all().exclude(user=request.user)
