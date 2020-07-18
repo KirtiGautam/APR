@@ -157,8 +157,8 @@ def addResource(request):
             message = '<i class="fas fa-file-pdf"></i> '
         else:
             message = '<i class="fas fa-file-alt"></i> '
-        message += 'New '+request.POSt['type']+' in "' + \
-            lesson.Name+'" for ' + lesson.Subject.Name
+        message += 'New '+request.POSt['type']+' added in <span class="font-weight-bold">"' + \
+            lesson.Name+'"</span> for ' + lesson.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
                 for user in lesson.Subject.Students.all()]
         notifs.objects.bulk_create(objs)

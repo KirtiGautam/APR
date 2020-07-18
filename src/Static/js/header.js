@@ -63,10 +63,10 @@ $(document).ready(function () {
       if (response.notifications.length > 0) {
         response.notifications.forEach(notif => {
           if (notif.read) {
-            html += `<a class="dropdown-item p-2 read" href="${notif.link}">${notif.message}</a><div class="dropdown-divider"></div>`
+            html += `<a class="dropdown-item p-2 read" href="${notif.link}">${notif.message}</a>`
           } else {
             count += 1;
-            html += `<button class="dropdown-item p-2 unread" onclick="notif_read(${notif.id}, this);" value="${notif.link}">${notif.message}</button><div class="dropdown-divider"></div>`
+            html += `<button class="dropdown-item p-2 unread" onclick="notif_read(${notif.id}, this);" value="${notif.link}">${notif.message}</button>`
           }
         });
       } else {
