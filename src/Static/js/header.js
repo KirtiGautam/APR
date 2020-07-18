@@ -43,7 +43,7 @@ $(document).ready(function () {
       let html = '';
       if (response.notifications.length > 0) {
         response.notifications.forEach(notif => {
-          html += `<a class="dropdown-item p-2 ${notif.read ? 'unread' : ''}" href="${notif.link}">${notif.message}</a><div class="dropdown-divider"></div>`
+          html += `<a class="dropdown-item p-2 ${notif.read ? 'unread' : 'read'}" href="${notif.link}">${notif.message}</a><div class="dropdown-divider"></div>`
         });
       } else {
         html += '<span class="dropdown-item p-2">No notifications</span>';
