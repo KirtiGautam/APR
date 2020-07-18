@@ -62,13 +62,20 @@ a:hover {
 }
 
 .notification-badge {
-  background-color: #f05e23;
-  color: #f5f8fa;
-  padding: 5px 8px;
+  display: inline-block;
+  padding: 0;
   font-size: 15px;
+  line-height: 30px;
+  color: #fff;
   text-align: center;
-  border-radius: 50%;
-  box-shadow: 0 0 1px #333;
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #f05e23;
+  border-radius: 50px;
+  position: relative;
+  height: 30px;
+  width: 30px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 @media screen and (max-width: 800px) {
