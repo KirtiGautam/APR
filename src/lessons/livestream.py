@@ -23,9 +23,6 @@ def index(request):
             data = {
                 'Class': request.user.Student.Class.id
             }
-        image_data = open("Media/10th.pdf", "rb").read()
-        data['resp'] = http.FileResponse(
-            image_data, content_type="application/pdf")
         return render(request, 'livestream/livestream.html', data)
     else:
         return redirect('accounts:login')

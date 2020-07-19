@@ -76,7 +76,7 @@ def newHomework(request):
         message = '<i class="fas fa-house-user"></i> New homework added <span class="font-weight-bold">"' + \
             home.Name+'"</span> for ' + home.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
-                for user in users]
+                for user in home.Subject.Class.Students.all()]
         notifs.objects.bulk_create(objs)
         data = {
             'message': 'Data added'
@@ -114,10 +114,10 @@ def addresource(request):
             message = '<i class="fas fa-file-pdf"></i> '
         else:
             message = '<i class="fas fa-file-alt"></i> '
-        message += 'New '+request.POST['type'] + \
-            ' added in <span class="font-weight-bold">"'+home.Name+'"</span> for ' + home.Subject.Name
+        message += 'New '+request.POST['type'] + ' added in <span class="font-weight-bold">"' + \
+            home.Name+'"</span> for ' + home.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
-                for user in users]
+                for user in home.Subject.Class.Students.all()]
         notifs.objects.bulk_create(objs)
         return http.JsonResponse({'message': 'File uploaded'})
     return http.HttpResponseForbidden({'message': 'Forbidden'})
