@@ -66,7 +66,7 @@ $(document).ready(function () {
             html += `<button class="dropdown-item p-2 read"><a href="${notif.link}">${notif.message}<br><small class="text-secondary float-right">${notif.time}</small></a></button>`
           } else {
             count += 1;
-            html += `<button class="dropdown-item p-2 unread" onclick="notif_read(${notif.id}, this);" value="${notif.link}">${notif.message}<br><small class=" text-secondary float-right">${notif.time}</small></button>`
+            html += `<button class="dropdown-item p-2 unread" onclick="notif_read(${notif.id}, this);" value="${notif.link}">${notif.message}<br><small class="text-secondary float-right">${notif.time}</small></button>`
           }
         });
       } else {
