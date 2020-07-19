@@ -10,6 +10,7 @@
   font-size: 24px;
   font-family: Arial, Helvetica, sans-serif;
   color: #15202b;
+  padding: 10px 20px;
 }
 
 .header-icon:hover {
@@ -78,7 +79,7 @@
 }
 
 .unread {
-  background-color: #F5F8FA;
+  background-color: #f5f8fa;
   font-size: 13px;
   font-family: Arial, Helvetica, sans-serif;
   border-bottom: 1px solid #00000029;
@@ -89,4 +90,17 @@
   .header-name {
     display: none;
   }
+}
+
+@media screen and (max-width: 500px) {
+  .header-icon {
+    font-size: 24px;
+    padding: 10px 15px;
+  }
+  .read {
+    font-size: 10px;
+  }
+
+  .unread {
+    font-size: 10px;  }
 }
