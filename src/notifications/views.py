@@ -5,10 +5,16 @@ from notifications.models import notifs
 
 def notifications(request):
     if request.user.is_authenticated:
-        notifi = notifs.objects.filter(recipient=request.user).values(
-            'id', 'message', 'link', 'read', 'recieved_date').order_by('-recieved_date')
+        notifi = notifs.objects.filter(
+            recipient=request.user).order_by('-recieved_date')
         data = {
-            'notifications': list(notifi),
+            'notifications': [{
+                'id': x.id,
+                'message': x.message,
+                'link': x.link,
+                'read': x.read,
+                'time': x.when(),
+            }for x in notifi],
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Forbidden'})
