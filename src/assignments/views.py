@@ -18,7 +18,7 @@ def delassignment(request):
         assign = assignment.objects.get(id=request.POST['id'])
         assign.delete()
         data = {
-            'Message': 'Assignment Deleted'
+            'message': 'Assignment Deleted'
         }
         return http.JsonResponse(data)
     return http.JsonResponse({'message': 'Unauthorized'})

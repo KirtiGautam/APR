@@ -101,7 +101,9 @@ $(document).ready(function () {
   $("#dataType").change(function () {
     if (this.value == "pdf") {
       getMedia("pdf");
-      $(".test-d-none, #data_display, #media_search_term").removeClass("d-none");
+      $(".test-d-none, #data_display, #media_search_term").removeClass(
+        "d-none"
+      );
       $("#next_next_btn, .question_div").addClass("d-none");
     } else if (this.value == "test") {
       getQuestions();
@@ -109,7 +111,9 @@ $(document).ready(function () {
       $("#next_next_btn, .question_div").removeClass("d-none");
     } else if (this.value == "video") {
       getMedia("video");
-      $(".test-d-none, #data_display, #media_search_term").removeClass("d-none");
+      $(".test-d-none, #data_display, #media_search_term").removeClass(
+        "d-none"
+      );
       $("#next_next_btn, .question_div").addClass("d-none");
     } else {
       $(
@@ -299,7 +303,7 @@ const getMedia = (type) => {
   });
 };
 
-const delhomework = id => {
+const delhomework = (id) => {
   $.ajax({
     type: "POST",
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
@@ -309,13 +313,14 @@ const delhomework = id => {
     },
     dataType: "json",
     success: function (data) {
+      getHomeworks();
       alert(data.message);
     },
     error: function (error) {
       console.log(error.responseText);
     },
   });
-}
+};
 
 const getSelecteddata = () => {
   let data = [];

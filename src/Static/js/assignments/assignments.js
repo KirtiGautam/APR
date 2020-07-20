@@ -99,6 +99,7 @@ const delAssignment = id => {
     },
     dataType: "json",
     success: function (data) {
+      getAssignments();
       alert(data.message);
     },
     error: function (error) {

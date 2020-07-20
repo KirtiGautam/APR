@@ -2,11 +2,13 @@
 
 {% for key in assignments %}
 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+    <button class="btn float-right del" onclick="delAssignment({{key.assi.id}});" title="Delete"><i
+            class="fas fa-trash"></i></button>
     <a href="{% url 'assignment:assignmentDetails' key.assi.id %}">
         <div
             class="assignment-cards {% if key.progress == 100 or request.user.admin or request.user.is_staff %}complete{% elif key.progress == 0 %} deadline {% else %} prime {% endif %}">
             <span class="row assignment-row-head">
-                <span class="title col-12 text-truncate pb-1">{{key.assi.Subject.Name}}</span>
+                <span class="title col text-truncate pb-1 pt-1">{{key.assi.Subject.Name}}</span>
                 <span class="summary col-12 text-truncate pb-3">{{key.assi.video.all.count}} Videos +
                     {{key.assi.pdf.all.count}}
                     Reading</span>
@@ -105,5 +107,4 @@
         </div>
     </a>
 </div>
-//delAssignment({{key.assi.id}})
 {% endfor %}
