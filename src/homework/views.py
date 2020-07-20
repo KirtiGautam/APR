@@ -16,7 +16,7 @@ def delhomework(request):
         home = homework.objects.get(id=request.POST['id'])
         home.delete()
         data = {
-            'Message': 'Assignment Deleted'
+            'message': 'Homework Deleted'
         }
         return http.JsonResponse(data)
     return http.JsonResponse({'message': 'Unauthorized'})
