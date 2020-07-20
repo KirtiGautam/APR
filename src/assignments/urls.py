@@ -21,12 +21,14 @@ from .views import (
     likeComment,
     getComment,
     updateComment,
-    newCount
+    newCount,
+    delassignment,
 )
 
 app_name = 'assignment'
 
 urlpatterns = [
+    path('delete-assignment', delassignment, name='delete-assignment'),
     path('new-assignment-asset', newCount, name='newCount'),
     path('get-assignment-comment', getComment, name='getComment'),
     path('update-assignment-comment', updateComment, name='updateComment'),

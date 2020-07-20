@@ -89,6 +89,24 @@ const pastAssignments = () => {
   });
 }
 
+const delAssignment = id => {
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/delete-assignment",
+    data: {
+      id: id,
+    },
+    dataType: "json",
+    success: function (data) {
+      alert(data.message);
+    },
+    error: function (error) {
+      console.log(error.responseText);
+    },
+  });
+}
+
 const getSubjects = () => {
   $.ajax({
     type: "POST",

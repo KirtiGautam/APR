@@ -299,6 +299,24 @@ const getMedia = (type) => {
   });
 };
 
+const delhomework = id => {
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/delete-homework",
+    data: {
+      id: id,
+    },
+    dataType: "json",
+    success: function (data) {
+      alert(data.message);
+    },
+    error: function (error) {
+      console.log(error.responseText);
+    },
+  });
+}
+
 const getSelecteddata = () => {
   let data = [];
   let type;

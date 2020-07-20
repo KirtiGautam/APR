@@ -533,7 +533,7 @@ def updateStudent(request):
         student.save()
         print(request.POST['send_mail'])
         if request.POST['send_mail'] == 'true':
-            user.set_password(request.POST['email'])
+            user.set_password(request.POST['Contact'])
             host = request.build_absolute_uri('/login')
             html_message = render_to_string(
                 'mails/new-Student.html', context={'student': student, 'password': 'Your registered mobile number', 'host': host}, request=request)

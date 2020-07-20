@@ -84,11 +84,13 @@ def signupForm(request):
     if request.user.is_authenticated:
         return redirect('accounts:login')
     if request.session.get('temp_user', None) == '@uthenticated':
-        classes = Class.objects.all()
-        data = {
-            'Classes': classes
-        }
         if request.method == 'GET':
+            classes = Class.objects.all()
+            users = User.objects.all().values('email')
+            data = {
+                'Classes': classes,
+                'emails': users,
+            }
             return render(request, 'signupform.html', data)
         else:
             user = User.objects.create_user(

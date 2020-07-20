@@ -26,7 +26,7 @@ environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = '7*_ui$pbr!8^*(+g*h)v#tnuv&9k)2o5+hr@@5+fz^lz=(o-03'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = ['akshara.ubiqe.in',
                  'www.akshara.ubiqe.in', '127.0.0.1', 'localhost']
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'assignments',
     'homework',
     'notifications',
+    'exam',
 ]
 
 MIDDLEWARE = [
@@ -131,8 +132,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "Static"),
 ]
 
-STATIC_ROOT = '/home/getszyrx/APR/public/static'
-MEDIA_ROOT = '/home/getszyrx/APR/public/media'
+STATIC_ROOT = env.str('STATIC_ROOT')
+MEDIA_ROOT = env.str('MEDIA_ROOT')
 
 EMAIL_BACKEND = env.str('EMAIL_BACKEND')
 EMAIL_HOST = env.str('EMAIL_HOST')

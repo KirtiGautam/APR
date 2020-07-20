@@ -11,6 +11,17 @@ from lessons.models import Lesson, Subject, question
 from notifications.models import notifs
 
 
+def delhomework(request):
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
+        home = homework.objects.get(id=request.POST['id'])
+        home.delete()
+        data = {
+            'Message': 'Assignment Deleted'
+        }
+        return http.JsonResponse(data)
+    return http.JsonResponse({'message': 'Unauthorized'})
+
+
 def homeworks(request):
     if request.user.is_authenticated:
         if request.user.admin:

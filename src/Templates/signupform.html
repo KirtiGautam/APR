@@ -85,6 +85,7 @@
     </div>
 </body>
 <script>
+    const mails = [{% for x in emails %}'{{x.email}}', {% endfor %}]
     const check = () => {
         if (!$('#first_name').val() ||
             !$('#last_name').val() ||
@@ -104,6 +105,10 @@
         }
         if ($('#Contact').val().length != 10) {
             alert('Mobile number must be 10 digits');
+            return false;
+        }
+        if (mails.includes($('#email').val())) {
+            alert('Email already in use');
             return false;
         }
         return ValidateEmail($('#email').val())

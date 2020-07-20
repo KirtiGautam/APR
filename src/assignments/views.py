@@ -13,6 +13,17 @@ import json
 import math
 
 
+def delassignment(request):
+    if request.user.is_authenticated and (request.user.admin or request.user.is_staff):
+        assign = assignment.objects.get(id=request.POST['id'])
+        assign.delete()
+        data = {
+            'Message': 'Assignment Deleted'
+        }
+        return http.JsonResponse(data)
+    return http.JsonResponse({'message': 'Unauthorized'})
+
+
 def getTest(request, id):
     if request.user.is_authenticated:
         if request.method == 'GET':
