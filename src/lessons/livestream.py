@@ -54,7 +54,7 @@ def newLS(request):
         teacher = User.objects.get(id=request.POST['teacher'])
 
         attendees = [{'email': user.user.email}
-                     for user in subject.Class.Students.all()]
+                     for user in subject.Class.Students.filter(user__status="A")]
         # attendees.append({'email': teacher.email})
         start_end = request.POST['Duration'].split('.')
         hours = start_end[0]

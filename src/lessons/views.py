@@ -160,7 +160,7 @@ def addResource(request):
         message += 'New '+request.POST['type']+' added in <span class="font-weight-bold">"' + \
             lesson.Name+'"</span> for ' + lesson.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
-                for user in lesson.Subject.Class.Students.all()]
+                for user in lesson.Subject.Class.Students.filter(user__status="A")]
         notifs.objects.bulk_create(objs)
         data = {
             'message': 'Data added'
@@ -234,7 +234,7 @@ def studentStats(request):
         dat = []
         Total = sum([lesson.lesson_pdfs.all().count(),
                      lesson.lesson_videos.all().count()])
-        for x in lesson.Subject.Class.Students.all():
+        for x in lesson.Subject.Class.Students.filter(user__status="A"):
             watched = x.user.watched_lesson_video.filter(
                 Video__lesson=lesson).all().count()
             read = x.user.read_lesson_pdf.filter(
@@ -291,7 +291,7 @@ def lessonComments(request):
                     request.user.get_full_name()+' asked a doubt on lecture ' + Videos.video.Name
                 admins = User.objects.filter(admin=True)
                 teacher = Videos.lesson.Subject.teacher
-                classmates = Videos.lesson.Subject.Class.Students.all().exclude(user=request.user)
+                classmates = Videos.lesson.Subject.Class.Students.fillter(user__status="A").exclude(user=request.user)
                 notifs.objects.bulk_create(
                     [notifs(recipient=user, message=messsage, link=link) for user in admins])
                 notifs.objects.create(

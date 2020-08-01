@@ -45,16 +45,17 @@ def leaderboard(request):
         # Get All Students of same class
         if request.user.user_type == 'Student':
             this_class = request.user.Student.Class
-            students = Student.objects.filter(Class=this_class)
+            students = Student.objects.filter(
+                Class=this_class, user__status="A")
         if request.user.admin:
             if 'Class' in request.GET:
                 this_class = Class.objects.get(id=request.GET['Class'])
                 students = Student.objects.filter(
-                    Class=this_class)
+                    Class=this_class, user__status="A")
             else:
                 this_class = Class.objects.all().first()
                 students = Student.objects.filter(
-                    Class=this_class)
+                    Class=this_class, user__status="A")
 
         # Progress Section
         total_lesson_video_count = lesson_vid.objects.filter(

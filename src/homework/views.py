@@ -87,7 +87,7 @@ def newHomework(request):
         message = '<i class="fas fa-house-user"></i> New homework added <span class="font-weight-bold">"' + \
             home.Name+'"</span> for ' + home.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
-                for user in home.Subject.Class.Students.all()]
+                for user in home.Subject.Class.Students.filter(user__status="A")]
         notifs.objects.bulk_create(objs)
         data = {
             'message': 'Data added'
@@ -128,7 +128,7 @@ def addresource(request):
         message += 'New '+request.POST['type'] + ' added in <span class="font-weight-bold">"' + \
             home.Name+'"</span> for ' + home.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
-                for user in home.Subject.Class.Students.all()]
+                for user in home.Subject.Class.Students.filter(user__status="A")]
         notifs.objects.bulk_create(objs)
         return http.JsonResponse({'message': 'File uploaded'})
     return http.HttpResponseForbidden({'message': 'Forbidden'})
@@ -305,7 +305,7 @@ def studentStats(request):
         datac = []
         dat = []
         Total = sum([home.pdf.all().count(), home.video.all().count()])
-        for x in home.Subject.Class.Students.all():
+        for x in home.Subject.Class.Students.filter(user__status="A"):
             watched = x.user.watched_homework_video.filter(
                 Video__homework=home).count()
             read = x.user.read_homework_pdf.filter(Pdf__homework=home).count()
@@ -361,7 +361,7 @@ def homeworkComments(request):
                     request.user.get_full_name()+' asked a doubt on lecture ' + Videos.video.Name
                 admins = User.objects.filter(admin=True)
                 teacher = Videos.homework.Subject.teacher
-                classmates = Videos.homework.Subject.Class.Students.all().exclude(user=request.user)
+                classmates = Videos.homework.Subject.Class.Students.filter(user__status="A").exclude(user=request.user)
                 notifs.objects.bulk_create(
                     [notifs(recipient=user, message=messsage, link=link) for user in admins])
                 notifs.objects.create(

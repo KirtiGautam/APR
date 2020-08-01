@@ -198,7 +198,7 @@ def newAssignment(request):
             Name=request.POST['NOA'], Instructions=request.POST['instruction'], Deadline=dead, Subject=subject)
 
         # Notify users
-        users = subject.Class.Students.all()
+        users = subject.Class.Students.filter(user__status="A")
         link = reverse('assignment:assignmentDetails',
                        kwargs={'id': assign.id})
         message = '<i class="fas fa-tasks"></i> New assignment added <span class="font-weight-bold">"' + \
@@ -244,7 +244,7 @@ def addresource(request):
         message += 'New '+request.POST['type']+' added in <span class="font-weight-bold">"' + \
             assign.Name+'"</span> for ' + assign.Subject.Name
         objs = [notifs(recipient=user.user, message=message, link=link)
-                for user in assign.Subject.Class.Students.all()]
+                for user in assign.Subject.Class.Students.filter(user__status="A")]
         notifs.objects.bulk_create(objs)
         return http.JsonResponse({'message': 'File uploaded'})
     return http.HttpResponseForbidden({'message': 'Forbidden'})
@@ -353,7 +353,7 @@ def studentStats(request):
         assign = assignment.objects.get(id=request.GET['id'])
         dat = []
         Total = sum([assign.pdf.all().count(), assign.video.all().count()])
-        for x in assign.Subject.Class.Students.all():
+        for x in assign.Subject.Class.Students.filter(user__status="A"):
             watched = x.user.watched_assignment_video.filter(
                 Video__assignment=assign).count()
             read = x.user.read_assignment_pdf.filter(
@@ -410,7 +410,7 @@ def assignmentComments(request):
                     request.user.get_full_name()+' asked a doubt on lecture ' + Videos.video.Name
                 admins = User.objects.filter(admin=True)
                 teacher = Videos.assignment.Subject.teacher
-                classmates = Videos.assignment.Subject.Class.Students.all().exclude(user=request.user)
+                classmates = Videos.assignment.Subject.Class.Students.filterl(user__status="A").exclude(user=request.user)
                 notifs.objects.bulk_create(
                     [notifs(recipient=user, message=messsage, link=link) for user in admins])
                 notifs.objects.create(
