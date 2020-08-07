@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from accounts.models import User, Class, Student
+from django import http
 
 
 def classes(request):
@@ -101,19 +102,23 @@ def signupForm(request):
                 status='P',
                 user_type='Student'
             )
-
-            student = Student.objects.create(
-                user=user,
-                gender=request.POST['gender'],
-                Contact=request.POST['Contact'],
-                dob=request.POST['dob'],
-                Address=request.POST['Address'],
-                City=request.POST['City'],
-                District=request.POST['District'],
-                State=request.POST['State'],
-                Pincode=request.POST['Pincode'],
-                Class=Class.objects.get(id=request.POST['Class'])
-            )
+            try:
+                student = Student.objects.create(
+                    user=user,
+                    gender=request.POST['gender'],
+                    Contact=request.POST['Contact'],
+                    dob=request.POST['dob'],
+                    Address=request.POST['Address'],
+                    City=request.POST['City'],
+                    District=request.POST['District'],
+                    State=request.POST['State'],
+                    Pincode=request.POST['Pincode'],
+                    Class=Class.objects.get(id=request.POST['Class'])
+                )
+            except Exception as e:
+                user.delete()
+                del request.session['temp_user']
+                return http.JsonResponse(e.args, safe=False)
             del request.session['temp_user']
             return render(request, 'Thanks.html', {'student': student})
     return redirect('accounts:signup')
