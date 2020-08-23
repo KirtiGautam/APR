@@ -79,7 +79,7 @@ def getLessons(request):
             subject = Subject.objects.filter(id=request.GET['subject'])
         if subject:
             data = {
-                'lessons': subject[0].Lesson.all(),
+                'lessons': subject[0].Lesson.all().order_by('Number'),
                 'prefix': settings.MEDIA_URL,
                 'admin': request.user.admin or request.user.is_staff,
                 'watched_videos': request.user.watched_lesson_video.all(),
@@ -291,7 +291,7 @@ def lessonComments(request):
                     request.user.get_full_name()+' asked a doubt on lecture ' + Videos.video.Name
                 admins = User.objects.filter(admin=True)
                 teacher = Videos.lesson.Subject.teacher
-                classmates = Videos.lesson.Subject.Class.Students.fillter(user__status="A").exclude(user=request.user)
+                classmates = Videos.lesson.Subject.Class.Students.filter(user__status="A").exclude(user=request.user)
                 notifs.objects.bulk_create(
                     [notifs(recipient=user, message=messsage, link=link) for user in admins])
                 notifs.objects.create(

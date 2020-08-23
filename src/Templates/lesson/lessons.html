@@ -17,7 +17,7 @@
 </div>
 <div class="col-11">
     <div class="row row-3-2 mt-3 pl-3">
-        {% for pdf in lesson.lesson_pdfs.all %}
+        {% for pdf in lesson.lesson_pdfs.all|dictsort:"created" %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-4">
             <a href="{{ prefix }}{{pdf.pdf.file}}" target="_blank">
                 <div class="lessons-cards">
@@ -45,7 +45,7 @@
             </a>
         </div>
         {% endfor %}
-        {% for video in lesson.lesson_videos.all %}
+        {% for video in lesson.lesson_videos.all|dictsort:"created" %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-4">
             <a href="{% url 'lessons:video' video.id %}">
                 <div class="lessons-cards">
@@ -108,7 +108,7 @@
 {% endfor %}
 <script>
     {% for lesson in lessons %}
-    {% for video in lesson.lesson_videos.all %}
+    {% for video in lesson.lesson_videos.all|dictsort:"created" %}
     thumbr.push({
         id: "#thumb{{video.id}}",
         duration: "#dura{{video.id}}",
