@@ -6,10 +6,12 @@
 .sidebar {
   border-right: 3px solid #f5f8fa;
   background: #ffffff 0% 0% no-repeat padding-box;
-  padding-top: 65px !important;
+  padding-top: 70px !important;
   position: fixed;
   width: 250px;
   z-index: 10;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .sidebar-heading {
@@ -52,9 +54,43 @@ a:hover {
   text-decoration: none;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #8f8f8f;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 @media screen and (max-width: 800px) {
   .sidebar {
-    padding-top: 25px !important;
+    padding-top: 40px !important;
     width: 270px;
   }
 }

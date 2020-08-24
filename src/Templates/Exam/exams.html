@@ -1,8 +1,105 @@
-<!DOCTYPE html>
 {% extends 'common/master.html' %}
 {% load static %}
 {% block content %}
-<h1 class="float-center text-primary">
-    Exam page
-</h1>
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+    <link rel="stylesheet" href="{% static 'css/exams.css' %}">
+</head>
+{% include "common/header.html" %}
+<div class="col-10 col-sm-4 col-md-3 col-lg-2 float-left left">
+    {% include "home/leftside.html" %}
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row row-1">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8 ">
+                <div class="row row-1-1">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 row-1-1-text">
+                        <div class="row">
+                            <span class="col-12">SCHEDULED</span>
+                            <span class="col-12">EXAMINATIONS</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 row-1-2">
+                        <div class="col-12 row">
+                            <select id="class" class="col-8 form-control text-1">
+                                <option value="" disabled selected>Class</option>
+                            </select>
+                            <span class="col-4">
+                                <button class="btn button-3 float-right" title="Add New Assignment" data-toggle="modal"
+                                    data-backdrop="static" data-target="#add"><i
+                                        class="fas fa-plus-circle"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo">
+            </div>
+        </div>
+        <div class="row row-2 col-12" id="body">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+                <button class="btn float-right del" onclick="" title=" Delete"><i class="fas fa-trash"></i></button>
+                <a href="#">
+                    <div class="exam-cards">
+                        <span class="row exam-row-head">
+                            <span class="title col-6 text-truncate pt-1">Assessment</span>
+                            <span class="type col-6 text-truncate">Classroom</span>
+                            <img src="/static/Images/lesson/ripple.svg" class="new-noti">
+                        </span>
+                        <span class="row">
+                            <div class="col-12 exam-name">UNIT TEST 1</div>
+                        </span>
+                        <span class="row">
+                            <span class="dates col-12">Dates: 23 - 27th Feb</span>
+                            <span class="exam-pattern col-12">Exam Pattern: Objective</span>
+                            <span class="exam-subject col-12">All Subjects</span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+                <button class="btn float-right del" onclick="" title=" Delete"><i class="fas fa-trash"></i></button>
+                <a href="#">
+                    <div class="exam-cards exam-draft">
+                        <span class="row exam-row-head">
+                            <span class="title col-6 text-truncate pt-1">Assessment</span>
+                            <span class="type col-6 text-truncate">Classroom</span>
+                            <img src="/static/Images/lesson/ripple.svg" class="new-noti">
+                        </span>
+                        <span class="row">
+                            <div class="col-12 exam-name">UNIT TEST 1</div>
+                        </span>
+                        <span class="row">
+                            <span class="dates col-12">Dates: 23 - 27th Feb</span>
+                            <span class="exam-pattern col-12">Exam Pattern: Objective</span>
+                            <span class="exam-subject col-12">All Subjects</span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row row-3">
+                <button type="submit" class="btn row-3-text" id="past_btn"><span class="row-3-heading">Past
+                        Assesments -
+                    </span>Click to see performance in earlier exams</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="{% static 'js/assignments/assignments.js' %}"></script>
+<script src="{% static 'js/thumb.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        {% if user.admin or user.is_staff %}
+        $('#class').val('');
+        {% else %}
+        getAssignments();
+        {% endif %}
+    });
+</script>
 {% endblock %}
