@@ -4,6 +4,12 @@
 }
 
 body {
+  background: url(/static/Images/login/hexagon.png) no-repeat center center
+    fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   overflow-x: hidden;
 }
 
@@ -41,7 +47,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
   color: #626262;
-  margin-left: 10px !important;
+  /* margin-left: 10px !important; */
   padding-bottom: 10px !important;
 }
 
@@ -91,15 +97,8 @@ body {
 }
 
 img {
-  height: 100vh;
+  height: 100%;
   opacity: 0.3;
-}
-
-.contain {
-  background: url("/static/Images/login/hexagon.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
 }
 
 .right {

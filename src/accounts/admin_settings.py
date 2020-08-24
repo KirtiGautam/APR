@@ -495,8 +495,6 @@ def getStudents(request):
             Classes = Class.objects.filter(id=request.GET['class'])
         students = Student.objects.filter(Q(user__first_name__contains=request.GET['term']) | Q(
             user__last_name__contains=request.GET['term']), Class__in=Classes, user__status='A')
-        for x in students:
-            print(x.user.get_full_name())
         data = {
             'students': [{
                 'id': stu.user.id,
