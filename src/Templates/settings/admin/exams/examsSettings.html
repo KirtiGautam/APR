@@ -53,6 +53,12 @@
     </div>
 </div>
 
-<script src="{% static 'js/admin/schoolStaff.js' %}"></script>
-<script src="{% static 'js/tabletoexcel.js' %}"></script>
+<script>
+    $(function () {
+        $('.EXL').addClass('active');
+        $('.EXT').addClass('stw');
+        $('.EXI').addClass('siw');
+    })
+</script>
+
 {% endblock %}
