@@ -25,11 +25,13 @@
                         <div class="col-12 row">
                             <select id="class" class="col-8 form-control text-1">
                                 <option value="" disabled selected>Class</option>
+                                {% for key in classes %}
+                                <option value="{{key.id}}">{{key.name}}</option>
+                                {% endfor %}
                             </select>
                             <span class="col-4">
-                                <button class="btn button-3 float-right" title="Add New Assignment" data-toggle="modal"
-                                    data-backdrop="static" data-target="#add"><i
-                                        class="fas fa-plus-circle"></i></button>
+                                <button class="btn button-3 float-right" title="Add New Exam"
+                                    onclick="$('#body').modal()"><i class="fas fa-plus-circle"></i></button>
                             </span>
                         </div>
                     </div>
@@ -39,7 +41,7 @@
                 <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo">
             </div>
         </div>
-        <div class="row row-2 col-12" id="body">
+        <div class="row row-2 col-12">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
                 <button class="btn float-right del" onclick="" title=" Delete"><i class="fas fa-trash"></i></button>
                 <a href="#">
@@ -90,9 +92,9 @@
         </div>
     </div>
 </div>
+{% include 'Exam/modal.html' %}
 </div>
-<script src="{% static 'js/assignments/assignments.js' %}"></script>
-<script src="{% static 'js/thumb.js' %}"></script>
+<script src="{% static 'js/exam/index.js' %}"></script>
 <script>
     $(document).ready(function () {
         {% if user.admin or user.is_staff %}
