@@ -95,7 +95,7 @@
 @media screen and (max-width: 500px) {
   .header-icon {
     font-size: 24px;
-    padding: 10px 15px;
+    padding: 10px;
   }
   .read {
     font-size: 10px;

@@ -286,5 +286,10 @@ a:focus {
   }
   .back-text {
     margin-top: 10px !important;
+    font-size: 30px;
+  }
+
+  .edit-add {
+    font-size: 17px;
   }
 }

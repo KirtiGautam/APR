@@ -110,42 +110,6 @@
   margin: 10px 16px;
 }
 
-th {
-  position: sticky;
-  top: 0;
-  font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #707070;
-}
-
-tr:hover {
-  cursor: pointer;
-}
-
-td {
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #707070;
-}
-
-.table {
-  position: relative;
-  table-layout: auto;
-  width: 100% !important;
-}
-
-.contain {
-  width: 100%;
-  min-height: max-content;
-  max-height: 550px;
-  overflow-x: auto;
-  overflow-y: auto;
-}
-
-.or {
-  margin-top: 25px;
-}
-
 .content {
   padding-top: 80px !important;
   margin-left: 250px;
