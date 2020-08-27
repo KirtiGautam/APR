@@ -1,11 +1,11 @@
 {% load static %}
 
-<div class="modal" tabindex="-1" id="body">
+<!-- <div class="modal" tabindex="-1" id="body2">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header row">
                 <!-- <div class="modal-title modal-text-1">Select exam name - Drop down</div> -->
-                <div class="col"></div>
+<!-- <div class="col"></div>
                 <div class="col">
                     <select class="custom-select">
                         <option>1</option>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-5">
-                    <img src="/static/Images/exams/exam1.png" class="col-12 modal-image-1">
+                    <img src="{% static 'Images/exams/exam1.png' %}" class="col-12 modal-image-1">
                 </div>
                 <div class="col-12">
                     <button type="submit" class="button-1 btn" id="exam-next-btn">Next</button>
@@ -46,61 +46,86 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<div class="modal" tabindex="-1" id="body2">
+<div class="modal" tabindex="-1" id="body">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="col-12 col-sm-12 col-md-6">
-                    <input type="text" name="" id="" class="form-control modal-text-3" placeholder="Enter the name of exam here">
-                </div>
-                <div class="col-12 col-sm-12 col-md-6">
-                    <button class="btn button-2">Duplicate to all available classes for a
-                        subject</button>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="table-responsive text-center">
-                    <table class="table">
-                        <thead class="modal-text-4">
-                            <tr>
-                                <th>S.No</th>
-                                <th>Classes</th>
-                                <th>Section</th>
-                                <th>Subject</th>
-                                <th>Location</th>
-                                <th>Date and Timing</th>
-                                <th>Max Mark</th>
-                                <th>Pass Mark</th>
-                                <th>Duration (mins)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="modal-text-5">
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td><input type="text" name="" id="" class="form-control"></td>
-                                <td><input type="datetime" name="" id="" class="form-control"></td>
-                                <td>
-                                    <input type="number" name="" id="" class="form-control">
-                                </td>
-                                <td>
-                                    <input type="number" name="" id="" class="form-control">
-                                </td>
-                                <td>
-                                    <input type="number" name="" id="" class="form-control">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="col-12">
-                        <button type="submit" class="btn button-1">Create Exam</button>
+            <form action="{% url 'exam:exams' %}" method="post" onsubmit="return check();">
+                {% csrf_token %}
+                <input type="hidden" name="hidden_sn_count" id="hidden_sn_count">
+                <div class="modal-header">
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <input type="text" id="exam_name" name="exam_name" class="form-control modal-text-3"
+                            placeholder="Enter the name of exam here">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <select id="mode" name="mode" class="custom-select">
+                            <option value="" disabled selected>Select Mode</option>
+                            <option value="C">Classroom</option>
+                            <option value="O">Online</option>
+                        </select>
                     </div>
                 </div>
-            </div>
+                <div class="modal-body">
+                    <div class="table-responsive text-center">
+                        <select name="exam_type" id="exam_type">
+                            <option value="" disabled selected>Exam Type</option>
+                            {% for key in types %}
+                            <option value="{{key.id}}">{{key.Name}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="button" class="btn btn-primary btn-sm" id="add-row-btn">Add Row</button>
+                        <table class="table">
+                            <thead class="modal-text-4">
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Classes</th>
+                                    <th>Subject</th>
+                                    <th>Location</th>
+                                    <th>Date and Timing</th>
+                                    <th>Max Mark</th>
+                                    <th>Pass Mark</th>
+                                    <th>Duration (mins)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="modal-text-5" id="t-body">
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <select id="class1" name="class1" class="custom-select"
+                                            onchange="getSubjects(this.value, 1)">
+                                            <option value="" disabled selected>Class</option>
+                                            {% for key in classes %}
+                                            <option value="{{key.id}}">{{key.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select id="subject1" name="subject1" class="custom-select">
+                                            <option value="" disabled selected>Select Class first</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" name="location1" id="location1" class="form-control"></td>
+                                    <td><input type="datetime-local" name="dNt1" id="dNt1" class="form-control"></td>
+                                    <td>
+                                        <input type="number" name="max-marks1" id="max-marks1" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="pass-marks1" id="pass-marks1" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="duration1" id="duration1" class="form-control">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="col-12">
+                            <button type="submit" class="btn button-1">Create Exam</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

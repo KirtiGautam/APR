@@ -42,17 +42,18 @@
             </div>
         </div>
         <div class="row row-2 col-12">
+            {% for exam in Exams %}
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
                 <button class="btn float-right del" onclick="" title=" Delete"><i class="fas fa-trash"></i></button>
-                <a href="#">
+                <a href="{% url 'exam:papers' exam.id %}">
                     <div class="exam-cards">
                         <span class="row exam-row-head">
                             <span class="title col-6 text-truncate pt-1">Assessment</span>
-                            <span class="type col-6 text-truncate">Classroom</span>
+                            <span class="type col-6 text-truncate">{{exam.get_Mode_display}}</span>
                             <img src="/static/Images/lesson/ripple.svg" class="new-noti">
                         </span>
                         <span class="row">
-                            <div class="col-12 exam-name">UNIT TEST 1</div>
+                            <div class="col-12 exam-name">{{exam.Name}}</div>
                         </span>
                         <span class="row">
                             <span class="dates col-12">Dates: 23 - 27th Feb</span>
@@ -62,6 +63,7 @@
                     </div>
                 </a>
             </div>
+            {% endfor %}
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
                 <button class="btn float-right del" onclick="" title=" Delete"><i class="fas fa-trash"></i></button>
                 <a href="#">
