@@ -1,6 +1,89 @@
 {% extends 'common/master.html' %}
 {% load static %}
 {% block content %}
-{{exam.Name}}
 
+<head>
+    <link rel="stylesheet" href="{% static 'css/paper.css' %}">
+</head>
+{% include "common/header.html" %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row row-1">
+            <div class="col-2 col-sm-1">
+                <a href="">
+                    <button class="btn button-1" title="Back">
+                        <i class="fas fa-arrow-alt-circle-left"></i>
+                    </button>
+                </a>
+            </div>
+            <div class="col-10 col-sm-11 col-md-7 text-truncate text-1">
+                Name of exam to be displayed here
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                <button class="btn float-right button-2">Edit Deatils</button>
+            </div>
+        </div>
+        <div class="row row-2">
+            <div class="col-12 text-2">Class 1</div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="row-2-1">
+                            <a>
+                                <div class="row">
+                                    <div class="col-3 text-3">Online</div>
+                                    <div class="col-7 text-4">Paper Pending</div>
+                                    <div class="col-2">
+                                        <div class="float-right"><input type="checkbox" name="" id="" class="input-1">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-5 text-truncate">Subject</div>
+                                    <div class="col-12 text-6">Date: 27th August 2020</div>
+                                    <div class="col-8 text-7">Exam Pattern: Multiple</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="col-12 row-2-1 row-2-1-draft">
+                            <a>
+                                <div class="row">
+                                    <div class="col-3 text-3">Online</div>
+                                    <div class="col-7 text-4">Paper Pending</div>
+                                    <div class="col-2">
+                                        <div class="float-right"><input type="checkbox" name="" id="" class="input-1">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-5 text-truncate">Subject</div>
+                                    <div class="col-12 text-6">Date: 27th August 2020</div>
+                                    <div class="col-8 text-7">Exam Pattern: Multiple</div>
+                                    <div class="col-4">
+                                        <div class="text-8 float-right">Draft</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="row-2-1">
+                            <a>
+                                <div class="row">
+                                    <div class="col-3 text-3">Online</div>
+                                    <div class="col-7 text-4">Paper Ready</div>
+                                    <div class="col-2">
+                                        <div class="float-right"><input type="checkbox" name="" id="" class="input-1" checked>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-5 text-truncate">Subject</div>
+                                    <div class="col-12 text-6">Date: 27th August 2020</div>
+                                    <div class="col-8 text-7">Exam Pattern: Multiple</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
