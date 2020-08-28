@@ -30,3 +30,20 @@ class Paper(models.Model):
     Max_Marks = models.PositiveIntegerField()
     Pass_Marks = models.PositiveIntegerField()
     Location = models.CharField(max_length=100)
+
+
+class Question(models.Model):
+    paper_type_choices = (
+        ('O', 'Objective'),
+        ('S', 'Short Answer'),
+        ('L', 'Long Answer'),
+        ('U', 'Fill Ups'),
+        ('F', 'File Submission'),
+    )
+    SNo = models.PositiveIntegerField()
+    Text = models.TextField()
+    Asset = models.ImageField(upload_to='Question_asset/')
+    Paper = models.ForeignKey(
+        Paper, related_name="Question", on_delete=models.CASCADE)
+    Type = models.CharField(max_length=2, choices=paper_type_choices)
+    Max_Marks = models.PositiveIntegerField()

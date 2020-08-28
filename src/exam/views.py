@@ -17,8 +17,8 @@ def index(request):
             for i in range(1, int(request.POST['hidden_sn_count'])+1):
                 Scheduled_on = dateparse.parse_datetime(
                     request.POST['dNt'+str(i)]).astimezone(tz=pytz.timezone("Asia/Kolkata"))
-                Paper(Subject=Subject.objects.get(id=request.POST['subject'+str(i)]), Exam=exam, Scheduled_on=Scheduled_on, Duration=request.POST['duration'+str(
-                    i)], Max_Marks=request.POST['max-marks' + str(i)], Pass_Marks=request.POST['pass-marks'+str(i)], Location=request.POST['location'+str(i)])
+                lis.append(Paper(Subject=Subject.objects.get(id=request.POST['subject'+str(i)]), Exam=exam, Scheduled_on=Scheduled_on, Duration=request.POST['duration'+str(
+                    i)], Max_Marks=request.POST['max-marks' + str(i)], Pass_Marks=request.POST['pass-marks'+str(i)], Location=request.POST['location'+str(i)]))
             Paper.objects.bulk_create(lis)
             return redirect("exam:exams")
         if request.user.admin:
@@ -68,14 +68,47 @@ def updateExam(request):
     return redirect('accounts:login')
 
 
+def delete(request):
+    if request.user.is_authenticated and request.user.admin:
+        Exam.objects.filter(id=request.POST['id']).delete()
+    return redirect("exam:exams")
+
+
 def papers(request, id):
     if request.user.is_authenticated:
-        exam = Exam.objects.get(id=id)
-        if request.user.user_type == "Student" and not exam.objects.filter(Paper__Subject__Class=request.user.Student.Class).exists():
-            return http.HttpResponseNotAllowed("Prohibhited")
-        if request.user.is_staff and not exam.objects.filter(Paper__Subject__teacher=request.user).exist():
-            return http.HttpResponseNotAllowed("Prohibhited")
+        try:
+            exam = Exam.objects.get(id=id)
+        except Exception as e:
+            return http.HttpResponseNotFound("No such exam exists.", e.args)
+        if request.user.user_type == "Student":
+            paper = exam.Paper.filter(
+                Subject__Class=request.user.Student.Class)
+            if not paper.exists():
+                return http.HttpResponseNotAllowed("Prohibhited")
+        elif request.user.is_staff:
+            paper = exam.Paper.filter(Subject__teacher=request.user)
+            if not paper.exist():
+                return http.HttpResponseNotAllowed("Prohibhited")
+        else:
+            paper = exam.Paper.all()
         data = {
-            'exam': exam
+            'exam': exam.Name,
+            'papers': paper,
         }
         return render(request, "Exam/papers.html", data)
+    return redirect('accounts:login')
+
+
+def editPaper(request, id):
+    if request.user.is_authenticated:
+        try:
+            paper = Paper.objects.get(id=id)
+        except Exception as e:
+            return http.HttpResponseNotFound("No such paper", e.args)
+        if request.user.user_type == "Student":
+            return http.HttpResponseForbidden("Not Alowed")
+        data = {
+            'paper': paper,
+        }
+        return render(request, 'Exam/paperEdit.html', data)
+    return redirect('accounts:login')
