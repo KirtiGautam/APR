@@ -1,65 +1,24 @@
 {% load static %}
-
-<!-- <div class="modal" tabindex="-1" id="body2">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header row">
-                <!-- <div class="modal-title modal-text-1">Select exam name - Drop down</div> -->
-<!-- <div class="col"></div>
-                <div class="col">
-                    <select class="custom-select">
-                        <option>1</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <select class="custom-select">
-                        <option>Classroom</option>
-                        <option>Online</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-body row pt-5">
-                <div class="col-12 col-sm-12 col-md-7">
-                    <div class="modal-text-1">
-                        Select Classes
-                        <select multiple class="custom-select">
-                            <option>1</option>
-                        </select>
-                    </div>
-                    <div class="modal-text-1 pt-3">
-                        Select Subjects
-                        <select name="" id="" multiple class="custom-select"></select>
-                    </div>
-                    <div class="modal-text-1 pt-3">
-                        Select Exam format
-                        <select multiple class="custom-select">
-                            <option>MCQ</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-12 col-md-5">
-                    <img src="{% static 'Images/exams/exam1.png' %}" class="col-12 modal-image-1">
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="button-1 btn" id="exam-next-btn">Next</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <div class="modal" tabindex="-1" id="body">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <form action="{% url 'exam:exams' %}" method="post" onsubmit="return check();">
                 {% csrf_token %}
                 <input type="hidden" name="hidden_sn_count" id="hidden_sn_count">
-                <div class="modal-header">
-                    <div class="col-12 col-sm-12 col-md-6">
+                <div class="modal-header row">
+                    <div class="col-12 col-sm-12 col-md-4 mt-2 mb-2">
                         <input type="text" id="exam_name" name="exam_name" class="form-control modal-text-3"
                             placeholder="Enter the name of exam here">
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6">
+                    <div class="col-12 col-sm-12 col-md-4 mt-2 mb-2">
+                        <select name="exam_type" id="exam_type" class="custom-select">
+                            <option value="" disabled selected>Exam Type</option>
+                            {% for key in types %}
+                            <option value="{{key.id}}">{{key.Name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 mt-2 mb-2">
                         <select id="mode" name="mode" class="custom-select">
                             <option value="" disabled selected>Select Mode</option>
                             <option value="C">Classroom</option>
@@ -69,16 +28,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive text-center">
-                        <select name="exam_type" id="exam_type">
-                            <option value="" disabled selected>Exam Type</option>
-                            {% for key in types %}
-                            <option value="{{key.id}}">{{key.Name}}</option>
-                            {% endfor %}
-                        </select>
-                        <button type="button" class="btn btn-primary btn-sm" id="add-row-btn">Add Row</button>
                         <table class="table">
                             <thead class="modal-text-4">
                                 <tr>
+                                    <th></th>
                                     <th>S.No</th>
                                     <th>Classes</th>
                                     <th>Subject</th>
@@ -91,8 +44,9 @@
                             </thead>
                             <tbody class="modal-text-5" id="t-body">
                                 <tr>
+                                    <td><button class="btn button-4"><i class="far fa-times-circle"></i></button></td>
                                     <td>1</td>
-                                    <td>
+                                    <td class="modal-text-6">
                                         <select id="class1" name="class1" class="custom-select"
                                             onchange="getSubjects(this.value, 1)">
                                             <option value="" disabled selected>Class</option>
@@ -101,28 +55,32 @@
                                             {% endfor %}
                                         </select>
                                     </td>
-                                    <td>
+                                    <td class="modal-text-6">
                                         <select id="subject1" name="subject1" class="custom-select">
                                             <option value="" disabled selected>Select Class first</option>
                                         </select>
                                     </td>
-                                    <td><input type="text" name="location1" id="location1" class="form-control"></td>
-                                    <td><input type="datetime-local" name="dNt1" id="dNt1" class="form-control"></td>
-                                    <td>
+                                    <td class="modal-text-6"><input type="text" name="location1" id="location1"
+                                            class="form-control"></td>
+                                    <td class="modal-text-6"><input type="datetime-local" name="dNt1" id="dNt1"
+                                            class="form-control"></td>
+                                    <td class="modal-text-6">
                                         <input type="number" name="max-marks1" id="max-marks1" class="form-control">
                                     </td>
-                                    <td>
+                                    <td class="modal-text-6">
                                         <input type="number" name="pass-marks1" id="pass-marks1" class="form-control">
                                     </td>
-                                    <td>
+                                    <td class="modal-text-6">
                                         <input type="number" name="duration1" id="duration1" class="form-control">
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="col-12">
-                            <button type="submit" class="btn button-1">Create Exam</button>
-                        </div>
+                    </div>
+                    <div class="col-12 text-center mt-3"><button type="button" class="btn button-2" id="add-row-btn">Add
+                            New</button></div>
+                    <div class="col-12">
+                        <button type="submit" class="btn button-1">Create Exam</button>
                     </div>
                 </div>
             </form>

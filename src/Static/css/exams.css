@@ -149,6 +149,7 @@
   font-size: 25px;
   color: #000000;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .dates {
@@ -230,11 +231,17 @@
 }
 
 .button-2 {
-  border: 1px solid #b3b6b8;
-  color: #376baa;
-  font-size: 16px;
+  border-radius: 10px;
+  background-color: #f5f8fa;
+  box-shadow: 0px 3px 6px #00000029;
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  float: right;
+  color: #626262;
+}
+
+.button-2:focus {
+  box-shadow: 0px 0px 0px #00000029;
+  outline: none;
 }
 
 .modal-text-4 {
@@ -242,13 +249,24 @@
   font-family: Arial, Helvetica, sans-serif;
   color: #376baa;
   background-color: #ffffff;
-  border: none;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .modal-text-5 {
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   color: #626262;
+  white-space: nowrap;
+}
+
+.modal-text-6{
+  min-width: 200px;
+}
+
+.button-4:focus{
+  box-shadow: 0px 0px 0px #00000029;
+  outline: none;
 }
 
 @media screen and (max-width: 1000px) {
