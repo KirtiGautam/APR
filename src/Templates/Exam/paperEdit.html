@@ -1,5 +1,215 @@
 {% extends 'common/master.html' %}
 {% load static %}
 {% block content %}
-{{paper.Subject.Name}}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/paperEdit.css' %}">
+</head>
+{% include "common/header.html" %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row row-1 text-center">
+            <div class="col-2 col-sm-1">
+                <a href="{% url 'exam:exams' %}">
+                    <button class="btn button-1" title="Back">
+                        <i class="fas fa-arrow-alt-circle-left"></i>
+                    </button>
+                </a>
+            </div>
+            <div class="col-10 col-sm-11 col-md-6 col-lg-3 text-truncate text-1">
+                Question Paper setting | {{paper.Subject.Name}}
+            </div>
+
+            <div class="col-6 col-md-5 col-lg-2">
+                <button class="btn button-2">Import from Database</button>
+            </div>
+            <div class="col-6 col-md-5 col-lg-2"><button class="btn button-2">Mark as File Submission</button></div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <button class="btn button-2">Total duration :</button>
+            </div>
+            <div class="col-6 col-md-3 col-lg-2"><button class="btn button-2">Next</button></div>
+        </div>
+
+        <div class="row row-2">
+            <div class="col-12 row-2-1">
+                <div class="row row-2-1-1">
+                    <div class="text-2 col-1 text-right">Q1.</div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="text-3 col-12">
+                                We will build a small game during this tutorial. You might be tempted to skip it because
+                                you’re not building games — but give it a chance. The techniques you’ll learn in the
+                                tutorial are fundamental to building any React app, and mastering it will give you a
+                                deep understanding of React.
+                            </div>
+                            <div class="col-3 col-sm-1">
+                                <div class="text-4">A</div>
+                            </div>
+                            <div class="col-9 col-sm-11 text-5">
+                                You can see what we’ll be building here: Final Result. If the code doesn’t make sense to
+                                you, or if you are unfamiliar with the code’s syntax, don’t worry! The goal of this
+                                tutorial is to help you understand React and its syntax.
+                            </div>
+                            <div class="col-3 col-sm-1">
+                                <div class="text-4 text-4-correct">B</div>
+                            </div>
+                            <div class="col-9 col-sm-11 text-5">
+                                You can see what we’ll be building here: Final Result. If the code doesn’t make sense to
+                                you, or if you are unfamiliar with the code’s syntax, don’t worry! The goal of this
+                                tutorial is to help you understand React and its syntax.
+                            </div>
+                            <div class="col-3 col-sm-1">
+                                <div class="text-4">C</div>
+                            </div>
+                            <div class="col-9 col-sm-11 text-5">
+                                You can see what we’ll be building here: Final Result. If the code doesn’t make sense to
+                                you, or if you are unfamiliar with the code’s syntax, don’t worry! The goal of this
+                                tutorial is to help you understand React and its syntax.
+                            </div>
+                            <div class="col-3 col-sm-1">
+                                <div class="text-4">D</div>
+                            </div>
+                            <div class="col-9 col-sm-11 text-5">
+                                You can see what we’ll be building here: Final Result. If the code doesn’t make sense to
+                                you, or if you are unfamiliar with the code’s syntax, don’t worry! The goal of this
+                                tutorial is to help you understand React and its syntax.
+                            </div>
+                        </div>
+                        <div class="col-12 text-8">Solution</div>
+                        <div class="col-12 text-9">
+                            We recommend that you check out the tic-tac-toe game before continuing with the
+                            tutorial. One of the features that you’ll notice is that there is a numbered list to the
+                            right of the game’s board. This list gives you a history of all of the moves that have
+                            occurred in the game, and it is updated as the game progresses.
+                        </div>
+                    </div>
+                    <div class="col-2 p-0">
+                        <div class="row">
+                            <div class="col-12 text-center"><input type="text" name="" id="" min="1"
+                                    class="form-control text-6 text-center"></div>
+                            <div class="col-12 text-center text-7">Marks</div>
+                            <div class="col-12 text-center">
+                                <button class="btn qm-button-4"><i class="fas fa-pen"></i></button>
+                            </div>
+                            <div class="col-12 text-center text-7">Edit</div>
+                            <div class="col-12 text-center">
+                                <button class="btn qm-button-4"><i class="far fa-times-circle"></i></button>
+                            </div>
+                            <div class="col-12 text-center text-7">Delete</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-2-1-1">
+                    <div class="text-2 col-1 text-right">Q2.</div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="text-3 col-12">
+                                We will build a small game during this tutorial. You might be tempted to skip it because
+                                you’re not building games — but give it a chance. The techniques you’ll learn in the
+                                tutorial are fundamental to building any React app, and mastering it will give you a
+                                deep understanding of React.
+                            </div>
+                        </div>
+                        <div class="col-12 text-8">Solution</div>
+                        <div class="col-12 text-9">
+                            We recommend that you check out the tic-tac-toe game before continuing with the
+                            tutorial. One of the features that you’ll notice is that there is a numbered list to the
+                            right of the game’s board. This list gives you a history of all of the moves that have
+                            occurred in the game, and it is updated as the game progresses.
+                        </div>
+                    </div>
+                    <div class="col-2 p-0">
+                        <div class="row">
+                            <div class="col-12 text-center"><input type="text" name="" id="" min="1"
+                                    class="form-control text-6 text-center"></div>
+                            <div class="col-12 text-center text-7">Marks</div>
+                            <div class="col-12 text-center">
+                                <button class="btn qm-button-4"><i class="fas fa-pen"></i></button>
+                            </div>
+                            <div class="col-12 text-center text-7">Edit</div>
+                            <div class="col-12 text-center">
+                                <button class="btn qm-button-4"><i class="far fa-times-circle"></i></button>
+                            </div>
+                            <div class="col-12 text-center text-7">Delete</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-2-1-1">
+                    <div class="text-2 col-1 text-right">Q3.</div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="text-3 col-12">
+                                We will build a small game during this tutorial. You might be tempted to skip it because
+                                you’re not building games — but give it a chance. The techniques you’ll learn in the
+                                tutorial are fundamental to building any React app, and mastering it will give you a
+                                deep understanding of React.
+                            </div>
+                        </div>
+                        <div class="col-12 text-8">Solution</div>
+                        <div class="col-12 text-9">
+                            We recommend that you check out the tic-tac-toe game before continuing with the
+                            tutorial. One of the features that you’ll notice is that there is a numbered list to the
+                            right of the game’s board. This list gives you a history of all of the moves that have
+                            occurred in the game, and it is updated as the game progresses.
+                        </div>
+                    </div>
+                    <div class="col-2 p-0">
+                        <div class="row">
+                            <div class="col-12 text-center"><input type="text" name="" id="" min="1"
+                                    class="form-control text-6 text-center"></div>
+                            <div class="col-12 text-center text-7">Marks</div>
+                            <div class="col-12 text-center">
+                                <button class="btn qm-button-4"><i class="fas fa-pen"></i></button>
+                            </div>
+                            <div class="col-12 text-center text-7">Edit</div>
+                            <div class="col-12 text-center">
+                                <button class="btn qm-button-4"><i class="far fa-times-circle"></i></button>
+                            </div>
+                            <div class="col-12 text-center text-7">Delete</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-2-1-1">
+                    <div class="text-2 col-1 text-right">Q4.</div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="text-3 col-12">
+                                We will build a small game during this tutorial. You might be tempted to skip it because
+                                you’re not building games — but give it a chance. The techniques you’ll learn in the
+                                tutorial are fundamental to building any React app, and mastering it will give you a
+                                deep understanding of React.
+                            </div>
+                        </div>
+                        <div class="col-12 text-8">Solution</div>
+                        <div class="col-12 text-9">
+                            We recommend that you check out the tic-tac-toe game before continuing with the
+                            tutorial. One of the features that you’ll notice is that there is a numbered list to the
+                            right of the game’s board. This list gives you a history of all of the moves that have
+                            occurred in the game, and it is updated as the game progresses.
+                        </div>
+                    </div>
+                    <div class="col-2 p-0">
+                        <div class="row">
+                            <div class="col-12 text-center"><input type="text" name="" id="" min="1"
+                                    class="form-control text-6 text-center"></div>
+                            <div class="col-12 text-center text-7">Marks</div>
+                            <div class="col-12 text-center">
+                                <button class="btn qm-button-4"><i class="fas fa-pen"></i></button>
+                            </div>
+                            <div class="col-12 text-center text-7">Edit</div>
+                            <div class="col-12 text-center">
+                                <button class="btn qm-button-4"><i class="far fa-times-circle"></i></button>
+                            </div>
+                            <div class="col-12 text-center text-7">Delete</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <button class="btn button-3" onclick="$('#question-modal').modal()">Add New</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'Exam/question-modal.html' %}
 {% endblock %}
