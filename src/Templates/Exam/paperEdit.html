@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row row-1 text-center">
             <div class="col-2 col-sm-1">
-                <a href="{% url 'exam:exams' %}">
+                <a href="{% url 'exam:papers' paper.Exam.id %}">
                     <button class="btn button-1" title="Back">
                         <i class="fas fa-arrow-alt-circle-left"></i>
                     </button>
@@ -20,190 +20,120 @@
                 Question Paper setting | {{paper.Subject.Name}}
             </div>
 
-            <div class="col-6 col-md-5 col-lg-2">
+            <!-- <div class="col-6 col-md-5 col-lg-2">
                 <button class="btn button-2">Import from Database</button>
-            </div>
-            <div class="col-6 col-md-5 col-lg-2"><button class="btn button-2">Mark as File Submission</button></div>
+            </div> -->
+            <div class="col-6 col-md-5 col-lg-2"><button onclick="markAsFile({{paper.id}}, this);" class="btn button-2">Mark{% if paper.File %}ed{% endif %} as File Submission</button></div>
             <div class="col-6 col-md-4 col-lg-2">
-                <button class="btn button-2">Total duration :</button>
+                <button class="btn button-2">Total duration : {{paper.Duration}} mins</button>
             </div>
             <div class="col-6 col-md-3 col-lg-2"><button class="btn button-2">Next</button></div>
         </div>
 
         <div class="row row-2">
             <div class="col-12 row-2-1">
+                {% for question in paper.Question.all|dictsort:"SNo" %}
                 <div class="row row-2-1-1">
-                    <div class="text-2 col-1 text-right">Q1.</div>
+                    <div class="text-2 col-1 text-right">Q{{question.SNo}}.</div>
                     <div class="col-8">
+                        {% if question.Type == "O" %}
                         <div class="row">
                             <div class="text-3 col-12">
-                                We will build a small game during this tutorial. You might be tempted to skip it because
-                                you’re not building games — but give it a chance. The techniques you’ll learn in the
-                                tutorial are fundamental to building any React app, and mastering it will give you a
-                                deep understanding of React.
+                                {{question.Text}}
                             </div>
+                            {% if question.Asset %}
+                            <div class="text-3 col-12">
+                                <img src="{{question.Asset.url}}" alt="question" style="width: 100px;height: 100px;">
+                            </div>
+                            {% endif %}
+                            {% for option in question.Option.all %}
                             <div class="col-3 col-sm-1">
-                                <div class="text-4">A</div>
+                                <div
+                                    class=" text-4 text-4{% if option.id == question.Answer.Option.id %}-correct{% endif %}">
+                                    {% cycle 'A' 'B' 'C' 'D' %}</div>
                             </div>
                             <div class="col-9 col-sm-11 text-5">
-                                You can see what we’ll be building here: Final Result. If the code doesn’t make sense to
-                                you, or if you are unfamiliar with the code’s syntax, don’t worry! The goal of this
-                                tutorial is to help you understand React and its syntax.
+                                {{option.Text}}
                             </div>
-                            <div class="col-3 col-sm-1">
-                                <div class="text-4 text-4-correct">B</div>
-                            </div>
+                            {% if option.Asset %}
                             <div class="col-9 col-sm-11 text-5">
-                                You can see what we’ll be building here: Final Result. If the code doesn’t make sense to
-                                you, or if you are unfamiliar with the code’s syntax, don’t worry! The goal of this
-                                tutorial is to help you understand React and its syntax.
+                                <img src="{{option.Asset.url}}" alt="question" style="width: 100px;height: 100px;">
                             </div>
-                            <div class="col-3 col-sm-1">
-                                <div class="text-4">C</div>
-                            </div>
-                            <div class="col-9 col-sm-11 text-5">
-                                You can see what we’ll be building here: Final Result. If the code doesn’t make sense to
-                                you, or if you are unfamiliar with the code’s syntax, don’t worry! The goal of this
-                                tutorial is to help you understand React and its syntax.
-                            </div>
-                            <div class="col-3 col-sm-1">
-                                <div class="text-4">D</div>
-                            </div>
-                            <div class="col-9 col-sm-11 text-5">
-                                You can see what we’ll be building here: Final Result. If the code doesn’t make sense to
-                                you, or if you are unfamiliar with the code’s syntax, don’t worry! The goal of this
-                                tutorial is to help you understand React and its syntax.
-                            </div>
+                            {% endif %}
+                            {% endfor %}
                         </div>
                         <div class="col-12 text-8">Solution</div>
                         <div class="col-12 text-9">
-                            We recommend that you check out the tic-tac-toe game before continuing with the
-                            tutorial. One of the features that you’ll notice is that there is a numbered list to the
-                            right of the game’s board. This list gives you a history of all of the moves that have
-                            occurred in the game, and it is updated as the game progresses.
+                            {{question.Answer.Explanation}}
                         </div>
+                        {% elif question.Type == "S" %}
+                        <div class="row">
+                            <div class="text-3 col-12">
+                                {{question.Text}}
+                            </div>
+                            {% if question.Asset %}
+                            <div class="text-3 col-12">
+                                <img src="{{question.Asset.url}}" alt="question" style="width: 100px;height: 100px;">
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-12 text-8">Solution</div>
+                        <div class="col-12 text-9">
+                            {{question.Answer.Explanation}}
+                        </div>
+                        {% elif question.Type == "L" %}
+                        <div class="row">
+                            <div class="text-3 col-12">
+                                {{question.Text}}
+                            </div>
+                            {% if question.Asset %}
+                            <div class="text-3 col-12">
+                                <img src="{{question.Asset.url}}" alt="question" style="width: 100px;height: 100px;">
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-12 text-8">Solution</div>
+                        <div class="col-12 text-9">
+                            {{question.Answer.Explanation}}
+                        </div>
+                        {% else %}
+                        <div class="row">
+                            <div class="text-3 col-12">
+                                {{question.Text}}
+                            </div>
+                            {% if question.Asset %}
+                            <div class="text-3 col-12">
+                                <img src="{{question.Asset.url}}" alt="question" style="width: 100px;height: 100px;">
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-12 text-8">Solution</div>
+                        {% for blank in question.Answer.get_blanks %}
+                        <div class="col-12 text-9">
+                            {{forloop.counter}}. {{blank}}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="col-2 p-0">
                         <div class="row">
-                            <div class="col-12 text-center"><input type="text" name="" id="" min="1"
-                                    class="form-control text-6 text-center"></div>
+                            <div class="col-12 text-center"><span
+                                    class="form-control text-6 text-center">{{question.Max_Marks}}</span></div>
                             <div class="col-12 text-center text-7">Marks</div>
                             <div class="col-12 text-center">
-                                <button class="btn qm-button-4"><i class="fas fa-pen"></i></button>
+                                <button class="btn qm-button-4" onclick="getQuestion({{question.id}});"><i
+                                        class="fas fa-pen"></i></button>
                             </div>
                             <div class="col-12 text-center text-7">Edit</div>
                             <div class="col-12 text-center">
-                                <button class="btn qm-button-4"><i class="far fa-times-circle"></i></button>
+                                <a href="{% url 'exam:delete-question' question.id %}"><button
+                                        class="btn qm-button-4"><i class="far fa-times-circle"></i></button></a>
                             </div>
                             <div class="col-12 text-center text-7">Delete</div>
                         </div>
                     </div>
                 </div>
-                <div class="row row-2-1-1">
-                    <div class="text-2 col-1 text-right">Q2.</div>
-                    <div class="col-8">
-                        <div class="row">
-                            <div class="text-3 col-12">
-                                We will build a small game during this tutorial. You might be tempted to skip it because
-                                you’re not building games — but give it a chance. The techniques you’ll learn in the
-                                tutorial are fundamental to building any React app, and mastering it will give you a
-                                deep understanding of React.
-                            </div>
-                        </div>
-                        <div class="col-12 text-8">Solution</div>
-                        <div class="col-12 text-9">
-                            We recommend that you check out the tic-tac-toe game before continuing with the
-                            tutorial. One of the features that you’ll notice is that there is a numbered list to the
-                            right of the game’s board. This list gives you a history of all of the moves that have
-                            occurred in the game, and it is updated as the game progresses.
-                        </div>
-                    </div>
-                    <div class="col-2 p-0">
-                        <div class="row">
-                            <div class="col-12 text-center"><input type="text" name="" id="" min="1"
-                                    class="form-control text-6 text-center"></div>
-                            <div class="col-12 text-center text-7">Marks</div>
-                            <div class="col-12 text-center">
-                                <button class="btn qm-button-4"><i class="fas fa-pen"></i></button>
-                            </div>
-                            <div class="col-12 text-center text-7">Edit</div>
-                            <div class="col-12 text-center">
-                                <button class="btn qm-button-4"><i class="far fa-times-circle"></i></button>
-                            </div>
-                            <div class="col-12 text-center text-7">Delete</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row row-2-1-1">
-                    <div class="text-2 col-1 text-right">Q3.</div>
-                    <div class="col-8">
-                        <div class="row">
-                            <div class="text-3 col-12">
-                                We will build a small game during this tutorial. You might be tempted to skip it because
-                                you’re not building games — but give it a chance. The techniques you’ll learn in the
-                                tutorial are fundamental to building any React app, and mastering it will give you a
-                                deep understanding of React.
-                            </div>
-                        </div>
-                        <div class="col-12 text-8">Solution</div>
-                        <div class="col-12 text-9">
-                            We recommend that you check out the tic-tac-toe game before continuing with the
-                            tutorial. One of the features that you’ll notice is that there is a numbered list to the
-                            right of the game’s board. This list gives you a history of all of the moves that have
-                            occurred in the game, and it is updated as the game progresses.
-                        </div>
-                    </div>
-                    <div class="col-2 p-0">
-                        <div class="row">
-                            <div class="col-12 text-center"><input type="text" name="" id="" min="1"
-                                    class="form-control text-6 text-center"></div>
-                            <div class="col-12 text-center text-7">Marks</div>
-                            <div class="col-12 text-center">
-                                <button class="btn qm-button-4"><i class="fas fa-pen"></i></button>
-                            </div>
-                            <div class="col-12 text-center text-7">Edit</div>
-                            <div class="col-12 text-center">
-                                <button class="btn qm-button-4"><i class="far fa-times-circle"></i></button>
-                            </div>
-                            <div class="col-12 text-center text-7">Delete</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row row-2-1-1">
-                    <div class="text-2 col-1 text-right">Q4.</div>
-                    <div class="col-8">
-                        <div class="row">
-                            <div class="text-3 col-12">
-                                We will build a small game during this tutorial. You might be tempted to skip it because
-                                you’re not building games — but give it a chance. The techniques you’ll learn in the
-                                tutorial are fundamental to building any React app, and mastering it will give you a
-                                deep understanding of React.
-                            </div>
-                        </div>
-                        <div class="col-12 text-8">Solution</div>
-                        <div class="col-12 text-9">
-                            We recommend that you check out the tic-tac-toe game before continuing with the
-                            tutorial. One of the features that you’ll notice is that there is a numbered list to the
-                            right of the game’s board. This list gives you a history of all of the moves that have
-                            occurred in the game, and it is updated as the game progresses.
-                        </div>
-                    </div>
-                    <div class="col-2 p-0">
-                        <div class="row">
-                            <div class="col-12 text-center"><input type="text" name="" id="" min="1"
-                                    class="form-control text-6 text-center"></div>
-                            <div class="col-12 text-center text-7">Marks</div>
-                            <div class="col-12 text-center">
-                                <button class="btn qm-button-4"><i class="fas fa-pen"></i></button>
-                            </div>
-                            <div class="col-12 text-center text-7">Edit</div>
-                            <div class="col-12 text-center">
-                                <button class="btn qm-button-4"><i class="far fa-times-circle"></i></button>
-                            </div>
-                            <div class="col-12 text-center text-7">Delete</div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
                 <div class="col-12 text-center">
                     <button class="btn button-3" onclick="$('#question-modal').modal()">Add New</button>
                 </div>
@@ -212,4 +142,12 @@
     </div>
 </div>
 {% include 'Exam/question-modal.html' %}
+
+<script>
+    const marks = {{ marks_till_now }}
+    console.log(marks)
+</script>
+
+<script src="{% static 'js/exam/paperEdit.js' %}"></script>
+
 {% endblock %}

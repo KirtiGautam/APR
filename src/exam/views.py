@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django import http
 from accounts.models import Class
 from lessons.models import Subject
-from exam.models import (exam_type, Exam, Paper)
+from exam.models import (exam_type, Exam, Paper, Question, Answer, Option)
 from django.utils import dateparse
 import datetime
 import pytz
@@ -101,14 +101,158 @@ def papers(request, id):
 
 def editPaper(request, id):
     if request.user.is_authenticated:
+        if request.user.user_type == "Student":
+            return http.HttpResponseForbidden("Not Alowed")
         try:
             paper = Paper.objects.get(id=id)
         except Exception as e:
             return http.HttpResponseNotFound("No such paper", e.args)
-        if request.user.user_type == "Student":
-            return http.HttpResponseForbidden("Not Alowed")
+        if request.method == "POST":
+            if request.POST['QType'] == "O":
+                question = Question.objects.create(
+                    Paper=paper, Max_Marks=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST['Question-text'], Type=request.POST['QType'])
+                if 'Question-Image' in request.FILES:
+                    question.Asset = request.FILES['Question-Image']
+                    question.save()
+                for x in range(1, 5):
+                    option = Option.objects.create(
+                        Question=question, Text=request.POST['op'+str(x)+'-text'])
+                    if 'op'+str(x)+'-file' in request.FILES:
+                        option.Asset = request.FILES['op'+str(x)+'-file']
+                        option.save()
+                    if int(request.POST['correct-option']) == x:
+                        Answer.objects.create(
+                            Question=question, Option=option, Explanation=request.POST['correct-explanation'])
+            elif request.POST['QType'] == "S":
+                question = Question.objects.create(
+                    Paper=paper, Max_Marks=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST['short-Question-text'], Type=request.POST['QType'])
+                if 'short-Question-file' in request.FILES:
+                    question.Asset = request.FILES['short-Question-file']
+                    question.save()
+                Answer.objects.create(
+                    Question=question, Explanation=request.POST['short-Question-answer'])
+            elif request.POST['QType'] == "L":
+                question = Question.objects.create(
+                    Paper=paper, Max_Marks=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST['long-Question-text'], Type=request.POST['QType'])
+                if 'long-Question-file' in request.FILES:
+                    question.Asset = request.FILES['long-Question-file']
+                    question.save()
+                Answer.objects.create(
+                    Question=question, Explanation=request.POST['long-Question-answer'])
+            else:
+                joined = "','".join([request.POST['fill-question'+str(x)]
+                                     for x in range(1, int(request.POST['hidden-fill-count'])+1)])
+                question = Question.objects.create(
+                    Paper=paper, Max_Marks=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST['fill-question'], Type=request.POST['QType'])
+                if 'fill-question-file' in request.FILES:
+                    question.Asset = request.FILES['fill-question-file']
+                    question.save()
+                Answer.objects.create(Question=question, Explanation=joined)
+
+            return redirect("exam:edit-paper", id=id)
+        from django.db.models import Sum
+        sum = paper.Question.all().aggregate(
+            Sum("Max_Marks"))['Max_Marks__sum']
         data = {
             'paper': paper,
+            'marks_till_now': paper.Max_Marks - sum if sum else paper.Max_Marks,
         }
         return render(request, 'Exam/paperEdit.html', data)
     return redirect('accounts:login')
+
+
+def deleteQuestion(request, id):
+    if request.user.is_authenticated:
+        if request.user.user_type == "Student":
+            return http.HttpResponseForbidden("Forbidden")
+        question = Question.objects.get(id=id)
+        paper = question.Paper.id
+        question.delete()
+        return redirect('exam:edit-paper', id=paper)
+    return redirect('accounts:login')
+
+
+def editQuestion(request):
+    if request.user.is_authenticated and request.user.user_type != "Student":
+        if request.method == "POST":
+            question = Question.objects.get(
+                id=request.POST['edit-question-id'])
+            question.SNo = request.POST['edit-QSNo']
+            question.Max_Marks = request.POST['edit-max_marks']
+            if question.Type == "O":
+                question.Text = request.POST['edit-Question-text']
+                if 'edit-Question-Image' in request.FILES:
+                    question.Asset = request.FILES['edit-Question-Image']
+                for x in range(1, 5):
+                    option = Option.objects.get(
+                        id=request.POST['hidden-edit-op'+str(x)])
+                    option.Text = request.POST['edit-op'+str(x)+'-text']
+                    if 'edit-op'+str(x)+'-file' in request.FILES:
+                        option.Asset = request.FILES['op'+str(x)+'-file']
+                    option.save()
+                    if int(request.POST['edit-correct-option']) == option.id:
+                        Answer.objects.filter(id=request.POST['hidden-edit-ob-answer']).update(
+                            Option=option, Explanation=request.POST['edit-correct-explanation'])
+            elif question.Type == "S":
+                question.Text = request.POST['edit-short-Question-text']
+                if 'edit-short-Question-file' in request.FILES:
+                    question.Asset = request.FILES['edit-short-Question-file']
+                    question.save()
+                Answer.objects.filter(id=request.POST['edit-short-Answer-id']).update(
+                    Explanation=request.POST['edit-short-Question-answer'])
+            elif question.Type == "L":
+                question.Text = request.POST['edit-long-Question-text']
+                if 'edit-long-Question-file' in request.FILES:
+                    question.Asset = request.FILES['editlong-Question-file']
+                    question.save()
+                Answer.objects.filter(id=request.POST['edit-long-Answer-id']).update(
+                    Explanation=request.POST['edit-long-Question-answer'])
+            else:
+                joined = "','".join([request.POST['edit-fill-question'+str(x)]
+                                     for x in range(1, int(request.POST['edit-hidden-fill-count'])+1)])
+                question.Text = request.POST['edit-fill-question']
+                if 'edit-fill-question-file' in request.FILES:
+                    question.Asset = request.FILES['edit-fill-question-file']
+                    question.save()
+                Answer.objects.filter(
+                    id=request.POST['edit-fill-answer-id']).update(Explanation=joined)
+            question.save()
+            return redirect("exam:edit-paper", id=question.Paper.id)
+        question = Question.objects.get(id=request.GET['id'])
+        data = {
+            'id': question.id,
+            'SNo': question.SNo,
+            'Text': question.Text,
+            'Max_Marks': question.Max_Marks,
+            'Asset': question.Asset.url if question.Asset else None,
+            'Type': question.Type,
+        }
+        if question.Type == 'O':
+            data['options'] = list(
+                question.Option.all().values('id', 'Text', 'Asset'))
+            data['Answer'] = {
+                'id': question.Answer.id,
+                'Explanation': question.Answer.Explanation,
+                'Option': question.Answer.Option.id,
+            }
+        elif question.Type == 'S' or question.Type == 'L':
+            data['Answer'] = {
+                'id': question.Answer.id,
+                'Explanation': question.Answer.Explanation,
+            }
+        else:
+            data['Answer'] = {
+                'id': question.Answer.id,
+                'blanks': question.Answer.get_blanks(),
+            }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden("Not Allowed")
+
+
+def markQuestion(request):
+    if request.user.is_authenticated and request.user.user_type != "Student":
+        paper = Paper.objects.get(id=request.POST['id'])
+        paper.File = not paper.File
+        paper.save()
+        return http.JsonResponse("Marked as File Submission" if paper.File else "Mark as File Submission", safe=False)
+    return http.HttpResponseForbidden("Not Allowed")

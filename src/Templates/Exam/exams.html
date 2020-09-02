@@ -38,15 +38,15 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <img src="/static/Images/lesson/back.png" alt="" class="float-right back-photo">
+                <img src="/static/Images/lesson/back.png" alt="student studying" class="float-right back-photo">
             </div>
         </div>
         <div class="row row-2 col-12">
             {% for exam in Exams %}
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
                 <form action="{% url 'exam:delete'  %}" method="post">
-                    <button type="submit" class="btn float-right del" onclick="" title="Delete" name="id"
-                        value="{{exam.id}}"><i class="fas fa-trash"></i></button>
+                    <button type="submit" class="btn float-right del" title="Delete" name="id" value="{{exam.id}}"><i
+                            class="fas fa-trash"></i></button>
                 </form>
                 <a href="{% url 'exam:papers' exam.id %}">
                     <div class="exam-cards">
