@@ -230,3 +230,18 @@ const markAsFile = (id, btn) => {
     error: (error) => alert(error.responseText),
   });
 };
+
+const newSectionCheck = (number) => {
+  if (!$(`#start_number${number}`).val() || !$(`#end_number${number}`).val()) {
+    alert("Please fill start number and end number");
+    return false;
+  }
+  if (
+    !isFinite($(`#start_number${number}`).val()) ||
+    !isFinite(!$(`#end_number${number}`).val())
+  ) {
+    alert("Please fill a valid Question number");
+    return false;
+  }
+  return true;
+};

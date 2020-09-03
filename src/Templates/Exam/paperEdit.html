@@ -137,47 +137,79 @@
             </div>
         </div>
         <div class="row row-3">
+            {% for section in paper.Section.all %}
             <div class="row-3-2">
                 <div class="row row-3-2-10">
-                    <div class="text-3-1 col-12">Name of the section</div>
+                    <div class="text-3-1 col-12">Section {{forloop.counter}}</div>
                     <div class="text-3-2 col-12">Question Range</div>
-                    <div class="col-12">
-                        <div class="row row-3-2-50">
-                            <div class="col-5">
-                                <input type="text" name="" id="" class="form-control text-3-3">
-                            </div>
-                            <div class="col-2 text-center text-2-4">-</div>
-                            <div class="col-5">
-                                <input type="text" name="" id="" class="form-control text-3-3">
+                    <form action="{% url 'exam:edit-section' section.id %}" method="post"
+                        onsubmit="return newSectionCheck({{section.id}});">
+                        {% csrf_token %}
+                        <div class="col-12">
+                            <div class="row row-3-2-50">
+                                <div class="col-5">
+                                    <input type="text" name="start_number{{section.id}}" id="start_number{{section.id}}"
+                                        class="form-control text-3-3" value="{{section.Start}}">
+                                </div>
+                                <div class="col-2 text-center text-2-4">-</div>
+                                <div class="col-5">
+                                    <input type="text" name="end_number{{section.id}}" id="end_number{{section.id}}"
+                                        class="form-control text-3-3" value="{{section.End}}">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 text-right">
-                        <button class="btn button-3-1">Save</button>
-                    </div>
+                        <div class="col-12 text-right">
+                            <button type="submit" class="btn button-3-1">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="col-12 text-center">
-                <button class="btn button-3">Add New</button>
+            {% endfor %}
+            <div class="row-3-2">
+                <div class="row row-3-2-10">
+                    <div class="text-3-1 col-12">Section {{paper.Section.all.count|add:"1"}}</div>
+                    <div class="text-3-2 col-12">Question Range</div>
+                    <form action="{% url 'exam:add-section' %}" method="post" onsubmit="return newSectionCheck('');">
+                        {% csrf_token %}
+                        <div class="col-12">
+                            <div class="row row-3-2-50">
+                                <div class="col-5">
+                                    <input type="hidden" name="hidden_section_paper_id" value="{{paper.id}}">
+                                    <input type="text" name="start_number" id="start_number"
+                                        class="form-control text-3-3">
+                                </div>
+                                <div class="col-2 text-center text-2-4">-</div>
+                                <div class="col-5">
+                                    <input type="text" name="end_number" id="end_number" class="form-control text-3-3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-right">
+                            <button type="submit" class="btn button-3-1">Save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="col-12">
                 <div class="row">
                     <div class="col-6 text-center">
-                        <button class="btn button-2">Save</button>
-                    </div>
-                    <div class="col-6 text-center">
-                        <button class="btn button-3-1">Finish</button>
+                        <a href="{% url 'exam:finish-paper-edit' paper.id %}"> <button
+                                class="btn button-3-1">{% if paper.Published %}Un{% endif %}Finish</button></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% include 'Exam/question-modal.html' %}
+{% include 'Exam/question-modal.html'   %}
 
 <script>
     const marks = {{ marks_till_now }}
-    console.log(marks)
+    {% if messages %}
+    {% for message in messages %}
+    alert('{{message}}');
+    {% endfor %}
+    {% endif %}
 </script>
 
 <script src="{% static 'js/exam/paperEdit.js' %}"></script>

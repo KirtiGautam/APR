@@ -33,6 +33,13 @@ class Paper(models.Model):
     Location = models.CharField(max_length=100)
 
 
+class Section(models.Model):
+    Paper = models.ForeignKey(
+        Paper, related_name='Section', on_delete=models.CASCADE)
+    Start = models.PositiveIntegerField()
+    End = models.PositiveIntegerField()
+
+
 class Question(models.Model):
     paper_type_choices = (
         ('O', 'Objective'),

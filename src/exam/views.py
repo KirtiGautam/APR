@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django import http
 from accounts.models import Class
 from lessons.models import Subject
-from exam.models import (exam_type, Exam, Paper, Question, Answer, Option)
+from exam.models import (exam_type, Exam, Paper,
+                         Question, Answer, Option, Section)
 from django.utils import dateparse
 import datetime
 import pytz
@@ -255,4 +256,51 @@ def markQuestion(request):
         paper.File = not paper.File
         paper.save()
         return http.JsonResponse("Marked as File Submission" if paper.File else "Mark as File Submission", safe=False)
+    return http.HttpResponseForbidden("Not Allowed")
+
+
+def addSection(request):
+    if request.user.is_authenticated and request.user.user_type != "Student":
+        paper = Paper.objects.get(id=request.POST['hidden_section_paper_id'])
+        Section.objects.create(
+            Paper=paper, Start=request.POST['start_number'], End=request.POST['end_number'])
+        return redirect("exam:edit-paper", id=paper.id)
+    return http.HttpResponseForbidden("Not Allowed")
+
+
+def editSection(request, id):
+    if request.user.is_authenticated and request.user.user_type != "Student":
+        section = Section.objects.get(id=id)
+        section.Start = request.POST['start_number'+str(section.id)]
+        section.End = request.POST['end_number'+str(section.id)]
+        section.save()
+        return redirect("exam:edit-paper", id=section.Paper.id)
+    return http.HttpResponseForbidden("Not Allowed")
+
+
+def finishPaper(request, id):
+    if request.user.is_authenticated and request.user.user_type != "Student":
+        from django.contrib import messages
+        paper = Paper.objects.get(id=id)
+        if not paper.Published:
+            ser = 0
+            for x in paper.Question.all().order_by('SNo'):
+                ser += 1
+                if ser != x.SNo:
+                    messages.error(
+                        request, "Question numbers are not consecutive")
+                    return redirect('exam:edit-paper', id=paper.id)
+            sections = paper.Section.all()
+            end = []
+            for section in sections:
+                if section.Start < 0 or section.End > ser:
+                    messages.error(request, "Section range is improper")
+                    return redirect('exam:edit-paper', id=paper.id)
+                for d in sections:
+                    if d.id != section.id and ((section.Start in range(d.Start, d.End+1) or (section.End in range(d.Start, d.End+1)))):
+                        messages.error(request, "Sections are overlapping")
+                        return redirect('exam:edit-paper', id=paper.id)
+        paper.Published = not paper.Published
+        paper.save()
+        return redirect('exam:edit-paper', id=paper.id)
     return http.HttpResponseForbidden("Not Allowed")
