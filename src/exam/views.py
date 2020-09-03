@@ -189,7 +189,7 @@ def editQuestion(request):
                         id=request.POST['hidden-edit-op'+str(x)])
                     option.Text = request.POST['edit-op'+str(x)+'-text']
                     if 'edit-op'+str(x)+'-file' in request.FILES:
-                        option.Asset = request.FILES['op'+str(x)+'-file']
+                        option.Asset = request.FILES['edit-op'+str(x)+'-file']
                     option.save()
                     if int(request.POST['edit-correct-option']) == option.id:
                         Answer.objects.filter(id=request.POST['hidden-edit-ob-answer']).update(

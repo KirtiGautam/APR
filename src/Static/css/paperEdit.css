@@ -39,10 +39,6 @@
   padding: 5px;
 }
 
-.row-3 {
-  padding: 5px;
-}
-
 .row-2-1 {
   border-right: 1px solid #b3b6b8;
   position: absolute;
@@ -57,6 +53,12 @@
   padding: 10px;
   position: absolute;
   height: 80vh;
+  overflow-y: auto;
+}
+
+.row-3-2{
+  margin-bottom: 15px;
+  margin-right: 30px;
 }
 
 .row-2-1-1 {
