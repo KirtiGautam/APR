@@ -260,11 +260,25 @@
   white-space: nowrap;
 }
 
-.modal-text-6{
+.modal-text-6 {
   min-width: 200px;
 }
 
-.button-4:focus{
+.button-4 {
+  border-radius: 0px;
+  margin: 10px;
+  border: none;
+  box-shadow: 0px 3px 6px #00000029;
+  font-size: 16px;
+  color: #15202b;
+  font-family: Arial, Helvetica, sans-serif;
+  float: right;
+  padding: 5px 30px;
+  background: transparent linear-gradient(180deg, #ced0d2 0%, #a1a3a5 100%) 0%
+    0% no-repeat padding-box;
+}
+
+.button-4:focus {
   box-shadow: 0px 0px 0px #00000029;
   outline: none;
 }
