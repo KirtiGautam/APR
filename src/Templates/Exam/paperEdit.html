@@ -16,20 +16,19 @@
                     </button>
                 </a>
             </div>
-            <div class="col-10 col-sm-11 col-md-6 col-lg-3 text-truncate text-1">
+            <div class="col-10 col-sm-11 col-md-5 text-truncate text-1">
                 Question Paper setting | {{paper.Subject.Name}}
             </div>
 
             <!-- <div class="col-6 col-md-5 col-lg-2">
                 <button class="btn button-2">Import from Database</button>
             </div> -->
-            <div class="col-6 col-md-5 col-lg-2"><button onclick="markAsFile({{paper.id}}, this);" class="btn button-2">Mark{% if paper.File %}ed{% endif %} as File Submission</button></div>
-            <div class="col-6 col-md-4 col-lg-2">
+            <div class="col-6 col-md-3"><button onclick="markAsFile({{paper.id}}, this);"
+                    class="btn button-2">Mark{% if paper.File %}ed{% endif %} as File Submission</button></div>
+            <div class="col-6 col-md-3">
                 <button class="btn button-2">Total duration : {{paper.Duration}} mins</button>
             </div>
-            <div class="col-6 col-md-3 col-lg-2"><button class="btn button-2">Next</button></div>
         </div>
-
         <div class="row row-2">
             <div class="col-12 row-2-1">
                 {% for question in paper.Question.all|dictsort:"SNo" %}
@@ -54,12 +53,10 @@
                             </div>
                             <div class="col-9 col-sm-11 text-5">
                                 {{option.Text}}
-                            </div>
-                            {% if option.Asset %}
-                            <div class="col-9 col-sm-11 text-5">
+                                {% if option.Asset %}
                                 <img src="{{option.Asset.url}}" alt="question" style="width: 100px;height: 100px;">
+                                {% endif %}
                             </div>
-                            {% endif %}
                             {% endfor %}
                         </div>
                         <div class="col-12 text-8">Solution</div>
@@ -136,6 +133,41 @@
                 {% endfor %}
                 <div class="col-12 text-center">
                     <button class="btn button-3" onclick="$('#question-modal').modal()">Add New</button>
+                </div>
+            </div>
+        </div>
+        <div class="row row-3">
+            <div class="row-3-2">
+                <div class="row row-3-2-10">
+                    <div class="text-3-1 col-12">Name of the section</div>
+                    <div class="text-3-2 col-12">Question Range</div>
+                    <div class="col-12">
+                        <div class="row row-3-2-50">
+                            <div class="col-5">
+                                <input type="text" name="" id="" class="form-control text-3-3">
+                            </div>
+                            <div class="col-2 text-center text-2-4">-</div>
+                            <div class="col-5">
+                                <input type="text" name="" id="" class="form-control text-3-3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-right">
+                        <button class="btn button-3-1">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <button class="btn button-3">Add New</button>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <button class="btn button-2">Save</button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <button class="btn button-3-1">Finish</button>
+                    </div>
                 </div>
             </div>
         </div>
