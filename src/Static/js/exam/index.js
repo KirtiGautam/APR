@@ -5,10 +5,19 @@ $(function () {
     $("#body").modal("hide");
     $("#body2").modal();
   });
+  $("#mode").change(function () {
+    for (let index = 1; index <= rows; index++) {
+      let loc = document.getElementById(`location${index}`);
+      if ($("#mode").val() === "O") loc.setAttribute("readonly", true);
+      else loc.removeAttribute("readonly", false);
+      loc.value = "ONLINE";
+    }
+  });
   $("#add-row-btn").click(function () {
     $("#t-body").append(
-      `<tr>
-    <td>${++rows}</td>
+      `<tr id="Drow${++rows}">
+      <td><button class="btn button-5" onclick="removeRow(${rows});" ><i class="far fa-times-circle"></i></button></td>
+    <td>${rows}</td>
     <td>
         <select id="class${rows}" name="class${rows}" class="custom-select" onchange="getSubjects(this.value, ${rows})">
             ${$("#class1").html()}
@@ -19,7 +28,9 @@ $(function () {
           <option value="" disabled selected>Select Class first</option>
         </select>
     </td>
-    <td><input type="text" name="location${rows}" id="location${rows}" class="form-control"></td>
+    <td><input type="text" name="location${rows}" id="location${rows}" class="form-control" ${
+        $("#mode").val() === "O" ? "readonly" : ""
+      } value='${$("#mode").val() === "O" ? "ONLINE" : ""}'></td>
     <td><input type="datetime-local" name="dNt${rows}" id="dNt${rows}" class="form-control"></td>
     <td>
         <input type="number" name="max-marks${rows}" id="max-marks${rows}" class="form-control">
@@ -85,4 +96,9 @@ const check = () => {
     }
   }
   return true;
+};
+
+const removeRow = (id) => {
+  document.getElementById(`Drow${id}`).remove();
+  --rows;
 };

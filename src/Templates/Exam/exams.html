@@ -23,12 +23,6 @@
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 row-1-2">
                         <div class="col-12 row">
-                            <select id="class" class="col-8 form-control text-1">
-                                <option value="" disabled selected>Class</option>
-                                {% for key in classes %}
-                                <option value="{{key.id}}">{{key.name}}</option>
-                                {% endfor %}
-                            </select>
                             <span class="col-4">
                                 <button class="btn button-3 float-right" title="Add New Exam"
                                     onclick="$('#body').modal()"><i class="fas fa-plus-circle"></i></button>
@@ -59,7 +53,7 @@
                             <div class="col-12 exam-name text-truncate">{{exam.Name}}</div>
                         </span>
                         <span class="row">
-                            <span class="dates col-12">Dates: 23 - 27th Feb</span>
+                            <span class="dates col-12">Dates: {{exam.range.first|date:'d'}} - {{exam.range.last|date:'d'}}th {{exam.range.last|date:'b'}}</span>
                             <span class="exam-pattern col-12">Exam Pattern: Objective</span>
                             <span class="exam-subject col-12">All Subjects</span>
                         </span>
@@ -67,7 +61,7 @@
                 </a>
             </div>
             {% endfor %}
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+            <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
                 <button class="btn float-right del" onclick="" title=" Delete"><i class="fas fa-trash"></i></button>
                 <a href="#">
                     <div class="exam-cards exam-draft">
@@ -86,7 +80,7 @@
                         </span>
                     </div>
                 </a>
-            </div>
+            </div> -->
         </div>
         <div class="container-fluid">
             <div class="row row-3">

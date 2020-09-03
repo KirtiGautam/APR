@@ -18,6 +18,12 @@ class Exam(models.Model):
     exam_type = models.ForeignKey(
         exam_type, on_delete=models.CASCADE, related_name='Exams')
 
+    def range(self):
+        all = self.Paper.all().order_by('Scheduled_on')
+        first = all.first().Scheduled_on
+        last = all.last().Scheduled_on
+        return {'first': first, 'last': last}
+
 
 class Paper(models.Model):
     Subject = models.ForeignKey(

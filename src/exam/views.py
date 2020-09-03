@@ -93,7 +93,7 @@ def papers(request, id):
         else:
             paper = exam.Paper.all()
         data = {
-            'exam': exam.Name,
+            'exam': {'Name': exam.Name, 'id': exam.id, 'Mode': exam.Mode},
             'papers': paper,
         }
         return render(request, "Exam/papers.html", data)
