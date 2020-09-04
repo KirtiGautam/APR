@@ -1,14 +1,16 @@
 from django.urls import path, re_path
 
-from .views import (index, examSettings, deleteExam, updateExam, papers, delete, editPaper,
-                    deleteQuestion, editQuestion, markQuestion, addSection, editSection, finishPaper)
+from .views import (index, examSettings, deleteExam, updateExam, papers, delete, editPaper, deleteQuestion,
+                    editQuestion, markQuestion, addSection, editSection, finishPaper, instruction, studentPaper)
 
 app_name = 'exam'
 
 urlpatterns = [
     path('exams', index, name='exams'),
+    path('paper/<int:id>', studentPaper, name='paper'),
     path('exams/<int:id>', papers, name='papers'),
     path('paper/edit/<int:id>', editPaper, name='edit-paper'),
+    path('paper/instructions/<int:id>', instruction, name='paper-instruction'),
     path('finish-paper-edit/<int:id>', finishPaper, name='finish-paper-edit'),
     path('question/delete/<int:id>', deleteQuestion, name='delete-question'),
     path('add-section', addSection, name='add-section'),

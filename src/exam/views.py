@@ -24,15 +24,17 @@ def index(request):
             return redirect("exam:exams")
         if request.user.admin:
             data = {
-                'classes': Class.objects.all(),
                 'Exams': Exam.objects.all(),
                 'types': exam_type.objects.all()
             }
         elif request.user.is_staff:
             data = {
                 'Exams': Exam.objects.filter(Paper__Subject__teacher=request.user),
-                'classes': Class.objects.filter(Subject__teacher=request.user),
                 'types': exam_type.objects.all()
+            }
+        else:
+            data = {
+                'Exams': Exam.objects.filter(Paper__Subject__Class=request.user.Student.Class),
             }
         return render(request, 'Exam/exams.html', data)
     return redirect('accounts:login')
@@ -303,4 +305,19 @@ def finishPaper(request, id):
         paper.Published = not paper.Published
         paper.save()
         return redirect('exam:edit-paper', id=paper.id)
+    return http.HttpResponseForbidden("Not Allowed")
+
+
+def instruction(request, id):
+    if request.user.is_authenticated and request.user.user_type == "Student":
+        return render(request, 'Exam/instruction.html', {'id': id})
+    return http.HttpResponseForbidden("Not Allowed")
+
+
+def studentPaper(request, id):
+    if request.user.is_authenticated and request.user.user_type == "Student":
+        data = {
+            'paper': Paper.objects.get(id=id)
+        }
+        return render(request, 'Exam/studentexam.html', data)
     return http.HttpResponseForbidden("Not Allowed")

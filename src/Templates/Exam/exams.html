@@ -24,8 +24,10 @@
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 row-1-2">
                         <div class="col-12 row">
                             <span class="col-4">
+                                {% if user.admin %}
                                 <button class="btn button-3 float-right" title="Add New Exam"
                                     onclick="$('#body').modal()"><i class="fas fa-plus-circle"></i></button>
+                                {% endif %}
                             </span>
                         </div>
                     </div>
@@ -39,6 +41,7 @@
             {% for exam in Exams %}
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
                 <form action="{% url 'exam:delete'  %}" method="post">
+                    {% csrf_token %}
                     <button type="submit" class="btn float-right del" title="Delete" name="id" value="{{exam.id}}"><i
                             class="fas fa-trash"></i></button>
                 </form>
@@ -47,13 +50,13 @@
                         <span class="row exam-row-head">
                             <span class="title col-6 text-truncate pt-1">Assessment</span>
                             <span class="type col-6 text-truncate">{{exam.get_Mode_display}}</span>
-                            <img src="/static/Images/lesson/ripple.svg" class="new-noti">
                         </span>
                         <span class="row">
                             <div class="col-12 exam-name text-truncate">{{exam.Name}}</div>
                         </span>
                         <span class="row">
-                            <span class="dates col-12">Dates: {{exam.range.first|date:'d'}} - {{exam.range.last|date:'d'}}th {{exam.range.last|date:'b'}}</span>
+                            <span class="dates col-12">Dates: {{exam.range.first|date:'d'}} -
+                                {{exam.range.last|date:'d'}}th {{exam.range.last|date:'b'}}</span>
                             <span class="exam-pattern col-12">Exam Pattern: Objective</span>
                             <span class="exam-subject col-12">All Subjects</span>
                         </span>
@@ -91,7 +94,9 @@
         </div>
     </div>
 </div>
+{% if user.admin %}
 {% include 'Exam/modal.html' %}
+{% endif %}
 <script src="{% static 'js/exam/index.js' %}"></script>
 <script>
     $(document).ready(function () {
