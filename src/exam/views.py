@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django import http
 from accounts.models import Class
 from lessons.models import Subject
-from exam.models import (exam_type, Exam, Paper,
-                         Question, Answer, Option, Section)
+from exam.models import (exam_type, Exam, Paper, Question,
+                         Answer, Option, Section, StudentAttempt)
 from django.utils import dateparse
 import datetime
 import pytz
@@ -316,8 +316,65 @@ def instruction(request, id):
 
 def studentPaper(request, id):
     if request.user.is_authenticated and request.user.user_type == "Student":
+        try:
+            paper = Paper.objects.get(id=id)
+        except Exception as e:
+            return http.HttpResponseNotFound("Not Found", e.args)
+        now = datetime.datetime.now(pytz.utc)
+        if now < paper.Scheduled_on or now > (paper.Scheduled_on+datetime.timedelta(minutes=paper.Duration)):
+            return http.HttpResponseNotAllowed("Exam can only be given between mentioned time period", )
+        if request.method == "POST":
+            question = Question.objects.get(
+                id=request.POST['hidden_question_id'])
+            obj, created = StudentAttempt.objects.get_or_create(
+                Student=request.user.Student, Question=question)
+            if question.Type == "O":
+                obj.Option = Option.objects.get(
+                    id=request.POST['student-option-response']) if 'student-option-response' in request.POST else None
+            elif question.Type == "S":
+                obj.Text = request.POST['short-Answer'] if 'short-Answer' in request.POST else None
+            elif question.Type == "L":
+                obj.Text = request.POST['long-answer'] if 'long-Answer' in request.POST else None
+            else:
+                answer = "','".join([request.POST['blank'+str(x)] if 'blank'+str(
+                    x) in request.POST else None for x in range(1, len(question.Answer.get_blanks())+1)])
+                obj.Text = answer
+            obj.save()
+            response = redirect("exam:paper", id=id)
+            response['Location'] += '?section='+request.GET['section'] + \
+                '&question=' + \
+                (request.POST['next']
+                 if 'next' in request.POST else request.POST['prev'])
+            return response
+        time = paper.Scheduled_on+datetime.timedelta(minutes=paper.Duration)
+        section = paper.Section.all()[int(request.GET['section'])]
+        questions = paper.Question.filter(
+            SNo__gte=section.Start, SNo__lte=section.End)
         data = {
-            'paper': Paper.objects.get(id=id)
+            'paper': paper,
+            'questions': questions,
+            'Question': questions[int(request.GET['question'])],
+            'Section': section,
+            'Time': time,
         }
         return render(request, 'Exam/studentexam.html', data)
+    return http.HttpResponseForbidden("Not Allowed")
+
+
+def clearQuestion(request, id):
+    if request.user.is_authenticated and request.user.user_type == "Student":
+        question = Question.objects.get(id=id)
+        if question.Student.filter(user=request.user).exists():
+            question.Student.remove(request.user.Student)
+            question.save()
+        response = redirect("exam:paper", id=question.Paper.id)
+        response['Location'] += '?section='+request.GET['section'] + \
+            '&question='+request.GET['question']
+        return response
+    return http.HttpResponseForbidden("Not Allowed")
+
+
+def finishExam(request):
+    if request.user.is_authenticated and request.user.user_type == "Student":
+        return render(request, 'Exam/examfinish.html')
     return http.HttpResponseForbidden("Not Allowed")

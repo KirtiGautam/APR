@@ -1,5 +1,6 @@
 from django.db import models
 from lessons.models import Subject
+from accounts.models import Student
 
 
 class exam_type(models.Model):
@@ -61,6 +62,21 @@ class Question(models.Model):
         Paper, related_name="Question", on_delete=models.CASCADE)
     Type = models.CharField(max_length=2, choices=paper_type_choices)
     Max_Marks = models.PositiveIntegerField()
+    Student = models.ManyToManyField(Student, through='StudentAttempt')
+
+    def attempted(self, user):
+        return self.Student.filter(user=user).exists()
+
+    def which(self, user):
+        return StudentAttempt.objects.get(Student=user.Student, Question=self).Option
+
+    def what(self, user):
+        return StudentAttempt.objects.get(Student=user.Student, Question=self).Text
+
+    def number(self, user):
+        lis = StudentAttempt.objects.get(
+            Student=user.Student, Question=self).Text.split("','")
+        return lis
 
 
 class Option(models.Model):
@@ -69,6 +85,16 @@ class Option(models.Model):
     Text = models.TextField(null=True, blank=True, default=None)
     Asset = models.ImageField(
         upload_to="Option_asset/", null=True, blank=True, default=None)
+
+
+class StudentAttempt(models.Model):
+    Question = models.ForeignKey(
+        Question, related_name='Exam_attempts', on_delete=models.CASCADE)
+    Student = models.ForeignKey(
+        Student, related_name='Exam_attempts', on_delete=models.CASCADE)
+    Option = models.ForeignKey(Option, related_name='Student_attempt',
+                               on_delete=models.CASCADE, null=True, blank=True, default=None)
+    Text = models.TextField(null=True, blank=True, default=None)
 
 
 class Answer(models.Model):
