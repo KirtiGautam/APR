@@ -1,0 +1,114 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/onlineresult.css' %}">
+</head>
+{% include "common/header.html" %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row row-1">
+            <div class="col-2 col-sm-1">
+                <a href="{% url 'exam:exams' %}">
+                    <button class="btn button-1" title="Back">
+                        <i class="fas fa-arrow-alt-circle-left"></i>
+                    </button>
+                </a>
+            </div>
+            <div class="col-10 col-sm-11 col-md-7 text-truncate text-1">
+                {{exam.Name}}
+            </div>
+        </div>
+        <div class="row row-2">
+            <div class="row-2-1">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="text-2 col-12">
+                            Pending assessment
+                        </div>
+                        <div class="text-3 col-12">
+                            <div class="row">
+                                <div class="text-3-1 col-8">Name of the student</div>
+                                <div class="text-3-2 col-4"><span class="text-3-2-1"></span><span>/100</span></div>
+                            </div>
+                        </div>
+                        <div class="text-2 col-12">
+                            Complete assessment
+                        </div>
+                        <div class="text-3 col-12">
+                            <div class="row">
+                                <div class="text-3-1 col-8">Name of the student</div>
+                                <div class="text-3-2 col-4"><span class="text-3-2-1">100</span><span>/100</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-2-2">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="text-4 col-12">Mathematics</div>
+                        <div class="col-6 col-sm-5 col-md-4 col-lg-3 row-2-2-1">
+                            <div class="text-5 col-12">08</div>
+                            <div class="text-6 col-12">Pending</div>
+                        </div>
+                        <div class="col-6 col-sm-5 col-md-4 col-lg-3">
+                            <div class="text-5 col-12">10</div>
+                            <div class="text-6 col-12">Completed</div>
+                        </div>
+                        <div class="col-12 col-sm-9 col-md-6 col-lg-3 row-2-2-2">
+                            <select name="" id="" class="custom-select">
+                                <option value="">All</option>
+                                <option value="">Pending</option>
+                                <option value="">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-0 mt-4 mb-1">
+                            <div class="col-11 row-2-2-3">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <span class="text-7"><i class="fas fa-check-circle"></i></span>
+                                    </div>
+                                    <div class="col-9 text-8 text-truncate">
+                                        Student Name
+                                    </div>
+                                    <div class="col-12 text-9">Completed</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-0 mt-4 mb-1">
+                            <div class="col-11 row-2-2-3 row-fail">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <span class="text-7"><i class="fas fa-check-circle"></i></span>
+                                    </div>
+                                    <div class="col-9 text-8 text-truncate">
+                                        Student Name
+                                    </div>
+                                    <div class="col-12 text-10">Absent</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-0 mt-4 mb-1">
+                            <div class="col-11 row-2-2-3">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <span class="text-11"><i class="fas fa-circle"></i></span>
+                                    </div>
+                                    <div class="col-9 text-8 text-truncate">
+                                        Student Name
+                                    </div>
+                                    <div class="col-12 text-10">Absent</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
