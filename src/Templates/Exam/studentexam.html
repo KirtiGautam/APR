@@ -87,7 +87,7 @@
                 {% if Question.Asset %}
                 <div class="col-12">
                     <div class="text-5">
-                        <img src="{{Question.Asset.url}}" alt="question asset">
+                        <img src="{{Question.Asset.url}}" alt="question asset" class="col-12">
                     </div>
                 </div>
                 {% endif %}
@@ -153,6 +153,57 @@
         </div>
     </div>
 </form>
+
+<!-- file submission -->
+
+<!-- <div class="col-12 row-1">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-5">
+            <div>Akshara International School</div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="row float-right">
+                <div><i class="fas fa-clock"></i></div>
+                <div class="text-1" id="left-time">Time left </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 text-right">
+            <a href=""> <button class="btn button-1">Finish Test</button></a>
+        </div>
+    </div>
+</div>
+<div class="col-12 frow-3">
+    <div class="row" style="height: 100%;">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-8 frow-3-1">
+            <div class="col-12 ftext-1 text-center">Section 1</div>
+            <div class="col-12 text-4">Question 1</div>
+            <div class="col-12 text-5">
+                Lorem Media is a full-service social media agency. We offer businesses innovative solutions that deliver
+                the
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 frow-3-2 mt-5">
+            <div class="text-4">Solution</div>
+            <div class="text-5">Add a PDF file as submission</div>
+            <div class="input-group mb-3 mt-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input">
+                    <label class="custom-file-label">Choose file</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="col-12 row-2">
+    <div class="row">
+        <div class="col-12 mt-1 mb-1">Akshara International School</div>
+    </div>
+</div> -->
+
 <script src="{% static 'js/exam/student.js' %}"></script>
 <script>
     let timeLeft = '{{Time|date:"Y-m-d"}}T{{Time|date:"G:i:s"}}';
