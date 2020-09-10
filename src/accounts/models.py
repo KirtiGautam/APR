@@ -119,9 +119,6 @@ class Student(models.Model):
     Class = models.ForeignKey(
         Class, on_delete=models.CASCADE, related_name='Students')
 
-    def __str__(self):
-        return self.user.__str__
-
 
 class Teacher(models.Model):
     user = models.OneToOneField(

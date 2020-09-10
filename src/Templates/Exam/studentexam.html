@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/studentexam.css' %}">
 </head>
 
+{% if not paper.File %}
 <div class="col-12 row-1">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-5">
@@ -19,7 +20,7 @@
             </div>
         </div>
         <div class="col-12 col-sm-6 col-md-3 text-right">
-            <a href="{% url 'exam:finished' %}"> <button class="btn button-1">Finish Test</button></a>
+             <button class="btn button-1" id="finish-exam-btn">Finish Test</button>
         </div>
     </div>
 </div>
@@ -154,9 +155,10 @@
     </div>
 </form>
 
+{% else %}
+<script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
 <!-- file submission -->
-
-<!-- <div class="col-12 row-1">
+<div class="col-12 row-1">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-5">
             <div>Akshara International School</div>
@@ -168,21 +170,30 @@
             </div>
         </div>
         <div class="col-12 col-sm-6 col-md-3 text-right">
-            <a href=""> <button class="btn button-1">Finish Test</button></a>
+            <button class="btn button-1" id="finish-exam-btn">Finish Test</button>
         </div>
     </div>
 </div>
 <div class="col-12 frow-3">
     <div class="row" style="height: 100%;">
         <div class="col-12 col-sm-12 col-md-6 col-lg-8 frow-3-1">
-            <div class="col-12 ftext-1 text-center">Section 1</div>
-            <div class="col-12 text-4">Question 1</div>
+            {% for section in paper.Section.all %}
+            <div class="col-12 ftext-1 text-center">Section {{forloop.counter}}</div>
+            {% for question in paper.Question.all %}
+            {% if question.SNo <= section.End and question.SNo >= section.Start %}
+            <div class="col-12 text-4">Question {{forloop.counter}}</div>
             <div class="col-12 text-5">
-                Lorem Media is a full-service social media agency. We offer businesses innovative solutions that deliver
-                the
+                {{question.Text}}
+                {% if question.Asset %}
+                <img src="{{question.Asset}}">
+                {{question.Text}}
+                {% endif %}
             </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 frow-3-2 mt-5">
+        <div class=" col-12 col-sm-12 col-md-6 col-lg-4 frow-3-2 mt-5">
             <div class="text-4">Solution</div>
             <div class="text-5">Add a PDF file as submission</div>
             <div class="input-group mb-3 mt-3">
@@ -190,11 +201,17 @@
                     <span class="input-group-text">Upload</span>
                 </div>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input">
-                    <label class="custom-file-label">Choose file</label>
+                    <input type="file" class="custom-file-input" id="file-submission">
+                    <label id="file-submission-label" class="custom-file-label">Choose file</label>
                 </div>
+                <div class="d-none" id="progress-wrap">
+                    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+                    <h3 id="status"></h3>
+                    <p id="loaded_n_total"></p>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" id="file-submission-btn">Submit</button>
+                <canvas id="the-canvas"></canvas>
             </div>
-
         </div>
     </div>
 </div>
@@ -202,11 +219,18 @@
     <div class="row">
         <div class="col-12 mt-1 mb-1">Akshara International School</div>
     </div>
-</div> -->
+</div>
+{% endif %}
 
 <script src="{% static 'js/exam/student.js' %}"></script>
+
 <script>
     let timeLeft = '{{Time|date:"Y-m-d"}}T{{Time|date:"G:i:s"}}';
+    {% if paper.File and attemp.File %}
+    $(function(){
+        showpdf('{{attemp.File.url}}')
+    })
+    {% endif %}
 </script>
 
 {% endblock %}

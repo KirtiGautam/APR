@@ -10,49 +10,97 @@
     <div class="container-fluid">
         <div class="row row-1">
             <div class="col-2 col-sm-1">
-                <a href="{% url 'exam:exams' %}">
-                    <button class="btn button-1" title="Back">
+                <a href="{% url 'exam:result-online' attempt.Paper.id %}">
+                    <button type="button" class="btn button-1" title="Back">
                         <i class="fas fa-arrow-alt-circle-left"></i>
                     </button>
                 </a>
             </div>
             <div class="col-10 col-sm-8 col-md-6 col-lg-4 text-truncate mt-1">
-                <select name="" id="" class="custom-select text-1">
-                    <option value="">Student Name</option>
-                </select>
+                <span class="text-1">{{attempt.Student.user.get_full_name}}</span>
             </div>
         </div>
         <div class="row row-2">
             <div class="row-2-1">
                 <div class="row-2-1-1">
-                    <embed src="gg" type="application/pdf" class="col-12" />
+                    <canvas id="the-canvas"></canvas>
+                    <!-- <embed src="gg" type="application/pdf" class="col-12" /> -->
                 </div>
             </div>
-            <div class="row-2-2">
-                <div class="col-11">
-                    <div class="row-2-2-1">
-                        <div class="row">
-                            <div class="text-2 col-12">
-                                Section 1
-                            </div>
-                            <div class="text-3 col-12">
-                                <div class="row">
-                                    <div class="text-3-1 col-4">Q1</div>
-                                    <div class="col-8 text-3-1">
-                                        <div class="row">
-                                            <div class="col-6 text-3-2">Score</div>
-                                            <div class="col-6"><input type="number" name="" id="" class="form-control text-3-3"></div>
-                                            <div class="col-12 text-3-4">Max: 100</div>
+            <form action="{% url 'exam:grade-online' attempt.id %}" method="post">
+                {% csrf_token %}
+                <div class="row-2-2">
+                    <div class="col-11">
+                        <div class="row-2-2-1">
+                            <div class="row">
+                                <div class="text-3 col-12">
+                                    <div class="row">
+                                        <div class="col-8 text-3-1">
+                                            <div class="row">
+                                                <div class="col-6 text-3-2">Total Score</div>
+                                                <div class="col-6"><input type="number" name="Marks"
+                                                        class="form-control text-3-3" min="0" max="{{attempt.Paper.Max_Marks}}" required value="{% if attempt.Marks %}{{attempt.Marks}}{% endif %}"></div>
+                                                <div class="col-12 text-3-4">Max: {{attempt.Paper.Max_Marks}}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <button type="submit" class="btn button-2 mt-3 mb-3 float-right">Save</button>
                     </div>
-                    <button class="btn button-2 mt-3 mb-3 float-right">Save</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+<script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script>
+    {% if attempt.File %}
+    var pdfjsLib = window["pdfjs-dist/build/pdf"];
+
+    // The workerSrc property shall be specified.
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "//mozilla.github.io/pdf.js/build/pdf.worker.js";
+
+    // Asynchronous download of PDF
+    var loadingTask = pdfjsLib.getDocument('{{attempt.File.url}}');
+    loadingTask.promise.then(
+        function (pdf) {
+            console.log("PDF loaded");
+
+            // Fetch the first page
+            var pageNumber = 1;
+            pdf.getPage(pageNumber).then(function (page) {
+                console.log("Page loaded");
+
+                var scale = 1.5;
+                var viewport = page.getViewport({ scale: scale });
+
+                // Prepare canvas using PDF page dimensions
+                var canvas = document.getElementById("the-canvas");
+                var context = canvas.getContext("2d");
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                // Render PDF page into canvas context
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport,
+                };
+                var renderTask = page.render(renderContext);
+                renderTask.promise.then(function () {
+                    console.log("Page rendered");
+                });
+            });
+        },
+        function (reason) {
+            // PDF loading error
+            console.error(reason);
+        }
+    );
+    {% else %}
+    $('#the-canvas').text("No File submission");
+    {% endif %}
+</script>
 {% endblock %}

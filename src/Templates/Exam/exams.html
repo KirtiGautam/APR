@@ -17,14 +17,14 @@
                 <div class="row row-1-1">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 row-1-1-text">
                         <div class="row">
-                            <span class="col-12">SCHEDULED</span>
+                            <span class="col-12">{% if request.GET.time %}PAST{% endif %} SCHEDULED</span>
                             <span class="col-12">EXAMINATIONS</span>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 row-1-2">
                         <div class="col-12 row">
                             <span class="col-4">
-                                {% if user.admin %}
+                                {% if user.admin and not request.GET.time %}
                                 <button class="btn button-3 float-right" title="Add New Exam"
                                     onclick="$('#body').modal()"><i class="fas fa-plus-circle"></i></button>
                                 {% endif %}
@@ -39,12 +39,43 @@
         </div>
         <div class="row row-2 col-12">
             {% for exam in Exams %}
+            {% if request.GET.time and exam.expired %}
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+                {% if user.user_type != "Student" %}
                 <form action="{% url 'exam:delete'  %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn float-right del" title="Delete" name="id" value="{{exam.id}}"><i
                             class="fas fa-trash"></i></button>
                 </form>
+                {% endif %}
+                <a href="{% url 'exam:papers' exam.id %}?time=past">
+                    <div class="exam-cards">
+                        <span class="row exam-row-head">
+                            <span class="title col-6 text-truncate pt-1">Assessment</span>
+                            <span class="type col-6 text-truncate">{{exam.get_Mode_display}}</span>
+                        </span>
+                        <span class="row">
+                            <div class="col-12 exam-name text-truncate">{{exam.Name}}</div>
+                        </span>
+                        <span class="row">
+                            <span class="dates col-12">Dates: {{exam.range.first|date:'d'}} -
+                                {{exam.range.last|date:'d'}}th {{exam.range.last|date:'b'}}</span>
+                            <span class="exam-pattern col-12">Exam Pattern: Objective</span>
+                            <span class="exam-subject col-12">All Subjects</span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+            {% elif not request.GET.time and not exam.expired %}
+            
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+                {% if user.user_type != "Student" %}
+                <form action="{% url 'exam:delete'  %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn float-right del" title="Delete" name="id" value="{{exam.id}}"><i
+                            class="fas fa-trash"></i></button>
+                </form>
+                {% endif %}
                 <a href="{% url 'exam:papers' exam.id %}">
                     <div class="exam-cards">
                         <span class="row exam-row-head">
@@ -63,33 +94,16 @@
                     </div>
                 </a>
             </div>
+            {% endif %}
+            
             {% endfor %}
-            <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
-                <button class="btn float-right del" onclick="" title=" Delete"><i class="fas fa-trash"></i></button>
-                <a href="#">
-                    <div class="exam-cards exam-draft">
-                        <span class="row exam-row-head">
-                            <span class="title col-6 text-truncate pt-1">Assessment</span>
-                            <span class="type col-6 text-truncate">Classroom</span>
-                            <img src="/static/Images/lesson/ripple.svg" class="new-noti">
-                        </span>
-                        <span class="row">
-                            <div class="col-12 exam-name">UNIT TEST 1</div>
-                        </span>
-                        <span class="row">
-                            <span class="dates col-12">Dates: 23 - 27th Feb</span>
-                            <span class="exam-pattern col-12">Exam Pattern: Objective</span>
-                            <span class="exam-subject col-12">All Subjects</span>
-                        </span>
-                    </div>
-                </a>
-            </div> -->
         </div>
         <div class="container-fluid">
             <div class="row row-3">
-                <button type="submit" class="btn row-3-text" id="past_btn"><span class="row-3-heading">Past
-                        Assesments -
-                    </span>Click to see performance in earlier exams</button>
+                <a href="{% url 'exam:exams' %}?time=past"> <button type="submit" class="btn row-3-text"
+                        id="past_btn"><span class="row-3-heading">Past
+                            Assesments -
+                        </span>Click to see performance in earlier exams</button></a>
             </div>
         </div>
     </div>

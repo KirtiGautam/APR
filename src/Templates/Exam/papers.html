@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row row-1">
             <div class="col-2 col-sm-1">
-                <a href="{% url 'exam:exams' %}">
+                <a href="{% url 'exam:exams' %}{% if request.GET.time %}?time=past{% endif %}">
                     <button class="btn button-1" title="Back">
                         <i class="fas fa-arrow-alt-circle-left"></i>
                     </button>
@@ -30,29 +30,62 @@
             <div class="col-12">
                 <div class="row">
                     {% for paper in class.list %}
+                    {% if request.GET.time and paper.Exam.expired and paper.Published %}
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
                         <div
-                            class="row-2-1 {% if not paper.Published and paper.Question.all.count > 0 %}row-2-1-draft{% endif %}">
+                            class="row-2-1 {% if user.user_type != 'Student' and not paper.Result and paper.pattern == 'Multiple' and paper.left %}row-2-1-draft{% endif %}">
                             <a
-                                href="{% if user.user_type == 'Student' %}{% url 'exam:paper-instruction' paper.id %}{% else %}{% url 'exam:edit-paper' paper.id  %}{% endif %}">
+                                href="{% if user.user_type == 'Student' %}#{% else %}{% if paper.Exam.Mode == 'O' %}{% url 'exam:result-online' paper.id %}{% else %}{% url 'exam:result-offline' paper.id %}{% endif %}{% endif %}">
+                                <div class="row">
+                                    <div class="col-3 text-3">{{paper.Location}}</div>
+                                    {% if not user.user_type == "Student" %}
+                                    <div class="col-7 text-4">
+                                        {% if not paper.Result %}Results
+                                        Pending{% elif paper.pattern == 'Objective' %}Results Auto
+                                        Updated{% else %}Results Updated{% endif %}
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="float-right"><input type="checkbox"
+                                                {% if paper.Result or paper.pattern == 'Objective' %}checked{% endif %}
+                                                onclick="return false;" class="input-1">
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="col-12 text-5 text-truncate">{{paper.Subject.Name}}</div>
+                                    <div class="col-12 text-6">Date: {{paper.Scheduled_on}}</div>
+                                    <div class="col-8 text-7">Exam Pattern: {{paper.pattern}}</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                    {% if not paper.Exam.expired %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div
+                            class="row-2-1 {% if user.user_type != 'Student' and not paper.Published and paper.Question.all.count > 0 %}row-2-1-draft{% endif %}">
+                            <a
+                                href="{% if paper.Location == 'ONLINE' %}{% if user.user_type == 'Student' %}{% url 'exam:paper-instruction' paper.id %}{% else %}{% url 'exam:edit-paper' paper.id  %}{% endif %}{% else %}#{% endif %}">
                                 <div class="row">
                                     <div class="col-3 text-3">{{paper.Location}}</div>
                                     {% if not user.user_type == "Student" %} <div class="col-7 text-4">
                                         {% if not paper.Published %}Paper
-                                        Pending{% else %}Paper Ready{% endif %}</div>{% endif %}
+                                        Pending{% else %}Paper Ready{% endif %}</div>
                                     <div class="col-2">
                                         <div class="float-right"><input type="checkbox"
                                                 {% if paper.Published %}checked{% endif %} onclick="return false;"
                                                 class="input-1">
                                         </div>
                                     </div>
+                                    {% endif %}
                                     <div class="col-12 text-5 text-truncate">{{paper.Subject.Name}}</div>
                                     <div class="col-12 text-6">Date: {{paper.Scheduled_on}}</div>
-                                    <div class="col-8 text-7">Exam Pattern: Multiple</div>
+                                    <div class="col-8 text-7">Exam Pattern: {{paper.pattern}}</div>
                                 </div>
                             </a>
                         </div>
                     </div>
+                    {% endif %}
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -60,4 +93,12 @@
         </div>
     </div>
 </div>
+<script>
+    {% if messages %}
+    {% for message in messages %}
+    alert('{{ message }}');
+    {% endfor %}
+    {% endif %}
+</script>
+
 {% endblock %}
