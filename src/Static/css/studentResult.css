@@ -1,0 +1,235 @@
+.content {
+  margin-left: 0 !important;
+}
+
+.colu {
+  background: transparent
+    linear-gradient(180deg, #a9c7ff 0%, #c0e3ff 35%, #ffffff 100%) 0% 0%
+    no-repeat padding-box;
+}
+
+.button-1 {
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #15202b;
+  width: fit-content;
+}
+
+.button-1:hover {
+  color: #65717e;
+}
+
+.button-1:focus {
+  box-shadow: 0px 0px 0px #00000029;
+  color: #929ead;
+  outline: none;
+}
+
+.text-1 {
+  font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #626262;
+  padding-top: 8px;
+}
+
+.text-4 {
+  color: #ffffff;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+.text-6 {
+  color: #ffffff;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+.text-5 {
+  color: #ffffff;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: right;
+  padding: 5px 10px;
+}
+
+.text-7 {
+  color: #e6ecf0;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+.text-8 {
+  color: #fff700;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px 10px;
+}
+
+.text-9 {
+  color: #ffdbdb;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: right;
+  padding: 5px 10px;
+}
+
+.row-1 {
+  border-bottom: 1px solid #e3e0f3;
+}
+
+.row-2 {
+  padding: 10px;
+}
+
+.progress1 {
+  margin-top: 100px;
+  -webkit-transform: rotate(-90deg);
+  height: 33px;
+  width: 168px;
+  background: #f4f4f4 0% 0% no-repeat padding-box;
+  border-radius: 3px;
+  box-shadow: 0px 3px 6px #00000029;
+}
+
+.progress-bar1 {
+  background: transparent linear-gradient(90deg, #41d5dd 0%, #5484ed 100%) 0% 0%
+    no-repeat padding-box;
+}
+
+.progress-text {
+  transform: rotate(0deg);
+  color: #767676;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  z-index: 5;
+}
+
+.progress-text1 {
+  transform: rotate(0deg);
+  color: #767676;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  z-index: 5;
+}
+
+.ptext-1 {
+  margin-top: -125px;
+  margin-left: 75px;
+}
+
+.ptext-2 {
+  margin-top: -125px;
+  margin-left: 75px;
+}
+
+.ptext-3 {
+  margin-top: -125px;
+  margin-left: 75px;
+}
+
+.ptext-4 {
+  margin-top: 70px;
+  margin-left: 65px;
+}
+
+.ptext-5 {
+  margin-top: 70px;
+  margin-left: 55px;
+}
+
+.ptext-6 {
+  margin-top: 70px;
+  margin-left: 70px;
+}
+
+.row-3 {
+  margin-top: 150px;
+  background: transparent linear-gradient(124deg, #5387ed 0%, #44cadf 100%) 0%
+    0% no-repeat padding-box;
+  padding: 10px;
+}
+
+.text-3 {
+  color: #376baa;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px 10px;
+}
+
+.text-2 {
+  color: #717171;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px 10px;
+}
+
+.text-10 {
+  color: #717171;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px 10px;
+}
+
+.progress2 {
+  background: #f4f4f4 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 3px;
+  margin: 7px 10px;
+}
+
+.progress-bar2 {
+  background: transparent linear-gradient(270deg, #a46efb 0%, #f794aa 100%) 0%
+    0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 3px;
+}
+
+.ltext-1 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border: 2px solid #d5d5d5;
+  border-radius: 100px;
+  height: 30px;
+  width: 30px;
+  color: #112234;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px;
+}
+
+.row-4 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  padding: 5px;
+}
+
+.ltext-2 {
+  color: #112234;
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ltext-3 {
+    color: #112234;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+.progress3 {
+  background: #f1f1f1 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+  margin: 7px 10px;
+  height: 5px;
+}
+
+.progress-bar3 {
+  background: #fd9346 0% 0% no-repeat padding-box;
+}

@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col-12 col-sm-6 col-md-3 text-right">
-             <button class="btn button-1" id="finish-exam-btn">Finish Test</button>
+            <button class="btn button-1" id="finish-exam-btn">Finish Test</button>
         </div>
     </div>
 </div>
@@ -210,7 +210,7 @@
                     <p id="loaded_n_total"></p>
                 </div>
                 <button type="button" class="btn btn-primary btn-sm" id="file-submission-btn">Submit</button>
-                <canvas id="the-canvas"></canvas>
+                <canvas id="the-canvas" class="col-12"></canvas>
             </div>
         </div>
     </div>
@@ -221,13 +221,20 @@
     </div>
 </div>
 {% endif %}
+<!-- {% if paper.proctored %}
+<script>
+    $(window).blur(function () {
+        alert("Do not change window \n Exam will be automatically submitted if you change window more than 3 times ")
+    });
+</script>
+{%endif} -->
 
 <script src="{% static 'js/exam/student.js' %}"></script>
 
 <script>
     let timeLeft = '{{Time|date:"Y-m-d"}}T{{Time|date:"G:i:s"}}';
     {% if paper.File and attemp.File %}
-    $(function(){
+    $(function () {
         showpdf('{{attemp.File.url}}')
     })
     {% endif %}
