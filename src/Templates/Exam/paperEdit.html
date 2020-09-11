@@ -16,13 +16,15 @@
                     </button>
                 </a>
             </div>
-            <div class="col-10 col-sm-11 col-md-5 text-truncate text-1">
+            <div class="col-10 col-sm-11 col-md-3 text-truncate text-1">
                 Question Paper setting | {{paper.Subject.Name}}
             </div>
+            <div class="col-6 col-md-2"><button class="btn button-2">Import from Database</button></div>
             <div class="col-6 col-md-2"><button onclick="markAsFile({{paper.id}}, this);" class="btn button-2"
                     title="Answers will be submitted as single .pdf file">Mark{% if paper.File %}ed{% endif %} as File
                     Submission</button></div>
-            <div class="col-6 col-md-2"><button class="btn button-2" id="proctored_btn">Mark as {% if paper.Proctored %}Un{% endif %}Proctored Exam</button></div>
+            <div class="col-6 col-md-2"><button class="btn button-2" id="proctored_btn">Mark as
+                    {% if paper.Proctored %}Un{% endif %}Proctored Exam</button></div>
             <div class="col-6 col-md-2">
                 <button class="btn button-2">Total duration : {{paper.Duration}} mins</button>
             </div>
