@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django import http
 from accounts.models import Class
-from lessons.models import Subject
+from lessons.models import (Subject, question as SmallQ)
 from exam.models import (exam_type, Exam, Paper, Question,
                          Answer, Option, Section, StudentAttempt, StudentPaper)
 from django.utils import dateparse
@@ -166,6 +166,7 @@ def editPaper(request, id):
         data = {
             'paper': paper,
             'marks_till_now': paper.Max_Marks - sum if sum else paper.Max_Marks,
+            'db_q': SmallQ.objects.filter(Lesson__Subject=paper.Subject)
         }
         return render(request, 'Exam/paperEdit.html', data)
     return redirect('accounts:login')
@@ -592,4 +593,36 @@ def proctored(request):
         paper.Proctored = not paper.Proctored
         paper.save()
         return http.JsonResponse('Mark as UnProctored Exam' if paper.Proctored else 'Mark as Proctored Exam', safe=False)
+    return http.HttpResponseForbidden("Not allowed")
+
+
+def importQuestions(request):
+    if request.user.is_authenticated and request.user.user_type != "Student":
+        paper = Paper.objects.get(id=request.POST['db_paper_id'])
+        for x in range(int(request.POST['db_paper_counter'])):
+            if 'check'+str(x) in request.POST:
+                if request.POST['checkval'+str(x)]:
+                    sum = paper.Question.all().aggregate(
+                        Sum("Max_Marks"))['Max_Marks__sum']
+                    sum = paper.Max_Marks - sum if sum else paper.Max_Marks
+                    if sum < int(request.POST['checkval'+str(x)]):
+                        messages.error(
+                            request, "Error: Cannot import, Marks exceed Max Marks " + str(x+1))
+                        break
+                    ques = SmallQ.objects.get(
+                        id=int(request.POST['check'+str(x)]))
+                    no = paper.Question.all().order_by('SNo').last()
+                    no = no.SNo+1 if no else 1
+                    Ques = Question.objects.create(Paper=paper, Max_Marks=int(
+                        request.POST['checkval'+str(x)]), Type='O', SNo=no, Text=ques.Name)
+                    for x in ques.choice.all():
+                        opt = Option.objects.create(Question=Ques, Text=x.Name)
+                        if x == ques.Answer.choice:
+                            Answer.objects.create(
+                                Question=Ques, Option=opt, Explanation='.')
+                else:
+                    messages.error(
+                        request, "Error: Cannot import, No marks defined in Question " + str(x+1))
+                    break
+        return redirect('exam:edit-paper', id=paper.id)
     return http.HttpResponseForbidden("Not allowed")

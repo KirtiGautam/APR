@@ -494,3 +494,52 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal" tabindex="-1" id='db_imp'>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <form action="{% url 'exam:db_import' %}" method="post">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <div class="col-12 mt-2 mb-2 text-right">
+                        <button type="button" class="modal-text-3">Cancel</button>
+                        <button type="submit" class="modal-text-3" id="db-impor">
+                            Import
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive text-center">
+                        <table class="table">
+                            <thead class="modal-text-4">
+                                <tr>
+                                    <th></th>
+                                    <th>Question</th>
+                                    <th>Difficulty</th>
+                                    <th>Marks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="modal-text-5">
+                                <input type="hidden" name="db_paper_id" value="{{paper.id}}">
+                                <input type="hidden" name="db_paper_counter" value="{{db_q.count}}">
+                                {% for x in db_q %}
+                                <tr>
+                                    <td><input type="checkbox" name="check{{forloop.counter0}}" value="{{x.id}}"></td>
+                                    <td>{{x.Name}}</td>
+                                    <td>
+                                        {{x.get_Difficulty_display}}
+                                    </td>
+                                    <td class=" modal-text-6">
+                                        <input type="number" name="checkval{{forloop.counter0}}" class="form-control">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
