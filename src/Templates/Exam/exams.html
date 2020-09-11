@@ -67,7 +67,7 @@
                 </a>
             </div>
             {% elif not request.GET.time and not exam.expired %}
-            
+
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
                 {% if user.user_type != "Student" %}
                 <form action="{% url 'exam:delete'  %}" method="post">
@@ -95,7 +95,7 @@
                 </a>
             </div>
             {% endif %}
-            
+
             {% endfor %}
         </div>
         <div class="container-fluid">
