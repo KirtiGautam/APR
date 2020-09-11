@@ -25,5 +25,4 @@ def number(question, user):
 
 @register.filter
 def lookup(lis, key):
-    print([lis, key])
     return lis[key]

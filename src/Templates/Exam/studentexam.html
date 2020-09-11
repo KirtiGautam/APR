@@ -186,7 +186,14 @@
                 {{question.Text}}
                 {% if question.Asset %}
                 <img src="{{question.Asset}}">
-                {{question.Text}}
+                {% endif %}
+                {% if question.Type == 'O' %}
+                {% for x in question.Option.all %}
+                {% cycle 'A' 'B' 'C' 'D' %}. {{x.Text}}
+                {% if x.Asset %}
+                <img src="{{x.Asset}}">
+                {% endif %}
+                {% endfor %}
                 {% endif %}
             </div>
             {% endif %}
@@ -221,17 +228,15 @@
     </div>
 </div>
 {% endif %}
-<!-- {% if paper.proctored %}
-<script>
-    $(window).blur(function () {
-        alert("Do not change window \n Exam will be automatically submitted if you change window more than 3 times ")
-    });
-</script>
-{%endif} -->
 
 <script src="{% static 'js/exam/student.js' %}"></script>
 
 <script>
+    {% if paper.Proctored %}
+    $(window).blur(function () {
+        alert("Do not change window \n Exam will be automatically submitted if you change window more than 3 times ")
+    });
+    {% endif %}
     let timeLeft = '{{Time|date:"Y-m-d"}}T{{Time|date:"G:i:s"}}';
     {% if paper.File and attemp.File %}
     $(function () {

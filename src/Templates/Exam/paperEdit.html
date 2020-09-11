@@ -22,7 +22,7 @@
             <div class="col-6 col-md-2"><button onclick="markAsFile({{paper.id}}, this);" class="btn button-2"
                     title="Answers will be submitted as single .pdf file">Mark{% if paper.File %}ed{% endif %} as File
                     Submission</button></div>
-            <div class="col-6 col-md-2"><button class="btn button-2">Mark as Proctored Exam</button></div>
+            <div class="col-6 col-md-2"><button class="btn button-2" id="proctored_btn">Mark as {% if paper.Proctored %}Un{% endif %}Proctored Exam</button></div>
             <div class="col-6 col-md-2">
                 <button class="btn button-2">Total duration : {{paper.Duration}} mins</button>
             </div>
@@ -206,6 +206,22 @@
     alert('{{message}}');
     {% endfor %}
     {% endif %}
+    $(function () {
+        $('#proctored_btn').click(function () {
+            let bt = this;
+            $.ajax({
+                type: "POST",
+                headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+                url: "/mark-paper-proctored",
+                data: {
+                    id: {{ paper.id }},
+                },
+        dataType: "json",
+        success: (data) => (bt.innerText = data),
+        error: (error) => alert(error.responseText),
+            });
+        })
+    })
 </script>
 
 <script src="{% static 'js/exam/paperEdit.js' %}"></script>

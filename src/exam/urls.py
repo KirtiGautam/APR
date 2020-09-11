@@ -1,17 +1,22 @@
 from django.urls import path, re_path
 
-from .views import (index, examSettings, deleteExam, updateExam, papers, delete, editPaper, deleteQuestion, editQuestion, markQuestion, addSection, editSection, finishPaper, instruction, studentPaper, clearQuestion, finishExam, offlineGrade, publishResult, onlineGrade, GradeFile)
+from .views import (index, examSettings, deleteExam, updateExam, papers, delete, editPaper, deleteQuestion, editQuestion, markQuestion, addSection, editSection,
+                    finishPaper, instruction, studentPaper, clearQuestion, finishExam, offlineGrade, publishResult, onlineGrade, GradeFile, Grade, publishExam, Results, proctored)
 
 app_name = 'exam'
 
 urlpatterns = [
     path('exams', index, name='exams'),
     path('paper/<int:id>', studentPaper, name='paper'),
+    path('result/<int:id>', Results, name='results'),
     path('result-offline/<int:id>', offlineGrade, name='result-offline'),
     path('result-online/<int:id>', onlineGrade, name='result-online'),
     path('grade-file-online/<int:id>', GradeFile, name='grade-online'),
+    path('grade-online/<int:id>', Grade, name='Grade-online'),
     path('paper-finished', finishExam, name='finished'),
     path('publish-result', publishResult, name='publish-result'),
+    path('publish-result-exam', publishExam, name='publish-result-exam'),
+    path('mark-paper-proctored', proctored, name='mark-proctored'),
     path('clear-student-choice/<int:id>', clearQuestion, name='clear-question'),
     path('exams/<int:id>', papers, name='papers'),
     path('paper/edit/<int:id>', editPaper, name='edit-paper'),

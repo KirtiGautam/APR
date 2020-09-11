@@ -1,144 +1,160 @@
 {% extends 'common/master.html' %}
 {% load static %}
+{% load exam_tags %}
 {% block content %}
 
 <head>
     <link rel="stylesheet" href="{% static 'css/multiresult.css' %}">
 </head>
 {% include "common/header.html" %}
-<div class="content">
-    <div class="container-fluid">
-        <div class="row row-1 text-center">
-            <div class="col-2 col-sm-1">
-                <a href="{% url 'exam:papers' paper.Exam.id %}">
-                    <button class="btn button-1" title="Back">
-                        <i class="fas fa-arrow-alt-circle-left"></i>
-                    </button>
-                </a>
+<form action="{% url 'exam:Grade-online' attempt.id %}" method="POST">
+    {% csrf_token %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row row-1 text-center">
+                <div class="col-2 col-sm-1">
+                    <a href="{% url 'exam:result-online' attempt.Paper.id %}">
+                        <button type="button" class="btn button-1" title="Back">
+                            <i class="fas fa-arrow-alt-circle-left"></i>
+                        </button>
+                    </a>
+                </div>
+                <div class="col-10 col-sm-8 col-md-6 col-lg-4 text-truncate mt-1">
+                    <!-- <span class="text-1">{{attempt.Student.user.get_full_name}}</span> -->
+                    <select class="custom-select" onchange="location=this.value">
+                        {% for x in allatt %}
+                        <option value="{% url 'exam:Grade-online' x.id %}" class="text-1"
+                            {% if attempt.id == x.id %}selected{% endif %}>{{x.Student.user.get_full_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
             </div>
-            <div class="col-10 col-sm-8 col-md-6 col-lg-4 text-truncate mt-1">
-                <select name="" id="" class="custom-select text-1">
-                    <option value="">Student Name</option>
-                </select>
-            </div>
-        </div>
-        <div class="row row-2">
-            <div class="col-12 row-2-1">
-                {% for question in paper.Question.all|dictsort:"SNo" %}
-                <div class="row row-2-1-1">
-                    <div class="text-2 col-1 text-right">Q{{question.SNo}}.</div>
-                    <div class="col-7">
-                        {% if question.Type == "O" %}
-                        <div class="row">
-                            <div class="text-3 col-12 mb-2">
-                                {{question.Text}}
-                                {% if question.Asset %}
-                                <img src="{{question.Asset.url}}" alt="question" class="col-12">
-                                {% endif %}
-                            </div>
+            <div class="row row-2">
+                <div class="col-12 row-2-1">
+                    <input type="hidden" name="hidden_question_count" value="{{attempts|length}}">
+                    {% for question in attempts %}
+                    <div class="row row-2-1-1">
+                        <div class="text-2 col-1 text-right">Q{{question.Question.SNo}}.</div>
+                        <div class="col-7">
+                            {% if question.Question.Type == "O" %}
+                            <div class="row">
+                                <div class="text-3 col-12 mb-2">
+                                    {{question.Question.Text}}
+                                    {% if question.Question.Asset %}
+                                    <img src="{{question.Question.Asset.url}}" alt="question" class="col-12">
+                                    {% endif %}
+                                </div>
 
-                            {% for option in question.Option.all %}
-                            <div class="col-3 col-sm-1 mb-2">
-                                <div
-                                    class=" text-4 text-4{% if option.id == question.Answer.Option.id %}-correct{% endif %}">
-                                    {% cycle 'A' 'B' 'C' 'D' %}</div>
+                                {% for option in question.Question.Option.all %}
+                                <div class="col-3 col-sm-1 mb-2">
+                                    <div
+                                        class=" text-4 text-4{% if option.id == question.Question.Answer.Option.id %}-correct{% endif %}">
+                                        {% cycle 'A' 'B' 'C' 'D' %}</div>
+                                </div>
+                                <div class="col-9 col-sm-11 text-5 mb-2">
+                                    {{option.Text}}
+                                    {% if option.Asset %}
+                                    <img src="{{option.Asset.url}}" alt="question" class="col-12">
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
                             </div>
-                            <div class="col-9 col-sm-11 text-5 mb-2">
-                                {{option.Text}}
-                                {% if option.Asset %}
-                                <img src="{{option.Asset.url}}" alt="question" class="col-12">
+                            <div class="col-12 text-8">Solution</div>
+                            <div class="col-12 text-9">
+                                {{question.Question.Answer.Explanation}}
+                            </div>
+                            <div class="col-12 text-8">Answer</div>
+                            {% if not question.Option.Text and not question.Option.Asset %}<div class="col-12 text-8">No
+                                Response</div>{% endif %}
+                            <div class="col-12 text-9">
+                                {{question.Option.Text}}
+                                {% if question.Option.Asset %}
+                                <img src="{{question.Option.Asset.url}}" alt="question" class="col-12">
                                 {% endif %}
+                            </div>
+                            {% elif question.Question.Type == "S" %}
+                            <div class="row">
+                                <div class="text-3 col-12">
+                                    {{question.Question.Text}}
+                                </div>
+                                {% if question.Question.Asset %}
+                                <div class="text-3 col-12">
+                                    <img src="{{question.Question.Asset.url}}" alt="question" class="col-12">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12 text-8">Solution</div>
+                            <div class="col-12 text-9">
+                                {{question.Question.Answer.Explanation}}
+                            </div>
+                            <div class="col-12 text-8">Answer</div>
+                            {% if not question.Text %}<div class="col-12 text-8">No Response</div>{% endif %}
+                            <div class="col-12 text-9">{{question.Text}}</div>
+                            {% elif question.Question.Type == "L" %}
+                            <div class="row">
+                                <div class="text-3 col-12">
+                                    {{question.Question.Text}}
+                                </div>
+                                {% if question.Question.Asset %}
+                                <div class="text-3 col-12">
+                                    <img src="{{question.Question.Asset.url}}" alt="question" class="col-12">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12 text-8">Solution</div>
+                            <div class="col-12 text-9">
+                                {{question.Question.Answer.Explanation}}
+                            </div>
+                            <div class="col-12 text-8">Answer</div>
+                            {% if not question.Text %}<div class="col-12 text-8">No Response</div>{% endif %}
+                            <div class="col-12 text-9">{{question.Text}}</div>
+                            {% else %}
+                            <div class="row">
+                                <div class="text-3 col-12">
+                                    {{question.Question.Text}}
+                                </div>
+                                {% if question.Question.Asset %}
+                                <div class="text-3 col-12">
+                                    <img src="{{question.Question.Asset.url}}" alt="question" class="col-12">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12 text-8">Solution</div>
+                            {% for blank in question.Question.Answer.get_blanks %}
+                            <div class="col-12 text-9">
+                                {{forloop.counter}}. {{blank}}
                             </div>
                             {% endfor %}
-                        </div>
-                        <div class="col-12 text-8">Solution</div>
-                        <div class="col-12 text-9">
-                            {{question.Answer.Explanation}}
-                        </div>
-                        <div class="col-12 text-8">Answer</div>
-                        <div class="col-12 text-9">
-
-                        </div>
-                        {% elif question.Type == "S" %}
-                        <div class="row">
-                            <div class="text-3 col-12">
-                                {{question.Text}}
+                            <div class="col-12 text-8">Answer</div>
+                            {% if not question.Text %}<div class="col-12 text-8">No Response</div>{% endif %}
+                            {% for blank in question.Question.Answer.get_blanks %}
+                            <div class="col-12 text-9">
+                                {% if question.Text %}{{question.Question|number:attempt.Student.user|lookup:forloop.counter0}}{% endif %}
                             </div>
-                            {% if question.Asset %}
-                            <div class="text-3 col-12">
-                                <img src="{{question.Asset.url}}" alt="question" class="col-12">
-                            </div>
+                            {% endfor %}
                             {% endif %}
                         </div>
-                        <div class="col-12 text-8">Solution</div>
-                        <div class="col-12 text-9">
-                            {{question.Answer.Explanation}}
-                        </div>
-                        <div class="col-12 text-8">Answer</div>
-                        <div class="col-12 text-9"></div>
-                        {% elif question.Type == "L" %}
-                        <div class="row">
-                            <div class="text-3 col-12">
-                                {{question.Text}}
+                        <div class="col-3 p-0">
+                            <div class="row">
+                                <div class="col-6 text-3-2">Score</div>
+                                <div class="col-6">
+                                    <input type="hidden" name="hidden_attempt_id{{forloop.counter0}}"
+                                        class="form-control text-3-3" value="{{question.id}}">
+                                    <input type="number" name="score{{forloop.counter0}}" class="form-control text-3-3"
+                                        min='0' max="{{question.Question.Max_Marks}}"
+                                        value="{% if question.Marks %}{{question.Marks}}{% endif %}">
+                                </div>
+                                <div class="col-12 text-3-4">Max: {{question.Question.Max_Marks}}</div>
                             </div>
-                            {% if question.Asset %}
-                            <div class="text-3 col-12">
-                                <img src="{{question.Asset.url}}" alt="question" class="col-12">
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-12 text-8">Solution</div>
-                        <div class="col-12 text-9">
-                            {{question.Answer.Explanation}}
-                        </div>
-                        <div class="col-12 text-8">Answer</div>
-                        <div class="col-12 text-9"></div>
-                        {% else %}
-                        <div class="row">
-                            <div class="text-3 col-12">
-                                {{question.Text}}
-                            </div>
-                            {% if question.Asset %}
-                            <div class="text-3 col-12">
-                                <img src="{{question.Asset.url}}" alt="question" class="col-12">
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-12 text-8">Solution</div>
-                        {% for blank in question.Answer.get_blanks %}
-                        <div class="col-12 text-9">
-                            {{forloop.counter}}. {{blank}}
-                        </div>
-                        {% endfor %}
-                        <div class="col-12 text-8">Answer</div>
-                        <div class="col-12 text-9"></div>
-                        {% endif %}
-                    </div>
-                    <div class="col-3 p-0">
-                        <div class="row">
-                            <div class="col-6 text-3-2">Score</div>
-                            <div class="col-6"><input type="number" name="" id="" class="form-control text-3-3"></div>
-                            <div class="col-12 text-3-4">Max: 100</div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
+
         </div>
-
     </div>
-</div>
-{% include 'Exam/question-modal.html'   %}
-
-<script>
-    const marks = {{ marks_till_now }}
-    {% if messages %}
-    {% for message in messages %}
-    alert('{{message}}');
-    {% endfor %}
-    {% endif %}
-</script>
-
-<script src="{% static 'js/exam/paperEdit.js' %}"></script>
+</form>
 
 {% endblock %}

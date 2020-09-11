@@ -19,9 +19,9 @@
             <div class="col-10 col-sm-11 col-md-7 text-truncate text-1">
                 {{exam.Name}}
             </div>
-            <!-- <div class="col-12 col-sm-12 col-md-4 col-lg-4">
-                <button class="btn float-right button-2">Edit Details</button>
-            </div> -->
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                <button class="btn button-2" id="publish_btn">{% if exam.Result %}Un{% endif %}Publish Exam Result</button>
+            </div>
         </div>
         <div class="row row-2">
             {% regroup papers by Subject.Class as paper_list %}
@@ -40,13 +40,17 @@
                                     <div class="col-3 text-3">{{paper.Location}}</div>
                                     {% if not user.user_type == "Student" %}
                                     <div class="col-7 text-4">
-                                        {% if not paper.Result %}Results
-                                        Pending{% elif paper.pattern == 'Objective' %}Results Auto
-                                        Updated{% else %}Results Updated{% endif %}
+                                        {% if paper.pattern == 'Objective' and not paper.File %}
+                                        Results Auto Updated
+                                        {% elif paper.Result %}
+                                        Results Updated
+                                        {% else %}
+                                        Results Pending
+                                        {% endif %}
                                     </div>
                                     <div class="col-2">
                                         <div class="float-right"><input type="checkbox"
-                                                {% if paper.Result or paper.pattern == 'Objective' %}checked{% endif %}
+                                                {% if paper.Result or paper.pattern == 'Objective' and not paper.File %}checked{% endif %}
                                                 onclick="return false;" class="input-1">
                                         </div>
                                     </div>
@@ -99,6 +103,22 @@
     alert('{{ message }}');
     {% endfor %}
     {% endif %}
+    $(function () {
+        $('#publish_btn').click(function () {
+            let bt = this;
+            $.ajax({
+                type: "POST",
+                headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+                url: "/publish-result-exam",
+                data: {
+                    id: {{ exam.id }},
+                },
+        dataType: "json",
+        success: (data) => (bt.innerText = data),
+        error: (error) => alert(error.responseText),
+            });
+        })
+    })
 </script>
 
 {% endblock %}

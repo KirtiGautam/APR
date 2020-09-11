@@ -20,6 +20,7 @@ class Exam(models.Model):
     Mode = models.CharField(max_length=2, choices=mode_choices)
     exam_type = models.ForeignKey(
         exam_type, on_delete=models.CASCADE, related_name='Exams')
+    Result = models.BooleanField(default=False)
 
     def range(self):
         all = self.Paper.all().order_by('Scheduled_on')
@@ -48,6 +49,7 @@ class Paper(models.Model):
     Pass_Marks = models.PositiveIntegerField()
     Location = models.CharField(max_length=100)
     Result = models.BooleanField(default=False)
+    Proctored = models.BooleanField(default=False)
     Student = models.ManyToManyField(Student, through='StudentPaper')
 
     def pattern(self):
@@ -72,6 +74,7 @@ class StudentPaper(models.Model):
     Done = models.BooleanField(default=False)
     File = models.FileField(upload_to='StudentPaper/',
                             null=True, blank=True, default=None)
+    Checked = models.BooleanField(default=False)
 
 
 class Section(models.Model):

@@ -48,7 +48,7 @@
                             class="fas fa-trash"></i></button>
                 </form>
                 {% endif %}
-                <a href="{% url 'exam:papers' exam.id %}?time=past">
+                <a href="{% if user.user_type == 'Student' %}{% url 'exam:results' exam.id %}{% else %}{% url 'exam:papers' exam.id %}?time=past{% endif %}">
                     <div class="exam-cards">
                         <span class="row exam-row-head">
                             <span class="title col-6 text-truncate pt-1">Assessment</span>

@@ -6,6 +6,7 @@ from exam.models import (exam_type, Exam, Paper, Question,
                          Answer, Option, Section, StudentAttempt, StudentPaper)
 from django.utils import dateparse
 from django.contrib import messages
+from django.db.models import Sum, Max, Avg
 import datetime
 import pytz
 
@@ -98,7 +99,7 @@ def papers(request, id):
         else:
             paper = exam.Paper.all()
         data = {
-            'exam': {'Name': exam.Name, 'id': exam.id, 'Mode': exam.Mode},
+            'exam': exam,
             'papers': paper,
         }
         return render(request, "Exam/papers.html", data)
@@ -160,7 +161,6 @@ def editPaper(request, id):
                 Answer.objects.create(Question=question, Explanation=joined)
 
             return redirect("exam:edit-paper", id=id)
-        from django.db.models import Sum
         sum = paper.Question.all().aggregate(
             Sum("Max_Marks"))['Max_Marks__sum']
         data = {
@@ -298,12 +298,17 @@ def finishPaper(request, id):
             if paper.Section.all().count() < 1:
                 messages.error(request, "Please add at least one Section")
                 return redirect('exam:edit-paper', id=paper.id)
+            marks = 0
             for x in paper.Question.all().order_by('SNo'):
                 ser += 1
+                marks += x.Max_Marks
                 if ser != x.SNo:
                     messages.error(
                         request, "Question numbers are not consecutive")
                     return redirect('exam:edit-paper', id=paper.id)
+            if marks != paper.Max_Marks:
+                messages.error(request, "Marks sum is not equal to Max Marks")
+                return redirect('exam:edit-paper', id=paper.id)
             sections = paper.Section.all()
             end = []
             for section in sections:
@@ -347,6 +352,11 @@ def studentPaper(request, id):
             return redirect('exam:papers', id=paper.Exam.id)
         if request.method == "POST":
             if 'finissh' in request.POST:
+                if not paper.File and paper.pattern() == 'Objective':
+                    attempt.Marks = StudentAttempt.objects.aggregate(Sum('Marks'))[
+                        'Marks__sum']
+                    paper.Result = True
+                    paper.save()
                 attempt.Done = True
                 attempt.save()
                 return http.JsonResponse("Marked as done", safe=False)
@@ -362,10 +372,14 @@ def studentPaper(request, id):
                 if question.Type == "O":
                     obj.Option = Option.objects.get(
                         id=request.POST['student-option-response']) if 'student-option-response' in request.POST else None
+                    if obj.Option and question.Answer.Option == obj.Option:
+                        obj.Marks = question.Max_Marks
+                    else:
+                        obj.Marks = 0
                 elif question.Type == "S":
                     obj.Text = request.POST['short-Answer'] if 'short-Answer' in request.POST else None
                 elif question.Type == "L":
-                    obj.Text = request.POST['long-answer'] if 'long-Answer' in request.POST else None
+                    obj.Text = request.POST['long-answer'] if 'long-answer' in request.POST else None
                 else:
                     answer = "','".join([request.POST['blank'+str(x)] if 'blank'+str(
                         x) in request.POST else None for x in range(1, len(question.Answer.get_blanks())+1)])
@@ -449,8 +463,8 @@ def onlineGrade(request, id):
         students = [StudentPaper.objects.get_or_create(Student=x, Paper=paper)[
             0] for x in paper.Subject.Class.Students.all()]
         data = {
-            'pending': [x for x in students if x.Marks is None],
-            'completed': [x for x in students if x.Marks is not None],
+            'pending': [x for x in students if not x.Checked],
+            'completed': [x for x in students if x.Checked],
             'paper': paper
         }
         return render(request, 'Exam/onlineresult.html', data)
@@ -460,15 +474,52 @@ def onlineGrade(request, id):
 def GradeFile(request, id):
     if request.user.is_authenticated and request.user.user_type != "Student":
         attempt = StudentPaper.objects.get(id=id)
+        if not attempt.Paper.File:
+            messages.error(request, "Paper is not file type")
+            return redirect("exam:result-online", id=attempt.Paper.id)
         if request.method == 'POST':
             if request.POST['Marks']:
                 attempt.Marks = request.POST['Marks']
+                attempt.Checked = True
                 attempt.save()
             return redirect('exam:grade-online', id=id)
         data = {
             'attempt': attempt
         }
         return render(request, 'Exam/fileResult.html', data)
+    return redirect("accounts:login")
+
+
+def Grade(request, id):
+    if request.user.is_authenticated and request.user.user_type != "Student":
+        attempt = StudentPaper.objects.get(id=id)
+        if attempt.Paper.File:
+            messages.error(request, "Paper is File type")
+            return redirect("exam:result-online", id=attempt.Paper.id)
+        if request.method == 'POST':
+            count = 0
+            flag = True
+            for x in range(int(request.POST['hidden_question_count'])):
+                attemp = StudentAttempt.objects.get(
+                    id=request.POST['hidden_attempt_id'+str(x)])
+                attemp.Marks = int(
+                    request.POST['score'+str(x)]) if request.POST['score'+str(x)] else None
+                attemp.save()
+                if not request.POST['score'+str(x)]:
+                    flag = False
+                count += attemp.Marks if attemp.Marks else 0
+            attempt.Marks = count
+            attempt.Checked = flag
+            attempt.save()
+            return redirect('exam:Grade-online', id=id)
+        questAttempts = [StudentAttempt.objects.get_or_create(
+            Student=attempt.Student, Question=x)[0] for x in attempt.Paper.Question.all()]
+        data = {
+            'attempt': attempt,
+            'attempts': questAttempts,
+            'allatt': StudentPaper.objects.filter(Paper=attempt.Paper)
+        }
+        return render(request, 'Exam/multiresult.html', data)
     return redirect("accounts:login")
 
 
@@ -480,4 +531,65 @@ def publishResult(request):
         paper.Result = not paper.Result
         paper.save()
         return http.JsonResponse("UnPublish Result" if paper.Result else "Publish Result", safe=False)
+    return http.HttpResponseForbidden("Not allowed")
+
+
+def publishExam(request):
+    if request.user.is_authenticated and request.user.user_type != "Student":
+        exam = Exam.objects.get(id=request.POST['id'])
+        if not exam.Result and exam.Paper.filter(Result=False).exists():
+            return http.HttpResponseBadRequest("Please Grade all Students before publishing Exam")
+        exam.Result = not exam.Result
+        exam.save()
+        return http.JsonResponse("UnPublish Exam Result" if exam.Result else "Publish Exam Result", safe=False)
+    return http.HttpResponseForbidden("Not allowed")
+
+
+def Results(request, id):
+    if request.user.is_authenticated and request.user.user_type == "Student":
+        exam = Exam.objects.get(id=id)
+        papers = exam.Paper.all()
+        cards = []
+        for x in papers:
+            student = StudentPaper.objects.get(
+                Student=request.user.Student, Paper=x)
+            cards.append({
+                'paper': x,
+                'student': student,
+                'Topper': StudentPaper.objects.filter(Paper=x).aggregate(Max('Marks'))['Marks__max'],
+                'Average': StudentPaper.objects.filter(Paper=x).aggregate(Avg('Marks'))['Marks__avg'],
+            })
+        stus = []
+        from accounts.models import Student as s
+        for x in s.objects.filter(Class=request.user.Student.Class):
+            stus.append({
+                'stud': x,
+                's': StudentPaper.objects.filter(Paper__Exam=exam, Student=x).aggregate(Sum('Marks'))['Marks__sum'],
+            })
+            if x.user == request.user:
+                mine = {
+                    's': StudentPaper.objects.filter(Paper__Exam=exam, Student=x).aggregate(Sum('Marks'))['Marks__sum']
+                }
+        stus = sorted(stus, key=lambda x: x['s'], reverse=True)
+        for x in range(len(stus)):
+            if stus[x]['stud'].user == request.user:
+                mine['rank'] = x+1
+        data = {
+            'exam': exam,
+            'cards': cards,
+            'Max': exam.Paper.aggregate(Sum('Max_Marks'))['Max_Marks__sum'],
+            'studens': stus,
+            'Mine': mine,
+            'aver': sum([x['s'] for x in stus])/len(stus),
+        }
+        return render(request, 'Exam/studentResult.html', data)
+    return redirect("accounts:login")
+
+
+def proctored(request):
+    if request.user.is_authenticated and request.user.user_type != "Student":
+        paper = Paper.objects.get(id=request.POST['id'])
+        paper.Proctored = not paper.Proctored
+        paper.save()
+        return http.JsonResponse('Mark as UnProctored Exam' if paper.Proctored else 'Mark as Proctored Exam', safe=False)
     return http.HttpResponseForbidden("Not allowed")

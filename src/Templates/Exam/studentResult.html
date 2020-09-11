@@ -28,29 +28,33 @@
                 <div class="row">
                     <div class="col-4 pt-5 mt-5">
                         <div class="progress progress1">
-                            <div class="progress-bar progress-bar1" role="progressbar" style="width: 10%"
-                                aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar1" role="progressbar"
+                                style="width: {% widthratio Mine.s Max 100 %}%"
+                                aria-valuenow="{% widthratio Mine.s Max 100 %}" aria-valuemin="0" aria-valuemax="100">
                             </div>
                         </div>
-                        <div class="progress-text ptext-1">25</div>
-                        <div class="progress-text1 ptext-4">Name</div>
+                        <div class="progress-text ptext-1">{% widthratio Mine.s Max 100 %}</div>
+                        <div class="progress-text1 ptext-4">{{user.get_short_name}}</div>
                     </div>
                     <div class="col-4 pt-5 mt-5">
                         <div class="progress progress1">
-                            <div class="progress-bar progress-bar1" role="progressbar" style="width: 10%"
-                                aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar1" role="progressbar"
+                                style="width: {% widthratio aver Max 100 %}%"
+                                aria-valuenow="{% widthratio aver Max 100 %}" aria-valuemin="0" aria-valuemax="100">
                             </div>
                         </div>
-                        <div class="progress-text ptext-2">25</div>
+                        <div class="progress-text ptext-2">{% widthratio aver Max 100 %}</div>
                         <div class="progress-text1 ptext-5">Average</div>
                     </div>
                     <div class="col-4 pt-5 mt-5">
                         <div class="progress progress1">
-                            <div class="progress-bar progress-bar1" role="progressbar" style="width: 10%"
-                                aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar1" role="progressbar"
+                                style="width: {% widthratio studens.0.s Max 100 %}%"
+                                aria-valuenow="{% widthratio studens.0.s Max 100 %}" aria-valuemin="0"
+                                aria-valuemax="100">
                             </div>
                         </div>
-                        <div class="progress-text ptext-3">25</div>
+                        <div class="progress-text ptext-3">{% widthratio studens.0.s Max 100 %}</div>
                         <div class="progress-text1 ptext-6">Top</div>
                     </div>
                     <div class="col-12">
@@ -59,10 +63,10 @@
                             <div class="col-10">
                                 <div class="row row-3">
                                     <div class="col-6 text-4">Scorecard</div>
-                                    <div class="col-6 text-5 text-truncate">Exam Name</div>
-                                    <div class="col-12 text-6">474 Marks</div>
-                                    <div class="col-12 text-7">Pectentage: 100%</div>
-                                    <div class="col-12 text-8">Class Rank: 15</div>
+                                    <div class="col-6 text-5 text-truncate">{{exam.Name}}</div>
+                                    <div class="col-12 text-6">{{Mine.s}} Marks</div>
+                                    <div class="col-12 text-7">Pectentage: {% widthratio Mine.s Max 100 %}%</div>
+                                    <div class="col-12 text-8">Class Rank: {{Mine.rank}}</div>
                                     <div class="col-12 text-9 text-right">Passed</div>
                                 </div>
                             </div>
@@ -71,74 +75,73 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4 mt-5">
+                {% for card in cards %}
                 <div class="row">
-                    <div class="col-3 text-3">Physics</div>
+                    <div class="col-3 text-3">{{card.paper.Subject.Name}}</div>
                     <div class="col-9">
                         <div class="row">
-                            <div class="col-3 text-2 text-truncate">Name</div>
+                            <div class="col-3 text-2 text-truncate">{{card.student.Student.user.get_short_name}}</div>
                             <div class="col-7">
                                 <div class="progress progress2">
-                                    <div class="progress-bar progress-bar2" role="progressbar" style="width: 50%"
-                                        aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar2" role="progressbar"
+                                        style="width: {% widthratio card.student.Marks card.paper.Max_Marks 100 %}%"
+                                        aria-valuenow="{% widthratio card.student.Marks card.paper.Max_Marks 100 %}"
+                                        aria-valuemin="0" aria-valuemax="100">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-2 text-10">100%</div>
+                            <div class="col-2 text-10">{% widthratio card.student.Marks card.paper.Max_Marks 100 %}%
+                            </div>
                             <div class="col-3 text-2 text-truncate">Average</div>
                             <div class="col-7">
                                 <div class="progress progress2">
-                                    <div class="progress-bar progress-bar2" role="progressbar" style="width: 50%"
-                                        aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar2" role="progressbar"
+                                        style="width: {% widthratio card.Average card.paper.Max_Marks 100 %}%"
+                                        aria-valuenow="{% widthratio card.Average card.paper.Max_Marks 100 %}"
+                                        aria-valuemin="0" aria-valuemax="100">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-2 text-10">100%</div>
+                            <div class="col-2 text-10">{% widthratio card.Average card.paper.Max_Marks 100 %}%</div>
                             <div class="col-3 text-2 text-truncate">Topper</div>
                             <div class="col-7">
                                 <div class="progress progress2">
-                                    <div class="progress-bar progress-bar2" role="progressbar" style="width: 50%"
-                                        aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar2" role="progressbar"
+                                        style="width: {% widthratio card.Topper card.paper.Max_Marks 100 %}%"
+                                        aria-valuenow="{% widthratio card.Topper card.paper.Max_Marks 100 %}"
+                                        aria-valuemin="0" aria-valuemax="100">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-2 text-10">100%</div>
+                            <div class="col-2 text-10">{% widthratio card.Topper card.paper.Max_Marks 100 %}%</div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
             <div class="col-12 col-md-12 col-lg-4 mt-5">
+                {% for x in studens %}
                 <div class="row p-2">
-                    <div class="col-2 text-center"><div class="ltext-1">1</div></div>
+                    <div class="col-2 text-center">
+                        <div class="ltext-1">{{forloop.counter}}</div>
+                    </div>
                     <div class="col-10">
                         <div class="row row-4">
-                            <div class="col-4 ltext-2">Name</div>
+                            <div class="col-4 ltext-2">{{x.stud.user.get_short_name}}</div>
                             <div class="col-6">
                                 <div class="progress progress3">
-                                    <div class="progress-bar progress-bar3" role="progressbar" style="width: 50%"
-                                        aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar3" role="progressbar"
+                                        style="width: {% widthratio x.s Max 100 %}%"
+                                        aria-valuenow="{% widthratio x.s Max 100 %}" aria-valuemin="0"
+                                        aria-valuemax="100">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-1 ltext-3">10</div>
+                            <div class="col-1 ltext-3">{% widthratio x.s Max 100 %}</div>
                         </div>
                     </div>
                 </div>
-                <div class="row p-2">
-                    <div class="col-2 text-center"><div class="ltext-1">1</div></div>
-                    <div class="col-10">
-                        <div class="row row-4">
-                            <div class="col-4 ltext-2">Name</div>
-                            <div class="col-6">
-                                <div class="progress progress3">
-                                    <div class="progress-bar progress-bar3" role="progressbar" style="width: 50%"
-                                        aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1 ltext-3">10</div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

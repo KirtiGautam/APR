@@ -18,6 +18,8 @@
             </div>
             <div class="col-10 col-sm-11 col-md-7 text-truncate text-1">
                 {{paper.Subject.Name}}
+                <button class="btn btn-primary btn-sm" id="publish_btn">{% if paper.Result %}Un{% endif %}Publish
+                    Result</button>
             </div>
         </div>
         <div class="row row-2">
@@ -46,7 +48,7 @@
                         <div class="text-3 col-12">
                             {% for x in completed %}
                             <div class="row">
-                                <div class="text-3-1 col-8">Name of the student</div>
+                                <div class="text-3-1 col-8">{{x.Student.user.get_short_name}}</div>
                                 <div class="text-3-2 col-4"><span
                                         class="text-3-2-1">{{x.Marks}}</span><span>/{{x.Paper.Max_Marks}}</span>
                                 </div>
@@ -86,12 +88,13 @@
                         {% if not request.GET.type or request.GET.type == 'P' %}
                         {% for x in pending %}
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-0 mt-4 mb-1">
-                            <a href="{% if x.Paper.File %}{% url 'exam:grade-online' x.id %}{% endif %}">
+                            <a
+                                href="{% if x.Paper.File %}{% url 'exam:grade-online' x.id %}{% else %}{% url 'exam:Grade-online' x.id %}{% endif %}">
                                 <div class="col-11 row-2-2-3">
                                     <div class="row">
                                         <div class="col-2">
-                                            <span class="text-{% if x.Marks %}7{% else %}11{% endif %}"><i
-                                                    class="fas fa{% if x.Marks %}-check{% endif %}-circle"></i></span>
+                                            <span class="text-{% if x.Checked %}7{% else %}11{% endif %}"><i
+                                                    class="fas fa{% if x.Checked %}-check{% endif %}-circle"></i></span>
                                         </div>
                                         <div class="col-9 text-8 text-truncate">
                                             {{x.Student.user.get_short_name}}
@@ -114,12 +117,13 @@
                         {% if not request.GET.type or request.GET.type == 'C' %}
                         {% for x in completed %}
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-0 mt-4 mb-1">
-                            <a href="{% if x.Paper.File %}{% url 'exam:grade-online' x.id %}{% endif %}">
+                            <a
+                                href="{% if x.Paper.File %}{% url 'exam:grade-online' x.id %}{% else %}{% url 'exam:Grade-online' x.id %}{% endif %}">
                                 <div class="col-11 row-2-2-3">
                                     <div class="row">
                                         <div class="col-2">
-                                            <span class="text-{% if x.Marks %}7{% else %}11{% endif %}"><i
-                                                    class="fas fa{% if x.Marks %}-check{% endif %}-circle"></i></span>
+                                            <span class="text-{% if x.Checked %}7{% else %}11{% endif %}"><i
+                                                    class="fas fa{% if x.Checked %}-check{% endif %}-circle"></i></span>
                                         </div>
                                         <div class="col-9 text-8 text-truncate">
                                             {{x.Student.user.get_short_name}}
@@ -145,4 +149,28 @@
         </div>
     </div>
 </div>
+<script>
+    {% if messages %}
+    {% for message in messages %}
+    alert("{{message}}");
+    {% endfor %}
+    {% endif %}
+    $(function () {
+        $('#publish_btn').click(function () {
+            let bt = this;
+            $.ajax({
+                type: "POST",
+                headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+                url: "/publish-result",
+                data: {
+                    id: {{ paper.id }},
+                },
+        dataType: "json",
+        success: (data) => (bt.innerText = data),
+        error: (error) => alert(error.responseText),
+            });
+        })
+    })
+</script>
+
 {% endblock %}
