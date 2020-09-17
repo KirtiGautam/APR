@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 
 from .views import (index, examSettings, deleteExam, updateExam, papers, delete, editPaper, deleteQuestion, editQuestion, markQuestion, addSection, editSection, finishPaper,
-                    instruction, studentPaper, clearQuestion, finishExam, offlineGrade, publishResult, onlineGrade, GradeFile, Grade, publishExam, Results, proctored, importQuestions)
+                    instruction, studentPaper, clearQuestion, finishExam, offlineGrade, publishResult, onlineGrade, GradeFile, Grade, publishExam, Results, proctored, importQuestions, faultCounter)
 
 app_name = 'exam'
 
@@ -32,4 +32,5 @@ urlpatterns = [
     path('exam-type-delete', deleteExam, name='delete-exam-type'),
     path('exam-type-update', updateExam, name='update-exam-type'),
     path('settings/exam-settings', examSettings, name='exam-settings'),
+    path('exam-faults', faultCounter, name='exam-faults'),
 ]

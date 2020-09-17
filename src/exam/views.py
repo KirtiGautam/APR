@@ -24,6 +24,9 @@ def index(request):
                 lis.append(Paper(Subject=Subject.objects.get(id=request.POST['subject'+str(i)]), Exam=exam, Scheduled_on=Scheduled_on, Duration=request.POST['duration'+str(
                     i)], Max_Marks=request.POST['max-marks' + str(i)], Pass_Marks=request.POST['pass-marks'+str(i)], Location=request.POST['location'+str(i)], Published=on))
             Paper.objects.bulk_create(lis)
+            for x in exam.Paper.all():
+                StudentPaper.objects.bulk_create(
+                    [StudentPaper(Student=y, Paper=x) for y in x.Subject.Class.Students.all()])
             return redirect("exam:exams")
         if request.user.admin:
             data = {
@@ -35,7 +38,6 @@ def index(request):
             data = {
                 'Exams': Exam.objects.filter(Paper__Subject__teacher=request.user).distinct(),
             }
-
         else:
             data = {
                 'Exams': Exam.objects.filter(Paper__Subject__Class=request.user.Student.Class).distinct(),
@@ -119,8 +121,8 @@ def editPaper(request, id):
             return redirect('exam:papers', id=paper.Exam.id)
         if request.method == "POST":
             if request.POST['QType'] == "O":
-                question = Question.objects.create(
-                    Paper=paper, Max_Marks=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST['Question-text'], Type=request.POST['QType'])
+                question = Question.objects.create(Paper=paper, Correct=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST[
+                                                   'Question-text'], Type=request.POST['QType'], Incorrect=request.POST['Incorrect'], Unattempted=request.POST['unattempted'])
                 if 'Question-Image' in request.FILES:
                     question.Asset = request.FILES['Question-Image']
                     question.save()
@@ -131,19 +133,22 @@ def editPaper(request, id):
                         option.Asset = request.FILES['op'+str(x)+'-file']
                         option.save()
                     if int(request.POST['correct-option']) == x:
-                        Answer.objects.create(
+                        ans = Answer.objects.create(
                             Question=question, Option=option, Explanation=request.POST['correct-explanation'])
+                        if 'exp-file' in request.FILES:
+                            ans.Asset = request.FILES['exp-file']
+                        ans.save()
             elif request.POST['QType'] == "S":
-                question = Question.objects.create(
-                    Paper=paper, Max_Marks=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST['short-Question-text'], Type=request.POST['QType'])
+                question = Question.objects.create(Paper=paper, Correct=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST[
+                                                   'short-Question-text'], Type=request.POST['QType'], Incorrect=request.POST['Incorrect'], Unattempted=request.POST['unattempted'])
                 if 'short-Question-file' in request.FILES:
                     question.Asset = request.FILES['short-Question-file']
                     question.save()
                 Answer.objects.create(
                     Question=question, Explanation=request.POST['short-Question-answer'])
             elif request.POST['QType'] == "L":
-                question = Question.objects.create(
-                    Paper=paper, Max_Marks=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST['long-Question-text'], Type=request.POST['QType'])
+                question = Question.objects.create(Paper=paper, Correct=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST[
+                                                   'long-Question-text'], Type=request.POST['QType'], Incorrect=request.POST['Incorrect'], Unattempted=request.POST['unattempted'])
                 if 'long-Question-file' in request.FILES:
                     question.Asset = request.FILES['long-Question-file']
                     question.save()
@@ -153,16 +158,14 @@ def editPaper(request, id):
                 joined = "','".join([request.POST['fill-question'+str(x
                                                                       )]
                                      for x in range(1, int(request.POST['hidden-fill-count'])+1)])
-                question = Question.objects.create(
-                    Paper=paper, Max_Marks=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST['fill-question'], Type=request.POST['QType'])
+                question = Question.objects.create(Paper=paper, Correct=request.POST['max_marks'], SNo=request.POST['QSNo'], Text=request.POST[
+                                                   'fill-question'], Type=request.POST['QType'], Incorrect=request.POST['Incorrect'], Unattempted=request.POST['unattempted'])
                 if 'fill-question-file' in request.FILES:
                     question.Asset = request.FILES['fill-question-file']
                     question.save()
                 Answer.objects.create(Question=question, Explanation=joined)
-
             return redirect("exam:edit-paper", id=id)
-        sum = paper.Question.all().aggregate(
-            Sum("Max_Marks"))['Max_Marks__sum']
+        sum = paper.Question.all().aggregate(Sum("Correct"))['Correct__sum']
         data = {
             'paper': paper,
             'marks_till_now': paper.Max_Marks - sum if sum else paper.Max_Marks,
@@ -189,7 +192,9 @@ def editQuestion(request):
             question = Question.objects.get(
                 id=request.POST['edit-question-id'])
             question.SNo = request.POST['edit-QSNo']
-            question.Max_Marks = request.POST['edit-max_marks']
+            question.Correct = request.POST['edit-max_marks']
+            question.Incorrect = request.POST['edit-incorrect']
+            question.Unattempted = request.POST['edit-unattempted']
             if question.Type == "O":
                 question.Text = request.POST['edit-Question-text']
                 if 'edit-Question-Image' in request.FILES:
@@ -202,8 +207,13 @@ def editQuestion(request):
                         option.Asset = request.FILES['edit-op'+str(x)+'-file']
                     option.save()
                     if int(request.POST['edit-correct-option']) == option.id:
-                        Answer.objects.filter(id=request.POST['hidden-edit-ob-answer']).update(
-                            Option=option, Explanation=request.POST['edit-correct-explanation'])
+                        ans = Answer.objects.get(
+                            id=request.POST['hidden-edit-ob-answer'])
+                        ans.Option = option
+                        ans.Explanation = request.POST['edit-correct-explanation']
+                        if 'edit-exp-file' in request.FILES:
+                            ans.Asset = request.FILES['edit-exp-file']
+                        ans.save()
             elif question.Type == "S":
                 question.Text = request.POST['edit-short-Question-text']
                 if 'edit-short-Question-file' in request.FILES:
@@ -234,7 +244,9 @@ def editQuestion(request):
             'id': question.id,
             'SNo': question.SNo,
             'Text': question.Text,
-            'Max_Marks': question.Max_Marks,
+            'Max_Marks': question.Correct,
+            'incorrect': question.Incorrect,
+            'unattempted': question.Unattempted,
             'Asset': question.Asset.url if question.Asset else None,
             'Type': question.Type,
         }
@@ -256,6 +268,8 @@ def editQuestion(request):
                 'id': question.Answer.id,
                 'blanks': question.Answer.get_blanks(),
             }
+        if question.Answer.Asset:
+            data['Answer']['asset'] = question.Answer.Asset.url
         return http.JsonResponse(data)
     return http.HttpResponseForbidden("Not Allowed")
 
@@ -302,7 +316,7 @@ def finishPaper(request, id):
             marks = 0
             for x in paper.Question.all().order_by('SNo'):
                 ser += 1
-                marks += x.Max_Marks
+                marks += x.Correct
                 if ser != x.SNo:
                     messages.error(
                         request, "Question numbers are not consecutive")
@@ -311,7 +325,6 @@ def finishPaper(request, id):
                 messages.error(request, "Marks sum is not equal to Max Marks")
                 return redirect('exam:edit-paper', id=paper.id)
             sections = paper.Section.all()
-            end = []
             for section in sections:
                 if section.Start < 0 or section.End > ser:
                     messages.error(request, "Section range is improper")
@@ -320,8 +333,13 @@ def finishPaper(request, id):
                     if d.id != section.id and ((section.Start in range(d.Start, d.End+1) or (section.End in range(d.Start, d.End+1)))):
                         messages.error(request, "Sections are overlapping")
                         return redirect('exam:edit-paper', id=paper.id)
-        paper.Published = not paper.Published
-        paper.save()
+            paper.Published = not paper.Published
+            paper.save()
+            lis = []
+            for x in paper.Subject.Class.Students.all():
+                for y in paper.Question.all():
+                    lis.append(StudentAttempt(Student=x, Question=y))
+            StudentAttempt.objects.bulk_create(lis)
         return redirect('exam:edit-paper', id=paper.id)
     return http.HttpResponseForbidden("Not Allowed")
 
@@ -346,7 +364,7 @@ def studentPaper(request, id):
         if not paper.Published:
             messages.warning(request, "Paper not published, contact Admin")
             return redirect('exam:papers', id=paper.Exam.id)
-        attempt, created = StudentPaper.objects.get_or_create(
+        attempt = StudentPaper.objects.get(
             Student=request.user.Student, Paper=paper)
         if attempt.Done:
             messages.warning(request, "Cannot give exam once finished")
@@ -356,8 +374,7 @@ def studentPaper(request, id):
                 if not paper.File and paper.pattern() == 'Objective':
                     attempt.Marks = StudentAttempt.objects.aggregate(Sum('Marks'))[
                         'Marks__sum']
-                    paper.Result = True
-                    paper.save()
+                    attempt.Checked = True
                 attempt.Done = True
                 attempt.save()
                 return http.JsonResponse("Marked as done", safe=False)
@@ -368,15 +385,15 @@ def studentPaper(request, id):
             else:
                 question = Question.objects.get(
                     id=request.POST['hidden_question_id'])
-                obj, created = StudentAttempt.objects.get_or_create(
+                obj = StudentAttempt.objects.get(
                     Student=request.user.Student, Question=question)
                 if question.Type == "O":
                     obj.Option = Option.objects.get(
                         id=request.POST['student-option-response']) if 'student-option-response' in request.POST else None
                     if obj.Option and question.Answer.Option == obj.Option:
-                        obj.Marks = question.Max_Marks
+                        obj.Marks = question.Correct
                     else:
-                        obj.Marks = 0
+                        obj.Marks = question.Incorrect
                 elif question.Type == "S":
                     obj.Text = request.POST['short-Answer'] if 'short-Answer' in request.POST else None
                 elif question.Type == "L":
@@ -402,7 +419,7 @@ def studentPaper(request, id):
                 SNo__gte=section.Start, SNo__lte=section.End)
         data = {
             'paper': paper,
-            'questions': questions,
+            'questions': questions.order_by('SNo'),
             'Question': questions[int(request.GET['question'])],
             'Section': section,
             'Time': time,
@@ -444,8 +461,8 @@ def offlineGrade(request, id):
                 StudentPaper.objects.filter(id=int(
                     request.POST['hidden_marks'+str(x)])).update(Marks=marks)
             return redirect('exam:result-offline', id=paper.id)
-        students = [StudentPaper.objects.get_or_create(
-            Student=x, Paper=paper)[0] for x in paper.Subject.Class.Students.all()]
+        students = [StudentPaper.objects.get(
+            Student=x, Paper=paper) for x in paper.Subject.Class.Students.all()]
         data = {
             'paper': paper,
             'students':  sorted(students, key=lambda x: (x.Marks is None, x.Marks), reverse=True),
@@ -461,8 +478,8 @@ def onlineGrade(request, id):
             paper = Paper.objects.get(id=id)
         except Exception as e:
             return http.Http404("Not found", e.args)
-        students = [StudentPaper.objects.get_or_create(Student=x, Paper=paper)[
-            0] for x in paper.Subject.Class.Students.all()]
+        students = [StudentPaper.objects.get(
+            Student=x, Paper=paper) for x in paper.Subject.Class.Students.all()]
         data = {
             'pending': [x for x in students if not x.Checked],
             'completed': [x for x in students if x.Checked],
@@ -513,8 +530,14 @@ def Grade(request, id):
             attempt.Checked = flag
             attempt.save()
             return redirect('exam:Grade-online', id=id)
-        questAttempts = [StudentAttempt.objects.get_or_create(
-            Student=attempt.Student, Question=x)[0] for x in attempt.Paper.Question.all()]
+        questAttempts = []
+        for x in attempt.Paper.Question.all():
+            stu = StudentAttempt.objects.get(
+                Student=attempt.Student, Question=x)
+            if stu.Marks is None:
+                stu.Marks = stu.Question.Unattempted
+                stu.save()
+            questAttempts.append(stu)
         data = {
             'attempt': attempt,
             'attempts': questAttempts,
@@ -554,6 +577,9 @@ def Results(request, id):
         for x in papers:
             student = StudentPaper.objects.get(
                 Student=request.user.Student, Paper=x)
+            if not student.Marks:
+                student.Marks = 0
+                student.save()
             cards.append({
                 'paper': x,
                 'student': student,
@@ -562,16 +588,28 @@ def Results(request, id):
             })
         stus = []
         from accounts.models import Student as s
-        for x in s.objects.filter(Class=request.user.Student.Class):
+        for x in papers:
+            for y in s.objects.filter(Class=request.user.Student.Class, user__status='A'):
+                stubP = StudentPaper.objects.get(Paper=x, Student=y)
+                if stubP.Marks is None:
+                    stubP.Marks = 0
+                    stubP.save()
+        for x in s.objects.filter(Class=request.user.Student.Class, user__status='A'):
             stus.append({
                 'stud': x,
                 's': StudentPaper.objects.filter(Paper__Exam=exam, Student=x).aggregate(Sum('Marks'))['Marks__sum'],
             })
             if x.user == request.user:
+                fail = False
+                for y in StudentPaper.objects.filter(Paper__Exam=exam, Student=x):
+                    if y.Marks < y.Paper.Pass_Marks:
+                        fail = True
                 mine = {
-                    's': StudentPaper.objects.filter(Paper__Exam=exam, Student=x).aggregate(Sum('Marks'))['Marks__sum']
+                    's': StudentPaper.objects.filter(Paper__Exam=exam, Student=x).aggregate(Sum('Marks'))['Marks__sum'],
+                    'failed': fail
                 }
-        stus = sorted(stus, key=lambda x: x['s'], reverse=True)
+        stus = sorted(stus, key=lambda x: (
+            x['s'] is None, x['s']), reverse=True)
         for x in range(len(stus)):
             if stus[x]['stud'].user == request.user:
                 mine['rank'] = x+1
@@ -603,7 +641,7 @@ def importQuestions(request):
             if 'check'+str(x) in request.POST:
                 if request.POST['checkval'+str(x)]:
                     sum = paper.Question.all().aggregate(
-                        Sum("Max_Marks"))['Max_Marks__sum']
+                        Sum("Correct"))['Correct__sum']
                     sum = paper.Max_Marks - sum if sum else paper.Max_Marks
                     if sum < int(request.POST['checkval'+str(x)]):
                         messages.error(
@@ -613,16 +651,25 @@ def importQuestions(request):
                         id=int(request.POST['check'+str(x)]))
                     no = paper.Question.all().order_by('SNo').last()
                     no = no.SNo+1 if no else 1
-                    Ques = Question.objects.create(Paper=paper, Max_Marks=int(
-                        request.POST['checkval'+str(x)]), Type='O', SNo=no, Text=ques.Name)
+                    Ques = Question.objects.create(Paper=paper, Correct=int(request.POST['checkval'+str(x)]), Incorrect=int(
+                        request.POST['inc'+str(x)]), Unattempted=int(request.POST['unam'+str(x)]), Type='O', SNo=no, Text=ques.Name)
                     for x in ques.choice.all():
                         opt = Option.objects.create(Question=Ques, Text=x.Name)
                         if x == ques.Answer.choice:
                             Answer.objects.create(
-                                Question=Ques, Option=opt, Explanation='.')
+                                Question=Ques, Option=opt, Explanation=ques.Answer.explanation)
                 else:
                     messages.error(
                         request, "Error: Cannot import, No marks defined in Question " + str(x+1))
                     break
         return redirect('exam:edit-paper', id=paper.id)
+    return http.HttpResponseForbidden("Not allowed")
+
+
+def faultCounter(request):
+    if request.user.is_authenticated and request.user.user_type == "Student":
+        attempt = StudentPaper.objects.get(id=request.POST['id'])
+        attempt.Faults += 1
+        attempt.save()
+        return http.JsonResponse("Done", safe=False)
     return http.HttpResponseForbidden("Not allowed")

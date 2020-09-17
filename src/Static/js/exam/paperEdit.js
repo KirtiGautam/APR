@@ -50,6 +50,12 @@ const check = () => {
   } else if (!$("#max_marks").val()) {
     alert("Please enter Max marks for the question");
     return false;
+  } else if (!$("#unattempted").val()) {
+    alert("Please enter unattempted marks for the question");
+    return false;
+  } else if (!$("#Incorrect").val()) {
+    alert("Please enter incorrect marks for the question");
+    return false;
   } else if ($("#max_marks").val() > parseInt(marks)) {
     alert("Max marks exceed the limit");
     return false;
@@ -68,8 +74,8 @@ const check = () => {
       alert(`Please select a correct option`);
       return false;
     }
-    if (!$("#correct-explanation").val()) {
-      alert("Please type a explanation for the answer");
+    if (!$("#correct-explanation").val() && !$("#exp-file").val()) {
+      alert("Please type a explanation for the answer or add image");
       return false;
     }
   } else if ($("#QType").val() == "S") {
@@ -137,6 +143,8 @@ const getQuestion = (id) => {
       $("#edit-question-id").val(data.id);
       $("#edit-QSNo").val(data.SNo);
       $("#edit-max_marks").val(data.Max_Marks);
+      $("#edit-incorrect").val(data.incorrect);
+      $("#edit-unattempted").val(data.unattempted);
       if (data.Type == "O") {
         $("#edit-Objective-sect").removeClass("d-none");
         $("#edit-Fill-sect").addClass("d-none");
@@ -161,6 +169,11 @@ const getQuestion = (id) => {
         $(`#edit-correct-option`).html(options).val(data.Answer.Option);
         $(`#edit-correct-explanation`).val(data.Answer.Explanation);
         $(`#hidden-edit-ob-answer`).val(data.Answer.id);
+        if (data.Answer.asset)
+          $("#edit-obj-exp-prev")
+            .attr("src", data.Answer.asset)
+            .removeClass("d-none");
+        else $("#edit-obj-exp-prev").addClass("d-none");
       } else if (data.Type == "S") {
         $("#edit-Objective-sect").addClass("d-none");
         $("#edit-Fill-sect").addClass("d-none");
@@ -244,4 +257,43 @@ const newSectionCheck = (number) => {
     return false;
   }
   return true;
+};
+
+const getDbQuestions = (id) => {
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/get-questions",
+    data: {
+      lesson: id,
+    },
+    dataType: "json",
+    success: (data) => {
+      $("#db_paper-counter").val(data.questions.length);
+      $("#td_db_body").html(
+        data.questions.map(
+          (el, index) => `<tr>
+      <td><input type="checkbox" name="check${index}" value="${el.id}"></td>
+      <td>${el.Name}</td>
+      <td>
+          ${el.Difficulty}
+      </td>
+      <td class=" modal-text-6">
+          <input type="number" name="checkval${index}" class="form-control"
+              value="1">
+      </td>
+      <td class=" modal-text-6">
+          <input type="number" name="inc${index}" class="form-control"
+              value="0">
+      </td>
+      <td class=" modal-text-6">
+          <input type="number" name="unam${index}" class="form-control"
+              value="0">
+      </td>
+    </tr>`
+        )
+      );
+    },
+    error: (error) => alert(error.responseText),
+  });
 };

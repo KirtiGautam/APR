@@ -44,7 +44,7 @@
                                 <td class="text-3">{{attempt.Student.user.get_short_name}}</td>
                                 <td>
                                     <input type="hidden" name="hidden_marks{{forloop.counter}}" value="{{attempt.id}}">
-                                    <input type="text" name="marks{{forloop.counter}}" id="attempt{{attempt.id}}"
+                                    <input type="text" name="marks{{forloop.counter}}" id="attempt{{forloop.counter}}"
                                         class="form-control text-4"
                                         value="{% if attempt.Marks %}{{attempt.Marks}}{% endif %}">
                                 </td>
@@ -68,7 +68,7 @@
             $(`#attempt${index}`).focus()
             return false;
         }
-        console.log(parseInt($(`#attempt${index}`).val()))
+        console.log(`#attempt${index}`, parseInt($(`#attempt${index}`).val()), index)
         if (parseInt($(`#attempt${index}`).val()) > parseInt({{ paper.Max_Marks }}) ) {
 
         alert(`Marks cannot be more than max marks on row ${index}`)
@@ -76,7 +76,7 @@
         return false;
     }
     }
-    return true;
+    return false;
     }
     $(function () {
         $('#publish_btn').click(function () {

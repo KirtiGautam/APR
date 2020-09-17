@@ -32,9 +32,25 @@
                         <div class="col-12 col-sm-9 col-md-6 col-lg-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Marks</span>
+                                    <span class="input-group-text">Correct</span>
                                 </div>
-                                <input type="text" name="max_marks" id="max_marks" class="form-control">
+                                <input type="text" name="max_marks" id="max_marks" class="form-control" value="1">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-9 col-md-6 col-lg-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Incorrect</span>
+                                </div>
+                                <input type="text" name="Incorrect" id="Incorrect" class="form-control" value="0">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-9 col-md-6 col-lg-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Unattempted</span>
+                                </div>
+                                <input type="text" name="unattempted" id="unattempted" class="form-control" value="0">
                             </div>
                         </div>
                     </div>
@@ -147,6 +163,17 @@
                             </div>
                             <textarea name="correct-explanation" id="correct-explanation"
                                 class="form-control"></textarea>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Add Image for Explanation</span>
+                            </div>
+                            <div class="custom-file">
+                                <input name="exp-file" id="exp-file" type="file" class="custom-file-input"
+                                    accept="image/png, image/jpeg" onchange="handleChange('#obj-exp-prev', this);">
+                                <label class="custom-file-label">Choose Image</label>
+                            </div>
+                            <img src="#" id="obj-exp-prev" class="d-none col-12 mt-2">
                         </div>
                     </div>
                     <!-- Fill Ups -->
@@ -273,9 +300,27 @@
                         <div class="col-12 col-sm-9 col-md-6 col-lg-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Marks</span>
+                                    <span class="input-group-text">Correct</span>
                                 </div>
                                 <input type="text" name="edit-max_marks" id="edit-max_marks" placeholder="marks"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-9 col-md-6 col-lg-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Incorrect</span>
+                                </div>
+                                <input type="text" name="edit-incorrect" id="edit-incorrect" placeholder="marks"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-9 col-md-6 col-lg-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Unattempted</span>
+                                </div>
+                                <input type="text" name="edit-unattempted" id="edit-unattempted" placeholder="marks"
                                     class="form-control">
                             </div>
                         </div>
@@ -387,6 +432,17 @@
                             <input type="hidden" name="hidden-edit-ob-answer" id="hidden-edit-ob-answer">
                             <textarea name="edit-correct-explanation" id="edit-correct-explanation"
                                 class="form-control"></textarea>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Add Image for Explanation</span>
+                            </div>
+                            <div class="custom-file">
+                                <input name="edit-exp-file" id="edit-exp-file" type="file" class="custom-file-input"
+                                    accept="image/png, image/jpeg" onchange="handleChange('#edit-obj-exp-prev', this);">
+                                <label class="custom-file-label">Choose Image</label>
+                            </div>
+                            <img src="#" id="edit-obj-exp-prev" class="d-none col-12 mt-2">
                         </div>
                     </div>
                     <!-- Fill Ups -->
@@ -501,9 +557,19 @@
         <div class="modal-content">
             <form action="{% url 'exam:db_import' %}" method="post">
                 {% csrf_token %}
+                <input type="hidden" name="db_paper_id" value="{{paper.id}}">
+                <input type="hidden" name="db_paper_counter" id="db_paper_counter" value="{{db_q.count}}">
                 <div class="modal-header">
                     <div class="col-12 mt-2 mb-2 text-right">
-                        <button type="button" class="modal-text-3">Cancel</button>
+                        <label for="db_ques_select">Chapter</label>
+                        <select id="db_ques_select" onchange="getDbQuestions(this.value);">
+                            <option value="" disabled selected>ALL</option>
+                            {% for lesson in paper.Subject.Lesson.all %}
+                            <option value="{{lesson.id}}">{{lesson.Name}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type=" button" class="modal-text-3" onclick="$('#db_imp').modal('toggle')">
+                            Cancel</button>
                         <button type="submit" class="modal-text-3" id="db-impor">
                             Import
                         </button>
@@ -517,12 +583,12 @@
                                     <th></th>
                                     <th>Question</th>
                                     <th>Difficulty</th>
-                                    <th>Marks</th>
+                                    <th>Correct</th>
+                                    <th>Incorrect</th>
+                                    <th>Unattempted</th>
                                 </tr>
                             </thead>
-                            <tbody class="modal-text-5">
-                                <input type="hidden" name="db_paper_id" value="{{paper.id}}">
-                                <input type="hidden" name="db_paper_counter" value="{{db_q.count}}">
+                            <tbody class="modal-text-5" id="td_db_body">
                                 {% for x in db_q %}
                                 <tr>
                                     <td><input type="checkbox" name="check{{forloop.counter0}}" value="{{x.id}}"></td>
@@ -531,7 +597,16 @@
                                         {{x.get_Difficulty_display}}
                                     </td>
                                     <td class=" modal-text-6">
-                                        <input type="number" name="checkval{{forloop.counter0}}" class="form-control">
+                                        <input type="number" name="checkval{{forloop.counter0}}" class="form-control"
+                                            value="1">
+                                    </td>
+                                    <td class=" modal-text-6">
+                                        <input type="number" name="inc{{forloop.counter0}}" class="form-control"
+                                            value="0">
+                                    </td>
+                                    <td class=" modal-text-6">
+                                        <input type="number" name="unam{{forloop.counter0}}" class="form-control"
+                                            value="0">
                                     </td>
                                 </tr>
                                 {% endfor %}

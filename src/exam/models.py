@@ -70,8 +70,9 @@ class StudentPaper(models.Model):
         Paper, related_name='StudentPaper', on_delete=models.CASCADE)
     Student = models.ForeignKey(
         Student, related_name='StudentPaper', on_delete=models.CASCADE)
-    Marks = models.PositiveIntegerField(null=True, blank=True, default=None)
+    Marks = models.IntegerField(null=True, blank=True, default=None)
     Done = models.BooleanField(default=False)
+    Faults = models.PositiveIntegerField(default=0)
     File = models.FileField(upload_to='StudentPaper/',
                             null=True, blank=True, default=None)
     Checked = models.BooleanField(default=False)
@@ -98,7 +99,9 @@ class Question(models.Model):
     Paper = models.ForeignKey(
         Paper, related_name="Question", on_delete=models.CASCADE)
     Type = models.CharField(max_length=2, choices=paper_type_choices)
-    Max_Marks = models.PositiveIntegerField()
+    Correct = models.IntegerField()
+    Incorrect = models.IntegerField()
+    Unattempted = models.IntegerField()
     Student = models.ManyToManyField(Student, through='StudentAttempt')
 
     def attempted(self, user):
@@ -132,13 +135,15 @@ class StudentAttempt(models.Model):
     Option = models.ForeignKey(Option, related_name='Student_attempt',
                                on_delete=models.CASCADE, null=True, blank=True, default=None)
     Text = models.TextField(null=True, blank=True, default=None)
-    Marks = models.PositiveIntegerField(null=True, blank=True, default=None)
+    Marks = models.IntegerField(null=True, blank=True, default=None)
 
 
 class Answer(models.Model):
     Question = models.OneToOneField(
         Question, related_name="Answer", on_delete=models.CASCADE)
-    Explanation = models.TextField()
+    Explanation = models.TextField(null=True, blank=True, default=None)
+    Asset = models.ImageField(
+        upload_to="Explanation_asset/", null=True, blank=True, default=None)
     Option = models.ForeignKey(
         Option, related_name="Answer", on_delete=models.CASCADE, null=True, blank=True, default=None)
 

@@ -20,7 +20,7 @@
                 {{exam.Name}}
             </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-4">
-                <button class="btn button-2" id="publish_btn">{% if exam.Result %}Un{% endif %}Publish Exam Result</button>
+                {% if user.admin %}<button class="btn button-2" id="publish_btn">{% if exam.Result %}Un{% endif %}Publish Exam Result</button>{% endif %}
             </div>
         </div>
         <div class="row row-2">

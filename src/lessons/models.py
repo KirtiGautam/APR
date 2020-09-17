@@ -43,6 +43,7 @@ class answer(models.Model):
         question, on_delete=models.CASCADE,  related_name='Answer')
     choice = models.ForeignKey(
         choice, on_delete=models.CASCADE, related_name='correct_choice')
+    explanation = models.TextField()
 
 
 class Video(models.Model):

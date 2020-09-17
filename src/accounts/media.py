@@ -129,7 +129,8 @@ def uploadQuestions(request):
             c = [c1, c2, c3, c4]
             for i in range(1, 5):
                 if x['Choice '+str(i)].strip().lower() == x['Correct Answer'].strip().lower():
-                    ans = answer.objects.create(question=qn, choice=c[i-1])
+                    ans = answer.objects.create(
+                        question=qn, choice=c[i-1], explanation=x['Explanation'])
         data = {
             'message': 'File uploaded'
         }

@@ -67,7 +67,7 @@
                                     <div class="col-12 text-6">{{Mine.s}} Marks</div>
                                     <div class="col-12 text-7">Pectentage: {% widthratio Mine.s Max 100 %}%</div>
                                     <div class="col-12 text-8">Class Rank: {{Mine.rank}}</div>
-                                    <div class="col-12 text-9 text-right">Passed</div>
+                                    <div class="col-12 text-9 text-right">{% if Mine.failed %}Failed{% else %}Passed{% endif %}</div>
                                 </div>
                             </div>
                         </div>

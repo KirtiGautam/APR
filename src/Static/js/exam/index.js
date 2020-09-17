@@ -8,9 +8,13 @@ $(function () {
   $("#mode").change(function () {
     for (let index = 1; index <= rows; index++) {
       let loc = document.getElementById(`location${index}`);
-      if ($("#mode").val() === "O") loc.setAttribute("readonly", true);
-      else loc.removeAttribute("readonly", false);
-      loc.value = "ONLINE";
+      if ($("#mode").val() === "O") {
+        loc.setAttribute("readonly", true);
+        loc.value = "ONLINE";
+      } else {
+        loc.removeAttribute("readonly", false);
+        loc.value = "";
+      }
     }
   });
   $("#add-row-btn").click(function () {

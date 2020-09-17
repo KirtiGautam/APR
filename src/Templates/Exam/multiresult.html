@@ -142,10 +142,10 @@
                                     <input type="hidden" name="hidden_attempt_id{{forloop.counter0}}"
                                         class="form-control text-3-3" value="{{question.id}}">
                                     <input type="number" name="score{{forloop.counter0}}" class="form-control text-3-3"
-                                        min='0' max="{{question.Question.Max_Marks}}"
-                                        value="{% if question.Marks %}{{question.Marks}}{% endif %}">
+                                        min='{{question.Question.Incorrect}}' max="{{question.Question.Correct}}"
+                                        value="{{question.Marks}}">
                                 </div>
-                                <div class="col-12 text-3-4">Max: {{question.Question.Max_Marks}}</div>
+                                <div class="col-12 text-3-4">Max: {{question.Question.Correct}}</div>
                             </div>
                         </div>
                     </div>

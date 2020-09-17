@@ -234,7 +234,18 @@
 <script>
     {% if paper.Proctored %}
     $(window).blur(function () {
-        alert("Do not change window \n Exam will be automatically submitted if you change window more than 3 times ")
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+            url: "/exam-faults",
+            data: {
+                id: {{ attemp.id }},
+            },
+        dataType: "json",
+        success: (data) => console.log(data),
+        error: (error) => alert(error.responseText),
+  });
+    alert("Do not change window \n Exam will be automatically submitted if you change window more than 3 times ")
     });
     {% endif %}
     let timeLeft = '{{Time|date:"Y-m-d"}}T{{Time|date:"G:i:s"}}';
