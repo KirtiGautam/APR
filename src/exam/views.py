@@ -89,6 +89,12 @@ def papers(request, id):
             exam = Exam.objects.get(id=id)
         except Exception as e:
             return http.HttpResponseNotFound("No such exam exists.", e.args)
+        if request.method == "POST" and request.user.admin:
+            Scheduled_on = dateparse.parse_datetime(
+                request.POST['scheduled']).astimezone(tz=pytz.timezone("Asia/Kolkata"))
+            Paper.objects.create(Subject=Subject.objects.get(id=request.POST['subject']), Exam=exam, Scheduled_on=Scheduled_on, Duration=request.POST[
+                                 'duration'], Max_Marks=request.POST['Max_Marks'], Pass_Marks=request.POST['Pass_Marks'], Location=request.POST['location'])
+            return redirect('exam:papers', id=id)
         if request.user.user_type == "Student":
             paper = exam.Paper.filter(
                 Subject__Class=request.user.Student.Class)
@@ -673,3 +679,30 @@ def faultCounter(request):
         attempt.save()
         return http.JsonResponse("Done", safe=False)
     return http.HttpResponseForbidden("Not allowed")
+
+
+def paperDetails(request):
+    if request.user.is_authenticated and request.user.admin:
+        paper = Paper.objects.get(id=request.POST['paper-id'])
+        if request.method == 'POST':
+            paper.Scheduled_on = request.POST['scheduled']
+            paper.Duration = request.POST['duration']
+            paper.Max_Marks = request.POST['max-marks']
+            paper.Pass_Marks = request.POST['pass-marks']
+            paper.save()
+            return redirect('exam:papers', id=paper.Exam.id)
+        return http.JsonResponse(({
+            'Scheduled_on': paper.Scheduled_on,
+            'Duration': paper.Duration,
+            'Max_Marks': paper.Max_Marks,
+            'Pass_Marks': paper.Pass_Marks,
+        }))
+    return redirect('accounts:login')
+
+
+def paperDelete(request):
+    if request.user.is_authenticated and request.user.admin:
+        paper = Paper.objects.filter(id=request.POST['id'])
+        id = paper
+        paper.delete()
+        return redirect('exam:papers', id=id)
