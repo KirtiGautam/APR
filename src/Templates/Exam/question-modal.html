@@ -229,7 +229,7 @@
                         <img src="#" id="short-img-prev" class="d-none col-12 mt-2">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Answer</span>
+                                <span class="input-group-text">Explanation</span>
                             </div>
                             <textarea name="short-Question-answer" id="short-Question-answer"
                                 class="form-control"></textarea>
@@ -256,7 +256,7 @@
                         <img src="#" id="long-img-prev" class="d-none col-12 mt-2">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Answer</span>
+                                <span class="input-group-text">Explanation</span>
                             </div>
                             <textarea name="long-Question-answer" id="long-Question-answer"
                                 class="form-control"></textarea>
@@ -498,7 +498,7 @@
                         <img src="#" id="edit-short-img-prev" class="d-none col-12 mt-2">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Answer</span>
+                                <span class="input-group-text">Explanation</span>
                             </div>
 
                             <input type="hidden" name="edit-short-Answer-id" id="edit-short-Answer-id">
@@ -529,7 +529,7 @@
                         <img src="#" id="edit-long-img-prev" class="d-none col-12 mt-2">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Answer</span>
+                                <span class="input-group-text">Explanation</span>
                             </div>
                             <input type="hidden" name="edit-long-Answer-id" id="edit-long-Answer-id">
                             <textarea name="edit-long-Question-answer" id="edit-long-Question-answer"
@@ -559,21 +559,31 @@
                 {% csrf_token %}
                 <input type="hidden" name="db_paper_id" value="{{paper.id}}">
                 <input type="hidden" name="db_paper_counter" id="db_paper_counter" value="{{db_q.count}}">
-                <div class="modal-header">
-                    <div class="col-12 mt-2 mb-2 text-right">
-                        <label for="db_ques_select">Chapter</label>
-                        <select id="db_ques_select" onchange="getDbQuestions(this.value);">
-                            <option value="" disabled selected>ALL</option>
-                            {% for lesson in paper.Subject.Lesson.all %}
-                            <option value="{{lesson.id}}">{{lesson.Name}}</option>
-                            {% endfor %}
-                        </select>
-                        <button type=" button" class="modal-text-3" onclick="$('#db_imp').modal('toggle')">
+                <div class="modal-header row">
+                    <div class="col-12 col-md-6 mt-2 mb-2 text-right">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Chapter</span>
+                            </div>
+                            <select id="db_ques_select" onchange="getDbQuestions(this.value);" class="custom-select">
+                                <option value="" disabled selected>ALL</option>
+                                {% for lesson in paper.Subject.Lesson.all %}
+                                <option value="{{lesson.id}}">{{lesson.Name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mt-2 mb-2">
+                        <button type=" button" class="btn button-6" onclick="$('#db_imp').modal('toggle')">
                             Cancel</button>
-                        <button type="submit" class="modal-text-3" id="db-impor">
+
+                    </div>
+                    <div class="col-6 col-md-3 mt-2 mb-2">
+                        <button type="submit" class="btn button-5" id="db-impor">
                             Import
                         </button>
                     </div>
+
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive text-center">

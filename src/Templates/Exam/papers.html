@@ -20,6 +20,9 @@
                 {{exam.Name}}
             </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                <button class="btn button-2">Edit Details</button>
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                 {% if user.admin %}<button class="btn button-2" id="publish_btn">{% if exam.Result %}Un{% endif %}Publish Exam Result</button>{% endif %}
             </div>
         </div>
@@ -75,10 +78,7 @@
                                         {% if not paper.Published %}Paper
                                         Pending{% else %}Paper Ready{% endif %}</div>
                                     <div class="col-2">
-                                        <div class="float-right"><input type="checkbox"
-                                                {% if paper.Published %}checked{% endif %} onclick="return false;"
-                                                class="input-1">
-                                        </div>
+                                        <button type="submit" class="btn float-right del" title="Edit"><i class="fas fa-pen"></i></button>
                                     </div>
                                     {% endif %}
                                     <div class="col-12 text-5 text-truncate">{{paper.Subject.Name}}</div>

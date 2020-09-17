@@ -19,8 +19,7 @@
                         </button>
                     </a>
                 </div>
-                <div class="col-10 col-sm-8 col-md-6 col-lg-4 text-truncate mt-1">
-                    <!-- <span class="text-1">{{attempt.Student.user.get_full_name}}</span> -->
+                <div class="col-10 col-sm-11 col-md-5 col-lg-5 text-truncate mt-1">
                     <select class="custom-select" onchange="location=this.value">
                         {% for x in allatt %}
                         <option value="{% url 'exam:Grade-online' x.id %}" class="text-1"
@@ -28,10 +27,12 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="text-danger">
-                    Faults Attempted: {{attempt.Faults}}
+                <div class="col-6 col-md-3">
+                    <div class="text-10">Faults Attempted: {{attempt.Faults}}</div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn button-3">Submit</button>
+                </div>
             </div>
             <div class="row row-2">
                 <div class="col-12 row-2-1">
@@ -39,7 +40,7 @@
                     {% for question in attempts %}
                     <div class="row row-2-1-1">
                         <div class="text-2 col-1 text-right">Q{{question.Question.SNo}}.</div>
-                        <div class="col-7">
+                        <div class="col-6">
                             {% if question.Question.Type == "O" %}
                             <div class="row">
                                 <div class="text-3 col-12 mb-2">
@@ -138,7 +139,7 @@
                             {% endfor %}
                             {% endif %}
                         </div>
-                        <div class="col-3 p-0">
+                        <div class="col-4 p-0">
                             <div class="row">
                                 <div class="col-6 text-3-2">Score</div>
                                 <div class="col-6">
