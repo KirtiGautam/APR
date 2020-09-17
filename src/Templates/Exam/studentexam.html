@@ -101,12 +101,13 @@
                     <div class="text-6 row">
                         {% if Question.Type == 'O' %}
                         {% for option in Question.Option.all %}
-                        <div class="col-1"><input type="radio" name="student-option-response" value="{{option.id}}"
+                        <div class="col-1 mt-1 mb-1"><input type="radio" name="student-option-response"
+                                value="{{option.id}}"
                                 {% if Question|attempted:user and Question|which:user == option %}checked{% endif %}>
                         </div>
-                        <div class="col-1">{% cycle 'A' 'B' 'C' 'D' %}</div>
-                        <div class="col-10">{{option.Text}}{% if option.Asset %}<img src="{{option.Asset.url}}"
-                                alt="option asset" class="col-12">{% endif %}</div>
+                        <div class="col-1 mt-1 mb-1">{% cycle 'A' 'B' 'C' 'D' %}</div>
+                        <div class="col-10 mt-1 mb-1">{{option.Text}}{% if option.Asset %}<img
+                                src="{{option.Asset.url}}" alt="option asset" class="col-12">{% endif %}</div>
                         {% endfor %}
                         {% elif Question.Type == "U" %}
                         {% for blank in Question.Answer.get_blanks %}
@@ -144,7 +145,8 @@
             </div>
             <div class="col-12 col-sm-6 col-md-3 text-right mt-1 mb-1"><button name="prev" type="submit"
                     class="btn button-2"
-                    value="{%if request.GET.question|add:'0' == 0%}0{% else %}{{request.GET.question|add:'-1'}}{% endif %}">PreviousQuestion</button>
+                    value="{%if request.GET.question|add:'0' == 0%}0{% else %}{{request.GET.question|add:'-1'}}{% endif %}">Previous
+                    Question</button>
             </div>
             <div class="col-12 col-sm-6 col-md-3 text-right mt-1 mb-1"><button name="next" type="submit"
                     class="btn button-3"
@@ -216,7 +218,6 @@
                     <h3 id="status"></h3>
                     <p id="loaded_n_total"></p>
                 </div>
-                <button type="button" class="btn btn-primary btn-sm" id="file-submission-btn">Submit</button>
                 <canvas id="the-canvas" class="col-12"></canvas>
             </div>
         </div>
@@ -224,7 +225,9 @@
 </div>
 <div class="col-12 row-2">
     <div class="row">
-        <div class="col-12 mt-1 mb-1">Akshara International School</div>
+        <div class="col-12 col-sm-6 col-md-3 mt-1 mb-1">Akshara International School</div>
+        <div class="col-12 col-sm-6 col-md-9 text-right mt-1 mb-1"><button type="button" class="btn button-3 id="file-submission-btn">Submit</button>
+        </div>
     </div>
 </div>
 {% endif %}
