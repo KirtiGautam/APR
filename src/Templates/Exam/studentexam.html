@@ -42,7 +42,7 @@
                 <ul class="pagination">
                     {% for x in questions %}
                     <li class="page-item"><a
-                            class="page-link {% if Question.SNo == x.SNo%}page-link-active{% endif %} {% if x|attempted:user %}page-link-attempted{% endif %}"
+                            class="{% if Question.SNo == x.SNo%}page-link-active{% elif x|attempted:user %}page-link-attempted{% else %}page-link{% endif %}"
                             href="{% url 'exam:paper' paper.id %}?section={{request.GET.section}}&question={{forloop.counter0}}">{{x.SNo}}</a>
                     </li>
                     {% endfor %}
@@ -226,7 +226,8 @@
 <div class="col-12 row-2">
     <div class="row">
         <div class="col-12 col-sm-6 col-md-3 mt-1 mb-1">Akshara International School</div>
-        <div class="col-12 col-sm-6 col-md-9 text-right mt-1 mb-1"><button type="button" class="btn button-3 id="file-submission-btn">Submit</button>
+        <div class="col-12 col-sm-6 col-md-9 text-right mt-1 mb-1"><button type="button" class="btn button-3 id="
+                file-submission-btn">Submit</button>
         </div>
     </div>
 </div>

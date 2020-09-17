@@ -20,10 +20,11 @@
                 {{exam.Name}}
             </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-4">
-                <button class="btn button-2">Edit Details</button>
+                <button class="btn button-2" onclick="$('#add-modal-body').modal();">Add New Paper</button>
             </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-4">
-                {% if user.admin %}<button class="btn button-2" id="publish_btn">{% if exam.Result %}Un{% endif %}Publish Exam Result</button>{% endif %}
+                {% if user.admin and request.GET.time %}<button class="btn button-2"
+                    id="publish_btn">{% if exam.Result %}Un{% endif %}Publish Exam Result</button>{% endif %}
             </div>
         </div>
         <div class="row row-2">
@@ -70,6 +71,10 @@
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
                         <div
                             class="row-2-1 {% if user.user_type != 'Student' and not paper.Published and paper.Question.all.count > 0 %}row-2-1-draft{% endif %}">
+                            <div class="col-2">
+                                <button type="button" class="btn float-right del" title="Edit"
+                                    onclick="getDetails({{paper.id}});"><i class="fas fa-pen"></i></button>
+                            </div>
                             <a
                                 href="{% if paper.Location == 'ONLINE' %}{% if user.user_type == 'Student' %}{% url 'exam:paper-instruction' paper.id %}{% else %}{% url 'exam:edit-paper' paper.id  %}{% endif %}{% else %}#{% endif %}">
                                 <div class="row">
@@ -77,9 +82,6 @@
                                     {% if not user.user_type == "Student" %} <div class="col-7 text-4">
                                         {% if not paper.Published %}Paper
                                         Pending{% else %}Paper Ready{% endif %}</div>
-                                    <div class="col-2">
-                                        <button type="submit" class="btn float-right del" title="Edit"><i class="fas fa-pen"></i></button>
-                                    </div>
                                     {% endif %}
                                     <div class="col-12 text-5 text-truncate">{{paper.Subject.Name}}</div>
                                     <div class="col-12 text-6">Date: {{paper.Scheduled_on}}</div>
@@ -94,6 +96,75 @@
                 </div>
             </div>
             {% endfor %}
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="modal-body">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Paper</h5>
+                    <h5 class="modal-title">
+                        <form action="{% url 'exam:paper-delete' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" id="hidden_paper_edit_id">
+                            <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                        </form>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{% url 'exam:paper-details' %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="hidden_id_paper">
+                        <input type="datetime-local" name="scheduled" id="edit-scheduled" required>
+                        <input type="number" min="1" name="duration" id="edit-duration" required>
+                        <input type="number" min="1" name="Max_Marks" id="edit-Max_Marks" required>
+                        <input type="number" min="1" name="Pass_Marks" id="edit-Pass_Marks" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="add-modal-body">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Paper</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{% url 'exam:papers' exam.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <select name="Class" id="class-box" required>
+                            <option value="" disabled selected>Select Class</option>
+                            {% for x in Classes %}
+                            <option value="{{x.id}}">{{x.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="subject" id="subject-box" required>
+                            <option value="" disabled selected>Select Class</option>
+                        </select>
+                        <input type="datetime-local" name="scheduled" id="scheduled" required>
+                        <input type="number" min="1" name="duration" id="duration" required>
+                        <input type="number" min="1" name="Max_Marks" id="Max_Marks" required>
+                        <input type="number" min="1" name="Pass_Marks" id="Pass_Marks" required>
+                        <input type="text" min="1" name="location" id="location" {% if exam.Mode == 'O' %}readonly
+                            value="ONLINE" {% endif %} required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -118,7 +189,49 @@
         error: (error) => alert(error.responseText),
             });
         })
+    $('#class-box').change(function () {
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr('content') },
+            url: '/get-subjects',
+            data: {
+                'id': this.value,
+            },
+            dataType: 'json',
+            success: function (data) {
+                let html = '<option value="" selected disabled>Subjects</option>';
+                for (x in data.subjects) {
+                    html += `<option value="${data.subjects[x].id}" >${data.subjects[x].Name}</option>`
+                }
+                $('#subject-box').html(html);
+            }, error: function (error) {
+                alert(error.responseText);
+            }
+        });
     })
+})
+    const getDetails = id => {
+        $.ajax({
+            type: "GET",
+            url: '/paper-details',
+            data: {
+                'id': id,
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('#hidden_id_paper').val(data.id)
+                $('#hidden_paper_edit_id').val(data.id)
+                $('#edit-scheduled').val(data.Scheduled_on.split('Z')[0]);
+                $('#edit-duration').val(data.Duration);
+                $('#edit-Max_Marks').val(data.Max_Marks);
+                $('#edit-Pass_Marks').val(data.Pass_Marks);
+                $('#modal-body').modal();
+            }, error: function (error) {
+                alert(error.responseText);
+            }
+        });
+
+    }
 </script>
 
 {% endblock %}

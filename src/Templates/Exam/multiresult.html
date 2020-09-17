@@ -67,6 +67,9 @@
                             <div class="col-12 text-8">Solution</div>
                             <div class="col-12 text-9">
                                 {{question.Question.Answer.Explanation}}
+                                {% if question.Question.Answer.Asset %}
+                                <img src="{{question.Question.Answer.Asset.url}}" alt="question" class="col-12">
+                                {% endif %}
                             </div>
                             <div class="col-12 text-8">Answer</div>
                             {% if not question.Option.Text and not question.Option.Asset %}<div class="col-12 text-8">No
@@ -149,7 +152,9 @@
                                         min='{{question.Question.Incorrect}}' max="{{question.Question.Correct}}"
                                         value="{{question.Marks}}">
                                 </div>
-                                <div class="col-12 text-3-4">Max: {{question.Question.Correct}}</div>
+                                <div class="col-12 text-3-4">Correct: {{question.Question.Correct}}</div>
+                                <div class="col-12 text-3-4">Incorrect: {{question.Question.Incorrect}}</div>
+                                <div class="col-12 text-3-4">Unattempted: {{question.Question.Unattempted}}</div>
                             </div>
                         </div>
                     </div>

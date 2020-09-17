@@ -109,6 +109,7 @@ def papers(request, id):
         data = {
             'exam': exam,
             'papers': paper,
+            'Classes': Class.objects.all(),
         }
         return render(request, "Exam/papers.html", data)
     return redirect('accounts:login')
@@ -683,15 +684,20 @@ def faultCounter(request):
 
 def paperDetails(request):
     if request.user.is_authenticated and request.user.admin:
-        paper = Paper.objects.get(id=request.POST['paper-id'])
         if request.method == 'POST':
-            paper.Scheduled_on = request.POST['scheduled']
+            paper = Paper.objects.get(id=request.POST['id'])
+            print(request.POST)
+            Scheduled_on = dateparse.parse_datetime(
+                request.POST['scheduled']).astimezone(tz=pytz.timezone("Asia/Kolkata"))
+            paper.Scheduled_on = Scheduled_on
             paper.Duration = request.POST['duration']
-            paper.Max_Marks = request.POST['max-marks']
-            paper.Pass_Marks = request.POST['pass-marks']
+            paper.Max_Marks = request.POST['Max_Marks']
+            paper.Pass_Marks = request.POST['Pass_Marks']
             paper.save()
             return redirect('exam:papers', id=paper.Exam.id)
+        paper = Paper.objects.get(id=request.GET['id'])
         return http.JsonResponse(({
+            'id': paper.id,
             'Scheduled_on': paper.Scheduled_on,
             'Duration': paper.Duration,
             'Max_Marks': paper.Max_Marks,
@@ -702,7 +708,7 @@ def paperDetails(request):
 
 def paperDelete(request):
     if request.user.is_authenticated and request.user.admin:
-        paper = Paper.objects.filter(id=request.POST['id'])
-        id = paper
+        paper = Paper.objects.get(id=request.POST['id'])
+        id = paper.Exam.id
         paper.delete()
         return redirect('exam:papers', id=id)
