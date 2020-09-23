@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-6 col-lg-2 mt-1 mb-1 text-2">Section {{request.GET.section|add:"1"}} of
             {{paper.Section.all.count}}</div>
-        <div class="col-6 col-lg-2 mt-1 mb-1">
+        <div class="col-6 col-lg-2 mt-2 mb-1">
             <select class="custom-select text-3" onchange="location=this.value">
                 {% for section in paper.Section.all  %}
                 <option {% if request.GET.section|add:"0" == forloop.counter0|add:"0" %}selected{% endif %}
@@ -37,19 +37,20 @@
                 {% endfor %}
             </select>
         </div>
-        <div class="col-12 col-md-8 col-lg-5 mt-1 mb-1">
+        <div class="col-12 col-md-8 col-lg-5 mt-3 mb-2">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     {% for x in questions %}
-                    <li class="page-item"><a
-                            class="{% if Question.SNo == x.SNo%}page-link-active{% elif x|attempted:user %}page-link-attempted{% else %}page-link{% endif %}"
+                    <li class="page-item">
+                        <a
+                            class="{% if Question.SNo == x.SNo%}page-link-active{% elif x|attempted:user %}page-link-attempted{% else %}page-link1{% endif %}"
                             href="{% url 'exam:paper' paper.id %}?section={{request.GET.section}}&question={{forloop.counter0}}">{{x.SNo}}</a>
                     </li>
                     {% endfor %}
                 </ul>
             </nav>
         </div>
-        <div class="col-12 col-md-4 col-lg-3 mt-1 mb-1">
+        <div class="col-12 col-md-4 col-lg-3 mt-2 mb-1">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
@@ -106,7 +107,7 @@
                                 {% if Question|attempted:user and Question|which:user == option %}checked{% endif %}>
                         </div>
                         <div class="col-1 mt-1 mb-1">{% cycle 'A' 'B' 'C' 'D' %}</div>
-                        <div class="col-10 mt-1 mb-1">{{option.Text}}{% if option.Asset %}<img
+                        <div class="col-11 mt-1 mb-1">{{option.Text}}{% if option.Asset %}<img
                                 src="{{option.Asset.url}}" alt="option asset" class="col-12">{% endif %}</div>
                         {% endfor %}
                         {% elif Question.Type == "U" %}
@@ -202,7 +203,7 @@
             {% endfor %}
             {% endfor %}
         </div>
-        <div class=" col-12 col-sm-12 col-md-6 col-lg-4 frow-3-2 mt-5">
+        <div class=" col-12 col-sm-12 col-md-6 col-lg-4 frow-3-2">
             <div class="text-4">Solution</div>
             <div class="text-5">Add a PDF file as submission</div>
             <div class="input-group mb-3 mt-3">
@@ -210,24 +211,34 @@
                     <span class="input-group-text">Upload</span>
                 </div>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="file-submission">
-                    <label id="file-submission-label" class="custom-file-label">Choose file</label>
+                    <input type="file" class="custom-file-input text-truncate" id="file-submission">
+                    <label id="file-submission-label" class="custom-file-label text-truncate">Choose file</label>
                 </div>
-                <div class="d-none" id="progress-wrap">
-                    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
-                    <h3 id="status"></h3>
-                    <p id="loaded_n_total"></p>
-                </div>
-                <canvas id="the-canvas" class="col-12"></canvas>
             </div>
+            <div class="frow-4 col-12 d-none" id="progress-wrap">
+                <div class="progress">
+                    <div class="progress-bar" id="progressBar" role="progressbar" value="0" max="100"
+                        style="width: 100%;">
+                    </div>
+                </div>
+                <div class="ftext-2">Your Progress</div>
+                <div id="status" class="ftext-3"></div>
+                <p id="loaded_n_total" class="ftext-3"></p>
+            </div>
+            <div class="d-none">
+                <!-- <progress  value="0" max="100" style="width:300px;"></progress> -->
+                <!-- <h3 id="status"></h3> -->
+                <!-- <p id="loaded_n_total"></p> -->
+            </div>
+            <canvas id="the-canvas" class="col-12 mt-2 mb-5 frow-4"></canvas>
         </div>
     </div>
 </div>
 <div class="col-12 row-2">
     <div class="row">
-        <div class="col-12 col-sm-6 col-md-3 mt-1 mb-1">Akshara International School</div>
-        <div class="col-12 col-sm-6 col-md-9 text-right mt-1 mb-1"><button type="button" class="btn button-3 id="
-                file-submission-btn">Submit</button>
+        <div class="col-6 col-md-3 mt-1 mb-1">Akshara International School</div>
+        <div class="col-6 col-md-9 text-right mt-1 mb-1">
+            <button type="button" class="btn button-3" id="file-submission-btn">Submit</button>
         </div>
     </div>
 </div>
