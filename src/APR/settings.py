@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'homework',
     'notifications',
     'exam',
+    'messenger',
 ]
 
 MIDDLEWARE = [
