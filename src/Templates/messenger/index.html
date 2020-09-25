@@ -2,6 +2,149 @@
 {% load static %}
 {% block content %}
 
-<h1 class="text-primary">Messenger</h1>
+<head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+    <link rel="stylesheet" href="{% static 'css/messenger.css' %}">
+</head>
+
+<body>
+    {% include "common/header.html" %}
+    <div class="col float-left left">
+        {% include "home/leftside.html" %}
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row row-one">
+                <div class="col-12 col-md-4">
+                    <div class="row row-1">
+                        <div class="col-12 text-1">
+                            Messenger
+                        </div>
+                        <div class="col-12 row-1-1">
+                            <span class="badge badge-1 badge-1-active">Individual</span>
+                            <span class="badge badge-1">Group</span>
+                            <span class="badge badge-1">Announcements</span>
+                        </div>
+                        <div class="col-12 row-1-2">
+                            <input type="search" name="" id="" class="form-control text-2"
+                                placeholder="Search messenger">
+                        </div>
+                        <div class="row row-one">
+                            <div class="col-12 row-1-3">
+                                <div class="row row-1-4 row-1-4-active">
+                                    <div class="col-3">
+                                        <img src="/static/Images/lesson/back.png" alt="" class="col-12 image-1">
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="row">
+                                            <div class="col-8 text-truncate text-3">Name of the person</div>
+                                            <div class="col-4 text-4">Date/Time</div>
+                                            <div class="col-12 text-5">Preview of message</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 row-1-3">
+                                <div class="row row-1-4">
+                                    <div class="col-3">
+                                        <img src="/static/Images/lesson/back.png" alt="" class="col-12 image-1">
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="row">
+                                            <div class="col-8 text-truncate text-3">Name of the person</div>
+                                            <div class="col-4 text-4">Date/Time</div>
+                                            <div class="col-12 text-5">Preview of message</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 row-1-3">
+                                <div class="row row-1-4">
+                                    <div class="col-3">
+                                        <img src="/static/Images/lesson/back.png" alt="" class="col-12 image-1">
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="row">
+                                            <div class="col-8 text-truncate text-3">Name of the person</div>
+                                            <div class="col-4 text-4">Date/Time</div>
+                                            <div class="col-12 text-5">Preview of message</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn button-1"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8">
+                    <div class="row row-2 mb-2">
+                        <div class="text-6">Name of the message reciever</div>
+                        <div class="text-7">Online</div>
+                    </div>
+                    <div class="row row-3">
+                        <div class="col-2"></div>
+                        <div class="col-10 text-right mb-2">
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="row">
+                                        <div class="col-12 text-sender">
+                                            GitHub, Inc. is an American multinational corporation that provides hosting
+                                            for
+                                            software development and version control using Git. It offers the
+                                            distributed
+                                            version control and source code management (SCM) functionality of Git, plus
+                                            its own
+                                            features.
+                                        </div>
+                                        <div class="col-12 text-timing">
+                                            Date and time of message
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <img src="/static/Images/lesson/back.png" alt="" class="col-12 image-2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-10 mb-2">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="/static/Images/lesson/back.png" alt="" class="col-12 image-2">
+                                </div>
+                                <div class="col-10">
+                                    <div class="row">
+                                        <div class="text-receiver col-12">
+                                            GitHub, Inc. is an American multinational corporation that provides hosting
+                                            for
+                                            software
+                                            development and version control using Git. It offers the distributed version
+                                            control
+                                            and
+                                            source code management (SCM) functionality of Git, plus its own features. It
+                                            provides
+                                            access control and several collaboration features such as bug tracking,
+                                            feature
+                                            requests, task management, and wikis for every project.[4] Headquartered in
+                                            California,
+                                            it has been a subsidiary of Microsoft since 2018.[5]
+                                        </div>
+                                        <div class="col-12 text-timing">
+                                            Date and time of message
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <input type="text" name="" id="" class="form-control text-message" placeholder="Enter text here">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 
 {% endblock %}
