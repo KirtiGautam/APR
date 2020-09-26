@@ -18,10 +18,11 @@ class Group(models.Model):
 class MessageRecipient(models.Model):
     Message = models.ForeignKey(
         Message, on_delete=models.CASCADE, related_name='Recipient')
-    Recipient = models.ForeignKey(User, related_name='Recipient',
-                                  on_delete=models.CASCADE, blank=True, default=None, null=True)
+    Recipient = models.ForeignKey(
+        User, related_name='Recipient', on_delete=models.CASCADE)
     Group = models.ForeignKey(Group, related_name='recievers',
                               on_delete=models.CASCADE, blank=True, default=None, null=True)
+    Read = models.BooleanField(default=False)
 
 
 class UserGroup(models.Model):

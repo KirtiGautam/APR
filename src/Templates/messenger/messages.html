@@ -1,0 +1,42 @@
+{% load static %}
+{% for message in messages %}
+{% if message.Sender == request.user %}
+<div class="col-10 text-right mb-2">
+    <div class="row">
+        <div class="col-10">
+            <div class="row">
+                <div class="col-12 text-sender">
+                    {{message.Body}}
+                </div>
+                <div class="col-12 text-timing">
+                    {{message.Created}}
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <img src="{% if message.Sender.avatar %}message.Sender.avatar.url{% else %}{% static 'Images/lesson/back.png' %}{% endif %}"
+                alt="sender's dp" class="col-12 image-2">
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="col-10 mb-2">
+    <div class="row">
+        <div class="col-2">
+            <img src="{% if message.Sender.avatar %}message.Sender.avatar.url{% else %}{% static 'Images/lesson/back.png' %}{% endif %}"
+                alt="reciever's dp" class="col-12 image-2">
+        </div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-12 text-receiver">
+                    {{message.Body}}
+                </div>
+                <div class="col-12 text-timing">
+                    {{message.Created}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}

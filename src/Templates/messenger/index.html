@@ -29,8 +29,8 @@
                             <input type="search" name="" id="" class="form-control text-2"
                                 placeholder="Search messenger">
                         </div>
-                        <div class="row row-one">
-                            <div class="col-12 row-1-3">
+                        <div class="row row-one" id="conversations-box">
+                            <!-- <div class="col-12 row-1-3">
                                 <div class="row row-1-4 row-1-4-active">
                                     <div class="col-3">
                                         <img src="/static/Images/lesson/back.png" alt="" class="col-12 image-1">
@@ -71,80 +71,117 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn button-1"><i class="fas fa-plus"></i></button>
+                            </div> -->
+                            <div class="col-12" id="modal-container-div">
+                                <button class="btn button-1" onclick="mod();"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-8">
                     <div class="row row-2 mb-2">
-                        <div class="text-6">Name of the message reciever</div>
-                        <div class="text-7">Online</div>
+                        <div class="text-6" id="reciever-name">Name of the message reciever</div>
+                        <div class="text-7" id="reciever-status">Online</div>
                     </div>
                     <div class="row row-3">
                         <div class="col-2"></div>
-                        <div class="col-10 text-right mb-2">
-                            <div class="row">
-                                <div class="col-10">
-                                    <div class="row">
-                                        <div class="col-12 text-sender">
-                                            GitHub, Inc. is an American multinational corporation that provides hosting
-                                            for
-                                            software development and version control using Git. It offers the
-                                            distributed
-                                            version control and source code management (SCM) functionality of Git, plus
-                                            its own
-                                            features.
-                                        </div>
-                                        <div class="col-12 text-timing">
-                                            Date and time of message
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <img src="/static/Images/lesson/back.png" alt="" class="col-12 image-2">
-                                </div>
-                            </div>
+                        <div class="spinner-border text-primary d-none" role="status" id="message-loader">
+                            <span class="sr-only">Loading...</span>
                         </div>
-                        <div class="col-10 mb-2">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="/static/Images/lesson/back.png" alt="" class="col-12 image-2">
-                                </div>
-                                <div class="col-10">
-                                    <div class="row">
-                                        <div class="text-receiver col-12">
-                                            GitHub, Inc. is an American multinational corporation that provides hosting
-                                            for
-                                            software
-                                            development and version control using Git. It offers the distributed version
-                                            control
-                                            and
-                                            source code management (SCM) functionality of Git, plus its own features. It
-                                            provides
-                                            access control and several collaboration features such as bug tracking,
-                                            feature
-                                            requests, task management, and wikis for every project.[4] Headquartered in
-                                            California,
-                                            it has been a subsidiary of Microsoft since 2018.[5]
+                        <div id="messages-box">
+                            <!-- <div class="col-10 text-right mb-2">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="row">
+                                            <div class="col-12 text-sender">
+                                                GitHub, Inc. is an American multinational corporation that provides
+                                                hosting
+                                                for
+                                                software development and version control using Git. It offers the
+                                                distributed
+                                                version control and source code management (SCM) functionality of Git,
+                                                plus
+                                                its own
+                                                features.
+                                            </div>
+                                            <div class="col-12 text-timing">
+                                                Date and time of message
+                                            </div>
                                         </div>
-                                        <div class="col-12 text-timing">
-                                            Date and time of message
-                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <img src="/static/Images/lesson/back.png" alt="" class="col-12 image-2">
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-10 mb-2">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="/static/Images/lesson/back.png" alt="" class="col-12 image-2">
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="row">
+                                            <div class="text-receiver col-12">
+                                                GitHub, Inc. is an American multinational corporation that provides
+                                                hosting
+                                                for
+                                                software
+                                                development and version control using Git. It offers the distributed
+                                                version
+                                                control
+                                                and
+                                                source code management (SCM) functionality of Git, plus its own
+                                                features. It
+                                                provides
+                                                access control and several collaboration features such as bug tracking,
+                                                feature
+                                                requests, task management, and wikis for every project.[4] Headquartered
+                                                in
+                                                California,
+                                                it has been a subsidiary of Microsoft since 2018.[5]
+                                            </div>
+                                            <div class="col-12 text-timing">
+                                                Date and time of message
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
                         </div>
                         <div class="col-12">
-                            <input type="text" name="" id="" class="form-control text-message" placeholder="Enter text here">
+                            <input type="text" id="text-to-send" class="form-control text-message"
+                                placeholder="Enter text here">
+                            <input type="hidden" id="reciever-id">
+                            <button class="btn btn-primary" onclick="sendText();" id="send-btn" disabled>Send</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="user-search-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Users</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Select a person below to start conversation</h4>
+                    <input class="form-control" type="search" id="user-search-box"
+                        placeholder="Type First name of person....">
+                    <ul id="users-list">
+                        Please wait....
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
+<script src="{% static 'js/messenger/index.js' %}"></script>
 {% endblock %}
