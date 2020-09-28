@@ -1,13 +1,14 @@
 {% load static %}
 {% for message in messages %}
 {% if message.Sender == request.user %}
-<div class="col-10 text-right mb-2">
+<div class="col-12 text-right mb-2">
     <div class="row">
         <div class="col-10">
             <div class="row">
                 <div class="col-12 text-sender">
                     {{message.Body}}
                 </div>
+                <div class="col-12"></div>
                 <div class="col-12 text-timing">
                     {{message.Created}}
                 </div>

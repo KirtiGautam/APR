@@ -1,0 +1,103 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+    <link rel="stylesheet" href="{% static 'css/messenger.css' %}">
+</head>
+
+<body>
+    {% include "common/header.html" %}
+    <div class="col float-left left">
+        {% include "home/leftside.html" %}
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <div class="row row-1">
+                        <div class="col-12 text-1">
+                            Messenger
+                        </div>
+                        <div class="col-12 row-1-1">
+                            <span class="badge badge-1">Individual</span>
+                            <span class="badge badge-1">Group</span>
+                            <span class="badge badge-1 badge-1-active">Announcements</span>
+                        </div>
+                        <div class="col-12 row-1-2">
+                            <input type="search" name="" class="form-control text-2" placeholder="Search Announcement">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn button-1"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="row row-2 mb-2">
+                        <div class="text-6">New Announcement</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row row-3">
+                            <div class="col-6 row-11">
+                                <div class="col-12 text-11">Categories-Selected</div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="badge badge-2">Group</div>
+                                        <button class="btn btn-1">
+                                            <i class="fas fa-times-circle"></i>
+                                        </button>
+                                        <div class="badge badge-2">Students</div>
+                                        <button class="btn btn-1">
+                                            <i class="fas fa-times-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 row-11">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <button class="btn btn-2 btn-2-active">Group</button>
+                                        <button class="btn btn-2">Individual</button>
+                                        <button class="btn btn-2">Class</button>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row row-12">
+                                        <input type="checkbox" name="" id="" class=" input-1">
+                                        <div class="text-12">Students</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 row-13">
+                                    <button class="btn btn-3">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row mt-3">
+                            <div class="col-12 text-13 mt-1 mb-1">
+                                Title
+                            </div>
+                            <div class="col-12 mt-1 mb-1">
+                                <input type="text" name="" id="" class="form-control">
+                            </div>
+                            <div class="col-12 text-13 mt-1 mb-1">Message</div>
+                            <div class="col-12 mt-1 mb-1">
+                                <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-4">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+<script src="{% static 'js/messenger/index.js' %}"></script>
+{% endblock %}
