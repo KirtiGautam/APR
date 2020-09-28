@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import (index, getUsers, startChat, newMessages, newText, convos)
+from .views import (index, getUsers, startChat, newMessages,
+                    newText, convos, makeAnnouncement, announcements)
 
 app_name = 'messenger'
 
@@ -10,4 +11,6 @@ urlpatterns = [
     path('get-conversations', convos, name='convos'),
     path('get-new-messages', newMessages, name='new-message'),
     path('search-users', getUsers, name='search-users'),
+    path('make-announcement', makeAnnouncement, name='announcement'),
+    path('announcements', announcements, name='announcements'),
 ]

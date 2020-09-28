@@ -1,7 +1,12 @@
+let selected = [];
+
 const getChatList = () => {
   $.ajax({
     type: "GET",
     url: "/get-conversations",
+    data: {
+      type: "G",
+    },
     dataType: "json",
     success: (data) => {
       const el = $("#modal-container-div");
@@ -31,7 +36,11 @@ const search = (val = "") => {
       $("#users-list").html(
         data.users.map(
           (element) =>
-            `<li onclick="startChat(${element.id});">${element.name}</li>`
+            `<tr><td><input type="checkbox" value="${
+              element.id
+            }" onclick="clickHandle(this);" ${
+              selected.includes(parseInt(element.id)) ? "checked" : ""
+            }></td><td>${element.name}</td></tr>`
         )
       ),
     error: function (error) {
@@ -40,12 +49,30 @@ const search = (val = "") => {
   });
 };
 
+const mod = () => {
+  search();
+  $("#user-search-modal").modal();
+};
+
+const clickHandle = (el) => {
+  el = parseInt(el.value);
+  if (selected.includes(el)) {
+    selected.splice(
+      selected.findIndex((ele) => ele == el),
+      1
+    );
+  } else {
+    selected.push(el);
+  }
+};
+
 const getNewMessages = (id) => {
   $.ajax({
     type: "GET",
     url: "/get-new-messages",
     data: {
       id: id,
+      type: "G",
     },
     dataType: "json",
     success: (data) => {
@@ -60,24 +87,45 @@ const getNewMessages = (id) => {
 
 let inter;
 
-const startChat = (id) => {
+const startChat = (id = "") => {
+  let type, data;
+  if (id == "") {
+    if (!$("#g-name").val() || !$("#g-text").val()) {
+      alert("Please Type a text and Group Name");
+      return;
+    }
+    if (selected.length < 2) {
+      alert("Please Select at least 2 members");
+      return;
+    }
+    data = {
+      selected: selected,
+      name: $("#g-name").val(),
+      text: $("#g-text").val(),
+    };
+    type = "POST";
+  } else {
+    data = {
+      id: id,
+      type: "G",
+    };
+    type = "GET";
+  }
   $("#user-search-modal").modal("hide");
   $("#message-loader").removeClass("d-none");
   $.ajax({
-    type: "GET",
+    type: type,
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
     url: "/get-messages",
-    data: {
-      id: id,
-    },
+    data: data,
     dataType: "json",
     success: (data) => {
       $("#message-loader").addClass("d-none");
-      $("#reciever-name").html(data.user);
-      $("#reciever-status").html(data.status);
+      $("#reciever-name").html(data.name);
       $("#messages-box").html(data.messages);
-      $("#reciever-id").val(id);
+      $("#reciever-id").val(data.group);
       clearInterval(inter);
-      inter = setInterval(() => getNewMessages(id), 5000);
+      inter = setInterval(() => getNewMessages(data.group), 5000);
     },
     error: function (error) {
       $("#message-loader").addClass("d-none");
@@ -97,6 +145,7 @@ const sendText = () => {
     data: {
       id: $("#reciever-id").val(),
       text: text,
+      type: "G",
     },
     dataType: "json",
     success: (data) => {
@@ -107,10 +156,6 @@ const sendText = () => {
       alert(error.responseText);
     },
   });
-};
-const mod = () => {
-  search();
-  $("#user-search-modal").modal();
 };
 
 $(function () {

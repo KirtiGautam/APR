@@ -5,6 +5,7 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/content.css' %}">
     <link rel="stylesheet" href="{% static 'css/messenger.css' %}">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
@@ -21,25 +22,53 @@
                             Messenger
                         </div>
                         <div class="col-12 row-1-1">
-                            <span class="badge badge-1">Individual</span>
-                            <span class="badge badge-1">Group</span>
+                            <a href="{% url 'messenger:index' %}"><span
+                                    class="badge badge-1 {% if not request.GET.type %}badge-1-active{% endif %}">Individual</span></a>
+                            <a href="{% url 'messenger:index' %}?type=G"><span
+                                    class="badge badge-1 {% if request.GET.type == 'G' %}badge-1-active{% endif %}">Group</span></a>
                             <span class="badge badge-1 badge-1-active">Announcements</span>
                         </div>
                         <div class="col-12 row-1-2">
                             <input type="search" name="" class="form-control text-2" placeholder="Search Announcement">
                         </div>
                     </div>
+                    {% if user.admin %}
                     <div class="col-12">
-                        <button class="btn button-1"><i class="fas fa-plus"></i></button>
+                        <button class="btn button-1" id="add-ann-btn"><i class="fas fa-plus"></i></button>
                     </div>
+                    {% endif %}
+                    <div class="row row-1" id="conversations-box"></div>
                 </div>
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-lg-8" id="no-sel-prev">
+                    Click on announcement to see details
+                </div>
+                <div class="col-12 col-lg-8 d-none" id="announcement-prev">
+                    <div class="row row-2 mb-2">
+                        <div class="text-6">Old Announcement</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="text-11 mt-2 mb-2">Title of the announcement</div>
+                        <div class="text-14 mt-2 mb-2" id="anns-title">Title will come here</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row text-11">
+                            <div class="col-6 mt-2 mb-2">Message sent</div>
+                            <div class="col-6 text-15 mt-2 mb-2" id="anns-Created">Date/Time</div>
+                        </div>
+                        <div class="text-14 mt-2 mb-2" id="anns-Message">Message will come here</div>
+                    </div>
+                    <!-- <div class="col-12">
+                        <button class="btn btn-4">Resend</button>
+                    </div> -->
+                </div>
+                {% if user.admin %}
+                <div class="col-12 col-lg-8 d-none" id="new-announcement-container">
                     <div class="row row-2 mb-2">
                         <div class="text-6">New Announcement</div>
                     </div>
                     <div class="col-12">
                         <div class="row row-3">
-                            <div class="col-6 row-11">
+                            <!-- <div class="col-6 row-11">
                                 <div class="col-12 text-11">Categories-Selected</div>
                                 <div class="col-12">
                                     <div class="row">
@@ -53,23 +82,40 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 row-11">
+                            </div> -->
+                            <div class="col-12 row-11">
                                 <div class="col-12">
                                     <div class="row">
-                                        <button class="btn btn-2 btn-2-active">Group</button>
-                                        <button class="btn btn-2">Individual</button>
-                                        <button class="btn btn-2">Class</button>
+                                        <button class="btn btn-2 btn-2-active" id="group-tab-btn">Group</button>
+                                        <button class="btn btn-2" id="individual-tab-btn">Individual</button>
+                                        <button class="btn btn-2" id="class-tab-btn">Class</button>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12" id="group-tab">
                                     <div class="row row-12">
-                                        <input type="checkbox" name="" id="" class=" input-1">
+                                        <input type="checkbox" onclick="addGroup('S');" class="input-1">
                                         <div class="text-12">Students</div>
                                     </div>
+                                    <div class="row row-12">
+                                        <input type="checkbox" class="input-1" onclick="addGroup('T');">
+                                        <div class="text-12">Teachers</div>
+                                    </div>
                                 </div>
-                                <div class="col-12 row-13">
-                                    <button class="btn btn-3">Save</button>
+                                <div class="col-12 d-none" id="individual-tab">
+                                    {% for x in users %}
+                                    <div class="row row-12">
+                                        <input type="checkbox" class="input-1" onclick="addIndividual({{x.id}});">
+                                        <div class="text-12">{{x.get_full_name}}</div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-12 d-none" id="class-tab">
+                                    {% for x in Class %}
+                                    <div class="row row-12">
+                                        <input type="checkbox" class="input-1" onclick="addClass({{x.id}});">
+                                        <div class="text-12">{{x.name}}</div>
+                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -80,24 +126,37 @@
                                 Title
                             </div>
                             <div class="col-12 mt-1 mb-1">
-                                <input type="text" name="" id="" class="form-control">
+                                <input type="text" id="title-input" class="form-control">
+                            </div>
+                            <div>
+                                <label for="Email">Email</label>
+                                <input type="checkbox" onclick="addMedia('E')" id="Email" class="form-control">
+                                <label for="Text">Text</label>
+                                <input type="checkbox" onclick="addMedia('T')" id="Text" class="form-control">
+                                <label for="Web">Web</label>
+                                <input type="checkbox" onclick="addMedia('W')" id="Web" class="form-control">
                             </div>
                             <div class="col-12 text-13 mt-1 mb-1">Message</div>
                             <div class="col-12 mt-1 mb-1">
-                                <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+                                <div id="message-textarea"></div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-4">Send</button>
+                                <button class="tn btn-4" id="send-btn" onclick="sendAnnouncement();">Send</button>
+                                <button class="btn btn-primary d-none" type="button" disabled id="spinner">
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
+                                    <span class="sr-only">Loading...</span>
+                                </button>
+
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
-
-
 </body>
-
-<script src="{% static 'js/messenger/index.js' %}"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="{% static 'js/messenger/announcement.js' %}"></script>
 {% endblock %}
