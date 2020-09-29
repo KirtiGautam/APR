@@ -211,12 +211,12 @@ def makeAnnouncement(request):
                 users.append(x)
         print(users)
         print(request.POST)
+        Announcement.objects.create(
+            Message=request.POST['text'], Recipient=request.user, Title=request.POST['title'])
         for x in request.POST.getlist('Media[]'):
             if x == 'W':
                 Announcement.objects.bulk_create([Announcement(
                     Message=request.POST['text'], Recipient=x, Title=request.POST['title']) for x in users])
-                Announcement.objects.create(
-                    Message=request.POST['text'], Recipient=request.user, Title=request.POST['title'])
                 print(x)
             if x == 'E':
                 from django.core import mail

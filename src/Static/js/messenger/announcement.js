@@ -138,22 +138,21 @@ const getAnnouncements = () => {
         data.map(
           (
             element
-          ) => `<div class="col-12 row-1-3" onclick="startChat(${element.id});">
-      <div class="row row-1-4 reciever-class${element.id}">
-          <span>
-              <img src="static/Images/lesson/back.png" class="col-12 image-1">
-          </span>
-          <span class="col-8">
+          ) => `
+          <div class="row row-12 reciever-class${element.id}" onclick="startChat(${element.id});">
+            <div>
+              <img src="static/Images/lesson/back.png" alt="" class="col-12 image-1">
+            </div>
+            <div>
               <div class="row">
-                  <div class="col-6 text-truncate text-3">
-                      ${element.Title}
-                  </div>
-                  <div class="col-6 text-truncate text-4">${element.Created}</div>
-                  <div class="col-12 text-5">${element.Message}</div>
+                <div class="col-6 text-truncate text-2">
+                  ${element.Title}
+                </div>
+                <div class="col-6 text-truncate text-3">${element.Created}</div>
+                <div class="col-12 text-4">${element.Message}</div>
               </div>
-          </span>
-      </div>
-  </div>`
+            </div>
+          </div>`
         )
       );
 
