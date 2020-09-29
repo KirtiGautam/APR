@@ -1,0 +1,123 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+    <link rel="stylesheet" href="{% static 'css/messenger.css' %}">
+</head>
+
+<body>
+    {% include "common/header.html" %}
+    <div class="col float-left left">
+        {% include "home/leftside.html" %}
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row row-one">
+                <div class="col-12 col-md-4">
+                    <div class="row row-1">
+                        <div class="col-12 text-1">
+                            Messenger
+                        </div>
+                        <div class="col-12 row-1-1">
+                            <a href="{% url 'messenger:index' %}"><span
+                                    class="badge badge-1 {% if not request.GET.type %}badge-1-active{% endif %}">Individual</span></a>
+                            <a href="{% url 'messenger:index' %}?type=G"><span
+                                    class="badge badge-1 {% if request.GET.type == 'G' %}badge-1-active{% endif %}">Group</span></a>
+                            <a href="{% url 'messenger:index' %}?type=A"><span
+                                    class="badge badge-1">Announcements</span></a>
+                        </div>
+                        <div class="col-12 row-1-2">
+                            <input type="search" name="" id="" class="form-control text-2"
+                                placeholder="Search messenger">
+                        </div>
+                        <div class="row row-one" id="conversations-box">
+                            <div class="col-12" id="modal-container-div">
+                                <button class="btn button-1" onclick="mod();"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8">
+                    <div class="row row-2 mb-2">
+                        <div class="text-6" id="reciever-name"></div>
+                        <div class="text-7" id="reciever-status"></div>
+                    </div>
+                    <div class="row row-3">
+                        <div class="col-2"></div>
+                        <div class="spinner-border text-primary d-none" role="status" id="message-loader">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div id="messages-box">
+                        </div>
+                        <div class="col-12">
+                            <input type="text" id="text-to-send" class="form-control text-message"
+                                placeholder="Enter text here">
+                            <input type="hidden" id="reciever-id">
+                            <button class="btn btn-primary" onclick="sendText();" id="send-btn" disabled>Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if request.GET.type == 'G' %}
+    <div class="modal" tabindex="-1" role="dialog" id="user-search-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Users</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="text" name="G-name" id="g-name" placeholder="Group Name">
+                    <input class="form-control" type="text" name="G-text" id="g-text" placeholder="Type a text">
+                    <button onclick="startChat();">Send</button>
+                    <h4>Select members below to start conversation</h4>
+                    <input class="form-control" type="search" id="user-search-box"
+                        placeholder="Type First name of person....">
+                    <table>
+                        <thead>
+                            <th colspan="2">Name</th>
+                        </thead>
+                        <tbody id="users-list">
+                            <td colspan="2">Please Wait...</td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="modal" tabindex="-1" role="dialog" id="user-search-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Users</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Select a person below to start conversation</h4>
+                    <input class="form-control" type="search" id="user-search-box"
+                        placeholder="Type First name of person....">
+                    <ul id="users-list">
+                        Please wait....
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</body>
+{% if request.GET.type == 'G' %}
+<script src="{% static 'js/messenger/group.js' %}"></script>
+{% else %}
+<script src="{% static 'js/messenger/index.js' %}"></script>
+{% endif %}
+{% endblock %}
