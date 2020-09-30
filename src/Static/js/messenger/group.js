@@ -151,16 +151,16 @@ const startChat = (id = "") => {
       $("#reciever-name").html(data.name);
       $("#messages-box").html(data.messages);
       $("#reciever-id").val(data.group);
-      $("#messages-box").animate(
-        { scrollTop: $("#messages-box").prop("scrollHeight") },
-        1000
-      );
       loaded = true;
       offset = 1;
       clearInterval(inter);
       inter = setInterval(() => getNewMessages(data.group), 5000);
       $("#no-rec-sel").addClass("d-none");
       $("#main-box").removeClass("d-none");
+      setTimeout(() => {
+        var el = document.getElementById("messages-box");
+        el.scrollIntoView({ block: "end", behavior: "smooth" });
+      }, 100);
     },
     error: function (error) {
       $("#message-loader").addClass("d-none");
@@ -202,7 +202,6 @@ $(function () {
   });
   $("#scrrr").scroll(function () {
     if ($("#scrrr").scrollTop() < 1 && loaded) {
-      console.log("Hey");
       loadOld();
       $("#scrrr").scrollTop(1);
     }

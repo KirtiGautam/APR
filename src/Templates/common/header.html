@@ -65,6 +65,12 @@
                         </div>
                     </span>
                     <span class="float-right">
+                        <a class="header-icon btn" href="{% url 'messenger:index' %}">
+                            <i class="fas fa-comment-dots"></i><span
+                                class="unr-mess text-truncate">{{user.unreads}}</span>
+                        </a>
+                    </span>
+                    <span class="float-right">
                         <a href="{% url 'accounts:dashboard' %}" class="header-icon btn"><i class="fas fa-home"></i></a>
                     </span>
                 </span>

@@ -1,24 +1,24 @@
 {% load static %}
 {% for message in messages %}
 {% if message.Sender == request.user %}
-<div class="col-12 text-right mb-2">
+<div class="col-12 text-right mb-2 {% if forloop.last %}last-messa{% endif %}">
     <div class="row">
         <div class="col-12 text-sender">
             {{message.Body}}
         </div>
-        <div class="col-6 text-timing text-left">Sender's Name</div>
+        <div class="col-6 text-timing text-left">{{message.Sender.get_full_name}}</div>
         <div class="col-6 text-timing text-right">
             {{message.Created}}
         </div>
     </div>
 </div>
 {% else %}
-<div class="col-12 mb-2">
+<div class="col-12 mb-2 {% if forloop.last %}last-messa{% endif %}">
     <div class="row">
         <div class="col-12 text-receiver">
             {{message.Body}}
         </div>
-        <div class="col-6 text-timing text-left">Sender's Name</div>
+        <div class="col-6 text-timing text-left">{{message.Sender.get_full_name}}</div>
         <div class="col-6 text-timing text-right">
             {{message.Created}}
         </div>

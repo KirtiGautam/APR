@@ -29,7 +29,7 @@
   font-weight: bold;
 }
 
-.noti-badge {
+.noti-badge, .unr-mess {
   display: inline-block;
   padding: 0;
   font-size: 12px;

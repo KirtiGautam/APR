@@ -97,21 +97,21 @@ const startChat = (id) => {
     },
     dataType: "json",
     success: (data) => {
+      $("#messages-box").html(data.messages);
       $("#message-loader").addClass("d-none");
       $("#reciever-name").html(data.user);
       $("#reciever-status").html(data.status);
-      $("#messages-box").html(data.messages);
       $("#reciever-id").val(id);
-      $("#messages-box").animate(
-        { scrollTop: $("#messages-box").prop("scrollHeight") },
-        1000
-      );
       loaded = true;
       offset = 1;
       clearInterval(inter);
       inter = setInterval(() => getNewMessages(id), 5000);
       $("#no-rec-sel").addClass("d-none");
       $("#main-box").removeClass("d-none");
+      setTimeout(() => {
+        var el = document.getElementById("messages-box");
+        el.scrollIntoView({ block: 'end',  behavior: 'smooth' });
+      }, 100);
     },
     error: function (error) {
       $("#message-loader").addClass("d-none");

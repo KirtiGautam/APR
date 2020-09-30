@@ -96,6 +96,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         '''
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+    def unreads(self):
+        return self.Recipient.filter(Read=False).count()
+
 
 class Class(models.Model):
     name = models.CharField(max_length=15, unique=True)
