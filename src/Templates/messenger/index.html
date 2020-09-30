@@ -57,12 +57,15 @@
                         <button class="btn button-1" onclick="mod();"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-lg-8" id="no-rec-sel">
+                    <h1 class="text-primary">Start a new Conversation or tap on user</h1>
+                </div>
+                <div class="col-12 col-lg-8 d-none" id="main-box">
                     <div class="row box-2 mb-2">
                         <div class="text-7" id="reciever-name"></div>
                         <div class="text-8" id="reciever-status"></div>
                     </div>
-                    <div class="row row-14">
+                    <div class="row row-14" id="scrrr">
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-12" id="messages-box"></div>
@@ -97,8 +100,8 @@
                 <div class="modal-body">
                     <input class="form-control input-1 mt-1 mb-1" type="text" name="G-name" id="g-name"
                         placeholder="Group Name">
-                    <textarea name="" id="" cols="" rows="5" class="form-control input-1 mt-1 mb-1" name="G-text"
-                        id="g-text" placeholder="Type a text"></textarea>
+                    <textarea rows="5" class="form-control input-1 mt-1 mb-1" name="G-text" id="g-text"
+                        placeholder="Type a text"></textarea>
                     <div class="col-12 text-right">
                         <button onclick="startChat();" class="btn btn-primary btn-sm">Send</button>
                     </div>
@@ -127,7 +130,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="search" placeholder="Search users list" class="input-1 form-control" id="user-search-box">
+                    <input type="search" placeholder="Search users list" class="input-1 form-control"
+                        id="user-search-box">
                     <div class="col-12 box-17 mt-2">
                         <div class="row row-13">
                             <div class="col-12" id="users-list"></div>

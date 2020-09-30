@@ -77,7 +77,7 @@ def startChat(request):
             data = {
                 'group': group.id,
                 'name': group.Name,
-                'messages': render_to_string('messenger/messages.html', {'messages': reversed(messages[0:20])}, request=request),
+                'messages': render_to_string('messenger/messages.html', {'messages': reversed(messages[0:10])}, request=request),
             }
             MessageRecipient.objects.filter(
                 Recipient=request.user, Message__in=messages).update(Read=True)
@@ -91,7 +91,7 @@ def startChat(request):
             data = {
                 'user': user.get_full_name(),
                 'status': status,
-                'messages': render_to_string('messenger/messages.html', {'messages': reversed(messages[0:20])}, request=request),
+                'messages': render_to_string('messenger/messages.html', {'messages': reversed(messages[0:10])}, request=request),
             }
             MessageRecipient.objects.filter(
                 Recipient=request.user, Message__in=messages).update(Read=True)
@@ -192,6 +192,25 @@ def announcements(request):
     return http.HttpResponseForbidden("Not allowed")
 
 
+def oldMessages(request):
+    if request.user.is_authenticated:
+        offset = int(request.GET['offset'])
+        if 'type' in request.GET:
+            group = Group.objects.get(id=request.GET['id'])
+            messages = Message.objects.filter(Q(Sender=request.user) | Q(
+                Recipient__Recipient=request.user), Recipient__Group=group).distinct().order_by('-Created')
+        else:
+            user = User.objects.get(id=request.GET['id'])
+            messages = Message.objects.filter((Q(Sender=request.user) & Q(Recipient__Recipient=user)) | (
+                Q(Sender=user) & Q(Recipient__Recipient=request.user)), Recipient__Group__isnull=True).order_by('-Created')
+        data = {
+            'messages': render_to_string('messenger/messages.html', {'messages': reversed(messages[offset*10:offset*10+10])}, request=request),
+        }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden("Not allowed")
+
+
+
 def makeAnnouncement(request):
     if request.user.is_authenticated and request.user.admin:
         # <QueryDict: {'group[]': ['S'], 'Media[]': ['W'], 'title': ['Hey']}>
@@ -209,8 +228,6 @@ def makeAnnouncement(request):
         for x in User.objects.filter(Student__Class__in=request.POST.getlist('Class[]'), status='A'):
             if x not in users:
                 users.append(x)
-        print(users)
-        print(request.POST)
         Announcement.objects.create(
             Message=request.POST['text'], Recipient=request.user, Title=request.POST['title'])
         for x in request.POST.getlist('Media[]'):
