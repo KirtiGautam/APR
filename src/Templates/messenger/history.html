@@ -3,11 +3,7 @@
 {% if group %}
 <div class="row row-12 reciever-class{{conversation.Recipient.all.first.Group.id}}"
     onclick="startChat({{conversation.Recipient.all.first.Group.id}});">
-    <div class="col-3">
-        <img src="{% if conversation.Sender.avatar %}{{message.Sender.avatar.url}}{% else %}{% static 'Images/lesson/back.png' %}{% endif %}"
-            alt="" class="col-12 image-1">
-    </div>
-    <div class="col-9">
+    <div class="col-12">
         <div class="row">
             <div class="col-6 text-truncate text-2">
                 {{conversation.Recipient.all.first.Group.Name}}
@@ -26,10 +22,10 @@
     </div>
     <div class="col-9">
         <div class="row">
-            <div class="col text-truncate text-2">
+            <div class="col-6 text-truncate text-2">
                 {% if conversation.Sender.id == request.user.id %}{{conversation.Recipient.all.first.Recipient.first_name}}{% else %}{{conversation.Sender.first_name}}{% endif %}
             </div>
-            <div class="col text-truncate text-3">{{conversation.Created}}</div>
+            <div class="col-6 text-truncate text-3">{{conversation.Created}}</div>
             <div class="col-12 text-truncate text-4">{{conversation.Body}}</div>
         </div>
     </div>
