@@ -16,7 +16,7 @@ body,
 }
 
 .row-11 {
-  height: 90%;
+  height: max-content;
 }
 
 .row-12 {
@@ -30,7 +30,8 @@ body,
   border-right: 3px solid #f05e23;
 }
 
-.row-14{
+.row-14 {
+  min-height: 70vh;
   max-height: 70vh;
   overflow-y: auto;
 }
@@ -43,18 +44,20 @@ body,
 }
 
 .box-3 {
-  max-height: 250px;
+  min-height: 60vh;
+  max-height: 60vh;
   overflow-y: auto;
 }
 
-.box-4{
+.box-4 {
   height: 90vh;
   overflow-y: auto;
 }
 
 .box-13,
 .box-15 {
-  max-height: 300px;
+  min-height: 60vh;
+  max-height: 60vh;
   overflow-y: auto;
 }
 
@@ -94,6 +97,13 @@ body,
   color: #6a7b8a;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; 
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
 }
 
 .text-5 {
@@ -163,8 +173,8 @@ body,
   margin-left: 4px;
 }
 
-.text-15{
-  color: #6A7B8A;
+.text-15 {
+  color: #6a7b8a;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: right;
@@ -257,6 +267,12 @@ body,
   margin-top: 50px;
 }
 
+.text-head {
+  color: #6a7b8a;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .text-sender {
   border: 1px solid #e6ecf0;
   font-size: 16px;
@@ -305,6 +321,6 @@ body,
   box-shadow: 0px 0px 0px #000000;
 }
 
-#message-textarea{
+#message-textarea {
   height: max-content;
 }

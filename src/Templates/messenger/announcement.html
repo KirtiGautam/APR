@@ -21,7 +21,7 @@
                         <div class="col-12 box-11">
                             <div class="text-1">Announcements</div>
                         </div>
-                        <div class="col-12 box-12">
+                        <div class="col-12 box-12 mt-1 mb-1">
                             <div class="row">
                                 <a href="{% url 'messenger:index' %}"><span
                                         class="badge badge-1 {% if not request.GET.type %}badge-1-active{% endif %}">Individual</span></a>
@@ -30,7 +30,7 @@
                                 <span class="badge badge-1 badge-1-active">Announcements</span>
                             </div>
                         </div>
-                        <div class="col-12 box-14">
+                        <div class="col-12 box-14 mt-1 mb-3">
                             <input type="search" name="" class="form-control input-1" placeholder="Search Announcement">
                         </div>
                         <div class="col-12 box-15" id="conversations-box"></div>
@@ -42,7 +42,7 @@
                     {% endif %}
                 </div>
                 <div class="col-12 col-lg-8" id="no-sel-prev">
-                    Click on announcement to see details
+                    <div class="text-head">Click on announcement to see details</div>
                 </div>
                 <div class="col-12 col-lg-8 d-none" id="announcement-prev">
                     <div class="row box-2 mb-2">
