@@ -140,16 +140,16 @@ const getAnnouncements = () => {
             element
           ) => `
           <div class="row row-12 reciever-class${element.id}" onclick="startChat(${element.id});">
-            <div>
+            <div class="col-3">
               <img src="static/Images/lesson/back.png" alt="" class="col-12 image-1">
             </div>
-            <div>
+            <div class="col-9">
               <div class="row">
                 <div class="col-6 text-truncate text-2">
                   ${element.Title}
                 </div>
                 <div class="col-6 text-truncate text-3">${element.Created}</div>
-                <div class="col-12 text-4">${element.Message}</div>
+                <div class="col-12 text-truncate text-4">${element.Message}</div>
               </div>
             </div>
           </div>`
