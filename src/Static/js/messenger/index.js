@@ -31,7 +31,7 @@ const search = (val = "") => {
       $("#users-list").html(
         data.users.map(
           (element) =>
-            `<li onclick="startChat(${element.id});">${element.name}</li>`
+            `<div class="text-6 text-truncate" onclick="startChat(${element.id});">${element.name}</div>`
         )
       ),
     error: function (error) {

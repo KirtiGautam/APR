@@ -36,11 +36,11 @@ const search = (val = "") => {
       $("#users-list").html(
         data.users.map(
           (element) =>
-            `<tr><td><input type="checkbox" value="${
+            `<tr class="text-6"><td><input type="checkbox" class="input-2" value="${
               element.id
             }" onclick="clickHandle(this);" ${
               selected.includes(parseInt(element.id)) ? "checked" : ""
-            }></td><td>${element.name}</td></tr>`
+            }></td><td class="text-11">${element.name}</td></tr>`
         )
       ),
     error: function (error) {

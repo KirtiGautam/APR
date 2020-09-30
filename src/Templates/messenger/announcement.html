@@ -45,18 +45,18 @@
                     Click on announcement to see details
                 </div>
                 <div class="col-12 col-lg-8 d-none" id="announcement-prev">
+                    <div class="row box-2 mb-2">
+                        <div class="text-7">Old Announcement</div>
+                    </div>
                     <div class="col-12">
-                        <div class="row box-2 mb-2">
-                            <div class="text-7">Old Announcement</div>
+                        <div class="row">
+                            <div class="col-12 text-9 mt-2 mb-2">Title of the announcement</div>
+                            <div class="col-12 text-10 mt-2 mb-2" id="anns-title">Title will come here</div>
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="text-9 mt-2 mb-2">Title of the announcement</div>
-                        <div class="text-10 mt-2 mb-2" id="anns-title">Title will come here</div>
-                    </div>
-                    <div class="col-12">
                         <div class="row text-9">
-                            <div class="col-6 mt-2 mb-2">Message sent</div>
+                            <div class="col-6  mt-2 mb-2">Message sent</div>
                             <div class="col-6 text-15 mt-2 mb-2" id="anns-Created">Date/Time</div>
                         </div>
                         <div class="text-10 mt-2 mb-2" id="anns-Message">Message will come here</div>
@@ -66,7 +66,7 @@
                     </div> -->
                 </div>
                 {% if user.admin %}
-                <div class="col-12 col-lg-8 d-none" id="new-announcement-container">
+                <div class="col-12 col-lg-8 box-4 d-none" id="new-announcement-container">
                     <div class="row box-2 mb-2">
                         <div class="text-7">New Announcement</div>
                     </div>
@@ -94,18 +94,18 @@
                                     <button class="btn btn-2" id="class-tab-btn">Class</button>
                                 </div>
                                 <div class="col-12 box-3" id="group-tab">
-                                    <div class="row mt-1 mb-1">
+                                    <div class="row text-6 box-17">
                                         <input type="checkbox" class="input-2" onclick="addGroup('S');" class="input-1">
                                         <div class="text-11">Students</div>
                                     </div>
-                                    <div class="row mt-1 mb-1">
+                                    <div class="row text-6 box-17">
                                         <input type="checkbox" class="input-2" onclick="addGroup('T');">
                                         <div class="text-11">Teachers</div>
                                     </div>
                                 </div>
                                 <div class="col-12 d-none box-3" id="individual-tab">
                                     {% for x in users %}
-                                    <div class="row">
+                                    <div class="row text-6 box-17">
                                         <input type="checkbox" class="input-2" onclick="addIndividual({{x.id}});">
                                         <div class="text-11">{{x.get_full_name}}</div>
                                     </div>
@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="col-12 d-none box-3" id="class-tab">
                                     {% for x in Class %}
-                                    <div class="row">
+                                    <div class="row text-6 box-17">
                                         <input type="checkbox" class="input-2" onclick="addClass({{x.id}});">
                                         <div class="text-11">{{x.name}}</div>
                                     </div>
@@ -145,7 +145,7 @@
                             <div class="col-12 mt-1 mb-1">
                                 <div id="message-textarea"></div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 text-right">
                                 <button class="btn btn-4" id="send-btn" onclick="sendAnnouncement();">Send</button>
                                 <button class="btn btn-primary d-none" type="button" disabled id="spinner">
                                     <span class="spinner-border spinner-border-sm" role="status"
