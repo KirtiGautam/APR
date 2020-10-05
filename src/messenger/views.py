@@ -31,7 +31,7 @@ def getUsers(request):
             }
         elif request.user.is_staff:
             users = [{'id': user.id, 'name': user.get_full_name()} for user in User.objects.filter(
-                status='A', Student__Class__in=request.user.teacher.Class.all(), first_name__icontains=request.GET['q'])]
+                status='A', Student__Class__Subject__in=request.user.teacher.all(), first_name__icontains=request.GET['q'])]
             for user in User.objects.filter(status='A', is_staff=True, first_name__icontains=request.GET['q']).exclude(id=request.user.id):
                 users.append({'id': user.id, 'name': user.get_full_name()})
             for user in User.objects.filter(status='A', admin=True, first_name__icontains=request.GET['q']):

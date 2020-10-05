@@ -1,0 +1,12 @@
+{% load static %}
+
+{% autoescape off %}
+{% for post in posts %}
+<div class="col-12">
+    name:{{post.Owner.get_full_name}}
+    created:{{post.Created}}
+    Picture:{% if post.Picture %}{{post.Picture.url}}{% endif %}
+    body: {{post.Body}}
+</div>
+{% endfor %}
+{% endautoescape %}

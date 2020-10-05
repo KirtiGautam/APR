@@ -75,8 +75,8 @@ def logo(request):
 
 def index(request):
     if request.user.is_authenticated:
-        return redirect('lessons:lessons')
-        # return render(request, 'home/dashboard.html')
+        # return redirect('lessons:lessons')
+        return render(request, 'home/dashboard.html')
     else:
         return redirect('accounts:login')
 
