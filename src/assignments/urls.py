@@ -23,11 +23,23 @@ from .views import (
     updateComment,
     newCount,
     delassignment,
+    pdfView,
+    AssignmentPdfComments,
+    getPdfComment,
+    updatePdfComment,
+    deletePdfComment,
+    likePdfComment,
 )
 
 app_name = 'assignment'
 
 urlpatterns = [
+    re_path(r'^assignment-pdf-comments$', AssignmentPdfComments, name='pdfcomments'),
+    path('get-assignment-pdf-comment', getPdfComment, name='getPdfComment'),
+    path('update-assignment-pdf-comment', updatePdfComment, name='updatePdfComment'),
+    path('delete-assignment-pdf-comment', deletePdfComment, name='deletePdfComment'),
+    path('like-assignment-pdf-comment', likePdfComment, name='likePdf'),
+    path('assignment/pdf/<int:id>', pdfView, name='pdf'),
     path('delete-assignment', delassignment, name='delete-assignment'),
     path('new-assignment-asset', newCount, name='newCount'),
     path('get-assignment-comment', getComment, name='getComment'),

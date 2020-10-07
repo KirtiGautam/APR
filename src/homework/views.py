@@ -6,7 +6,7 @@ import datetime
 import json
 import math
 from accounts.models import Class, pdf, video, User
-from homework.models import homework, Pdf, Video, Test_question, Test, user_progress_video, user_progress_pdf, HComment
+from homework.models import homework, Pdf, Video, Test_question, Test, user_progress_video, user_progress_pdf, HComment, pdfHComment
 from lessons.models import Lesson, Subject, question
 from notifications.models import notifs
 
@@ -473,3 +473,146 @@ def newCount(request):
             viewed_by__id=request.user.id).count()
         return http.JsonResponse({'new': (homewrk+vids+pds)})
     return http.JsonResponse({'message': 'Unauthorized'})
+
+
+def pdfView(request, id):
+    try:
+        p = Pdf.objects.get(id=id)
+    except:
+        return http.HttpResponseNotFound("No such PDF")
+    done = True if request.user.read_homework_pdf.filter(
+        Pdf=p) else False
+    data = {
+        'done': done,
+        'pdf': p,
+    }
+    return render(request, 'homeworks/pdf.html', data)
+
+
+def HomeworkPdfComments(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            # get post object
+            p = Pdf.objects.get(id=request.POST['id'])
+            # comment has been added
+            parent_obj = None
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+            except:
+                parent_id = None
+            # if parent_id has been submitted get parent_obj id
+            if parent_id:
+                parent_obj = pdfHComment.objects.get(id=parent_id)
+
+            doubt = True if request.POST['doubt'] == 'true' else False
+
+            pdfHComment.objects.create(
+                Pdf=p, Author=request.user, body=request.POST['body'], doubt=doubt, parent=parent_obj)
+
+            # Send notifications if doubt
+            if doubt:
+                link = reverse('lessons:pdf', kwargs={'id': p.id})
+                messsage = '<i class="fas fa-question-circle"></i> ' + \
+                    request.user.get_full_name()+' asked a doubt on lecture ' + p.pdf.Name
+                admins = User.objects.filter(admin=True)
+                teacher = p.lesson.Subject.teacher
+                classmates = p.lesson.Subject.Class.Students.filter(
+                    user__status="A").exclude(user=request.user)
+                notifs.objects.bulk_create(
+                    [notifs(recipient=user, message=messsage, link=link) for user in admins])
+                notifs.objects.create(
+                    recipient=teacher, message=messsage, link=link)
+                notifs.objects.bulk_create(
+                    [notifs(recipient=user.user, message=messsage, link=link) for user in classmates])
+        else:
+            # get post object
+            p = Pdf.objects.get(id=request.GET['id'])
+        # list of active parent comments
+        comments = p.comments.filter(
+            parent__isnull=True).order_by('-created')
+        # for x in comments:
+        #     if x.likes.filter(id=request.user.id).exists():
+        #         x['liked'] = True
+        client = {
+            'comments': comments
+        }
+        data = {
+            'body': render_to_string('video/discussions.html', client, request=request)
+        }
+        return http.JsonResponse(data)
+
+def getPdfComment(request):
+    if request.user.is_authenticated:
+        return http.JsonResponse(
+            pdfHComment.objects.values(
+                'body', 'id').get(id=request.GET['id'])
+        )
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
+def likePdfComment(request):
+    if request.user.is_authenticated:
+        comment = pdfHComment.objects.get(id=request.POST.get('id'))
+        if comment.likes.filter(id=request.user.id).exists():
+            comment.likes.remove(request.user)
+            if request.user.admin or request.user.is_staff:
+                data = {
+                    'message': 'Unappreciated'
+                }
+            else:
+                data = {
+                    'message': 'UnLiked'
+                }
+        else:
+            comment.likes.add(request.user)
+            if request.user.admin or request.user.is_staff:
+                data = {
+                    'message': 'Appreciated'
+                }
+            else:
+                data = {
+                    'message': 'Liked'
+                }
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
+def deletePdfComment(request):
+    if request.user.is_authenticated:
+        comment = pdfHComment.objects.filter(id=request.POST['id'])
+        id = comment[0].id
+        pd = comment[0].Pdf
+        if request.user.user_type == "Student":
+            if comment[0].Author != request.user:
+                data = {
+                    'message': "Cannot delete other user's comment"
+                }
+            else:
+                comment.delete()
+                data = {
+                    'message': "Comment deleted"
+                }
+        else:
+            comment.delete()
+            data = {
+                'message': "Comment deleted"
+            }
+        data['parent_id'] = id
+        data['body'] = render_to_string('video/discussions.html', {'comments': pdfHComment.objects.filter(
+            Pdf=pd, parent__isnull=True)}, request=request)
+        return http.JsonResponse(data)
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})
+
+
+def updatePdfComment(request):
+    if request.user.is_authenticated:
+        comment = pdfHComment.objects.get(id=request.POST['id'])
+        if 'resolved' in request.POST:
+            comment.resolved = not comment.resolved
+        else:
+            comment.body = request.POST['body']
+        comment.save()
+        return http.JsonResponse({
+            'message': 'Comment Updated'
+        })
+    return http.HttpResponseForbidden({'message': 'Unauthorized'})

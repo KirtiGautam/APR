@@ -19,7 +19,7 @@
     <div class="row row-3-2 mt-3 pl-3">
         {% for pdf in lesson.lesson_pdfs.all|dictsort:"created" %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-4">
-            <a href="{{ prefix }}{{pdf.pdf.file}}" target="_blank">
+            <a href="{% url 'lessons:pdf' pdf.id %}" target="_blank">
                 <div class="lessons-cards">
                     <span class="row">
                         <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">

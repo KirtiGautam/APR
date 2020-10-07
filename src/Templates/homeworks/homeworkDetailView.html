@@ -58,7 +58,7 @@
             <div class="row row-3">
                 {% for key in homework.pdf.all %}
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-5">
-                    <a href="{{ prefix }}{{key.pdf.file}}" target="_blank">
+                    <a href="{% url 'homework:pdf' key.id %}">
                         <div class="homework-cards">
                             <span class="row">
                                 <img src="/static/Images/lesson/video.png" alt="" class="col-12 img">

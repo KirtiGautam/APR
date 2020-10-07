@@ -1,0 +1,100 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/video.css' %}">
+</head>
+{% include 'common/video-header.html' %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row mt-1">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8 part-1 mb-3 pb-3">
+                <div class="col-12">
+                    <div class="row row-1">
+                        <div><a href="{% url 'lessons:lessons' %}"><button class="btn back" title="Back"><i
+                                        class="fas fa-arrow-alt-circle-left"></i></button></a></div>
+                        <div class="heading-1 text-truncate">
+                            {{pdf.lesson.Name}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-2">
+                    <div class="row row-2">
+                        <iframe id="video_player" class="video col-12" src="{{pdf.pdf.file.url}}" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="row row-3 mt-2">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 text-truncate">
+                            <div class="heading-2 text-truncate">{{pdf.pdf.Name}}</div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="float-right">
+                                <button class="btn {% if done %}marked{% else %}mark{% endif %}" onclick="MAS();"
+                                    id="mark_complete_btn"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row row-5">
+                            <div class="heading-3 text-justify">{{pdf.pdf.Description}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 mt-2 part-2 pb-5">
+                <div class="row row-6 pb-3">
+                    <div class="col"><textarea id="comment_body" rows="2" class="form-control"
+                            placeholder="Write a comment..."></textarea></div>
+                    <div class="col-2 mt-2"><button class="btn send" id="comment_send_btn" disabled><i
+                                class="fas fa-paper-plane"></i></button></i>
+                    </div>
+                    {% if user.user_type == "Student" %} <div class="col-10"><span class="float-right"><input
+                                type="checkbox" id="doubt_marker"><span class="mark-as-comment pl-2">Mark comment as
+                                doubt</span></span></div>{% endif %}
+                </div>
+                <div class="row row-7 mt-2">
+                    <div class="col-12" id="discussions"></div>
+                </div>
+                <div class="modal" tabindex="-1" role="dialog" id='edit_comment_modal'>
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="modal-title heading-2">Edit Comment</div>
+                                <button type="button btn button-2" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true" class="button-2">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" id="hidden_edit_comment_id">
+                                <textarea id="edit_comment_textarea" rows="2" class="form-control"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn button-3" id="edit_comment_btn">Save
+                                    changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const url = '{{watched}}', id = {{ pdf.id }};
+    let marked = {{ done| yesno: "true,false" }};
+    (function ($) {
+        "use strict";
+        var fullHeight = function () {
+            $(".video").css("height", $(".video").width() * 0.56);
+            $(window).resize(function () {
+                $(".video").css("height", $(".video").width() * 0.56);
+            });
+        };
+        fullHeight();
+    })(jQuery);
+</script>
+<script src="{% static 'js/assignments/pdf.js' %}"></script>
+{% endblock %}

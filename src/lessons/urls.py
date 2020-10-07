@@ -25,7 +25,13 @@ from lessons.views import (
     deleteComment,
     getComment,
     updateComment,
-    newCount
+    newCount,
+    pdfView,
+    lessonPdfComments,
+    getPdfComment,
+    updatePdfComment,
+    deletePdfComment,
+    likePdfComment
 )
 
 app_name = 'lessons'
@@ -40,11 +46,16 @@ urlpatterns = [
     path('update-stream', editStream, name='edit-stream'),
 
     # Lessons path
+    re_path(r'^lesson-pdf-comments$', lessonPdfComments, name='pdfcomments'),
     re_path(r'^lesson-comments$', lessonComments, name='comments'),
+    path('get-lesson-pdf-comment', getPdfComment, name='getPdfComment'),
     path('get-lesson-comment', getComment, name='getComment'),
     path('new-lesson-asset', newCount, name='newCount'),
+    path('update-lesson-pdf-comment', updatePdfComment, name='updatePdfComment'),
     path('update-lesson-comment', updateComment, name='updateComment'),
+    path('delete-lesson-pdf-comment', deletePdfComment, name='deletePdfComment'),
     path('delete-lesson-comment', deleteComment, name='deleteComment'),
+    path('like-lesson-pdf-comment', likePdfComment, name='likePdf'),
     path('like-lesson-comment', likeComment, name='like'),
     path('delete-lesson-media', deleteMedia, name='delete-media'),
     path('lessons', lessons, name='lessons'),
@@ -52,6 +63,7 @@ urlpatterns = [
     path('get-questions', getQuestions, name='get-questions'),
     path('add-lesson-resource', addResource, name='add-lesson-resource'),
     path('video-mark-watched', video_watched, name='mark_watched'),
+    path('lesson/pdf/<int:id>', pdfView, name='pdf'),
     path('lesson/video/<int:id>', vid, name='video'),
     path('lesson/test/<int:id>', getTest, name='Test'),
     path('mark-lesson-pdf-read', pdf_read, name='mark_read'),

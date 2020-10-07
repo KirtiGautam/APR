@@ -21,11 +21,26 @@ from .views import (
     updateComment,
     newCount,
     delhomework,
+    pdfView,
+    HomeworkPdfComments,
+    getPdfComment,
+    updatePdfComment,
+    deletePdfComment,
+    likePdfComment
 )
 
 app_name = 'homework'
 
 urlpatterns = [
+    re_path(r'^homework-pdf-comments$',
+            HomeworkPdfComments, name='pdfcomments'),
+    path('get-homework-pdf-comment', getPdfComment, name='getPdfComment'),
+    path('update-homework-pdf-comment',
+         updatePdfComment, name='updatePdfComment'),
+    path('delete-homework-pdf-comment',
+         deletePdfComment, name='deletePdfComment'),
+    path('like-homework-pdf-comment', likePdfComment, name='likePdf'),
+    path('homework/pdf/<int:id>', pdfView, name='pdf'),
     path('delete-homework', delhomework, name='delete-homework'),
     path('new-homework-asset', newCount, name='newCount'),
     path('get-homework-comment', getComment, name='getComment'),
