@@ -50,7 +50,9 @@
                                 <div class="col-sm-12 col-md-8 col-lg-8">
                                     <label For="password">Password</label>
                                     <label For="" class="right">
-                                        Forgot Password? Reset here
+                                        <a href="{% url 'security:index' %}">
+                                            Forgot Password? Reset here
+                                        </a>
                                     </label>
                                 </div>
                                 <input type="password" class="form-control col-lg-8 col-md-8 col-sm-12" name="password"
@@ -74,6 +76,12 @@
 </body>
 
 <script src="{% static 'js/login.js' %}"></script>
-
+<script>
+    {% if messages %}
+    {% for message in messages %}
+    alert('{{message}}');
+    {% endfor %}
+    {% endif %}
+</script>
 
 {% endblock %}

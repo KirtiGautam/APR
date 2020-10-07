@@ -21,15 +21,21 @@
                     <!-- <li class="p-2 menu-1 " id="secB">
                         <div class="menu-text">Sections</div>
                     </li> -->
-                    <li class="p-2 menu-1 menu-active" id="classB">
-                        <div class="menu-text">Classes</div>
-                    </li>
-                    <li class="p-2 menu-1" id="subB">
-                        <div class="menu-text">Subjects</div>
-                    </li>
-                    <li class="p-2 menu-1 " id="TeachB">
-                        <div class="menu-text">Assign Teacher</div>
-                    </li>
+                    <a href="{% url 'accounts:classes' %}">
+                        <li class="p-2 menu-1 {% if not request.GET.type %}menu-active{% endif %}" id="classB">
+                            <div class="menu-text">Classes</div>
+                        </li>
+                    </a>
+                    <a href="{% url 'accounts:classes' %}?type=S">
+                        <li class="p-2 menu-1 {% if request.GET.type == 'S' %}menu-active{% endif %}" id="subB">
+                            <div class="menu-text">Subjects</div>
+                        </li>
+                    </a>
+                    <a href="{% url 'accounts:classes' %}?type=T">
+                        <li class="p-2 menu-1 {% if request.GET.type == 'T' %}menu-active{% endif %}" id="TeachB">
+                            <div class="menu-text">Assign Teacher</div>
+                        </li>
+                    </a>
                     <!-- <li class="p-2 menu-1" id="syllB">
                         <div class="menu-text">Syllabus</div>
                     </li> -->
@@ -74,6 +80,7 @@
                 </div>
             </div>
         </div> -->
+        {% if not request.GET.type %}
         <div class="row row-3 p-4" id="classT">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 mb-5 p-2">
                 <div class="heading-3 p-2">Add Class</div>
@@ -139,7 +146,8 @@
                 </div>
             </div>
         </div>
-        <div class="row row-3 d-none p-4" id="subT">
+        {% elif request.GET.type == 'S' %}
+        <div class="row row-3 p-4" id="subT">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 mb-5 p-2">
                 <div class="heading-3 p-2">Add Subject</div>
                 <div class="dropdown-divider"></div>
@@ -227,7 +235,8 @@
                 </div>
             </div>
         </div>
-        <div class="row row-3 d-none p-4" id="TeachT">
+        {% else %}
+        <div class="row row-3 p-4" id="TeachT">
             <div class="col-12 part-1 p-2">
                 <div class="heading-3 p-2">Assign Teachers</div>
                 <div class="dropdown-divider"></div>
@@ -245,10 +254,10 @@
                             </thead>
                             <tbody>
                                 {% for key in classes %}
+                                {% for sub in key.Subject.all %}
                                 <tr>
+                                    {% if forloop.counter == 1 %}
                                     <td rowspan="{{key.Subject.all.count}}">{{key.name}}</td>
-                                    {% for sub in key.Subject.all %}
-                                    {% if forloop.counter != 1 %}
                                     {% endif %}
                                     <td>{{sub.Name}}</td>
                                     <td>
@@ -274,6 +283,8 @@
                                         </select>
                                     </td>
                                 </tr>
+                                {% empty %}
+                                <tr><td>{{key.name}}</td><td colspan="3">Please add a Subject</td></tr>
                                 {% endfor %}
                                 {% endfor %}
                             </tbody>
@@ -282,6 +293,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         <div class="row row-3 d-none" id="syllT">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 mb-5 p-2">
                 <div class="heading-3 p-2">Add Syllabus</div>

@@ -187,10 +187,11 @@ def editSubject(request):
 
 def newSubject(request):
     if request.user.is_authenticated and request.user.admin:
-        Subject.objects.create(
-            Name=request.POST['Name'], Class=Class.objects.get(id=request.POST['id']))
+        for x in request.POST.getlist('id[]'):
+            Subject.objects.get_or_create(
+                Name=request.POST['Name'], Class=Class.objects.get(id=x))
         data = {
-            'message': "Subject created"
+            'message': "Subjects created"
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': "You're not authorized"})
@@ -265,8 +266,11 @@ def newClass(request):
 
 def newLesson(request):
     if request.user.is_authenticated and request.user.admin:
+        subject = Subject.objects.get(id=request.POST['id'])
+        if subject.Lesson.filter(Number=int(request.POST['number'])).exists():
+            return http.HttpResponseServerError('Chapter Number Already Exists')
         lesson = Lesson.objects.create(
-            Name=request.POST['lesson'], Number=request.POST['number'], Subject=Subject.objects.get(id=request.POST['id']))
+            Name=request.POST['lesson'], Number=request.POST['number'], Subject=subject)
         data = {
             'message': 'Lesson addded'
         }
@@ -508,7 +512,7 @@ def getStudents(request):
                 'District': stu.District,
                 'Pincode': stu.Pincode,
                 'Address': stu.Address,
-            } for stu in students]
+            } for stu in students.order_by('-user')]
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': "You're not authorized"})
