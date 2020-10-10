@@ -16,18 +16,10 @@
       <!-- <li class="text-center">
         <button class="btn view-profile col-9">View Profile</button>
       </li> -->
-      <li class="mt-3">
+      <li class="mt-2">
         <div class="dropdown-divider mt-4 mb-4"></div>
       </li>
-      <li class="mt-3">
-        <a href="{% url 'accounts:dashboard' %}">
-          <span class="leftside-menu-icon">
-            <i class="fas fa-chalkboard-teacher"></i>
-          </span>
-          <span class="leftside-menu-text">Dashboard </span>
-        </a>
-      </li>
-      <li class="mt-3">
+      <li class="mt-2">
         <a href="{% url 'lessons:lessons' %}">
           <span class="leftside-menu-icon">
             <i class="fas fa-chalkboard-teacher"></i>
@@ -36,7 +28,7 @@
             class="lesson-asset"></span>{% endif %}
         </a>
       </li>
-      <li class="mt-3">
+      <li class="mt-2">
         <a href="{% url 'lessons:livestream' %}">
           <span class="leftside-menu-icon">
             <i class="fas fa-signal"></i>
@@ -44,7 +36,7 @@
           <span class="leftside-menu-text">Live sessions</span>
         </a>
       </li>
-      <li class="mt-3">
+      <li class="mt-2">
         <a href="{% url 'exam:exams' %}">
           <span class="leftside-menu-icon">
             <i class="fas fa-stream"></i>
@@ -52,7 +44,7 @@
           <span class="leftside-menu-text">Scheduled Exams</span>
         </a>
       </li>
-      <li class="mt-3">
+      <li class="mt-2">
         <a href="{% url 'assignment:assignments' %}">
           <span class="leftside-menu-icon mr-1">
             <i class="fas fa-tasks"></i>
@@ -61,7 +53,7 @@
             class="assignment-asset"></span>{% endif %}
         </a>
       </li>
-      <li class="mt-3">
+      <li class="mt-2">
         <a href="{% url 'homework:homework' %}">
           <span class="leftside-menu-icon">
             <i class="fas fa-house-user"></i>
@@ -71,7 +63,7 @@
         </a>
       </li>
       {% if user.user_type == 'Student' or user.admin %}
-      <li class="mt-3">
+      <li class="mt-2">
         <a href="{% url 'accounts:leaderboard' %}?time=all">
           <span class="leftside-menu-icon">
             <i class="fas fa-trophy"></i>
@@ -80,15 +72,7 @@
         </a>
       </li>
       {% endif %}
-      <li class="mt-3">
-        <a href="{% url 'messenger:index' %}">
-          <span class="leftside-menu-icon">
-            <i class="fas fa-comment-dots"></i>
-          </span>
-          <span class="leftside-menu-text">Messenger</span>
-        </a>
-      </li>
-      <!-- <li class="mt-3">
+      <!-- <li class="mt-2">
         <a href="#">
           <span class="leftside-menu-icon">
             <i class="fas fa-chart-bar"></i>
@@ -96,7 +80,7 @@
           <span class="leftside-menu-text">Analysis</span>
         </a>
       </li>--->
-      <!-- <li class="mt-3">
+      <!-- <li class="mt-2">
         <a href="#">
           <span class="leftside-menu-icon">
             <i class="fas fa-id-badge"></i>
@@ -104,7 +88,7 @@
           <span class="leftside-menu-text">All Profiles</span>
         </a>
       </li> -->
-      <!-- <li class="mt-3">
+      <!-- <li class="mt-2">
         <a href="#">
           <span class="leftside-menu-icon">
             <i class="fas fa-file-contract"></i>
