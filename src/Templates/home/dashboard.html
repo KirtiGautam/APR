@@ -5,6 +5,7 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/content.css' %}">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
 
 <body>
@@ -13,8 +14,144 @@
         {% include "home/leftside.html" %}
     </div>
     <div class="content">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            You have been logged out of other devices
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <div class="container-fluid">
-            <div class="row" style="min-height: 200px;">
+            <div class="row row-1">
+                <div class="col-12">
+                    <div class="row row-11">
+                        <div class="col-12 col-md-6">
+                            <div class="text-1">Home</div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="row float-right">
+                                <a href="">
+                                    <div class="badge badge-1 badge-1-active">All</div>
+                                </a>
+                                <a href="">
+                                    <div class="badge badge-1">Posted by me</div>
+                                </a>
+                                <a href="">
+                                    <div class="badge badge-1">Deadlines</div>
+                                </a>
+                                <a href="">
+                                    <div class="badge badge-1">Announcements</div>
+                                </a>
+                                <a href="">
+                                    <div class="badge badge-1">Doubts</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row row-12">
+                        <button class="btn btn-1 col-12">
+                            <div class="row">
+                                <img src="{% static 'Images/leftnav/avatar.png' %}" alt="" class="image-1" />
+                                <div class="text-2">What's Happening nerds !</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row row-13">
+                        <div class="col-12">
+                            <div class="row row-131">
+                                <div class="col-6">
+                                    <div class="text-3"><span class="pr-2"><i class="fas fa-pen"></i></span> Create a
+                                        Post</div>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-2">
+                                                <span class="pr-2">
+                                                    <i class="fas fa-image"></i>
+                                                </span>
+                                                Photo
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <select name="" id="" class="custom-select btn-2">
+                                                <option value="" selected hidden><i class="fas fa-tag"></i>Category
+                                                </option>
+                                                <option value="">Doubts</option>
+                                                <option value="">Announcements</option>
+                                                <option value="">Deadlines</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 row-132">
+                            <div class="col-12">
+                                <div name="body" id="body" class="box-1"></div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="{% static 'Images/leftnav/avatar.png' %}" alt="" class="col-12 image-4" />
+                            </div>
+                        </div>
+                        <div class="col-12 row-131">
+                            <div class="row float-right">
+                                <div class="col-12">
+                                    <button class="btn btn-secondary btn-3">Cancel</button>
+                                    <button class="btn btn-primary btn-3">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <a href="">
+                                <div class="row p-1">
+                                    <img src="{% static 'Images/leftnav/avatar.png' %}" alt="" class="image-2" />
+                                    <div class="col-9 col-sm">
+                                        <div class="row row-14">
+                                            <div class="text-4 col-6 col-md-4 text-truncate">Name of the person</div>
+                                            <div class="text-5 col-6 col-md-4 text-truncate">Time of the post</div>
+                                            <div class="col-12 col-md-4 text-truncate text-right">
+                                                <div class="badge badge-2">Category</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="text-6 col-12">
+                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                                                    accusantium
+                                                    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
+                                                    inventore
+                                                    veritatis et quasi architecto beatae
+                                                </div>
+                                                <div class="col-12 text-center">
+                                                    <img src="{% static 'Images/lesson/back.png' %}" alt=""
+                                                        class="col-12 image-3" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-4 text-center"><button class="btn btn-4"><i
+                                                            class="fas fa-thumbs-up"></i><span
+                                                            class="text-7">111</span></button></div>
+                                                <div class="col-4 text-center"><button class="btn btn-4"><i
+                                                            class="fas fa-comment-alt"></i><span
+                                                            class="text-7">1111</span></button></div>
+                                                <div class="col-4 text-center"><button class="btn btn-4"><i
+                                                            class="fas fa-share-square"></i></button></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row" style="min-height: 200px;">
                 <div class="col-lg-2"></div>
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div name="body" id="body"></div>
@@ -36,7 +173,7 @@
                 <div class="col-lg-10" id="posts-box" style="overflow-y: auto;">
                     
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </body>
