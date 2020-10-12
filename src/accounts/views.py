@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from accounts.models import User, Class, Student
 from django import http
+from django.contrib import messages
 
 
 def classes(request):
@@ -45,6 +46,9 @@ def log(request):
             username=request.POST['username'],
             password=request.POST['password'])
         if user is not None and user.status == 'A':
+            if hasattr(user, 'logged_in_user'):
+                messages.warning(
+                    request, 'You have been logged out of other devices')
             login(request, user)
             return redirect('accounts:dashboard')
         elif user is not None and user.status == 'P':

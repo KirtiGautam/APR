@@ -1,0 +1,136 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+
+<body>
+    {% include "common/header.html" %}
+    <div class="col flo1at-left left">
+        {% include "home/leftside.html" %}
+    </div>
+    {% autoescape off %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row p-1">
+                        <img src="{% static 'Images/leftnav/avatar.png' %}" alt="{{post.Owner.get_short_name}}"
+                            class="image-2" />
+                        <div class="col-9 col-sm">
+                            <div class="col-12 float-right">{% if user.admin or user == post.Owner %}<a
+                                    href="{% url 'posts:delete' post.id %}" class="btn btn-danger">Delete</a>{% endif %}
+                                {% if user == post.Owner %}
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    Edit
+                                </button>
+                                {% endif %}
+                            </div>
+                            <div class="row row-14">
+                                <div class="text-4 col-6 col-md-4 text-truncate">{{post.Owner.get_full_name}}</div>
+                                <div class="text-5 col-6 col-md-4 text-truncate">{{post.Created}}</div>
+                                {% if post.Tag %}
+                                <div class="col-12 col-md-4 text-truncate text-right">
+                                    <div class="badge badge-2">{{post.get_Tag_display}}</div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="text-6 col-12">
+                                        {{post.Body}}
+                                    </div>
+                                    {% if post.Picture %}
+                                    <div class="col-12 text-center">
+                                        <img src="{{post.Picture.url}}" alt="Post-{{post.id}}" class="col-12 image-3" />
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-4 text-center"><button class="btn btn-4"
+                                            onclick="like({{post.id}});"><i class="fas fa-thumbs-up"></i><span
+                                                class="text-7"
+                                                id="post-like-counter{{post.id}}">{{post.Likes.all.count}}</span></button>
+                                    </div>
+                                    <div class="col-4 text-center"><button class="btn btn-4"><i
+                                                class="fas fa-comment-alt"></i><span
+                                                class="text-7">{{post.comments.count}}</span></button>
+                                    </div>
+                                    <div class="col-4 text-center"><button class="btn btn-4"><i
+                                                class="fas fa-share-square"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <form action="{% url 'posts:post' post.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="Comment" placeholder="Type a Comment...." required>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="col-12">
+                    <div class="row p-1">
+                        {% for comment in post.comments %}
+                        {{comment.body}}
+                        <span id="com{{comment.id}}">{{comment.Likes.all.count}}</span><button class="btn btn-primary"
+                            onclick="likeComment({{comment.id}})">Like</button>
+                        <button class="btn reply-toggle"
+                            onclick="toggleReply({{comment.id}});">{{comment.replies.all.count}}</button>
+                        <div class="d-none hidden-reply-div{{comment.id}}">
+                            <form action="{% url 'posts:post' post.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="hidden_comment_id" value="{{comment.id}}">
+                                <input type="text" name="Comment" placeholder="Type a Reply...." required>
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </form>
+                            {% for reply in comment.replies.all %}
+                            {{reply.body}}
+                            <span id="com{{reply.id}}">{{reply.Likes.all.count}}</span><button class="btn btn-primary"
+                                onclick="likeComment({{reply.id}})">Like</button>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endautoescape %}
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="hidden_post_id" value="{{post.id}}">
+                    {% autoescape off %}
+                    <div id="body">{{post.Body}}</div>
+                    {% endautoescape %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" onclick="update();">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="{% static 'js/dashboard/post.js' %}"></script>
+{% endblock %}

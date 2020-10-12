@@ -14,12 +14,13 @@
         {% include "home/leftside.html" %}
     </div>
     <div class="content">
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            You have been logged out of other devices
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show alers" role="alert">
+            {{ message }}
         </div>
+        {% endfor %}
+        {% endif %}
         <div class="container-fluid">
             <div class="row row-1">
                 <div class="col-12">
@@ -29,20 +30,29 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="row float-right">
-                                <a href="">
-                                    <div class="badge badge-1 badge-1-active">All</div>
+                                <a href="{% url 'accounts:dashboard' %}">
+                                    <div class="badge badge-1{% if not request.GET.type %} badge-1-active{% endif %}">
+                                        All</div>
                                 </a>
-                                <a href="">
-                                    <div class="badge badge-1">Posted by me</div>
+                                <a href="{% url 'accounts:dashboard' %}?type=M">
+                                    <div
+                                        class="badge badge-1{% if request.GET.type == 'M' %} badge-1-active{% endif %}">
+                                        Posted by me</div>
                                 </a>
-                                <a href="">
-                                    <div class="badge badge-1">Deadlines</div>
+                                <a href="{% url 'accounts:dashboard' %}?type=L">
+                                    <div
+                                        class="badge badge-1{% if request.GET.type == 'L' %} badge-1-active{% endif %}">
+                                        Deadlines</div>
                                 </a>
-                                <a href="">
-                                    <div class="badge badge-1">Announcements</div>
+                                <a href="{% url 'accounts:dashboard' %}?type=A">
+                                    <div
+                                        class="badge badge-1{% if request.GET.type == 'A' %} badge-1-active{% endif %}">
+                                        Announcements</div>
                                 </a>
-                                <a href="">
-                                    <div class="badge badge-1">Doubts</div>
+                                <a href="{% url 'accounts:dashboard' %}?type=D">
+                                    <div
+                                        class="badge badge-1{% if request.GET.type == 'D' %} badge-1-active{% endif %}">
+                                        Doubts</div>
                                 </a>
                             </div>
                         </div>
@@ -53,130 +63,104 @@
                         <button class="btn btn-1 col-12">
                             <div class="row">
                                 <img src="{% static 'Images/leftnav/avatar.png' %}" alt="" class="image-1" />
-                                <div class="text-2">What's Happening nerds !</div>
+                                <button class="btn text-2" data-toggle="modal" data-target="#exampleModal">What's
+                                    Happening nerds !</button>
                             </div>
                         </button>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="row row-13">
-                        <div class="col-12">
-                            <div class="row row-131">
-                                <div class="col-6">
-                                    <div class="text-3"><span class="pr-2"><i class="fas fa-pen"></i></span> Create a
-                                        Post</div>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-2">
-                                                <span class="pr-2">
-                                                    <i class="fas fa-image"></i>
-                                                </span>
-                                                Photo
-                                            </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="col-12">
+                                            <div class="row row-131">
+                                                <div class="col-6">
+                                                    <div class="text-3"><span class="pr-2"><i
+                                                                class="fas fa-pen"></i></span> Create a
+                                                        Post</div>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <button class="btn btn-2" onclick="$('#photo').click();">
+                                                                <span class="pr-2">
+                                                                    <i class="fas fa-image"></i>
+                                                                </span>
+                                                                Photo
+                                                            </button>
+                                                            <input type="file" name="photo" id="photo" class="d-none"
+                                                                accept="image/*">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <select id="tag" class="custom-select btn-2">
+                                                                <option value="" selected disabled><i
+                                                                        class="fas fa-tag"></i>Category
+                                                                </option>
+                                                                <option value="D">Doubts</option>
+                                                                <option value="A">Announcements</option>
+                                                                <option value="L">Deadlines</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-6">
-                                            <select name="" id="" class="custom-select btn-2">
-                                                <option value="" selected hidden><i class="fas fa-tag"></i>Category
-                                                </option>
-                                                <option value="">Doubts</option>
-                                                <option value="">Announcements</option>
-                                                <option value="">Deadlines</option>
-                                            </select>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-12 row-132">
+                                            <div class="col-12">
+                                                <div name="body" id="body" class="box-1"></div>
+                                            </div>
+                                            <div class="col-12 text-center">
+                                                <img src="#" alt="prev" id="post-pic-prev"
+                                                    class="col-12 image-4 d-none" />
+                                            </div>
+                                            <div class="col-12 progress d-none" id="progress-wrap">
+                                                <div class="progress-bar" role="progressbar" style="width: 0%"
+                                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                                                    id="prog-bar"></div>
+                                            </div>
+                                            <div id="message" class="col-12"></div>
+                                        </div>
+                                        <div class="col-12 row-131">
+                                            <div class="row float-right">
+                                                <div class="col-12">
+                                                    <button class="btn btn-secondary btn-3"
+                                                        data-dismiss="modal">Cancel</button>
+                                                    <button class="btn btn-primary btn-3" id="submit-btn">Post</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 row-132">
-                            <div class="col-12">
-                                <div name="body" id="body" class="box-1"></div>
-                            </div>
-                            <div class="col-12 text-center">
-                                <img src="{% static 'Images/leftnav/avatar.png' %}" alt="" class="col-12 image-4" />
-                            </div>
-                        </div>
-                        <div class="col-12 row-131">
-                            <div class="row float-right">
-                                <div class="col-12">
-                                    <button class="btn btn-secondary btn-3">Cancel</button>
-                                    <button class="btn btn-primary btn-3">Post</button>
+                        <div class="col-12" id="posts-box"></div>
+                        <div class="col-12" id="loader">
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <a href="">
-                                <div class="row p-1">
-                                    <img src="{% static 'Images/leftnav/avatar.png' %}" alt="" class="image-2" />
-                                    <div class="col-9 col-sm">
-                                        <div class="row row-14">
-                                            <div class="text-4 col-6 col-md-4 text-truncate">Name of the person</div>
-                                            <div class="text-5 col-6 col-md-4 text-truncate">Time of the post</div>
-                                            <div class="col-12 col-md-4 text-truncate text-right">
-                                                <div class="badge badge-2">Category</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="row">
-                                                <div class="text-6 col-12">
-                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                                    accusantium
-                                                    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-                                                    inventore
-                                                    veritatis et quasi architecto beatae
-                                                </div>
-                                                <div class="col-12 text-center">
-                                                    <img src="{% static 'Images/lesson/back.png' %}" alt=""
-                                                        class="col-12 image-3" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="row">
-                                                <div class="col-4 text-center"><button class="btn btn-4"><i
-                                                            class="fas fa-thumbs-up"></i><span
-                                                            class="text-7">111</span></button></div>
-                                                <div class="col-4 text-center"><button class="btn btn-4"><i
-                                                            class="fas fa-comment-alt"></i><span
-                                                            class="text-7">1111</span></button></div>
-                                                <div class="col-4 text-center"><button class="btn btn-4"><i
-                                                            class="fas fa-share-square"></i></button></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="row" style="min-height: 200px;">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8 col-md-12 col-sm-12">
-                    <div name="body" id="body"></div>
-                    <button type="button" class="btn" onclick="$('#photo').click();"><i
-                            class="fas fa-camera"></i></button>
-                    <input type="file" name="photo" id="photo" class="d-none" accept="image/*">
-                    <img src="#" alt="post pic" class="d-none col-12 mt-2" id="post-pic-prev" style="height: 300px;">
-                    <button type="submit" class="bth-primary form-control mt-2" id="submit-btn">Submit</button>
-                    <div class="progress d-none" id="progress-wrap">
-                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                            aria-valuemin="0" aria-valuemax="100" id="prog-bar"></div>
-                    </div>
-                    <div class="message"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-2">
-                </div>
-                <div class="col-lg-10" id="posts-box" style="overflow-y: auto;">
-                    
-                </div>
-            </div> -->
         </div>
     </div>
 </body>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+    const getParams = {% if request.GET.type %}'?type={{request.GET.type}}'{% else %} ''{% endif %};
+    $(function () {
+        $(".alers").fadeTo(2000, 500).slideUp(500, function () {
+            $(this).slideUp(500);
+        });
+    })
+</script>
 <script src="{% static 'js/dashboard/index.js' %}"></script>
 {% endblock %}

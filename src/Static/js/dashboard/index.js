@@ -25,8 +25,9 @@ var quill = new Quill("#body", {
   theme: "snow",
 });
 
-let offset = 1;
+let offset = 0;
 let loaded = false;
+let allLoaded = true;
 
 function _(el) {
   return document.getElementById(el);
@@ -44,6 +45,7 @@ function completeHandler(event) {
   $("#posts-box").prepend(JSON.parse(event.target.responseText));
   $("#photo").val("");
   quill.root.innerHTML = "";
+  $("#tag").val("");
   $("#message").val("Uplaod Successfull");
   $("#progress-wrap, #post-pic-prev").addClass("d-none");
   $("#prog-bar")
@@ -57,6 +59,7 @@ function errorHandler(event) {
   $("#progress-wrap, #post-pic-prev").addClass("d-none");
   quill.root.innerHTML = "";
   $("#photo").val("");
+  $("#tag").val("");
   $("#prog-bar")
     .attr("aria-valuenow", 0)
     .css("width", 0 + "%")
@@ -68,25 +71,50 @@ function abortHandler(event) {
   $("#message").val("Uplaod Abort");
   quill.root.innerHTML = "";
   $("#photo").val("");
+  $("#tag").val("");
   $("#prog-bar")
     .attr("aria-valuenow", 0)
     .css("width", 0 + "%")
     .text(0 + "%");
 }
 
-const posts = (offset) => {
+const posts = () => {
+  $("#loader").removeClass("d-none");
   $.ajax({
     type: "GET",
-    url: "/post",
+    url: `/post${getParams}`,
     data: {
       offset: offset,
     },
     dataType: "json",
     success: (data) => {
-      console.log(data);
-      $("#posts-box").append(data);
+      if (data.all) {
+        allLoaded = false;
+      } else {
+        $("#posts-box").append(data);
+        offset++;
+      }
       loaded = true;
-      offset++;
+      $("#loader").addClass("d-none");
+    },
+    error: function (error) {
+      alert(error.responseText);
+    },
+  });
+};
+
+const like = (id) => {
+  $.ajax({
+    type: "POST",
+    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+    url: "/like-post",
+    data: {
+      id: id,
+    },
+    dataType: "json",
+    success: function (data) {
+      alert(data.liked);
+      document.getElementById(`post-like-counter${id}`).innerText = data.count;
     },
     error: function (error) {
       alert(error.responseText);
@@ -95,7 +123,19 @@ const posts = (offset) => {
 };
 
 $(function () {
-  posts(0);
+  posts();
+  $(window).on("scroll", function () {
+    console.log("scroll");
+    if (
+      $(this).scrollTop() + $(this).innerHeight() >=
+        $("#posts-box")[0].scrollHeight &&
+      loaded &&
+      allLoaded
+    ) {
+      loaded = false;
+      posts();
+    }
+  });
   $("#photo").on("change", function () {
     var reader = new FileReader();
 
@@ -118,6 +158,7 @@ $(function () {
     }
     if ($("#body").text()) formdata.append("body", quill.root.innerHTML);
     else formdata.append("body", "");
+    formdata.append("category", $("#tag").val());
     var ajax = new XMLHttpRequest();
     ajax.upload.addEventListener("progress", progressHandler, false);
     ajax.addEventListener("load", completeHandler, false);

@@ -59,11 +59,11 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.text-7{
-  color: #2680EB;
+.text-7 {
+  color: #2680eb;
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
-  padding:5px 15px;
+  padding: 5px 15px;
 }
 
 .badge-1 {
@@ -89,7 +89,7 @@
   background: #f1f1f1 0% 0% no-repeat padding-box;
   border: 1px solid #e6ecf0;
   border-radius: 10px;
-  color: #15202B;
+  color: #15202b;
   font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
   margin: 5px;
@@ -111,12 +111,12 @@
   border: 1px solid #707070;
 }
 
-.image-3{
+.image-3 {
   max-width: 1100px;
   max-height: 550px;
 }
 
-.image-4{
+.image-4 {
   max-width: 900px;
   max-height: 450px;
 }
@@ -145,7 +145,7 @@
   margin: 10px;
 }
 
-.btn-4{
+.btn-4 {
   font-size: 20px;
 }
 
@@ -153,61 +153,61 @@
   min-height: 150px;
 }
 
-@media screen and (max-width:1200px){
-  .image-3{
+@media screen and (max-width: 1200px) {
+  .image-3 {
     max-width: 1100px;
     max-height: 550px;
   }
 
-  .image-4{
+  .image-4 {
     max-width: 900px;
     max-height: 450px;
   }
 }
 
-@media screen and (max-width:1000px){
-  .image-3{
+@media screen and (max-width: 1000px) {
+  .image-3 {
     max-width: 900px;
     max-height: 450px;
   }
 
-  .image-4{
+  .image-4 {
     max-width: 700px;
     max-height: 350px;
   }
 }
 
-@media screen and (max-width:800px){
-  .image-3{
+@media screen and (max-width: 800px) {
+  .image-3 {
     max-width: 700px;
     max-height: 350px;
   }
 
-  .image-4{
+  .image-4 {
     max-width: 500px;
     max-height: 250px;
   }
 }
 
-@media screen and (max-width:600px){
-  .image-3{
+@media screen and (max-width: 600px) {
+  .image-3 {
     max-width: 500px;
     max-height: 250px;
   }
 
-  .image-4{
+  .image-4 {
     max-width: 300px;
     max-height: 150px;
   }
 }
 
-@media screen and (max-width:400px){
-  .image-3{
+@media screen and (max-width: 400px) {
+  .image-3 {
     max-width: 300px;
     max-height: 150px;
   }
 
-  .image-4{
+  .image-4 {
     max-width: 10px;
     max-height: 50px;
   }
