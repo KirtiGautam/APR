@@ -9,6 +9,8 @@ import uuid
 
 
 def index(request):
+    if request.user.is_authenticated:
+        return redirect('accounts:dashboard')
     if request.method == 'POST':
         user = User.objects.filter(email=request.POST['email'])
         if not user.exists():
@@ -41,10 +43,14 @@ def index(request):
 
 
 def mailed(request):
+    if request.user.is_authenticated:
+        return redirect('accounts:dashboard')
     return render(request, 'security/mailed.html')
 
 
 def reset(request, token):
+    if request.user.is_authenticated:
+        return redirect('accounts:dashboard')
     try:
         user = User.objects.get(ResetToken__Token=token)
     except:
@@ -62,3 +68,8 @@ def reset(request, token):
             request, 'Your password has been reset, you can now login to your account')
         return redirect('accounts:login')
     return render(request, 'security/resetPasswordForm.html', {'token': token})
+
+
+def robots(request):
+    from django.http import FileResponse
+    return FileResponse(open('robots.txt', 'rb'))
