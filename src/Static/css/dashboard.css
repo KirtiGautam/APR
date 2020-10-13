@@ -1,4 +1,4 @@
-.content{
+.content {
   overflow-x: hidden;
 }
 
@@ -222,16 +222,16 @@
 
 .btn-7 {
   font-size: 15px;
-  color: #376BAA !important; 
+  color: #376baa !important;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.btn-7:focus{
+.btn-7:focus {
   box-shadow: 0px 0px 0px #15202b;
   outline: none;
 }
 
-.btn-7:hover{
+.btn-7:hover {
   text-decoration: underline;
 }
 
@@ -290,6 +290,72 @@
 }
 
 @media screen and (max-width: 600px) {
+  .text-1 {
+    font-size: 20px;
+  }
+
+  .text-2 {
+    font-size: 16px;
+  }
+
+  .text-3 {
+    font-size: 16px;
+  }
+
+  .text-4 {
+    font-size: 16px;
+  }
+
+  .text-5 {
+    font-size: 10px;
+  }
+
+  .text-6 {
+    font-size: 14px;
+  }
+
+  .text-7 {
+    font-size: 16px;
+  }
+
+  .text-8 {
+    font-size: 16px;
+  }
+
+  .text-9 {
+    font-size: 14px;
+  }
+
+  .text-10 {
+    font-size: 11px;
+  }
+
+  .badge-1 {
+    font-size: 10px;
+  }
+
+  .badge-2 {
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 5px;
+  }
+
+  .image-1 {
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    border: 1px solid #707070;
+  }
+  
+  .image-2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    border: 1px solid #707070;
+  }
+
   .image-3 {
     max-width: 500px;
     max-height: 250px;
@@ -298,6 +364,10 @@
   .image-4 {
     max-width: 400px;
     max-height: 20px;
+  }
+
+  .btn-4 {
+    font-size: 16px;
   }
 }
 

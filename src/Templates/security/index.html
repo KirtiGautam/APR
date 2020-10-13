@@ -2,22 +2,54 @@
 {% load static %}
 {% block content %}
 
-<div class="row m-5">
-    <div class="container-fluid">
-        <div class="row m-5">
-            <div class="col-3"></div>
-            <div class="col-3 m-5">
-                <h1 class="text-primary">Reset Password</h1>
-                <form action="{% url 'security:index' %}" method="post" class="m-5">
-                    {% csrf_token %}
-                    <input type="email" name="email" class="form-control" placeholder="Enter your email address..."
-                        required>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
+<head>
+    <link rel="stylesheet" href="{% static 'css/forgotPassword.css' %}">
+</head>
+
+<div class="container-fluid">
+    <div class="row row-1 text-center">
+        <div class="col-12"> <img src="{% static 'Images/login/logo.png' %}" class="col-12 image" /></div>
+        <div class="col-12 text-center row-1-1">
+            <span class="text-1">Please enter your registered Email-ID to
+                <br>
+                Reset Password</span>
+        </div>
+        <div class="col-12 text-center row-1-2">
+            <form action="{% url 'security:index' %}" method="post" class="m-5">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-0 col-sm-1 col-md-3"></div>
+                    <div class="col-8 col-sm-8 col-md-5">
+                        <input type="email" name="email" class="text-4 float-right" placeholder="Enter your Email-ID"
+                    required>
+                    </div>
+                    <div class="col-4 col-sm-2 col-md-4">
+                        <input type="submit" value="Submit" class="button-1 btn float-left">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<div class="bottom col-12 text-center">
+    <span>&#169;</span> 2020 | Akshara International School | All
+    rights reserved
+</div>
+
+<!-- <div class="container-fluid">
+    <div class="row m-5">
+        <div class="col-3"></div>
+        <div class="col-3 m-5">
+            <h1 class="text-primary">Reset Password</h1>
+            <form action="{% url 'security:index' %}" method="post" class="m-5">
+                {% csrf_token %}
+                <input type="email" name="email" class="form-control" placeholder="Enter your email address..."
+                    required>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div> -->
 
 <script>
     {% if messages %}

@@ -2,19 +2,22 @@
 {% load static %}
 {% block content %}
 
-<div class="row m-5">
-    <div class="container-fluid">
-        <div class="row m-5">
-            <p>
-              We've emailed you instructions for setting your password, if an account exists with the email you entered.
-              You should receive them shortly.
-            </p>
-            <p>
-              If you don't receive an email, please make sure you've entered the address you registered with,
-              and check your spam folder.
-            </p>
-        </div>
+<head>
+  <link rel="stylesheet" href="{% static 'css/forgotPassword.css' %}">
+</head>
+
+<div class="container-fluid">
+  <div class="row row-1 text-center">
+    <div class="col-12"> <img src="{% static 'Images/login/logo.png' %}" class="col-12 image" /></div>
+    <div class="col-12 col-md-2"></div>
+    <div class="col-12 col-md-8 text-justify row-1-1">
+      <span class="text-2">We've emailed you instructions for setting your password, if an account exists with the email
+        you entered. You should receive them shortly. Link will expire in 30 minutes.
+        <br>
+        If you don't receive an email, please make sure you've entered the correct Email-ID you are registered with,
+        and check your spam folder.</span>
     </div>
+  </div>
 </div>
 
 {% endblock %}
