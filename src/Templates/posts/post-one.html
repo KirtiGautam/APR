@@ -22,7 +22,7 @@
                         <img src="{% static 'Images/leftnav/avatar.png' %}" alt="{{post.Owner.get_short_name}}"
                             class="image-2" />
                         <div class="col-9 col-sm">
-                            <div class="col-12 float-right">{% if user.admin or user == post.Owner %}<a
+                            <!-- <div class="col-12 float-right">{% if user.admin or user == post.Owner %}<a
                                     href="{% url 'posts:delete' post.id %}" class="btn btn-danger">Delete</a>{% endif %}
                                 {% if user == post.Owner %}
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -30,15 +30,33 @@
                                     Edit
                                 </button>
                                 {% endif %}
-                            </div>
+                            </div> -->
                             <div class="row row-14">
                                 <div class="text-4 col-6 col-md-4 text-truncate">{{post.Owner.get_full_name}}</div>
-                                <div class="text-5 col-6 col-md-4 text-truncate">{{post.Created}}</div>
-                                {% if post.Tag %}
-                                <div class="col-12 col-md-4 text-truncate text-right">
+                                <div class="text-5 col-6 col-md-3 text-truncate">{{post.Created}}</div>
+                                <div class="col-8 col-md-3 text-truncate text-right">
+                                    {% if post.Tag %}
                                     <div class="badge badge-2">{{post.get_Tag_display}}</div>
+                                    {% endif %}
                                 </div>
-                                {% endif %}
+                                <div class="col-4 col-md-2 mt-1 text-right">
+                                    <div class="dropdown">
+                                        <a class="btn-5 btn" href="#" data-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            {% if user.admin or user == post.Owner %}
+                                            <a href="{% url 'posts:delete' post.id %}" class="dropdown-item">Delete</a>
+                                            {% endif %}
+                                            {% if user == post.Owner %}
+                                            <button type="button" class="dropdown-item" data-toggle="modal"
+                                                data-target="#exampleModal">
+                                                Edit
+                                            </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-12">
                                 <div class="row">
@@ -74,29 +92,69 @@
                 <div class="col-12">
                     <form action="{% url 'posts:post' post.id %}" method="post">
                         {% csrf_token %}
-                        <input type="text" name="Comment" placeholder="Type a Comment...." required>
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <div class="row">
+                            <div class="col-9 col-md-10">
+                                <input type="text" name="Comment" class="form-control" placeholder="Write a Comment...."
+                                    required>
+                            </div>
+                            <div class="col-3 col-md-2 text-right">
+                                <button class="btn btn-6 col-12" type="submit"><i class="fas fa-check"></i></button>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="col-12">
                     <div class="row p-1">
                         {% for comment in post.comments %}
-                        {{comment.body}}
-                        <span id="com{{comment.id}}">{{comment.Likes.all.count}}</span><button class="btn btn-primary"
-                            onclick="likeComment({{comment.id}})">Like</button>
-                        <button class="btn reply-toggle"
-                            onclick="toggleReply({{comment.id}});">{{comment.replies.all.count}}</button>
-                        <div class="d-none hidden-reply-div{{comment.id}}">
+                        <div class="col-12">
+                            <span><img src="{% static 'Images/leftnav/avatar.png' %}" alt="" class="image-5" /></span>
+                            <span class="text-8">Admin</span>
+                            <span class="text-9">
+                                {{comment.body}}
+                            </span>
+                        </div>
+                        <div class="col-12 row-5">
+                            <span id="com{{comment.id}}" class="text-10 btn">{{comment.Likes.all.count}}</span>
+                            <button class="btn btn-7" onclick="likeComment({{comment.id}})">
+                                LIKE
+                            </button>
+                            <span class="btn text-10">{{comment.replies.all.count}}</span>
+                            <button class="btn reply-toggle btn-7" onclick="toggleReply({{comment.id}});">REPLY</button>
+                        </div>
+                        <div class="d-none hidden-reply-div{{comment.id}} col-12">
                             <form action="{% url 'posts:post' post.id %}" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="hidden_comment_id" value="{{comment.id}}">
-                                <input type="text" name="Comment" placeholder="Type a Reply...." required>
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <div class="col-12 mb-2 ml-2 mr-2">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="text" name="Comment" class="form-control"
+                                                placeholder="Write a Reply...." required>
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-6 col-12" type="submit"><i
+                                                    class="fas fa-check"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                             {% for reply in comment.replies.all %}
-                            {{reply.body}}
-                            <span id="com{{reply.id}}">{{reply.Likes.all.count}}</span><button class="btn btn-primary"
-                                onclick="likeComment({{reply.id}})">Like</button>
+                            <div class="col-12 ml-2 mr-2">
+                                <div class="col-12">
+                                    <span><img src="{% static 'Images/leftnav/avatar.png' %}" alt=""
+                                            class="image-5" /></span>
+                                    <span class="text-8">Admin</span>
+                                    <span class="text-9">
+                                        {{reply.body}}
+                                    </span>
+                                </div>
+                                <div class="col-12 row-5">
+                                    <span id="com{{reply.id}}" class="text-10 btn">{{reply.Likes.all.count}}</span>
+                                    <button class="btn btn-7" onclick="likeComment({{reply.id}})">
+                                        LIKE
+                                    </button>
+                                </div>
+                            </div>
                             {% endfor %}
                         </div>
                         {% endfor %}
@@ -109,23 +167,33 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div>
+                    <div class="col-12">
+                        <div class="row row-131">
+                            <div class="col-12">
+                                <div class="text-3"><span class="pr-2"><i class="fas fa-pen"></i></span>Edit a
+                                    Post</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="hidden_post_id" value="{{post.id}}">
-                    {% autoescape off %}
-                    <div id="body">{{post.Body}}</div>
-                    {% endautoescape %}
+                    <div class="col-12 row-132">
+                        <input type="hidden" id="hidden_post_id" value="{{post.id}}">
+                        {% autoescape off %}
+                        <div id="body" class="box-1">{{post.Body}}</div>
+                        {% endautoescape %}
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" onclick="update();">Save changes</button>
+                <div class="col-12 row-131">
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <button type="button" class="btn btn-secondary btn-3" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-3" onclick="update();">Post</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
