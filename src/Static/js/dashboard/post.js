@@ -73,7 +73,7 @@ const update = () => {
     headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
     url: "/update/post",
     data: {
-      id: $('#hidden_post_id').val(),
+      id: $("#hidden_post_id").val(),
       updated_body: quill.root.innerHTML,
     },
     dataType: "json",
@@ -84,4 +84,22 @@ const update = () => {
       alert(error.responseText);
     },
   });
+};
+
+const copyLink = (url) => {
+  $("#clipboar").removeClass("d-none");
+  /* Get the text field */
+  var copyText = document.getElementById("clipboar");
+  copyText.value = url;
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("Link copied to clipboard");
+  $("#clipboar").addClass("d-none");
 };

@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-4 text-center"><button class="btn btn-4"><i class="fas fa-comment-alt"></i><span
                             class="text-7">{{post.Comments.all.count}}</span></button></div>
-                <div class="col-4 text-center"><button class="btn btn-4"><i class="fas fa-share-square"></i></button>
+                <div class="col-4 text-center"><button class="btn btn-4" onclick="copyLink('{{ request.scheme }}:&#x2f;&#x2f;{{request.get_host}}{% url 'posts:post' post.id %}');"><i class="fas fa-share-square"></i></button>
                 </div>
             </div>
         </div>

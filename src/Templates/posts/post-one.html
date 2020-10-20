@@ -81,7 +81,7 @@
                                                 class="fas fa-comment-alt"></i><span
                                                 class="text-7">{{post.comments.count}}</span></button>
                                     </div>
-                                    <div class="col-4 text-center"><button class="btn btn-4"><i
+                                    <div class="col-4 text-center"><button class="btn btn-4" onclick="copyLink('{{request.build_absolute_uri}}');"><i
                                                 class="fas fa-share-square"></i></button>
                                     </div>
                                 </div>
@@ -164,6 +164,7 @@
         </div>
     </div>
     {% endautoescape %}
+    <input type="text" id="clipboar" class="d-none">
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
