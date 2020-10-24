@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django import http
 from notifications.models import notifs
+import datetime
 
 
 def notifications(request):
@@ -16,6 +17,8 @@ def notifications(request):
                 'time': x.when(),
             }for x in notifi],
         }
+        notifi.filter(recieved_date__lte=datetime.datetime.now(
+            datetime.timezone.utc)-datetime.timedelta(days=7), read=True).delete()
         return http.JsonResponse(data)
     return http.HttpResponseForbidden({'message': 'Forbidden'})
 
