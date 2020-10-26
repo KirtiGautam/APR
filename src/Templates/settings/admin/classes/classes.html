@@ -18,9 +18,6 @@
         <div class="row row-2 pl-3 pr-3">
             <nav class="navbar navbar-expand-lg">
                 <ul class="row list-unstyled ul">
-                    <!-- <li class="p-2 menu-1 " id="secB">
-                        <div class="menu-text">Sections</div>
-                    </li> -->
                     <a href="{% url 'accounts:classes' %}">
                         <li class="p-2 menu-1 {% if not request.GET.type %}menu-active{% endif %}" id="classB">
                             <div class="menu-text">Classes</div>
@@ -36,50 +33,9 @@
                             <div class="menu-text">Assign Teacher</div>
                         </li>
                     </a>
-                    <!-- <li class="p-2 menu-1" id="syllB">
-                        <div class="menu-text">Syllabus</div>
-                    </li> -->
                 </ul>
             </nav>
         </div>
-        <!-- <div class="row row-three d-none" id='secT'>
-            <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 mb-5 p-2">
-                <div class="heading-2 p-2">Add Section</div>
-                <div class="dropdown-divider"></div>
-                <div class="p-1">
-                    <div class="heading-2 p-1">Section Name</div>
-                    <div class="p-1"><input type="text" class="form-control text-1"></div>
-                </div>
-                <div class="dropdown-divider"></div>
-                <div class="float-right p-1"><button class="btn save">Save</button></div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-1 col-lg-1"></div>
-            <div class="col-12 col-sm-12 col-md-7 col-lg-7 part-2 p-2">
-                <div class="heading-2 p-2">All Section List</div>
-                <div class="dropdown-divider"></div>
-                <div class="p-2"><input type="search" name="" id="" class="form-control text-1"
-                        placeholder="Search Sections list"></div>
-                <div class="col-12">
-                    <div class="table-responsive">
-                        <table class="table text-center">
-                            <thead>
-                                <tr>
-                                    <th>Sections</th>
-                                    <th colspan="2">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td><i class="fas fa-pen actions"></i></td>
-                                    <td><i class="fas fa-trash actions"></i></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         {% if not request.GET.type %}
         <div class="row row-3 p-4" id="classT">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 part-1 mb-5 p-2">
@@ -240,8 +196,6 @@
             <div class="col-12 part-1 p-2">
                 <div class="heading-3 p-2">Assign Teachers</div>
                 <div class="dropdown-divider"></div>
-                <!-- <div class="p-2"><input type="search" name="" id="" class="form-control text-1" placeholder="Search list">
-                </div> -->
                 <div class="col-12">
                     <div class="table-responsive">
                         <table class="table text-center">
