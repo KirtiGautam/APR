@@ -119,7 +119,6 @@
                         <span class="chapter">{{key.lesson.Name}}</span>
                     </div>
                 </div>
-                <!-- <a href="{% url 'homework:video' key.id %}">{{key.Name}}</a> -->
                 {% endfor %}
                 {% for key in homework.homework_Test.all %}
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-5">
@@ -131,9 +130,6 @@
                             <span class="row homework-row-head pl-3 pr-3 pt-1">
                                 <span class="test-text-left col-10 text-truncate">{{key.question.all.count}}
                                     Questions</span>
-                                <!-- <span class="checkbox round col-2">
-                                    <input type="checkbox" name="" id="">
-                                </span> -->
                             </span>
                             <span class="row homework-row-foot pl-3 pr-3">
                                 <span class="col-12 text-truncate">{% if key.final %}Final Test{% else %}Practice
@@ -182,10 +178,6 @@
             </div>
         </div>
         {% if user.admin %}
-        <!-- <div class="row forth mb-3">
-            <div class="col-6 col-sm-6 col-md-8 col-lg-9"></div>
-            <button class="btn home-save col-5 col-sm-5 col-md-3 col-lg-2 p-2">Save</button>
-        </div> -->
         {% endif %}
         {% include 'homeworks/addresource.html' %}
     </div>
