@@ -8,14 +8,14 @@
   <div class="row leftside js-fullheight">
     <ul class="list-unstyled">
       <li class="text-center">
-        <img src="{% static 'Images/leftnav/avatar.png' %}" alt="" class="col-6 col-sm-8 col-md-8 col-lg-8" />
+        <img src="{% if user.avatar %}{{user.avatar.url}}{% else %}{% static 'Images/leftnav/avatar.png' %}{% endif %}" alt="" class="col-6 col-sm-8 col-md-8 col-lg-8" id="lf-us-dp-pic" />
       </li>
       <li class="text-center">
         <div class="name col-12">{{user.get_full_name}}</div>
       </li>
-      <!-- <li class="text-center">
-        <button class="btn view-profile col-9">View Profile</button>
-      </li> -->
+      <li class="text-center">
+        <a href="{% url 'accounts:profile' %}" class="btn view-profile col-9">View Profile</a>
+      </li>
       <li class="mt-2">
         <div class="dropdown-divider mt-4 mb-4"></div>
       </li>

@@ -5,6 +5,17 @@ from django import http
 from django.contrib import messages
 
 
+def profile(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            user = request.user
+            user.avatar = request.FILES['dp']
+            user.save()
+            return http.JsonResponse(user.avatar.url, safe=False)
+        return render(request, 'settings/user/profile.html')
+    return redirect('accounts:login')
+
+
 def classes(request):
     if request.user.is_authenticated and request.user.admin:
         data = {
