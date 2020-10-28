@@ -1,0 +1,168 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+</head>
+
+{% include "common/header.html" %}
+<div class="col-10 col-sm-4 col-md-3 col-lg-2 float-left left">
+    {% include "home/leftside.html" %}
+</div>
+
+<div class="content">
+    <div class="container-fluid">
+
+        <h1>Popularity</h1>
+        <div id="container" style="width: 50%;">
+            <canvas id="popularity-chart"></canvas>
+        </div>
+        Your popularity is {% if popularity.mine > popularity.average %}more{% else %}less{% endif %} than average
+        popularity.
+
+        <h1>Lectures</h1>
+        <div id="lec-container" style="width: 50%;">
+            <canvas id="lecture-chart"></canvas>
+        </div>
+        You attended {% if lectures.mine > lectures.average %}more{% else %}less{% endif %} lectures than average
+        student.
+
+        <h1>Social</h1>
+        <div id="soc-container" style="width: 50%;">
+            <canvas id="social-chart"></canvas>
+        </div>
+        You are {% if social.mine > social.average %}more{% else %}less{% endif %} social than average student.
+
+        <h1>Comprehensive Skills</h1>
+        <div id="comp-container" style="width: 50%;">
+            <canvas id="comprehension-chart"></canvas>
+        </div>
+        You have {% if comprehensive.mine > comprehensive.average %}more{% else %}less{% endif %} comprehensive skills
+        than
+        average student.
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+    $(function () {
+        //Popularity Graph
+        var $populationChart = $("#popularity-chart");
+
+
+        var ctx = $populationChart[0].getContext("2d");
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['{{user.get_full_name}}', 'Average'],
+                datasets: [{
+                    label: 'Popularity',
+                    backgroundColor: ['purple', 'lightgreen',],
+                    data: [{{ popularity.mine }}, {{ popularity.average }}],
+            barThickness: 20,
+        }]
+            },
+        options: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true,
+            text: 'Popularity Bar Chart'
+        }
+    }
+        });
+
+    //Lecture Graph
+    var $populationChart = $("#lecture-chart");
+
+
+    var ctx = $populationChart[0].getContext("2d");
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['{{user.get_full_name}}', 'Average'],
+            datasets: [{
+                label: 'Lectures',
+                backgroundColor: ['purple', 'lightgreen',],
+                data: [{{ lectures.mine }}, {{ lectures.average }}],
+        barThickness: 20,
+    }]
+            },
+        options: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true,
+            text: 'Lectures Bar Chart'
+        }
+    }
+        });
+
+    //Lecture Graph
+    var $populationChart = $("#comprehension-chart");
+
+
+    var ctx = $populationChart[0].getContext("2d");
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['{{user.get_full_name}}', 'Average'],
+            datasets: [{
+                label: 'Comprehensive Skills',
+                backgroundColor: ['purple', 'lightgreen',],
+                data: [{{ comprehensive.mine }}, {{ comprehensive.average }}],
+        barThickness: 20,
+    }]
+            },
+        options: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true,
+            text: 'Comprehensive Skills Bar Chart'
+        }
+    }
+        });
+
+    //Lecture Graph
+    var $populationChart = $("#social-chart");
+
+
+    var ctx = $populationChart[0].getContext("2d");
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['{{user.get_full_name}}', 'Average'],
+            datasets: [{
+                label: 'Social Skills',
+                backgroundColor: ['purple', 'lightgreen',],
+                data: [{{ social.mine }}, {{ social.average }}],
+        barThickness: 20,
+    }]
+            },
+        options: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true,
+            text: 'Social Bar Chart'
+        }
+    }
+        });
+
+    });
+</script>
+{% endblock %}
