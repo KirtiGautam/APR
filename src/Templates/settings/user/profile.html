@@ -1,0 +1,113 @@
+{% extends 'common/master.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+    <link rel="stylesheet" href="{% static 'css/studentStats.css' %}">
+</head>
+
+{% include "common/header.html" %}
+<div class="col-10 col-sm-4 col-md-3 col-lg-2 float-left left">
+    {% include "home/leftside.html" %}
+</div>
+
+<div class="content">
+    <div class="container-fluid">
+        <img src="{% if user.avatar %}{{user.avatar.url}}{% else %}{% static 'Images/leftnav/avatar.png' %}{% endif %}"
+            alt="{{user.get_short_name}}" class="rounded-circle mx-auto d-block border border-dark"
+            style="height: 300px; width: 300px;" id="user-dp">
+        <button class="btn btn-primary" onclick="$('#dp').click()" id="cp-btn">Change picture</button>
+        <input type="file" class="d-none" id="dp" accept="image/*">
+        <button class="btn btn-primary d-none" type="button" disabled id="load-btn">
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Uploading, Please Wait...
+        </button>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>{{user.get_full_name}}</td>
+            </tr>
+            <tr>
+                <th>E-Mail</th>
+                <td>{{user.email}}</td>
+            </tr>
+            {% if user.user_type == "Student" %}
+            <tr>
+                <th>Gender</th>
+                <td>{{user.Student.get_gender_display}}</td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td>{{user.Student.dob}}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{user.Student.Address}}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{user.Student.City}}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{user.Student.State}}</td>
+            </tr>
+            <tr>
+                <th>District</th>
+                <td>{{user.Student.District}}</td>
+            </tr>
+            <tr>
+                <th>Pincode</th>
+                <td>{{user.Student.Pincode}}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{user.Student.Contact}}</td>
+            </tr>
+            <tr>
+                <th>Class</th>
+                <td>{{user.Student.Class.name}}</td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#dp').change(function () {
+            $('#cp-btn').addClass('d-none')
+            $('#load-btn').removeClass('d-none')
+            const img = this
+            console.log(img.files[0])
+            let fd = new FormData()
+            fd.append('dp', img.files[0])
+
+            $.ajax({
+                type: "POST",
+                headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+                url: "{% url 'accounts:profile' %}",
+                data: fd,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $('#cp-btn').removeClass('d-none')
+                    $('#load-btn').addClass('d-none')
+                    $('#user-dp, #lf-us-dp-pic').attr("src", data)
+                    img.value = '';
+                },
+                error: function (error) {
+                    img.value = '';
+                    $('#cp-btn').removeClass('d-none')
+                    $('#load-btn').addClass('d-none')
+                    alert(error.responseText);
+                },
+            });
+        });
+    })
+</script>
+
+
+{% endblock %}
