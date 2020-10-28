@@ -22,15 +22,6 @@
                         <img src="{% static 'Images/leftnav/avatar.png' %}" alt="{{post.Owner.get_short_name}}"
                             class="image-2" />
                         <div class="col-9 col-sm">
-                            <!-- <div class="col-12 float-right">{% if user.admin or user == post.Owner %}<a
-                                    href="{% url 'posts:delete' post.id %}" class="btn btn-danger">Delete</a>{% endif %}
-                                {% if user == post.Owner %}
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#exampleModal">
-                                    Edit
-                                </button>
-                                {% endif %}
-                            </div> -->
                             <div class="row row-14">
                                 <div class="text-4 col-6 col-md-4 text-truncate">{{post.Owner.get_full_name}}</div>
                                 <div class="text-5 col-6 col-md-3 text-truncate">{{post.Created}}</div>
