@@ -110,3 +110,59 @@ def deletePost(request, id):
         messages.success(request, 'Post Deleted')
         return redirect('accounts:dashboard')
     return redirect('accounts:login')
+
+
+def analysis(request):
+    if request.user.is_authenticated and request.user.user_type == 'Student':
+        user = request.user
+        from django.db.models import Avg, Max, Sum
+        from accounts.models import User
+        students = User.objects.filter(
+            user_type='Student', Student__Class=user.Student.Class, status="A")
+
+        # Comprehensive skills
+        average_posts = Post.objects.filter(
+            Owner__in=students).count()/students.count()
+        my_posts = user.Post.all().count()
+        print(round(average_posts, 2), my_posts)
+
+        # Social skills
+        post_coms = Comment.objects.filter(
+            Author__in=students).count()/students.count()
+        from lessons.models import Comment as LComm, pdfComment
+        les_vid_coms = LComm.objects.filter(
+            Author__in=students).count()/students.count()
+        les_pdf_coms = pdfComment.objects.filter(
+            Author__in=students).count()/students.count()
+        average_comments = sum([post_coms, les_vid_coms, les_pdf_coms])
+        my_comments = sum([user.Post_Comment.all().count(), user.lesson_video_comments.all(
+        ).count(), user.lesson_pdf_comments.all().count(), ])
+        print(round(average_comments, 2), my_comments)
+
+        # Popularity
+        from lessons.models import lesson_pdf_likes, lesson_video_likes
+        av_pdf_likes = lesson_pdf_likes.objects.filter(
+            pdfComment__Author__in=students).count() / students.count()
+        av_vid_likes = lesson_video_likes.objects.filter(
+            Comment__Author__in=students).count()/students.count()
+        my_likes = lesson_pdf_likes.objects.filter(pdfComment__Author=user).count(
+        )+lesson_video_likes.objects.filter(Comment__Author=user).count()
+        print(av_vid_likes+av_pdf_likes, my_likes)
+
+        # Lectures Attended
+        from lessons.models import user_progress_pdf, user_progress_video
+        av_pdf_prog = user_progress_pdf.objects.filter(
+            User__in=students).count()/students.count()
+        av_vid_prog = user_progress_video.objects.filter(
+            User__in=students).count()/students.count()
+        my_prog = user.read_lesson_pdf.all().count()+user.watched_lesson_video.all().count()
+
+        data = {
+            'popularity': {'mine': my_likes, 'average': round(av_vid_likes+av_pdf_likes, 2)},
+            'lectures': {'mine': my_likes, 'average': round(av_vid_prog+av_pdf_prog, 2)},
+            'social': {'mine': my_comments, 'average': round(average_comments, 2)},
+            'comprehensive': {'mine': my_posts, 'average': round(average_posts, 2)},
+        }
+
+        return render(request, 'analysis/index.html', data)
+    return redirect('accounts:login')
