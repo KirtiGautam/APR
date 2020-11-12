@@ -46,7 +46,8 @@
                                 <td id="cell{{exam.id}}">{{exam.Name}}</td>
                                 <td><button class="edit-this-type btn" id="{{exam.id}}"><i
                                             class="fas fa-pen actions"></i></button></td>
-                                <form action="{% url 'exam:delete-exam-type' %}" method="post">
+                                <form action="{% url 'exam:delete-exam-type' %}" method="post"
+                                    onsubmit="return confirmDelete();">
                                     {% csrf_token %}
                                     <td><button type="submit" value="{{exam.id}}" class="btn" name="id"><i
                                                 class="fas fa-trash actions"></i></button></td>

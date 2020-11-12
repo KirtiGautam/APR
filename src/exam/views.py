@@ -347,7 +347,7 @@ def finishPaper(request, id):
                 for y in paper.Question.all():
                     lis.append(StudentAttempt(Student=x, Question=y))
             StudentAttempt.objects.bulk_create(lis)
-        return redirect('exam:edit-paper', id=paper.id)
+        return redirect('exam:papers', id=paper.Exam.id)
     return http.HttpResponseForbidden("Not Allowed")
 
 

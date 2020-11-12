@@ -16,3 +16,6 @@ const check = () => {
   }
   return true;
 };
+
+const confirmDelete = () =>
+  confirm("Are you sure you want to delete this exam type?");

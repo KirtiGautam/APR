@@ -27,24 +27,24 @@ def getUsers(request):
     if request.user.is_authenticated:
         if request.user.admin:
             data = {
-                'users': [{'id': user.id, 'name': user.get_full_name()} for user in User.objects.filter(status='A', first_name__icontains=request.GET['q']).exclude(id=request.user.id)]
+                'users': [{'id': user.id, 'name': user.get_full_name()} for user in User.objects.filter(Q(first_name__icontains=request.GET['q']) | Q(last_name__icontains=request.GET['q']), status='A').exclude(id=request.user.id)]
             }
         elif request.user.is_staff:
-            users = [{'id': user.id, 'name': user.get_full_name()} for user in User.objects.filter(
-                status='A', Student__Class__Subject__in=request.user.teacher.all(), first_name__icontains=request.GET['q'])]
-            for user in User.objects.filter(status='A', is_staff=True, first_name__icontains=request.GET['q']).exclude(id=request.user.id):
+            users = [{'id': user.id, 'name': user.get_full_name()} for user in User.objects.filter(Q(first_name__icontains=request.GET['q']) | Q(
+                last_name__icontains=request.GET['q']), status='A', Student__Class__Subject__in=request.user.teacher.all(), )]
+            for user in User.objects.filter(Q(first_name__icontains=request.GET['q']) | Q(last_name__icontains=request.GET['q']), status='A', is_staff=True, ).exclude(id=request.user.id):
                 users.append({'id': user.id, 'name': user.get_full_name()})
-            for user in User.objects.filter(status='A', admin=True, first_name__icontains=request.GET['q']):
+            for user in User.objects.filter(Q(first_name__icontains=request.GET['q']) | Q(last_name__icontains=request.GET['q']), status='A', admin=True, ):
                 users.append({'id': user.id, 'name': user.get_full_name()})
             data = {
                 'users': users
             }
         else:
             users = [{'id': user.id, 'name': user.get_full_name(
-            )} for user in User.objects.filter(teacher__in=request.user.Student.Class.Subject.all(), first_name__icontains=request.GET['q'], status='A')]
-            for user in User.objects.filter(Student__Class=request.user.Student.Class, first_name__icontains=request.GET['q'], status='A').exclude(id=request.user.id):
+            )} for user in User.objects.filter(Q(first_name__icontains=request.GET['q']) | Q(last_name__icontains=request.GET['q']), teacher__in=request.user.Student.Class.Subject.all(),  status='A')]
+            for user in User.objects.filter(Q(first_name__icontains=request.GET['q']) | Q(last_name__icontains=request.GET['q']), Student__Class=request.user.Student.Class,  status='A').exclude(id=request.user.id):
                 users.append({'id': user.id, 'name': user.get_full_name()})
-            for user in User.objects.filter(admin=True, first_name__icontains=request.GET['q'], status='A'):
+            for user in User.objects.filter(Q(first_name__icontains=request.GET['q']) | Q(last_name__icontains=request.GET['q']), admin=True,  status='A'):
                 users.append({'id': user.id, 'name': user.get_full_name()})
             data = {
                 'users': users
@@ -165,11 +165,11 @@ def convos(request):
                 Recipient__Recipient=request.user), Recipient__Group__isnull=True).order_by('-Created')
             for message in messages:
                 if message.Sender == request.user:
-                    if message.Recipient.all().first().Recipient not in conversations:
+                    if message.Recipient.all().first().Recipient.id not in conversations:
                         conversations[message.Recipient.all(
                         ).first().Recipient.id] = message
                 else:
-                    if message.Sender not in conversations:
+                    if message.Sender.id not in conversations:
                         conversations[message.Sender.id] = message
             renderData = {'conversations': conversations, 'group': False}
         data = {
@@ -208,7 +208,6 @@ def oldMessages(request):
         }
         return http.JsonResponse(data)
     return http.HttpResponseForbidden("Not allowed")
-
 
 
 def makeAnnouncement(request):

@@ -1,9 +1,14 @@
+let inter;
+let loaded = false;
+let offset = 1;
+
 const getChatList = () => {
   $.ajax({
     type: "GET",
     url: "/get-conversations",
     dataType: "json",
     success: (data) => {
+      setTimeout(getChatList, 5000);
       const el = $("#modal-container-div");
       $("#conversations-box").html(data.body).append(el);
       if ($("#reciever-id").val())
@@ -17,7 +22,6 @@ const getChatList = () => {
   });
 };
 getChatList();
-const chatList = setInterval(getChatList, 5000);
 
 const search = (val = "") => {
   $.ajax({
@@ -49,6 +53,7 @@ const getNewMessages = (id) => {
     },
     dataType: "json",
     success: (data) => {
+      setTimeout(() => getNewMessages(id), 5000);
       $("#reciever-status").html(data.status);
       $("#messages-box").append(data.messages);
     },
@@ -57,10 +62,6 @@ const getNewMessages = (id) => {
     },
   });
 };
-
-let inter;
-let loaded = false;
-let offset = 1;
 
 const loadOld = () => {
   loaded = false;
@@ -104,13 +105,13 @@ const startChat = (id) => {
       $("#reciever-id").val(id);
       loaded = true;
       offset = 1;
-      clearInterval(inter);
-      inter = setInterval(() => getNewMessages(id), 5000);
+      clearTimeout(inter);
+      inter = setTimeout(() => getNewMessages(id), 5000);
       $("#no-rec-sel").addClass("d-none");
       $("#main-box").removeClass("d-none");
       setTimeout(() => {
         var el = document.getElementById("messages-box");
-        el.scrollIntoView({ block: 'end',  behavior: 'smooth' });
+        el.scrollIntoView({ block: "end", behavior: "smooth" });
       }, 100);
     },
     error: function (error) {
