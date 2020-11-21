@@ -224,7 +224,8 @@
                 <div id="status" class="ftext-3"></div>
                 <p id="loaded_n_total" class="ftext-3"></p>
             </div>
-            <canvas id="the-canvas" class="col-12 mt-2 mb-5 frow-4"></canvas>
+            <iframe id="the-canvas" src="" class="col-12 mt-2 mb-5 frow-4"></iframe>
+            <!-- <canvas id="the-canvas" class="col-12 mt-2 mb-5 frow-4"></canvas> -->
         </div>
     </div>
 </div>
@@ -241,7 +242,7 @@
 <script src="{% static 'js/exam/student.js' %}"></script>
 
 <script>
-    {% if paper.Proctored %}
+    {% if paper.Proctored and not paper.File %}
     $(window).blur(function () {
         $.ajax({
             type: "POST",
@@ -260,7 +261,8 @@
     let timeLeft = '{{Time|date:"Y-m-d"}}T{{Time|date:"G:i:s"}}';
     {% if paper.File and attemp.File %}
     $(function () {
-        showpdf('{{attemp.File.url}}')
+        $('#the-canvas').attr('src', '{{attemp.File.url}}');
+        // showpdf('{{attemp.File.url}}')
     })
     {% endif %}
 </script>

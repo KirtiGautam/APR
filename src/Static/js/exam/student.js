@@ -82,7 +82,8 @@ function progressHandler(event) {
 }
 
 function completeHandler(event) {
-  showpdf(JSON.parse(event.target.responseText));
+  $("#the-canvas").attr("src", JSON.parse(event.target.responseText));
+  // showpdf(JSON.parse(event.target.responseText));
   _("progressBar").value = 0; //wil clear progress bar after successful upload
   $("#file-submission").val("");
 }

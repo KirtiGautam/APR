@@ -698,7 +698,7 @@ def paperDetails(request):
         paper = Paper.objects.get(id=request.GET['id'])
         return http.JsonResponse(({
             'id': paper.id,
-            'Scheduled_on': paper.Scheduled_on,
+            'Scheduled_on': paper.Scheduled_on+datetime.timedelta(hours=5, minutes=30),
             'Duration': paper.Duration,
             'Max_Marks': paper.Max_Marks,
             'Pass_Marks': paper.Pass_Marks,
