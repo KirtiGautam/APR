@@ -20,8 +20,7 @@
                 {{paper.Subject.Name}}
             </div>
             <div class="col-12 col-sm-12 col-md-4">
-                <button class="btn button-2" id="publish_btn">{% if paper.Result %}Un{% endif %}Publish
-                    Result</button>
+                <button class="btn button-2" id="publish_btn">Publish Result:{% if paper.Result %} Yes {% else %} No{% endif %}</button>
             </div>
         </div>
         <div class="row row-2">
