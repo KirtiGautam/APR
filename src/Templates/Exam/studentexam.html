@@ -106,7 +106,7 @@
                                 {% if Question|attempted:user and Question|which:user == option %}checked{% endif %}>
                         </div>
                         <div class="col-1 mt-1 mb-1">{% cycle 'A' 'B' 'C' 'D' %}</div>
-                        <div class="col-11 mt-1 mb-1">{{option.Text}}{% if option.Asset %}<img
+                        <div class="col-10 mt-1 mb-1">{{option.Text}}{% if option.Asset %}<img
                                 src="{{option.Asset.url}}" alt="option asset" class="col-12">{% endif %}</div>
                         {% endfor %}
                         {% elif Question.Type == "U" %}

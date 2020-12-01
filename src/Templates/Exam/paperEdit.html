@@ -8,206 +8,269 @@
 {% include "common/header.html" %}
 <div class="content">
     <div class="container-fluid">
-        <div class="row row-1 text-center">
-            <div class="col-2 col-sm-1">
-                <a href="{% url 'exam:papers' paper.Exam.id %}">
-                    <button class="btn button-1" title="Back">
-                        <i class="fas fa-arrow-alt-circle-left"></i>
-                    </button>
-                </a>
+        <div class="row row-1">
+            <div class="col-9">
+                <div class="row">
+                    <div class="col-2 col-sm-1 text-truncate">
+                        <a href="{% url 'exam:papers' paper.Exam.id %}">
+                            <button class="btn button-1" title="Back">
+                                <i class="fas fa-arrow-alt-circle-left"></i>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-7 text-truncate text-1">
+                        Question Paper setting | {{paper.Subject.Name}}
+                    </div>
+                    <div class="col-4 text-truncate text-right">
+                        <button class="btn button-2" onclick="$('#db_imp').modal()">Import from
+                            Database</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-10 col-sm-11 col-md-3 text-truncate text-1">
-                Question Paper setting | {{paper.Subject.Name}}
-            </div>
-            <div class="col-6 col-md-2"><button class="btn button-2" onclick="$('#db_imp').modal()">Import from
-                    Database</button></div>
-            <div class="col-6 col-md-2"><button onclick="markAsFile({{paper.id}}, this);" class="btn button-2"
-                    title="Answers will be submitted as single .pdf file">Mark{% if paper.File %}ed{% endif %} as File
-                    Submission</button></div>
-            <div class="col-6 col-md-2"><button class="btn button-2" id="proctored_btn">Mark as
-                    {% if paper.Proctored %}Un{% endif %}Proctored Exam</button></div>
-            <div class="col-6 col-md-2">
-                <button class="btn button-2">Total duration : {{paper.Duration}} mins</button>
+            <div class="col-3 row-2">
+                <div class="col-12 text-right">
+                    {% if not paper.Published %}<a href="{% url 'exam:finish-paper-edit' paper.id %}"><button
+                            class="btn button-3">Finish</button></a>{% endif %}
+                </div>
             </div>
         </div>
-        <div class="row row-2">
-            <div class="col-12 row-2-1">
+        <div class="row row-4">
+            <div class="col-9 row-4">
                 {% for question in paper.Question.all|dictsort:"SNo" %}
-                <div class="row row-2-1-1">
-                    <div class="text-2 col-1 text-right">Q{{question.SNo}}.</div>
-                    <div class="col-7">
-                        {% if question.Type == "O" %}
-                        <div class="row">
-                            <div class="text-3 col-12 mb-2">
-                                {{question.Text}}
-                                {% if question.Asset %}
-                                <img src="{{question.Asset.url}}" alt="question" class="col-12">
-                                {% endif %}
-                            </div>
-
-                            {% for option in question.Option.all %}
-                            <div class="col-3 col-sm-1 mb-2">
-                                <div
-                                    class=" text-4 text-4{% if option.id == question.Answer.Option.id %}-correct{% endif %}">
-                                    {% cycle 'A' 'B' 'C' 'D' %}</div>
-                            </div>
-                            <div class="col-9 col-sm-11 text-5 mb-2">
-                                {{option.Text}}
-                                {% if option.Asset %}
-                                <img src="{{option.Asset.url}}" alt="question" class="col-12">
-                                {% endif %}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <div class="col-12 text-8">Solution</div>
-                        <div class="col-12 text-9">
-                            {{question.Answer.Explanation}}
-                            {% if question.Answer.Asset %}
-                            <img src="{{question.Answer.Asset.url}}" alt="question" class="col-12">
-                            {% endif %}
-                        </div>
-                        {% elif question.Type == "S" %}
-                        <div class="row">
-                            <div class="text-3 col-12">
-                                {{question.Text}}
-                            </div>
-                            {% if question.Asset %}
-                            <div class="text-3 col-12">
-                                <img src="{{question.Asset.url}}" alt="question" class="col-12">
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-12 text-8">Solution</div>
-                        <div class="col-12 text-9">
-                            {{question.Answer.Explanation}}
-                        </div>
-                        {% elif question.Type == "L" %}
-                        <div class="row">
-                            <div class="text-3 col-12">
-                                {{question.Text}}
-                            </div>
-                            {% if question.Asset %}
-                            <div class="text-3 col-12">
-                                <img src="{{question.Asset.url}}" alt="question" class="col-12">
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-12 text-8">Solution</div>
-                        <div class="col-12 text-9">
-                            {{question.Answer.Explanation}}
-                        </div>
-                        {% else %}
-                        <div class="row">
-                            <div class="text-3 col-12">
-                                {{question.Text}}
-                            </div>
-                            {% if question.Asset %}
-                            <div class="text-3 col-12">
-                                <img src="{{question.Asset.url}}" alt="question" class="col-12">
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-12 text-8">Solution</div>
-                        {% for blank in question.Answer.get_blanks %}
-                        <div class="col-12 text-9">
-                            {{forloop.counter}}. {{blank}}
-                        </div>
-                        {% endfor %}
+                {% if question.Type == "O" %}
+                <div class="row row-3">
+                    <div class="col-1 text-3 text-right">Q{{question.SNo}}.</div>
+                    <div class="col-6 text-6">
+                        {{question.Text}}
+                        {% if question.Asset %}
+                        <img src="{{question.Asset.url}}" alt="question" class="col-12">
                         {% endif %}
                     </div>
-                    <div class="col-3 p-0">
-                        <div class="row">
-                            <div class="col-4 text-center">
-                                <span class="form-control text-6">{{question.Correct}}</span>
-                                <div class="text-7">Correct</div>
-                            </div>
-                            <div class="col-4 text-center">
-                                <span class="form-control text-6">{{question.Incorrect}}</span>
-                                <div class="text-7">Incorrect</div>
-                            </div>
-                            <div class="col-4 text-center">
-                                <span class="form-control text-6">{{question.Unattempted}}</span>
-                                <div class="text-7">Unattempted</div>
-                            </div>
-                            <div class="col-4 text-center">
-                                <button class="btn text-6" onclick="getQuestion({{question.id}});"><i
-                                        class="fas fa-pen"></i></button>
-                                <div class="text-7">Edit</div>
-
-                            </div>
-                            <div class="col-4 text-center">
-                                <a href="{% url 'exam:delete-question' question.id %}"><button class="btn text-6"><i
-                                            class="far fa-times-circle"></i></button></a>
-                                <div class="text-7">Delete</div>
-
-                            </div>
-                        </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Correct}}</span>
+                        <div class="text-8">Correct</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Incorrect}}</span>
+                        <div class="text-8">Incorrect</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Unattempted}}</span>
+                        <div class="text-8">Unattempted</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <button class="btn text-7" onclick="getQuestion({{question.id}});"><i
+                                class="fas fa-pen"></i></button>
+                        <div class="text-8">Edit</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <a href="{% url 'exam:delete-question' question.id %}"><button class="btn text-7">
+                                <i class="fas fa-trash"></i>
+                            </button></a>
+                        <div class="text-8">Delete</div>
+                    </div>
+                    {% for option in question.Option.all %}
+                    <div class="col-1"></div>
+                    <div class="col-1">
+                        <div class="text-11 text-11{% if option.id == question.Answer.Option.id %}-correct{% endif %}">
+                            {% cycle 'A' 'B' 'C' 'D' %}</div>
+                    </div>
+                    <div class="col-7">
+                        {{option.Text}}
+                        {% if option.Asset %}
+                        <img src="{{option.Asset.url}}" alt="question" class="col-12">
+                        {% endif %}
+                    </div>
+                    <div class="col-3"></div>
+                    {% endfor %}
+                    <div class="col-12 text-9">Solution</div>
+                    <div class="col-12 text-10">
+                        {{question.Answer.Explanation}}
+                        {% if question.Answer.Asset %}
+                        <img src="{{question.Answer.Asset.url}}" alt="question" class="col-12">
+                        {% endif %}
                     </div>
                 </div>
+                {% elif question.Type == "S" %}
+                <div class="row row-3">
+                    <div class="col-1 text-3 text-right">Q{{question.SNo}}</div>
+                    <div class="col-6 text-6">
+                        {{question.Text}}
+                        {% if question.Asset %}
+                        <img src="{{question.Asset.url}}" alt="question" class="col-12">
+                        {% endif %}
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Correct}}</span>
+                        <div class="text-8">Correct</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Incorrect}}</span>
+                        <div class="text-8">Incorrect</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Unattempted}}</span>
+                        <div class="text-8">Unattempted</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <button class="btn text-7" onclick="getQuestion({{question.id}});"><i
+                                class="fas fa-pen"></i></button>
+                        <div class="text-8">Edit</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <a href="{% url 'exam:delete-question' question.id %}"><button class="btn text-7">
+                                <i class="fas fa-trash"></i>
+                            </button></a>
+                        <div class="text-8">Delete</div>
+                    </div>
+                    <div class="col-12 text-9">Solution</div>
+                    <div class="col-12 text-10">{{question.Answer.Explanation}}</div>
+                </div>
+                {% elif question.Type == "L" %}
+                <div class="row row-3">
+                    <div class="col-1 text-3 text-right">Q{{question.SNo}}</div>
+                    <div class="col-6 text-6">
+                        {{question.Text}}
+                        {% if question.Asset %}
+                        <img src="{{question.Asset.url}}" alt="question" class="col-12">
+                        {% endif %}
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Correct}}</span>
+                        <div class="text-8">Correct</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Incorrect}}</span>
+                        <div class="text-8">Incorrect</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Unattempted}}</span>
+                        <div class="text-8">Unattempted</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <button class="btn text-7" onclick="getQuestion({{question.id}});"><i
+                                class="fas fa-pen"></i></button>
+                        <div class="text-8">Edit</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <a href="{% url 'exam:delete-question' question.id %}"><button class="btn text-7">
+                                <i class="fas fa-trash"></i>
+                            </button></a>
+                        <div class="text-8">Delete</div>
+                    </div>
+                    <div class="col-12 text-9">Solution</div>
+                    <div class="col-12 text-10">{{question.Answer.Explanation}}</div>
+                </div>
+                {% else %}
+                <div class="row row-3">
+                    <div class="col-1 text-3 text-right">Q{{question.SNo}}</div>
+                    <div class="col-6 text-6">
+                        {{question.Text}}
+                        {% if question.Asset %}
+                        <img src="{{question.Asset.url}}" alt="question" class="col-12">
+                        {% endif %}
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Correct}}</span>
+                        <div class="text-8">Correct</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Incorrect}}</span>
+                        <div class="text-8">Incorrect</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="btn text-7">{{question.Unattempted}}</span>
+                        <div class="text-8">Unattempted</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <button class="btn text-7" onclick="getQuestion({{question.id}});"><i
+                                class="fas fa-pen"></i></button>
+                        <div class="text-8">Edit</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <a href="{% url 'exam:delete-question' question.id %}"><button class="btn text-7"><i
+                                    class="fas fa-trash"></i></button></a>
+                        <div class="text-8">Delete</div>
+                    </div>
+                    <div class="col-12 text-9">Solution</div>
+                    {% for blank in question.Answer.get_blanks %}
+                    <div class="col-12 text-10">{{forloop.counter}}. {{blank}}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
                 {% endfor %}
                 <div class="col-12 text-center">
-                    <button class="btn button-3" onclick="$('#question-modal').modal()">Add New</button>
+                    <button class="btn button-5" onclick="$('#question-modal').modal()">Add New</button>
                 </div>
             </div>
-        </div>
-        <div class="row row-3">
-            Max Marks: {{paper.Max_Marks}}
-            {% for section in paper.Section.all %}
-            <div class="row-3-2">
-                <div class="row row-3-2-10">
-                    <div class="text-3-1 col-12">Section {{forloop.counter}}</div>
-                    <div class="text-3-2 col-12">Question Range</div>
-                    <form action="{% url 'exam:edit-section' section.id %}" method="post"
-                        onsubmit="return newSectionCheck({{section.id}});">
-                        {% csrf_token %}
-                        <div class="col-12">
-                            <div class="row row-3-2-50">
-                                <div class="col-5">
-                                    <input type="text" name="start_number{{section.id}}" id="start_number{{section.id}}"
-                                        class="form-control text-3-3" value="{{section.Start}}">
-                                </div>
-                                <div class="col-2 text-center text-2-4">-</div>
-                                <div class="col-5">
-                                    <input type="text" name="end_number{{section.id}}" id="end_number{{section.id}}"
-                                        class="form-control text-3-3" value="{{section.End}}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 text-right">
-                            <button type="submit" class="btn button-3-1">Save</button>
-                        </div>
-                    </form>
+            <div class="col-3 row-4">
+                <div class="row row-5">
+                    <div class="col-12 text-2">
+                        Exam Settings
+                    </div>
+                    <div class="col-12">
+                        <button class="btn button-2 col-12">Max Marks: {{paper.Max_Marks}}</button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn button-2 col-12">Total duration : {{paper.Duration}} mins</button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn button-2 col-12" id="proctored_btn">Proctored Exam:
+                            {% if paper.Proctored %}Yes{% endif %}No</button>
+                    </div>
+                    <div class="col-12">
+                        <button onclick="markAsFile({{paper.id}}, this);" class="btn button-2 col-12"
+                            title="Answers will be submitted as single .pdf file">File
+                            Submission: {% if paper.File %}Yes{% endif %}No </button>
+                    </div>
+                    <div class="col-12 text-2 mt-5">
+                        All Sections
+                    </div>
+                    <div class="col-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col" colspan="2"><span class="text-3">Question Range</span></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for section in paper.Section.all %}
+                                <tr>
+                                    <td><span class="text-4">Section {{forloop.counter}}</span></td>
+                                    <form action="{% url 'exam:edit-section' section.id %}" method="post"
+                                        onsubmit="return newSectionCheck({{section.id}});">
+                                        {% csrf_token %}
+                                        <td><input type="text" name="start_number{{section.id}}"
+                                                id="start_number{{section.id}}" class="form-control text-5"
+                                                value="{{section.Start}}"></td>
+                                        <td><input type="text" name="end_number{{section.id}}"
+                                                id="end_number{{section.id}}" class="form-control text-5"
+                                                value="{{section.End}}"></td>
+                                        <td><button type="submit" class="btn button-4">Save</button></td>
+                                    </form>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td><span class="text-4">Section {{paper.Section.all.count|add:"1"}}</span></td>
+                                    <form action="{% url 'exam:add-section' %}" method="post"
+                                        onsubmit="return newSectionCheck('');">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="hidden_section_paper_id" value="{{paper.id}}">
+                                        <td><input type="text" name="start_number" id="start_number"
+                                                class="form-control text-5"></td>
+                                        <td><input type="text" name="end_number" id="end_number"
+                                                class="form-control text-5"></td>
+                                        <td>
+                                            <button type="submit" class="btn button-4">Save</button>
+                                        </td>
+                                    </form>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            {% endfor %}
-            <div class="row-3-2">
-                <div class="row row-3-2-10">
-                    <div class="text-3-1 col-12">Section {{paper.Section.all.count|add:"1"}}</div>
-                    <div class="text-3-2 col-12">Question Range</div>
-                    <form action="{% url 'exam:add-section' %}" method="post" onsubmit="return newSectionCheck('');">
-                        {% csrf_token %}
-                        <div class="col-12">
-                            <div class="row row-3-2-50">
-                                <div class="col-5">
-                                    <input type="hidden" name="hidden_section_paper_id" value="{{paper.id}}">
-                                    <input type="text" name="start_number" id="start_number"
-                                        class="form-control text-3-3">
-                                </div>
-                                <div class="col-2 text-center text-2-4">-</div>
-                                <div class="col-5">
-                                    <input type="text" name="end_number" id="end_number" class="form-control text-3-3">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 text-right">
-                            <button type="submit" class="btn button-3-1">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-12 text-right">
-                {% if not paper.Published %}<a href="{% url 'exam:finish-paper-edit' paper.id %}"><button
-                        class="btn button-3-1">Finish</button></a>{% endif %}
             </div>
         </div>
     </div>

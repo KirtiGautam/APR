@@ -1,11 +1,41 @@
+html,body,.content,.container-fluid{
+  height: 100%;
+  overflow-y: auto;
+}
+
 .content {
   margin-left: 0 !important;
 }
 
-.colu {
-  background: transparent
-    linear-gradient(180deg, #a9c7ff 0%, #c0e3ff 35%, #ffffff 100%) 0% 0%
-    no-repeat padding-box;
+.row-1 {
+  border-bottom: 1px solid #e3e0f3;
+}
+
+.row-2 {
+  border-left: 1px solid #e3e0f3;
+  background: #F5F8FA 0% 0% no-repeat padding-box;
+}
+
+.row-3 {
+  background: transparent linear-gradient(120deg, #5387ED 0%, #44CADF 100%) 0% 0% no-repeat padding-box;
+  padding: 20px;
+  margin: 10px;
+}
+
+.row-4 {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  padding: 5px;
+}
+
+.row-5{
+  height: 90%;
+  overflow-y: auto;
+}
+
+.row-6{
+  height: 100%;
+  overflow-y: auto;
 }
 
 .button-1 {
@@ -32,164 +62,139 @@
   padding-top: 8px;
 }
 
-.text-4 {
-  color: #ffffff;
-  font-size: 12px;
+.text-2 {
+  color: #5387ED;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  padding: 5px 10px;
+  font-size: 30px;
+  margin-top: 20px;
 }
 
-.text-6 {
+.text-3 {
+  color: #767676;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.text-4 {
   color: #ffffff;
-  font-size: 25px;
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  padding: 5px 10px;
+  padding: 5px
 }
 
 .text-5 {
   color: #ffffff;
-  font-size: 10px;
+  font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
-  text-align: right;
-  padding: 5px 10px;
+  padding: 5px
+}
+
+.text-6 {
+  color: #ffffff;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 5px
 }
 
 .text-7 {
-  color: #e6ecf0;
-  font-size: 12px;
+  color: #FFFFFF;
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  padding: 5px 10px;
+  padding: 5px
 }
 
 .text-8 {
-  color: #fff700;
-  font-size: 12px;
+  color: #FFC655;
+  font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 5px 10px;
+  padding: 5px
 }
 
 .text-9 {
-  color: #ffdbdb;
-  font-size: 12px;
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: right;
-  padding: 5px 10px;
-}
-
-.row-1 {
-  border-bottom: 1px solid #e3e0f3;
-}
-
-.row-2 {
-  padding: 10px;
-}
-
-.progress1 {
-  margin-top: 100px;
-  -webkit-transform: rotate(-90deg);
-  height: 33px;
-  width: 168px;
-  background: #f4f4f4 0% 0% no-repeat padding-box;
-  border-radius: 3px;
-  box-shadow: 0px 3px 6px #00000029;
-}
-
-.progress-bar1 {
-  background: transparent linear-gradient(90deg, #41d5dd 0%, #5484ed 100%) 0% 0%
-    no-repeat padding-box;
-}
-
-.progress-text {
-  transform: rotate(0deg);
-  color: #767676;
-  font-size: 17px;
-  font-family: Arial, Helvetica, sans-serif;
-  position: absolute;
-  z-index: 5;
-}
-
-.progress-text1 {
-  transform: rotate(0deg);
-  color: #767676;
-  font-size: 14px;
-  font-family: Arial, Helvetica, sans-serif;
-  position: absolute;
-  z-index: 5;
-}
-
-.ptext-1 {
-  margin-top: -125px;
-  margin-left: 75px;
-}
-
-.ptext-2 {
-  margin-top: -125px;
-  margin-left: 75px;
-}
-
-.ptext-3 {
-  margin-top: -125px;
-  margin-left: 75px;
-}
-
-.ptext-4 {
-  margin-top: 70px;
-  margin-left: 65px;
-}
-
-.ptext-5 {
-  margin-top: 70px;
-  margin-left: 55px;
-}
-
-.ptext-6 {
-  margin-top: 70px;
-  margin-left: 70px;
-}
-
-.row-3 {
-  margin-top: 150px;
-  background: transparent linear-gradient(124deg, #5387ed 0%, #44cadf 100%) 0%
-    0% no-repeat padding-box;
-  padding: 10px;
-}
-
-.text-3 {
-  color: #376baa;
-  font-size: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 5px 10px;
-}
-
-.text-2 {
-  color: #717171;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 5px;
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 5px 10px;
+  margin: 5px;
 }
 
 .text-10 {
-  color: #717171;
-  font-size: 16px;
+  color: #7C7C7C;
+  font-size: 25px;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 5px 10px;
 }
 
-.progress2 {
-  background: #f4f4f4 0% 0% no-repeat padding-box;
+.text-11 {
+  color: #767676;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.text-12 {
+  color: #5387ED;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.text-passed {
+  color: #06B200;
+}
+
+.text-failed {
+  color: #F02323;
+}
+
+.button-2 {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #B3B6B8;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #376BAA;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.pro-1 {
+  background: #F4F4F4 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 3px;
+  height: 32px;
+  margin-bottom: 10px;
+}
+
+.probar-1 {
+  background: transparent linear-gradient(270deg, #5484ED 0%, #41D5DD 100%) 0% 0% no-repeat padding-box;
+}
+
+.pro-2 {
+  background: #F4F4F4 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid #E7E7E7;
+  border-radius: 3px;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.probar-2 {
+  background: transparent linear-gradient(270deg, #A46EFB 0%, #F794AA 100%) 0% 0% no-repeat padding-box;
+}
+
+.pro-3 {
+  background: #f1f1f1 0% 0% no-repeat padding-box;
+  border-radius: 2px;
   margin: 7px 10px;
+  height: 5px;
 }
 
-.progress-bar2 {
-  background: transparent linear-gradient(270deg, #a46efb 0%, #f794aa 100%) 0%
-    0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 3px;
+.probar-3 {
+  background: #fd9346 0% 0% no-repeat padding-box;
 }
 
 .ltext-1 {
@@ -205,12 +210,6 @@
   padding: 5px;
 }
 
-.row-4 {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 5px;
-}
-
 .ltext-2 {
   color: #112234;
   font-size: 15px;
@@ -218,18 +217,7 @@
 }
 
 .ltext-3 {
-    color: #112234;
-    font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-.progress3 {
-  background: #f1f1f1 0% 0% no-repeat padding-box;
-  border-radius: 2px;
-  margin: 7px 10px;
-  height: 5px;
-}
-
-.progress-bar3 {
-  background: #fd9346 0% 0% no-repeat padding-box;
+  color: #112234;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
 }
