@@ -2,8 +2,11 @@
   overflow-x: hidden;
 }
 
-.row-11,
-.row-12 {
+.cunt {
+  max-width: calc(100% - 500px);
+}
+
+.row-11, .row-12 {
   padding: 10px;
   border-bottom: 1px solid #e6ecf0;
 }
@@ -258,10 +261,15 @@
     max-width: 800;
     max-height: 400px;
   }
-
   .image-4 {
     max-width: 700px;
     max-height: 350px;
+  }
+}
+
+@media screen and (max-width:1100px) {
+  .cunt {
+    max-width: unset !important;
   }
 }
 
@@ -270,7 +278,6 @@
     max-width: 700px;
     max-height: 350px;
   }
-
   .image-4 {
     max-width: 600px;
     max-height: 300px;
@@ -282,7 +289,6 @@
     max-width: 600px;
     max-height: 300px;
   }
-
   .image-4 {
     max-width: 500px;
     max-height: 250px;
@@ -293,47 +299,36 @@
   .text-1 {
     font-size: 20px;
   }
-
   .text-2 {
     font-size: 16px;
   }
-
   .text-3 {
     font-size: 16px;
   }
-
   .text-4 {
     font-size: 16px;
   }
-
   .text-5 {
     font-size: 10px;
   }
-
   .text-6 {
     font-size: 14px;
   }
-
   .text-7 {
     font-size: 16px;
   }
-
   .text-8 {
     font-size: 16px;
   }
-
   .text-9 {
     font-size: 14px;
   }
-
   .text-10 {
     font-size: 11px;
   }
-
   .badge-1 {
     font-size: 10px;
   }
-
   .badge-2 {
     font-size: 10px;
     margin-top: 10px;
@@ -341,31 +336,26 @@
     margin-right: 0px;
     padding: 5px;
   }
-
   .image-1 {
     width: 40px;
     height: 40px;
     border-radius: 100px;
     border: 1px solid #707070;
   }
-  
   .image-2 {
     width: 50px;
     height: 50px;
     border-radius: 100px;
     border: 1px solid #707070;
   }
-
   .image-3 {
     max-width: 500px;
     max-height: 250px;
   }
-
   .image-4 {
     max-width: 400px;
     max-height: 20px;
   }
-
   .btn-4 {
     font-size: 16px;
   }
@@ -376,7 +366,6 @@
     max-width: 400px;
     max-height: 200px;
   }
-
   .image-4 {
     max-width: 300px;
     max-height: 150px;
