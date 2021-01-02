@@ -20,7 +20,7 @@
                 {{exam.Name}}
             </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 text-right">
-                {% if not user.user_type == "Student" %}
+                {% if 'time' not in request.GET and user.user_type == "Student" %}
                 <button class="btn button-2" onclick="$('#add-modal-body').modal();">Add New Paper</button>
                 {% endif %}
             </div>

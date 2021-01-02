@@ -286,7 +286,7 @@ def markQuestion(request):
         paper = Paper.objects.get(id=request.POST['id'])
         paper.File = not paper.File
         paper.save()
-        return http.JsonResponse("Marked as File Submission" if paper.File else "Mark as File Submission", safe=False)
+        return http.JsonResponse(paper.File, safe=False)
     return http.HttpResponseForbidden("Not Allowed")
 
 
@@ -637,7 +637,7 @@ def proctored(request):
         paper = Paper.objects.get(id=request.POST['id'])
         paper.Proctored = not paper.Proctored
         paper.save()
-        return http.JsonResponse('Mark as UnProctored Exam' if paper.Proctored else 'Mark as Proctored Exam', safe=False)
+        return http.JsonResponse(paper.Proctored, safe=False)
     return http.HttpResponseForbidden("Not allowed")
 
 
@@ -712,3 +712,30 @@ def paperDelete(request):
         id = paper.Exam.id
         paper.delete()
         return redirect('exam:papers', id=id)
+
+
+def confirmfinish(request, id):
+    if request.user.is_authenticated and request.user.user_type == "Student":
+        try:
+            paper = Paper.objects.get(id=id)
+        except Paper.DoesNotExist:
+            return http.HttpResponseNotFound('No such paper')
+        sects = []
+        count = 1
+        Total = 0
+        Attempted = 0
+        for x in paper.Section.all().order_by('Start'):
+            total = Question.objects.filter(
+                Paper=paper, SNo__gte=x.Start, SNo__lte=x.End)
+            attempted = StudentAttempt.objects.filter(
+                Question__in=total, Student=request.user.Student)
+            sects.append({
+                'No': count,
+                'total': total.count(),
+                'attempted': attempted.count(),
+            })
+            Total += total.count()
+            Attempted += attempted.count()
+            count += 1
+        return render(request, 'Exam/examsubmit.html', {'sects': sects, "paper": paper, 'overall': {'total': Total, 'attempts': Attempted}})
+    return redirect('accounts:login')

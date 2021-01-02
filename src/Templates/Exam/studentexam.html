@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col-12 col-sm-6 col-md-3 text-right">
-            <button class="btn button-1" id="finish-exam-btn">Finish Test</button>
+            <a href="{% url 'exam:confirm-paper-finish' paper.id %}" class="btn button-1" >Finish Test</a>
         </div>
     </div>
 </div>
@@ -172,7 +172,7 @@
             </div>
         </div>
         <div class="col-12 col-sm-6 col-md-3 text-right">
-            <button class="btn button-1" id="finish-exam-btn">Finish Test</button>
+            <a href="{% url 'exam:confirm-paper-finish' paper.id %}" class="btn button-1" >Finish Test</a>
         </div>
     </div>
 </div>

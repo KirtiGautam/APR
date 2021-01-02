@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="col-3 row-2 text-right">
-                <button class="btn button-2">Download Report card</button>
+                <button class="btn button-2" onclick="downReport();">Download Report card</button>
             </div>
         </div>
         <div class="row row-5">
@@ -180,4 +180,22 @@
         </div>
     </div>
 </div>
+<script>
+    const downReport = () => {
+        var req = new XMLHttpRequest();
+    req.open("GET", "/generate-report-card/{{exam.id}}", true);
+        req.responseType = "blob";
+
+        req.onload = function (event) {
+            var blob = req.response;
+            console.log(blob.size);
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "Dossier_" + new Date() + ".pdf";
+            link.click();
+        };
+
+        req.send();
+    }
+</script>
 {% endblock %}

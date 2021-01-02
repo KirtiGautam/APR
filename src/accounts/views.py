@@ -1,8 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from accounts.models import User, Class, Student
+from assignments.models import assignment
+from lessons.models import Lesson
+from exam.models import Exam
 from django import http
 from django.contrib import messages
+from django.db.models import Q
+import datetime
+from django.urls import reverse
 
 
 def profile(request):
@@ -90,8 +96,49 @@ def logo(request):
 
 def index(request):
     if request.user.is_authenticated:
+        if request.user.user_type == "S":
+            cls = [request.user.Student.Class]
+        elif request.user.admin:
+            cls = Class.objects.all()
+        else:
+            cls = request.user.teacher.all()
+        assign = assignment.objects.filter(Subject__Class__in=cls, Deadline__gt=datetime.datetime.now(
+            datetime.timezone.utc)).order_by('-Deadline')
+        less = Lesson.objects.filter(Subject__Class__in=cls).exclude(
+            Q(lesson_videos__viewed_by=request.user) | Q(lesson_pdfs__viewed_by=request.user))
+        exam = Exam.objects.filter(Paper__Subject__Class__in=cls, Paper__Scheduled_on__gt=datetime.datetime.now(
+            datetime.timezone.utc))
+        assig = []
+        for x in assign:
+            if len(assig) >= 5:
+                break
+            if not x.filter(Q(video__viewed_by=request.user) | Q(pdf__viewed_by=request.user)).exists():
+                assig.append({
+                    'message': f"Assignment {x.Name} is pending on {x.Deadline}",
+                    'link': reverse('assignment:assignmentDetails', id=x.id),
+                    'time': x.Deadline,
+                })
+        lesso = []
+        for x in less:
+            if len(lesso) >= 5:
+                break
+            lesso.append({
+                'message': f"Pickup on Lesson number {x.Number} - {x.Name}",
+                'link': reverse('lessons:lessons'),
+            })
+
+        exs = []
+        for x in exam:
+            if len(exs) >= 5:
+                break
+            exs.append({
+                'message': f"Prepare well for your upcoming exam {x.Name}",
+                'link': reverse('exam:exams'),
+
+            })
+
         # return redirect('lessons:lessons')
-        return render(request, 'home/dashboard.html')
+        return render(request, 'home/dashboard.html', {'assignments': assig, 'catch': lesso, 'exams': exs})
     else:
         return redirect('accounts:login')
 

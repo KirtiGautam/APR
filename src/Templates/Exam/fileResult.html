@@ -22,7 +22,8 @@
         </div>
         <div class="row row-2">
             <div class="col-9 row-2 row-5 text-center">
-                <iframe src="" id="the-canvas" class="col-11 row-2"></iframe>
+                <iframe src="{% if attempt.File %}{{attempt.File.url}}{% endif %}" id="the-canvas"
+                    class="col-11 row-2"></iframe>
             </div>
             <div class="col-3">
                 <form action="{% url 'exam:grade-online' attempt.id %}" method="post">
@@ -41,7 +42,8 @@
                             <div class="row">
                                 <div class="col-6"><input type="number" name="Marks" class="text-2" min="0"
                                         max="{{attempt.Paper.Max_Marks}}" required
-                                        value="{% if attempt.Marks %}{{attempt.Marks}}{% endif %}"></div>
+                                        value="{% if attempt.Marks == 0 or  attempt.Marks %}{{attempt.Marks}}{% endif %}">
+                                </div>
                                 <div class="col-6 text-3">/ {{attempt.Paper.Max_Marks}}</div>
                             </div>
                         </div>
@@ -51,11 +53,4 @@
         </div>
     </div>
 </div>
-<script>
-    {% if attempt.File %}
-    $('#the-canvas').attr('src', '{{attemp.File.url}}');
-    {% else %}
-    $('#the-canvas').text("No File submission");
-    {% endif %}
-</script>
 {% endblock %}

@@ -215,13 +215,15 @@
                         <button class="btn button-2 col-12">Total duration : {{paper.Duration}} mins</button>
                     </div>
                     <div class="col-12">
-                        <button class="btn button-2 col-12" id="proctored_btn">Proctored Exam:
-                            {% if paper.Proctored %}Yes{% endif %}No</button>
+                        <button class="btn button-2 col-12" id="proctored_btn"
+                            {% if paper.File %}disabled{%endif%}>Proctored Exam:
+                            {% if paper.Proctored %}Yes{% else %}No{% endif %}</button>
                     </div>
                     <div class="col-12">
-                        <button onclick="markAsFile({{paper.id}}, this);" class="btn button-2 col-12"
-                            title="Answers will be submitted as single .pdf file">File
-                            Submission: {% if paper.File %}Yes{% endif %}No </button>
+                        <button id="file_sub_btn" onclick="markAsFile({{paper.id}}, this);" class="btn button-2 col-12"
+                            title="Answers will be submitted as single .pdf file"
+                            {% if paper.Proctored %}disabled{%endif%}>File
+                            Submission: {% if paper.File %}Yes{% else %}No{% endif %}</button>
                     </div>
                     <div class="col-12 text-2 mt-5">
                         All Sections
@@ -295,7 +297,15 @@
                     id: {{ paper.id }},
                 },
         dataType: "json",
-        success: (data) => (bt.innerText = data),
+        success: (data) => {
+            if (data) {
+                bt.innerText = "Proctored Exam: Yes"
+                $('#file_sub_btn').attr('disabled', true)
+            } else {
+                bt.innerText = "Proctored Exam: No"
+                $('#file_sub_btn').attr('disabled', false)
+            }
+        },
         error: (error) => alert(error.responseText),
             });
         })

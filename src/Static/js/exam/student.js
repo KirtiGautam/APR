@@ -50,24 +50,7 @@ $(function () {
     ajax.send(formdata);
     $("#progress-wrap").removeClass("d-none");
   });
-  $("#finish-exam-btn").click(function () {
-    completeEx();
-  });
 });
-
-const completeEx = () => {
-  $.ajax({
-    type: "POST",
-    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
-    url: window.location.href,
-    data: {
-      finissh: true,
-    },
-    dataType: "json",
-    success: (data) => (location = "/paper-finished"),
-    error: (error) => alert(error.responseText),
-  });
-};
 
 function _(el) {
   return document.getElementById(el);

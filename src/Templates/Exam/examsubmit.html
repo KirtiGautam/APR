@@ -16,37 +16,55 @@
             <div class="text-2">Are you sure you want to Submit ?</div>
         </div>
         <div class="row-4-1 col-12">
+            {% for x in sects %}
             <div class="row">
-                <div class="col-3 text-4">Section 1</div>
+                <div class="col-3 text-4">Section {{x.No}}</div>
                 <div class="col-4">
                     <div class="progress pro-1">
-                        <div class="progress-bar probar-1" role="progressbar" style="width: 50%" aria-valuenow=""
+                        <div class="progress-bar probar-1" role="progressbar"
+                            style="width: {% widthratio x.attempted x.total 100 %}%" aria-valuenow="{% widthratio x.attempted x.total 50}"
                             aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
                 </div>
-                <div class="col-2 text-5">2/10</div>
+                <div class="col-2 text-5">{{x.attempted}}/{{x.total}}</div>
                 <div class="col-3 text-6">Completed</div>
             </div>
+            {% endfor %}
         </div>
-        <div class="row-4-2 col-12">
-            <div class="row">
-                <div class="col-6 text-7 text-left">
-                    Overall Progress
-                </div>
-                <div class="col-6 text-8 text-right">
-                    89% Attempted
-                </div>
-            </div>
-        </div>
-    </div>
+        <div class=" row-4-2 col-12">
+                            <div class="row">
+                                <div class="col-6 text-7 text-left">
+                                    Overall Progress
+                                </div>
+                                <div class="col-6 text-8 text-right">
+                                    {% widthratio overall.attempts overall.total 100 %}% Attempted
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 </center>
 <div class="col-12 row-5 text-right">
-    <a href=""><button class="btn button-2">Submit</button></a>
+    <button class="btn button-2" onclick="completeEx();">Submit</button>
 </div>
 <div class="col-12 row-2">
     <div class="text-1">Akshara International School</div>
 </div>
 
+<script>
+    const completeEx = () => {
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") },
+            url: "{% url 'exam:paper' paper.id %}",
+            data: {
+                finissh: true,
+            },
+            dataType: "json",
+            success: (data) => (location = "/paper-finished"),
+            error: (error) => alert(error.responseText),
+        });
+    };
+</script>
 
 {% endblock %}

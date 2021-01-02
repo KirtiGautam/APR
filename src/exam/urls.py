@@ -1,12 +1,17 @@
 from django.urls import path, re_path
 
 from .views import (index, examSettings, deleteExam, updateExam, papers, delete, editPaper, deleteQuestion, editQuestion, markQuestion, addSection, editSection, finishPaper, instruction,
-                    studentPaper, clearQuestion, finishExam, offlineGrade, publishResult, onlineGrade, GradeFile, Grade, publishExam, Results, proctored, importQuestions, faultCounter, paperDelete, paperDetails)
+                    studentPaper, clearQuestion, finishExam, offlineGrade, publishResult, onlineGrade, GradeFile, Grade, publishExam, Results, proctored, importQuestions, faultCounter, paperDelete, paperDetails, confirmfinish)
+
+from exam.report_gen import (test)
+
 app_name = 'exam'
 
 urlpatterns = [
     path('exams', index, name='exams'),
     path('paper/<int:id>', studentPaper, name='paper'),
+    path('finish-paper-confirm/<int:id>',
+         confirmfinish, name='confirm-paper-finish'),
     path('result/<int:id>', Results, name='results'),
     path('import-db-to-paper', importQuestions, name='db_import'),
     path('result-offline/<int:id>', offlineGrade, name='result-offline'),
@@ -34,4 +39,7 @@ urlpatterns = [
     path('exam-type-update', updateExam, name='update-exam-type'),
     path('settings/exam-settings', examSettings, name='exam-settings'),
     path('exam-faults', faultCounter, name='exam-faults'),
+
+    # Report Card
+    path('generate-report-card/<int:id>', test, name='exam-report-card'),
 ]

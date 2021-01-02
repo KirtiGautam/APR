@@ -239,7 +239,15 @@ const markAsFile = (id, btn) => {
       id: id,
     },
     dataType: "json",
-    success: (data) => (btn.innerText = data),
+    success: (data) => {
+      if (data) {
+        btn.innerText = "File Submission: Yes";
+        $("#proctored_btn").attr("disabled", true);
+      } else {
+        btn.innerText = "File Submission: No";
+        $("#proctored_btn").attr("disabled", false);
+      }
+    },
     error: (error) => alert(error.responseText),
   });
 };

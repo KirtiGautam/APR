@@ -13,14 +13,22 @@
     <div class="col-10 assign">
       <div class="assignments">Assignemnts - Pending</div>
       <div class="assignments-data">
-        <a href="" class="rbtn"></a>
+        {% for x in assignments %}
+        <a href="{{x.link}}" class="rbtn">{{x.message}}</a>
+        {% empty %}
+        <a href="#" class="rbtn">Nothing to show here</a>
+        {% endfor %}
       </div>
     </div>
     <div class="col-1"></div>
     <div class="col-10 resume">
       <div class="resume-where-left">Resume where you left</div>
       <div class="resume-where-left-data">
-        <a href="" class="rbtn"></a>
+        {% for x in catch %}
+        <a href="{{x.link}}" class="rbtn">{{x.message}}</a>
+        {% empty %}
+        <a href="#" class="rbtn">Nothing to show here</a>
+        {% endfor %}
       </div>
     </div>
     <div class="col-1"></div>
@@ -29,7 +37,11 @@
         Upcoming Exams / Assignments
       </div>
       <div class="upcoming-activities-data">
-        <a href="" class="rbtn"></a>
+        {% for x in exams %}
+        <a href="{{x.link}}" class="rbtn">{{x.message}}</a>
+        {% empty %}
+        <a href="#" class="rbtn">Nothing to show here</a>
+        {% endfor %}
       </div>
     </div>
   </div>

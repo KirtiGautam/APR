@@ -3,7 +3,7 @@
 {% autoescape off %}
 {% for post in posts %}
 <div class="row p-1 row-4">
-    <img src="{% static 'Images/leftnav/avatar.png' %}" alt="{{post.Owner.get_short_name}}" class="image-2" />
+    <img src="{% if post.Owner.avatar %}{{post.Owner.avatar.url}}{% else %}{% static 'Images/leftnav/avatar.png' %}{% endif %}" alt="{{post.Owner.get_short_name}}" class="image-2" />
     <div class="col-10 col-sm">
         <div class="row row-14">
             <div class="text-4 col-4 text-truncate">{{post.Owner.get_full_name}}</div>
