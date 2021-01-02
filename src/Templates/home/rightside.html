@@ -14,7 +14,9 @@
       <div class="assignments">Assignemnts - Pending</div>
       <div class="assignments-data">
         {% for x in assignments %}
-        <a href="{{x.link}}" class="rbtn">{{x.message}}</a>
+        <div class="border-c">
+          <a href="{{x.link}}" class="rbtn">{{x.message}}</a>
+        </div>
         {% empty %}
         <a href="#" class="rbtn">Nothing to show here</a>
         {% endfor %}
@@ -25,7 +27,9 @@
       <div class="resume-where-left">Resume where you left</div>
       <div class="resume-where-left-data">
         {% for x in catch %}
-        <a href="{{x.link}}" class="rbtn">{{x.message}}</a>
+        <div class="border-c">
+          <a href="{{x.link}}" class="rbtn">{{x.message}}</a>
+        </div>
         {% empty %}
         <a href="#" class="rbtn">Nothing to show here</a>
         {% endfor %}
@@ -38,7 +42,9 @@
       </div>
       <div class="upcoming-activities-data">
         {% for x in exams %}
-        <a href="{{x.link}}" class="rbtn">{{x.message}}</a>
+        <div class="border-c">
+          <a href="{{x.link}}" class="rbtn">{{x.message}}</a>
+        </div>
         {% empty %}
         <a href="#" class="rbtn">Nothing to show here</a>
         {% endfor %}
