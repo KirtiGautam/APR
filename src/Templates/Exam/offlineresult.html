@@ -62,12 +62,6 @@
 <script>
     const check = () => {
         for (let index = 1; index < parseInt({{ count }}); index++) {
-
-        if (!isFinite($(`#attempt${index}`).val()) || parseInt($(`#attempt${index}`).val()) < 0) {
-            alert(`Please Enter a valid marks on row ${index}`)
-            $(`#attempt${index}`).focus()
-            return false;
-        }
         console.log(`#attempt${index}`, parseInt($(`#attempt${index}`).val()), index)
         if (parseInt($(`#attempt${index}`).val()) > parseInt({{ paper.Max_Marks }}) ) {
 
@@ -76,7 +70,7 @@
         return false;
     }
     }
-    return false;
+    return true;
     }
     $(function () {
         $('#publish_btn').click(function () {

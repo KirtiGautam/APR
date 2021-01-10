@@ -101,7 +101,7 @@ def index(request):
         elif request.user.admin:
             cls = Class.objects.all()
         else:
-            cls = request.user.teacher.all()
+            cls = Class.objects.filter(Subject__in=request.user.teacher.all())
         assign = assignment.objects.filter(Subject__Class__in=cls, Deadline__gt=datetime.datetime.now(
             datetime.timezone.utc)).order_by('-Deadline')
         less = Lesson.objects.filter(Subject__Class__in=cls).exclude(
